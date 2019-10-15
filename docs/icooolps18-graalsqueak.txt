@@ -1,1 +1,2 @@
-Source: https://fniephaus.com/2018/icooolps18-graalsqueak.pdf
+Source: http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/NiephausFelgentreffHirschfeld_2018_GraalSqueakAFastSmalltalkBytecodeInterpreterWrittenInAnAstInterpreterFramework_AcmDL.pdf
+Preprint: https://fniephaus.com/2018/icooolps18-graalsqueak.pdf
