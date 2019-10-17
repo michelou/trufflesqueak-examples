@@ -27,7 +27,7 @@ This project repository depends on the following external software for the **Mic
 For instance our development environment looks as follows (*October 2019*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-19.2.0.1\                           <i>(361 MB)</i>
+C:\opt\graalvm-ce-19.2.1\                             <i>(362 MB)</i>
 C:\opt\Git-2.23.0\                                    <i>(271 MB)</i>
 C:\opt\Python-2.7.16\                                 <i>(162 MB)</i>
 C:\opt\Squeak-5.2\                                    <i>(116 MB)</i>
@@ -55,7 +55,7 @@ setenv.bat
 
 where
 
-- file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is our batch script for building GraalSqueak on a Windows machine.
+- file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch script for building [GraalSqueak](https://github.com/hpi-swa/graalsqueak) on a Windows machine.
 - directory [**`docs\`**](docs/) contains several GraalSqueak related papers/articles.
 - directory **`graalsqueak\`** contains our fork of the [hpi-swa/graalsqueak](https://github.com/hpi-swa/graalsqueak) repository as a Github submodule.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
@@ -87,9 +87,9 @@ We distinguish different sets of batch commands:
         help        display this help message
     </pre>
 
-2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the GraalSqueak component (file `graalsqueak-component.jar`) to be installed into a Graal installation using the [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup>.
+2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) installable component (file `graalsqueak-component.jar`) to be installed into a Graal installation using the [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup>.
 
-    <pre>
+    <pre style="font-size:80%;">
     <b>&gt; build help</b>
     Usage: build { options | subcommands }
     Options:
@@ -110,7 +110,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_222, python 2.7.16, pylint 2.7.16,
+   javac 1.8.0_232, python 2.7.16, pylint 2.7.16,
    mx 5.241.0 git 2.23.0.windows.1
 
 <b>&gt; where python mx</b>
@@ -123,10 +123,10 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_222, python 2.7.16, pylint 2.7.16,
+   javac 1.8.0_232, python 2.7.16, pylint 2.7.16,
    mx 5.241.0 git 2.23.0.windows.1
 Tool paths:
-   C:\opt\graalvm-ce-19.2.0.1\bin\javac.exe
+   C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.16\python.exe
    C:\opt\Python-2.7.16\Scripts\pylint.exe
    K:\mx\mx.cmd
@@ -149,7 +149,7 @@ Running command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat)
 K:\graalsqueak
 <b>&gt; build -verbose clean dist</b>
 Build Java archives
-JAVA_HOME: C:\opt\graalvm-ce-19.2.0.1
+JAVA_HOME: C:\opt\graalvm-ce-19.2.1
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -216,16 +216,16 @@ META-INF/permissions
 
 #### `smalltalk\bin\graalsqueak.cmd`
 
-The (manually) installed component looks as follows:
+The (manually) installed [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component looks as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; dir /b /o /s c:\opt\graalvm-ce-19.2.0.1\jre | findstr squeak</b>
-c:\opt\graalvm-ce-19.2.0.1\<b>jre\bin\graalsqueak.cmd</b>
-c:\opt\graalvm-ce-19.2.0.1\jre\languages\smalltalk\graalsqueak.jar
-c:\opt\graalvm-ce-19.2.0.1\jre\languages\smalltalk\graalsqueak-shared.jar
-c:\opt\graalvm-ce-19.2.0.1\jre\languages\smalltalk\bin\graalsqueak
-c:\opt\graalvm-ce-19.2.0.1\jre\languages\smalltalk\bin\graalsqueak.cmd
-c:\opt\graalvm-ce-19.2.0.1\jre\lib\graalvm\graalsqueak-launcher.jar
+<b>&gt; dir /b /o /s c:\opt\graalvm-ce-19.2.1\jre | findstr squeak</b>
+c:\opt\graalvm-ce-19.2.1\<b>jre\bin\graalsqueak.cmd</b>
+c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\graalsqueak.jar
+c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\graalsqueak-shared.jar
+c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\bin\graalsqueak
+c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\bin\graalsqueak.cmd
+c:\opt\graalvm-ce-19.2.1\jre\lib\graalvm\graalsqueak-launcher.jar
 </pre>
 
 > **:mag_right:** In the above console output command file **`jre\bin\graalsqueak.cmd`** &horbar; which we derived from existing command file **`jre\bin\js.cmd`** &horbar; simply forwards the call to command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`**. On Unix systems a symbolic link is created instead.
@@ -233,7 +233,7 @@ c:\opt\graalvm-ce-19.2.0.1\jre\lib\graalvm\graalsqueak-launcher.jar
 Command **`graalsqueak.cmd --help`** prints the usage message:
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\graalvm-ce-19.2.0.1\jre\bin\graalsqueak.cmd --help</b>
+<b>&gt; c:\opt\graalvm-ce-19.2.1\jre\bin\graalsqueak.cmd --help</b>
 usage: graalsqueak <image> [optional arguments]
 
 optional arguments:
@@ -264,16 +264,16 @@ Command **`graalsqueak`** (with no argument) opens a dialog window for selecting
 Command **`graalsqueak Squeak<xxx>.img`** opens the Squeak IDE and loads the provided Squeak image.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\graalvm-ce-19.2.0.1\bin\graalsqueak.cmd c:\opt\Squeak-5.2\Squeak5.2-18229-64bit.image</b>
+<b>&gt; c:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd c:\opt\Squeak-5.2\Squeak5.2-18229-64bit.image</b>
 </pre>
 
 
 ## Footnotes
 
-<a name="footnote_01">[1]</a> ***Squeak software*** [↩](#anchor_01)
+<a name="footnote_01">[1]</a> ***Squeak image*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-A Squeak image is required to run/test the GraalSqueak component. Concretely we can either install the full <a href="https://squeak.org/downloads/">Squeak distribution</a> (32 MB) or we can just download the <a href="https://squeak.org/downloads/">Squeak image</a> (18 MB).
+A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> installable component. Concretely we can either install the full <a href="https://squeak.org/downloads/">Squeak distribution</a> (32 MB) or we can just download the <a href="https://squeak.org/downloads/">Squeak image</a> (18 MB).
 </p>
 
 <a name="footnote_02">[2]</a> ***Downloads*** [↩](#anchor_02)
@@ -283,7 +283,7 @@ In our case we downloaded the following installation files (see <a href="#sectio
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc3-for-GraalVM-19.2.0.1.jar</a>  <i>(  5 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.2.0.1.zip</a>                     <i>(171 MB)</i>
+<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.2.1.zip</a>                       <i>(171 MB)</i>
 <a href="https://www.python.org/downloads/release/python-2716/">python-2.7.16.amd64.msi</a>                                   <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>            <i>( 30 MB)</i>
 </pre>
@@ -297,7 +297,7 @@ Defining <b><code>graalsqueak</code></b> as a Github submodule allows us to make
 <a name="footnote_04">[4]</a> ***Graal Updater*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
-Command <b><code>gu.cmd</code></b> is not yet supported on Windows, so we currently have to manually extract the contents of GraalSqueak component (e.g. file <b><code>graalsqueak-component.jar</code></b>) to our Graal installation directory (e.g. <b><code>c:\opt\graalvm-ce-19.2.0.1\</code></b>).
+Command <b><code>gu.cmd</code></b> is not yet supported on Windows, so we currently have to manually extract the contents of <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> installable component (e.g. file <b><code>graalsqueak-component.jar</code></b>) to our Graal installation directory (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
 </p>
 
 ***

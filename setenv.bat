@@ -193,7 +193,7 @@ if not defined _GIT_CMD (
 set __MX_URL=https://github.com/graalvm/mx.git
 
 set __MX_HOME=%_ROOT_DIR%\mx
-if not exist "%__MX_HOME%\" (
+if not exist "%__MX_HOME%\mx.cmd" (
     if %_DEBUG%==1 ( echo [%_BASENAME%] %_GIT_CMD% clone %__MX_URL% %__MX_HOME% 1>&2
     else if %_VERBOSE%==1 ( echo Clone mx repository to directory !_MX_HOME:%_ROOT_DIR%=! 1>&2
     )
