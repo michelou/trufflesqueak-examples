@@ -99,6 +99,7 @@ We distinguish different sets of batch commands:
       clean       delete generated files
       dist        generate the GraalSqueak component
       help        display this help message
+      install     add component to Graal installation directory
     </pre>
 
 ## Usage examples
@@ -214,13 +215,23 @@ META-INF/permissions
 > META-INF/permissions
 > </pre>
 
-#### `smalltalk\bin\graalsqueak.cmd`
-
-The (manually) installed [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component looks as follows:
+Running command [**`build.bat -verbose install`**](bin/graalsqueak/build.bat) adds the GraalSqueak component to the Graal installation directory (variable **`GRAAL_HOME`** must be defined).
 
 <pre style="font-size:80%;">
-<b>&gt; dir /b /o /s c:\opt\graalvm-ce-19.2.1\jre | findstr squeak</b>
-c:\opt\graalvm-ce-19.2.1\<b>jre\bin\graalsqueak.cmd</b>
+<b>&gt; build -verbose install</b>
+Extract Graal component into directory tmp
+Create file tmp\bin\graalsqueak.cmd
+Create file tmp\jre\bin\graalsqueak.cmd
+Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1?y
+Install Graal component into directory C:\opt\graalvm-ce-19.2.1
+</pre>
+
+The Graal installation directory looks as follows after adding the [GraalSqueak](https://github.com/hpi-swa/graalsqueak):
+
+<pre style="font-size:80%;">
+<b>&gt; dir /b /o /s c:\opt\graalvm-ce-19.2.1 | findstr squeak</b>
+c:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd
+c:\opt\graalvm-ce-19.2.1\jre\bin\graalsqueak.cmd
 c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\graalsqueak.jar
 c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\graalsqueak-shared.jar
 c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\bin\graalsqueak
@@ -228,12 +239,21 @@ c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\bin\graalsqueak.cmd
 c:\opt\graalvm-ce-19.2.1\jre\lib\graalvm\graalsqueak-launcher.jar
 </pre>
 
-> **:mag_right:** In the above console output command file **`jre\bin\graalsqueak.cmd`** &horbar; which we derived from existing command file **`jre\bin\js.cmd`** &horbar; simply forwards the call to command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`**. On Unix systems a symbolic link is created instead.
+> **:mag_right:** In the above output command file **`bin\graalsqueak.cmd`** simply forwards the call to command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`**. On Unix systems a symbolic link is created instead.
+> <pre style="font-size:80%;">
+> <b>&gt; type c:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd</b>
+> @echo off
+> set location=%~dp0
+> "%location%..\jre\languages\smalltalk\bin\graalsqueak.cmd" %*
+> </pre>
+
+
+#### `graalsqueak.cmd`
 
 Command **`graalsqueak.cmd --help`** prints the usage message:
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\graalvm-ce-19.2.1\jre\bin\graalsqueak.cmd --help</b>
+<b>&gt; c:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd --help</b>
 usage: graalsqueak <image> [optional arguments]
 
 optional arguments:
@@ -241,18 +261,18 @@ optional arguments:
                         Smalltalk code to be executed in headless mode
 
 Runtime options:
-  --polyglot                                   Run with all other guest languages accessible.
-  --native                                     Run using the native launcher with limited Java access (default).
-  --jvm                                        Run on the Java Virtual Machine with Java access.
-  --vm.[option]                                Pass options to the host VM. To see available options, use '--help:vm'.
-  --help                                       Print this help message.
-  --help:languages                             Print options for all installed languages.
-  --help:tools                                 Print options for all installed tools.
-  --help:vm                                    Print options for the host VM.
-  --help:expert                                Print additional options for experts.
-  --help:internal                              Print internal options for debugging language implementations and tools.
-  --version:graalvm                            Print GraalVM version information and exit.
-  --show-version:graalvm                       Print GraalVM version information and continue execution.
+  --polyglot                           Run with all other guest languages accessible.
+  --native                             Run using the native launcher with limited Java access (default).
+  --jvm                                Run on the Java Virtual Machine with Java access.
+  --vm.[option]                        Pass options to the host VM. To see available options, use '--help:vm'.
+  --help                               Print this help message.
+  --help:languages                     Print options for all installed languages.
+  --help:tools                         Print options for all installed tools.
+  --help:vm                            Print options for the host VM.
+  --help:expert                        Print additional options for experts.
+  --help:internal                      Print internal options for debugging language implementations and tools.
+  --version:graalvm                    Print GraalVM version information and exit.
+  --show-version:graalvm               Print GraalVM version information and continue execution.
   --log.file=<String>                          Redirect guest languages logging into a given file.
   --log.[logger].level=<String>                Set language log level to OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST or ALL.
 
@@ -261,7 +281,7 @@ See http://www.graalvm.org for more information.
 
 Command **`graalsqueak`** (with no argument) opens a dialog window for selecting a Squeak image before opening the Squeak IDE.
 
-Command **`graalsqueak Squeak<xxx>.img`** opens the Squeak IDE and loads the provided Squeak image.
+Command **`graalsqueak <inst_path>\Squeak<img_version>.img`** opens the Squeak IDE and loads the provided Squeak image.
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd c:\opt\Squeak-5.2\Squeak5.2-18229-64bit.image</b>
