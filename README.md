@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://squeak.org/">Squeak</a> examples coming from various websites and books.<br/>
-  It also includes several batch scripts for experimenting with GraalSqueak on a Windows machine.
+  It also includes several batch scripts for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -44,13 +44,13 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 
 This project is organized as follows:
 <pre style="font-size:80%;">
-bin\graalsqueak\build.bat
+<a href="bin/graalsqueak/build.bat">bin\graalsqueak\build.bat</a>
 docs\
 graal\        <i>(created by</i> <a href="https://github.com/hpi-swa/graalsqueak/tree/master/mx.graalsqueak"><b><code>mx.graalsqueak</code></b><i></a>)</i>
 graalsqueak\  <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 mx\           <i>(created by</i> <a href="setenv.bat"><b><code>setenv.bat</code></b></a><i>)</i>
 README.md
-setenv.bat
+<a href="setenv.bat">setenv.bat</a>
 </pre>
 
 where
@@ -218,6 +218,8 @@ META-INF/permissions
 Running command [**`build.bat -verbose install`**](bin/graalsqueak/build.bat) adds the GraalSqueak component to the Graal installation directory (variable **`GRAAL_HOME`** must be defined).
 
 <pre style="font-size:80%;">
+<b>&gt; echo %GRAAL_HOME%</b>
+C:\opt\graalvm-ce-19.2.1
 <b>&gt; build -verbose install</b>
 Extract Graal component into directory tmp
 Create file tmp\bin\graalsqueak.cmd
@@ -226,7 +228,7 @@ Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1?y
 Install Graal component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
 
-The Graal installation directory looks as follows after adding the [GraalSqueak](https://github.com/hpi-swa/graalsqueak):
+The Graal installation directory looks as follows after adding the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component:
 
 <pre style="font-size:80%;">
 <b>&gt; dir /b /o /s c:\opt\graalvm-ce-19.2.1 | findstr squeak</b>
@@ -239,14 +241,19 @@ c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\bin\graalsqueak.cmd
 c:\opt\graalvm-ce-19.2.1\jre\lib\graalvm\graalsqueak-launcher.jar
 </pre>
 
-> **:mag_right:** In the above output command file **`bin\graalsqueak.cmd`** simply forwards the call to command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`**. On Unix systems a symbolic link is created instead.
+> **:mag_right:** In the above output command files **`bin\graalsqueak.cmd`** and **`jre\bin\graalsqueak.cmd`** simply forward the call to command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`**. On Unix systems a symbolic link is created instead.
 > <pre style="font-size:80%;">
 > <b>&gt; type c:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd</b>
 > @echo off
 > set location=%~dp0
 > "%location%..\jre\languages\smalltalk\bin\graalsqueak.cmd" %*
+> &nbsp;
+> <b>&gt; type c:\opt\graalvm-ce-19.2.1\jre\bin\graalsqueak.cmd</b>
+> @echo off
+> set location=%~dp0
+> "%location%..\languages\smalltalk\bin\graalsqueak.cmd" %*
 > </pre>
-
+> Command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`** itself is copied from template file [**`template.graalsqueak.cmd`**](https://github.com/hpi-swa/graalsqueak/blob/dev/scripts/template.graalsqueak.cmd) during the generation of the GraalSqueak component.
 
 #### `graalsqueak.cmd`
 
@@ -277,6 +284,23 @@ Runtime options:
   --log.[logger].level=<String>                Set language log level to OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST or ALL.
 
 See http://www.graalvm.org for more information.
+</pre>
+
+Command **`graalsqueak --version:graalvm`** prints the version of the installed languages and tools: 
+
+<pre style="font-size:80%;">
+<b>&gt; c:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd --version:graalvm</b>
+GraalVM Polyglot Engine Version 19.2.1
+GraalVM Home c:\opt\graalvm-ce-19.2.1
+  Installed Languages:
+    JavaScript       version 19.2.1
+    Squeak/Smalltalk version 1.0.0-rc3
+  Installed Tools:
+    CPU Sampler             version 0.4.0
+    CPU Tracer              version 0.3.0
+    Heap Allocation Monitor version 0.1.0
+    Chrome Inspector        version 0.1
+    Memory Tracer           version 0.2
 </pre>
 
 Command **`graalsqueak`** (with no argument) opens a dialog window for selecting a Squeak image before opening the Squeak IDE.
@@ -317,7 +341,7 @@ Defining <b><code>graalsqueak</code></b> as a Github submodule allows us to make
 <a name="footnote_04">[4]</a> ***Graal Updater*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
-Command <b><code>gu.cmd</code></b> is not yet supported on Windows, so we currently have to manually extract the contents of <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> installable component (e.g. file <b><code>graalsqueak-component.jar</code></b>) to our Graal installation directory (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
+Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Windows, so we currently run command <b><code>build install</code></b> to add the contents of <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> installable component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our Graal installation directory (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
 </p>
 
 ***

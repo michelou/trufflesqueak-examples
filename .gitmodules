@@ -1,3 +1,4 @@
 [submodule "graalsqueak"]
 	path = graalsqueak
 	url = https://github.com/michelou/graalsqueak.git
+	branch = dev

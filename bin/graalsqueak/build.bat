@@ -229,6 +229,9 @@ for /f "delims=^= tokens=1,*" %%i in (%__SYMLINKS_FILE%) do (
 )
 if exist "%__TMP_DIR%\META-INF\" rmdir /s /q "%__TMP_DIR%\META-INF\" 
 
+if %_DEBUG%==1 ( echo [%_BASENAME%] Component ready for installation into directory %GRAAL_HOME% 1>&2
+) else if %_VERBOSE%==1 ( echo Component ready for installation into directory %GRAAL_HOME% 1>&2
+)
 set /p __CONFIRM=Do you really want to add the component to directory %GRAAL_HOME%?
 if /i not "%__CONFIRM%"=="y" goto :eof
 

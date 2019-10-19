@@ -297,8 +297,7 @@ rem path name of installation directory may contain spaces
 for /f "delims=" %%f in ("%_GIT_HOME%") do set _GIT_HOME=%%~sf
 if %_DEBUG%==1 echo [%_BASENAME%] Using default Git installation directory %_GIT_HOME% 1>&2
 
-rem set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\usr\bin;%_GIT_HOME%\mingw64\bin"
-set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\mingw64\bin"
+set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\mingw64\bin;%_GIT_HOME%\usr\bin"
 goto :eof
 
 :print_env
