@@ -59,20 +59,30 @@ set __ARG=%~1
 if not defined __ARG (
     if !__N!==0 set _HELP=1
     goto args_done
-) else if not "%__ARG:~0,1%"=="-" (
-    set /a __N=!__N!+1
 )
-if /i "%__ARG%"=="help" ( set _HELP=1 & goto args_done
-) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-) else if /i "%__ARG%"=="-help" ( set _HELP=1 & goto args_done
-) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
-) else if /i "%__ARG%"=="clean" ( set _CLEAN=1
-) else if /i "%__ARG%"=="dist" ( set _DIST=1
-) else if /i "%__ARG%"=="install" ( set _INSTALL=1
+
+if "%__ARG:~0,1%"=="-" (
+    rem option
+    if /i "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if /i "%__ARG%"=="-help" ( set _HELP=1
+    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    ) else (
+        echo Error: Unknown option %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
 ) else (
-    echo Error: Unknown subcommand %__ARG% 1>&2
-    set _EXITCODE=1
-    goto :eof
+    rem subcommand
+    set /a __N=!__N!+1
+    if /i "%__ARG%"=="clean" ( set _CLEAN=1
+    ) else if /i "%__ARG%"=="dist" ( set _DIST=1
+    ) else if /i "%__ARG%"=="help" ( set _HELP=1
+    ) else if /i "%__ARG%"=="install" ( set _INSTALL=1
+    ) else (
+        echo Error: Unknown subcommand %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
 )
 shift
 goto :args_loop
@@ -162,7 +172,7 @@ endlocal
 goto :eof
 
 rem input parameter(s): %1=relative source path, %2=absolute target path
-rem example: bin\graalsqueak.cmd = ..\jre\languages\smalltalk\bin\graalsqueak.cmd
+rem example: bin\graalsqueak = ..\jre\languages\smalltalk\bin\graalsqueak
 :install_command
 set __SOURCE=%~1
 set __TARGET_FILE=%~2
@@ -217,15 +227,18 @@ for /f "delims=^= tokens=1,*" %%i in (%__SYMLINKS_FILE%) do (
     rem discard leading/trailing blanks
     for %%x in (%%i) do set __TARGET=%%x
     for %%y in (%%j) do set __SOURCE=%%y
-    if "!__TARGET:~-3!"=="cmd" (
-        call :install_command "!__SOURCE!" "%__TMP_DIR%\!__TARGET!"
-        call :install_command "!__SOURCE:jre\=!" "%__TMP_DIR%\jre\!__TARGET!"
-        if not !_EXITCODE!==0 goto install_done
-    ) else if "!__TARGET:~-3!"=="bat" (
-        call :install_command "!__SOURCE!" "%__TMP_DIR%\!__TARGET!"
-        call :install_command "!__SOURCE:jre\=!" "%__TMP_DIR%\jre\!__TARGET!"
-        if not !_EXITCODE!==0 goto install_done
+    rem Unix file separator is used in file symlinks
+    set __TARGET=!__TARGET:/=\!.cmd
+    set __SOURCE=!__SOURCE:/=\!.cmd
+    if not exist "%__TMP_DIR%\jre\!__SOURCE!" (
+         echo Error: Script file not found ^(!__SOURCE!^) 1>&2
+         set _EXITCODE=1
+         goto install_done
     )
+    call :install_command "!__SOURCE!" "%__TMP_DIR%\!__TARGET!"
+    if not !_EXITCODE!==0 goto install_done
+    call :install_command "!__SOURCE:jre\=!" "%__TMP_DIR%\jre\!__TARGET!"
+    if not !_EXITCODE!==0 goto install_done
 )
 if exist "%__TMP_DIR%\META-INF\" rmdir /s /q "%__TMP_DIR%\META-INF\" 
 
