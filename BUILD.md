@@ -202,7 +202,7 @@ K:\graalsqueak
 14.10.2019  20:25               786 graalsqueak-shared.src.zip
 </pre>
 
-The GraalSqueak component is packed into the installable component archive **`graalsqueak-component.jar`** whose contents looks as follows:
+The [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component is packed into the installable component archive **`graalsqueak-component.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
 <b>&gt; jar tf graalsqueak-component.jar | findstr /v /e "\/"</b>
