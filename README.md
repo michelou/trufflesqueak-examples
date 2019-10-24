@@ -131,7 +131,7 @@ We distinguish different sets of batch commands:
 
 #### `setenv.bat`
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`python.exe`**](https://docs.python.org/2/using/cmdline.html), [**`mx.cmd`**](https://github.com/graalvm/mx) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
+Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`jar.exe`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
@@ -204,12 +204,12 @@ C:\opt\graalvm-ce-19.2.1
 <b>&gt; curl -sL https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc4/graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar -o graalsqueak-component.jar</b>
 &nbsp;
 <b>&gt; gu install -L graalsqueak-component.jar</b>
-Extract Graal component into directory %TEMP%\graal-updater\tmp
+Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
 Component ready for installation into directory C:\opt\graalvm-ce-19.2.1
 Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1? y
-Install Graal component into directory C:\opt\graalvm-ce-19.2.1
+Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
 
 *Installation from a **remote** component archive:*
@@ -246,7 +246,7 @@ Component.19.2.1_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
 
 ## Squeak execution
 
-The Graal installation directory looks as follows after adding the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component:
+The GraalVM installation directory looks as follows after adding the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component:
 
 <pre style="font-size:80%;">
 <b>&gt; dir /b /o /s c:\opt\graalvm-ce-19.2.1 | findstr squeak</b>
@@ -375,7 +375,7 @@ In our case we downloaded the following installation files (see <a href="#sectio
 <a name="footnote_03">[3]</a> ***GraalVM Updater*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our Graal installation directory (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
+Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our GraalVM installation directory (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
 </p>
 
 ***

@@ -334,6 +334,11 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,*" %%i in ('mx.cmd --version 2^>^NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mx %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% mx.cmd
 )
+where /q link.exe
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-5,*" %%i in ('link.exe ^| findstr Version 2^>^NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% link %%n,"
+    set __WHERE_ARGS=%__WHERE_ARGS% link.exe
+)
 where /q git.exe
 if %ERRORLEVEL%==0 (
    for /f "tokens=1,2,*" %%i in ('git.exe --version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k
@@ -361,7 +366,7 @@ endlocal & (
         if not defined MSVS_CMAKE_CMD set MSVS_CMAKE_CMD=%_MSVS_CMAKE_CMD%
         if not defined MSVS_HOME set MSVS_HOME=%_MSVS_HOME%
         if not defined SDK_HOME set SDK_HOME=%_SDK_HOME%
-        set "PATH=%_GRAAL_PATH%%PATH%%_PYTHON_PATH%%_MX_PATH%%_GIT_PATH%%_MSVS_PATH%%_SDK_PATH%;%~dp0bin"
+        set "PATH=%_GRAAL_PATH%%PATH%%_PYTHON_PATH%%_MX_PATH%%_MSVS_PATH%%_SDK_PATH%%_GIT_PATH%;%~dp0bin"
         if %_EXITCODE%==0 call :print_env %_VERBOSE%
     )
     if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE% 1>&2

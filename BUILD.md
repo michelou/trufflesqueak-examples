@@ -3,8 +3,8 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://squeak.org/">Squeak</a> examples coming from various websites and books.<br/>
-  It also includes several batch scripts for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
+  <td style="border:0;padding:0;vertical-align:text-top;"><a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
+  This repository gathers several batch scripts for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -49,21 +49,25 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 
 This project is organized as follows:
 <pre style="font-size:80%;">
+bin\gu.bat
 bin\graalsqueak\build.bat
 docs\
 graal\        <i>(created by</i> <a href="https://github.com/hpi-swa/graalsqueak/tree/master/mx.graalsqueak"><b><code>mx.graalsqueak</code></b><i></a>)</i>
 graalsqueak\  <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 mx\           <i>(created by</i> <a href="setenv.bat"><b><code>setenv.bat</code></b></a><i>)</i>
+BUILD.md
 README.md
 setenv.bat
 </pre>
 
 where
 
-- file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch script for building [GraalSqueak](https://github.com/hpi-swa/graalsqueak) on a Windows machine.
-- directory [**`docs\`**](docs/) contains several GraalSqueak related papers/articles.
+- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
+- file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch script for <i>building</i> the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
+- directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
 - directory **`graalsqueak\`** contains our fork of the [hpi-swa/graalsqueak](https://github.com/hpi-swa/graalsqueak) repository as a Github submodule.
-- file [**`README.md`**](README.md) is the Markdown document for this page.
+- file [**`BUILD.md`**](README.md) is the Markdown document for this page.
+- file [**`README.md`**](README.md) is the Markdown document presenting the component installation.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
 We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
@@ -92,7 +96,9 @@ We distinguish different sets of batch commands:
         help        display this help message
     </pre>
 
-2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) installable component (file `graalsqueak-component.jar`) to be installed into a Graal installation using the [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup>.
+2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features several commands to manage a [GraalVM](https://www.graalvm.org/) installation directory. This temporary solution is a stripped down version of the official [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup>.
+
+3. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) installable component (component archive `graalsqueak-component.jar`).
 
     <pre style="font-size:80%;">
     <b>&gt; build help</b>
@@ -105,7 +111,6 @@ We distinguish different sets of batch commands:
         clean       delete generated files
         dist        generate the GraalSqueak component
         help        display this help message
-        install     add component to Graal installation directory
     </pre>
 
 ## Usage examples
@@ -118,7 +123,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.16, pylint 2.7.16,
-   mx 5.241.0 git 2.23.0.windows.1
+   mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
 
 <b>&gt; where python mx</b>
 C:\opt\Python-2.7.16\python.exe
@@ -131,12 +136,14 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.16, pylint 2.7.16,
-   mx 5.241.0 git 2.23.0.windows.1
+   mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.16\python.exe
    C:\opt\Python-2.7.16\Scripts\pylint.exe
    K:\mx\mx.cmd
+   C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe
+   C:\opt\Git-2.23.0\usr\bin\link.exe
    C:\opt\Git-2.23.0\bin\git.exe
    C:\opt\Git-2.23.0\mingw64\bin\git.exe
 </pre>
@@ -149,7 +156,7 @@ Directory **`graalsqueak\`** contains our fork of the [`hpi-swa/graalsqueak`](ht
 <b>&gt; cd graalsqueak</b>
 </pre>
 
-Running command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat) generates several archive files including the GraalSqueak component.
+Running command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat) generates several archive files including the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
 
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
@@ -182,7 +189,7 @@ The generated archive files are either Zip archives or Java archives (**`.zip`**
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
 K:\graalsqueak
-<b>&gt; for /f "delims=" %f in ('dir /o *.zip *.jar ^| findstr /e "jar zip"') do @echo %f</b>
+<b>&gt; dir /o *.zip *.jar | findstr /e "jar zip"</b>
 14.10.2019  20:26        12 778 268 graalsqueak.jar
 14.10.2019  20:26         7 043 905 graalsqueak.src.zip
 14.10.2019  20:26             9 004 graalsqueak.tck.src.zip
@@ -209,7 +216,7 @@ META-INF/symlinks
 META-INF/permissions
 </pre>
 
-> **:mag_right:** Version [1.0.0-rc4](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc4) of the official [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component does include file **`bin/graalsqueak.cmd`** (see PR [73](https://github.com/hpi-swa/graalsqueak/pull/73)).
+> **:mag_right:** Version [1.0.0-rc4](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc4) of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component does include file **`bin/graalsqueak.cmd`** (see PR [73](https://github.com/hpi-swa/graalsqueak/pull/73)).
 > 
 > <pre style="font-size:80%;">
 > <b>&gt; jar tf graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar | findstr /v /e "\/"</b>
@@ -224,6 +231,29 @@ META-INF/permissions
 > </pre>
 
 We present the installation of the generated component archive in document [README.md](README.md).
+
+## Troubleshooting
+
+In this section we present some issues encountered in this project:
+
+- Error message **`FAILED: trufflenfi.dll`** with command **`build dist`**:
+   <pre style="font-size:80%;">
+   <b>&gt; build dist</b>
+   JAVA_HOME: C:\opt\graalvm-ce-19.2.1
+   [...]
+   Building com.oracle.truffle.nfi.native_amd64 with Ninja...
+   [1/1] LINK trufflenfi.dll
+   FAILED: trufflenfi.dll
+   link -nologo -dll -out:trufflenfi.dll src\api.obj src\closure.obj src\intrinsics.obj src\jni.obj src\lookup.obj src\lookup_win32.obj src\signature.obj C:\Users\michelou\workspace-perso\graalsqueak-examples\graal\truffle\mxbuild\windows-amd64\src\libffi\amd64\ffi.lib
+   link: unknown option -- n
+   Try 'link --help' for more information.
+   ninja: build stopped: subcommand failed.</pre>
+
+   This issue is due to a wrong executable path for **`link.exe`** (see [issue #1554](https://github.com/oracle/graal/issues/1554) in [graal](https://github.com/oracle/graal) project):
+   <pre style="font-size:80%;">
+   <b>&gt; where link</b>
+   C:\opt\Git-2.23.0\usr\bin\link.exe
+   C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe</pre>
 
 ## Footnotes
 
@@ -251,10 +281,10 @@ In our case we downloaded the following installation files (see <a href="#sectio
 Defining <b><code>graalsqueak</code></b> as a Github submodule allows us to make changes to this project independently from our fork of the <a href="https://github.com/hpi-swa/graalsqueak"><b><code>hpi-swa/graalsqueak</code></b></a> repository.
 </p>
 
-<a name="footnote_04">[4]</a> ***Graal Updater*** [↩](#anchor_04)
+<a name="footnote_04">[4]</a> ***GraalVM Updater*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
-Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Windows, so we currently run command <b><code>build install</code></b> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our Graal installation directory (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
+Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Windows, so we currently run command <b><code>build install</code></b> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. component archive <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> installation directory (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
 </p>
 
 ***
