@@ -40,6 +40,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\gu.bat
 docs\
+examples\README.md
 BUILD.md
 GU.md
 README.md
@@ -50,6 +51,7 @@ where
 
 - file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for installing the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
 - directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
+- directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
 - file [**`GU.md`**](GU.md) is the Markdown document for this page.
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.

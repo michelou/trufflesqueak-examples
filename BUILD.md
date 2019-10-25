@@ -50,6 +50,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\graalsqueak\build.bat
 docs\
+examples\README.md
 graal\        <i>(created by</i> <a href="https://github.com/hpi-swa/graalsqueak/tree/master/mx.graalsqueak"><b><code>mx.graalsqueak</code></b><i></a>)</i>
 graalsqueak\  <i>(Git submodule)</i><sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>
 mx\           <i>(created by</i> <a href="setenv.bat"><b><code>setenv.bat</code></b></a><i>)</i>
@@ -64,6 +65,7 @@ where
 - file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
 - file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch script for <i>building</i> the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
 - directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
+- directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
 - directory **`graalsqueak\`** contains our fork of the [hpi-swa/graalsqueak](https://github.com/hpi-swa/graalsqueak) repository as a Github submodule.
 - file [**`BUILD.md`**](README.md) is the Markdown document for this page.
 - file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of GraalVM Updater.
