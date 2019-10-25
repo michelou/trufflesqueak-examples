@@ -12,8 +12,6 @@ set _EXITCODE=0
 
 for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
 
-set _WORKING_DIR=%TEMP%\graal-updater
-
 call :env
 if not %_EXITCODE%==0 goto end
 
@@ -23,6 +21,8 @@ if not %_EXITCODE%==0 goto end
 rem ##########################################################################
 rem ## Main
 
+call :%_COMMAND%
+goto end
 if %_COMMAND%==available call :available
 if %_COMMAND%==info      call :info
 if %_COMMAND%==install   call :install
@@ -35,21 +35,30 @@ goto end
 rem ##########################################################################
 rem ## Subroutines
 
-rem output parameter(s): _JAR_CMD, _GRAALVM_VERSION, _CATALOG_URL, _OS_ARCH, _OS_NAME
+rem output parameter(s): _WORKING_DIR, _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+rem                      _JAR_CMD, _GRAALVM_VERSION, _CATALOG_URL, _OS_ARCH, _OS_NAME
 :env
+set _WORKING_DIR=%TEMP%\graal-updater
+
+rem ANSI colors in standard Windows 10 shell
+rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _DEBUG_LABEL=[46m[%_BASENAME%][0m
+set _ERROR_LABEL=[91mError[0m:
+set _WARNING_LABEL=[93mWarning[0m:
+
 if not defined GRAAL_HOME (
-    echo [91mError[0m: Environment variable GRAAL_HOME is undefined 1>&2
+    echo %_ERROR_LABEL% Environment variable GRAAL_HOME is undefined 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "_JAR_CMD=%GRAAL_HOME%\bin\jar.exe"
 if not exist "%_JAR_CMD%" (
-    echo [91mError[0m: Executable jar.exe not found 1>&2
+    echo %_ERROR_LABEL% Executable jar.exe not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if not exist "%GRAAL_HOME%\release" (
-    echo [91mError[0m: GraalVM installation directory is invalid 1>&2
+    echo %_ERROR_LABEL% GraalVM installation directory is invalid 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -67,20 +76,20 @@ for /f "delims=^= tokens=1,*" %%f in (%GRAAL_HOME%\release) do (
 )
 rem TODO remove (for testing only)
 set _OS_NAME=linux
-if %_DEBUG%==1 echo [%_BASENAME%] _CATALOG_URL=%_CATALOG_URL% _GRAALVM_VERSION=%_GRAALVM_VERSION% _OS_ARCH=%_OS_ARCH% _OS_NAME=%_OS_NAME%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CATALOG_URL=%_CATALOG_URL% _GRAALVM_VERSION=%_GRAALVM_VERSION% _OS_ARCH=%_OS_ARCH% _OS_NAME=%_OS_NAME%
 goto :eof
 
 rem output parameter: _IS_VALID
 :is_valid
 set __VALID_SET=%~1
 set __INPUT_SET=%~2
-if %_DEBUG%==1 echo [%_BASENAME%] __VALID_SET=%__VALID_SET% __INPUT_SET=%__INPUT_SET%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% __VALID_SET=%__VALID_SET% __INPUT_SET=%__INPUT_SET%
 
 set _IS_VALID=1
 :is_valid_loop
 if defined __INPUT_SET (
     set "__ELEM=!__INPUT_SET:~0,1!"
-    if %_DEBUG%==1 echo [%_BASENAME%] __VALID_SET=%__VALID_SET% __ELEM=!__ELEM!
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% __VALID_SET=%__VALID_SET% __ELEM=!__ELEM!
     if "!__VALID_SET:%__ELEM%=!"=="%__VALID_SET%" (
         set _IS_VALID=
         goto is_valid_done
@@ -112,7 +121,7 @@ goto :eof
 rem output parameter(s): _COMMAND, _OPTIONS, _PARAMS
 rem see https://docs.oracle.com/en/graalvm/enterprise/19/guide/reference/graalvm-updater.html
 :args
-set _COMMAND=none
+set _COMMAND=help
 set _OPTIONS=
 set _PARAMS=
 set _PARAMS_N=0
@@ -149,7 +158,7 @@ if "%__ARG%"=="info" (
 ) else if "%__ARG%"=="-h" ( set _HELP=1
 ) else if "%__ARG%"=="--help" ( set _HELP=1
 ) else (
-    echo [91mError[0m: Unkown command %__ARG% 1>&2
+    echo %_ERROR_LABEL% Unkown command %__ARG% 1>&2
     set _EXITCODE=1
     goto args_next
 )
@@ -167,7 +176,7 @@ if "!__ARG:~0,1!"=="-" (
     call :is_valid "%_COMMAND_OPTS%" "!__ARG:~1!"
     if defined _IS_VALID ( set "_OPTIONS=!_OPTIONS!!__ARG:~1!"
     ) else (
-        echo [91mError[0m: Invalid option !__ARG! for command info 1>&2
+        echo %_ERROR_LABEL% Invalid option !__ARG! for command info 1>&2
         set _EXITCODE=1
     )
 ) else (
@@ -192,10 +201,10 @@ if defined _OPTIONS (
     if not "!_OPTIONS:v=!"=="!_OPTIONS!" set _VERBOSE=1
 )
 if not defined _PARAMS if %_HELP%==0 if %_COMMAND%==install (
-    echo [91mError[0m: Missing parameter for command %_COMMAND% 1>&2
+    echo %_ERROR_LABEL% Missing parameter for command %_COMMAND% 1>&2
     set _EXITCODE=1
 )
-if %_DEBUG%==1 echo [%_BASENAME%] _COMMAND=%_COMMAND% _OPTIONS=%_OPTIONS% _PARAMS^(%_PARAMS_N%^)=%_PARAMS% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _COMMAND=%_COMMAND% _OPTIONS=%_OPTIONS% _PARAMS^(%_PARAMS_N%^)=%_PARAMS% 1>&2
 goto :eof
 
 :help
@@ -224,14 +233,14 @@ rem output parameter(s): _CATALOG_FILE
 if not exist "%_WORKING_DIR%" mkdir "%_WORKING_DIR%"
 for %%f in (%_CATALOG_URL%) do set "__CATALOG_NAME=%%~nxf"
 set "_CATALOG_FILE=%_WORKING_DIR%\!__CATALOG_NAME!"
-if %_DEBUG%==1 ( echo [%_BASENAME%] powershell -c "Invoke-WebRequest -Uri %_CATALOG_URL% -Outfile %_CATALOG_FILE%"
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri %_CATALOG_URL% -Outfile %_CATALOG_FILE%"
 ) else if %_VERBOSE%==1 ( echo Downloading: Component catalog %__CATALOG_NAME% 1>&2
 ) else ( echo Downloading: Component catalog
 )
 powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri %_CATALOG_URL% -Outfile %_CATALOG_FILE%"
 if not !ERRORLEVEL!==0 (
     echo.
-    echo [91mError[0m: Failed to download file %__CATALOG_NAME% 1>&2
+    echo %_ERROR_LABEL% Failed to download file %__CATALOG_NAME% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -244,31 +253,37 @@ if %_HELP%==1 ( call :available_help
 )
 goto :eof
 
-rem input parameter(s): %1=component ID
+rem input parameter(s): %1=component IDs (0..n)
 rem examples: python
 :available_catalog
 set "__EXPR=%~1"
 set __PREFIX=%_GRAALVM_VERSION%_%_OS_NAME%_%_OS_ARCH%.org.graalvm.
-if defined __EXPR ( set __NAME=%__PREFIX%%__EXPR%-Bundle-Name
-) else ( set __NAME=%__PREFIX%*-Bundle-Name
+if defined __EXPR (
+    set __NAMES=
+    for %%f in (%__EXPR%) do (
+        set "__NAMES=!__NAMES! %__PREFIX%%%f-Bundle-Name"
+    )
+) else (
+    set "__NAMES=%__PREFIX%*-Bundle-Name"
 )
 call :catalog_file
 if not %_EXITCODE%==0 goto :eof
 
+if %_DEBUG%==1 echo %_DEBUG_LABEL% __NAMES=%__NAMES%
 set __N=0
-for /f "delims=" %%i in ('type "!_CATALOG_FILE!" ^| findstr "%__NAME%"') do (
+for /f "delims=" %%i in ('type "!_CATALOG_FILE!" ^| findstr "%__NAMES%"') do (
     echo %%i
     set /a __N+=1
 )
-if %_DEBUG%==1 ( echo [%_BASENAME%] Found !__N! components in catalog 1>&2
-) else if %_VERBOSE%==1 ( echo Found !__N! components in catalog 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Found !__N! component^(s^) in catalog ^(%__EXPR%^) 1>&2
+) else if %_VERBOSE%==1 ( echo Found !__N! component^(s^) in catalog ^(%__EXPR%^) 1>&2
 )
 goto :eof
 
 :available_help
 echo Usage: gu available [-lv] ^<expr^>
 echo   Options:
-echo     -l                ???
+echo     -l                ???use a long listing format???
 echo     -v, --verbose     enable verbose output
 goto :eof
 
@@ -323,7 +338,7 @@ if %_HELP%==1 ( call :install_help
     for %%f in (%_PARAMS%) do (
         set "__COMPONENT_FILE=%%f"
         if not exist "!__COMPONENT_FILE!" (
-            echo [91mError[0m: Local component file not found ^(!__COMPONENT_FILE!^) 1>&2
+            echo %_ERROR_LABEL% Local component file not found ^(!__COMPONENT_FILE!^) 1>&2
             set _EXITCODE=1
             goto :eof
         )
@@ -336,13 +351,13 @@ if %_HELP%==1 ( call :install_help
         if not "!__COMPONENT_URL:~0,8!"=="https://" set "__COMPONENT_URL=https://!__COMPONENT_URL!"
         for %%f in (!__COMPONENT_URL!) do set "__COMPONENT_NAME=%%~nxf"
         set "__COMPONENT_FILE=%_WORKING_DIR%\!__COMPONENT_NAME!"
-        if %_DEBUG%==1 ( echo [%_BASENAME%] powershell -c "Invoke-WebRequest -Uri !__COMPONENT_URL! -Outfile !__COMPONENT_FILE!"
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__COMPONENT_URL! -Outfile !__COMPONENT_FILE!"
         ) else if %_VERBOSE%==1 ( echo Download component !__COMPONENT_URL! 1>&2
         )
         powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -TimeoutSec 60 -Uri !__COMPONENT_URL! -Outfile "!__COMPONENT_FILE!"
         if not !ERRORLEVEL!==0 (
             echo.
-            echo [91mError[0m: Failed to download component !__COMPONENT_NAME! 1>&2
+            echo %_ERROR_LABEL% Failed to download component !__COMPONENT_NAME! 1>&2
             set _EXITCODE=1
             goto :eof
         )
@@ -387,14 +402,14 @@ for /f "delims=^= tokens=1,*" %%i in ('type "%_CATALOG_FILE%" ^| findstr "%__FUL
 )
 for /f "delims=" %%f in ("%__COMPONENT_URL%") do set "__COMPONENT_NAME=%%~nxf"
 set __COMPONENT_FILE=%TEMP%\%__COMPONENT_NAME%
-if %_DEBUG%==1 ( echo [%_BASENAME%] __COMPONENT_FILE=^%TEMP^%\%__COMPONENT_NAME% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% __COMPONENT_FILE=^%TEMP^%\%__COMPONENT_NAME% 1>&2
 ) else if %_VERBOSE%==1 ( echo Downloading: Component %__COMPONENT_NAME% 1>&2
 ) else ( echo Downloading: Component %__EXPR%
 )
 powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -TimeoutSec 60 -Uri %__COMPONENT_URL% -Outfile %__COMPONENT_FILE%"
 if not %ERRORLEVEL%==0 (
     echo.
-    echo [91mError[0m: Failed to download component %__COMPONENT_NAME% 1>&2
+    echo %_ERROR_LABEL% Failed to download component %__COMPONENT_NAME% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -468,7 +483,7 @@ set __TARGET_FILE=%~2
 for /f "delims=" %%f in ("%__TARGET_FILE%") do set "__PARENT_DIR=%%~dpf"
 if not exist "%__PARENT_DIR%" mkdir "%__PARENT_DIR%"
 
-if %_DEBUG%==1 ( echo [%_BASENAME%] Create file !__TARGET_FILE:%TEMP%=%%TEMP%%! 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Create file !__TARGET_FILE:%TEMP%=%%TEMP%%! 1>&2
 ) else if %_VERBOSE%==1 ( echo Create file !__TARGET_FILE:%TEMP%=%%TEMP%%! 1>&2
 )
 (
@@ -484,12 +499,12 @@ rem ensure absolute path for input file
 for %%i in (%1) do set __JAR_FILE=%%~dpnxi
 set __FORCE_CREATION=%~2
 if not exist "%__JAR_FILE%" (
-    echo [91mError[0m: Installable component not found 1>&2
+    echo %_ERROR_LABEL% Installable component not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if not defined GRAAL_HOME (
-    echo [91mError[0m: Graal installation directory not found 1>&2
+    echo %_ERROR_LABEL% Graal installation directory not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -497,7 +512,7 @@ set __TMP_DIR=%_WORKING_DIR%\tmp
 if not exist "%__TMP_DIR%" mkdir "%__TMP_DIR%"
 pushd "%__TMP_DIR%"
 
-if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAR_CMD% xf "%__JAR_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAR_CMD% xf "%__JAR_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Extract GraalVM component into directory !__TMP_DIR:%TEMP%=%%TEMP%%! 1>&2
 )
 call "%_JAR_CMD%" xf "%__JAR_FILE%"
@@ -525,18 +540,18 @@ for /f "delims=^= tokens=1,*" %%i in (%__SYMLINKS_FILE%) do (
 )
 if exist "%__TMP_DIR%\META-INF\" rmdir /s /q "%__TMP_DIR%\META-INF\" 
 
-if %_DEBUG%==1 ( echo [%_BASENAME%] Component ready to be installed in %GRAAL_HOME% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Component ready to be installed in %GRAAL_HOME% 1>&2
 ) else if %_VERBOSE%==1 ( echo Component ready to be installed in %GRAAL_HOME% 1>&2
 )
 set /p "__CONFIRM=Do you really want to add the component into directory %GRAAL_HOME%? "
 if /i not "%__CONFIRM%"=="y" goto :eof
 
-if %_DEBUG%==1 ( echo [%_BASENAME%] xcopy /s /y "%__TMP_DIR%\*" "%GRAAL_HOME%\" 1^>NUL 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%__TMP_DIR%\*" "%GRAAL_HOME%\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Install GraalVM component into directory %GRAAL_HOME% 1>&2
 )
 xcopy /s /y "%__TMP_DIR%\*" "%GRAAL_HOME%\" 1>NUL
 if not %ERRORLEVEL%==0 (
-    echo [91mError[0m: Failed to add component to directory %GRAAL_HOME% 1>&2
+    echo %_ERROR_LABEL% Failed to add component to directory %GRAAL_HOME% 1>&2
     set _EXITCODE=1
     goto install_done
 )
@@ -548,6 +563,6 @@ rem ##########################################################################
 rem ## Cleanups
 
 :end
-if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE%
 exit /b %_EXITCODE%
 endlocal

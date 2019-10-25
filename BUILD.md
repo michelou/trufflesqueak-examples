@@ -12,6 +12,7 @@
 This document is part of a series of topics related to [GraalSqueak](https://github.com/hpi-swa/graalsqueak) on Windows:
 
 - [Installing GraalSqueak on Windows](README.md)
+- [Using **`gu.bat`** on Windows](GU.md)
 - Building GraalSqueak on Windows [**&#9660;**](#bottom)
 
 ## <span id="section_01">Project dependencies</span>
@@ -23,19 +24,17 @@ This project depends on the following external software for the **Microsoft Wind
 - [Microsoft Visual Studio 10](https://visualstudio.microsoft.com/vs/older-downloads/) ([*release notes*](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2010-version-history))
 - [Microsoft Windows SDK 7.1](https://www.microsoft.com/en-us/download/details.aspx?id=8279)
 - [Python 2.7](https://www.python.org/downloads/release/python-2716/)
-- [Squeak 5.2](https://squeak.org/downloads/) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 
 <!--
 > **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 -->
 
-For instance our development environment looks as follows (*October 2019*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*October 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-19.2.1\                             <i>(362 MB)</i>
 C:\opt\Git-2.23.0\                                    <i>(271 MB)</i>
 C:\opt\Python-2.7.16\                                 <i>(162 MB)</i>
-C:\opt\Squeak-5.2\                                    <i>(116 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio 10.0\  <i>(555 MB)</i>
 </pre>
@@ -49,13 +48,13 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 
 This project is organized as follows:
 <pre style="font-size:80%;">
-bin\gu.bat
 bin\graalsqueak\build.bat
 docs\
 graal\        <i>(created by</i> <a href="https://github.com/hpi-swa/graalsqueak/tree/master/mx.graalsqueak"><b><code>mx.graalsqueak</code></b><i></a>)</i>
-graalsqueak\  <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
+graalsqueak\  <i>(Git submodule)</i><sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>
 mx\           <i>(created by</i> <a href="setenv.bat"><b><code>setenv.bat</code></b></a><i>)</i>
 BUILD.md
+GU.md
 README.md
 setenv.bat
 </pre>
@@ -67,7 +66,8 @@ where
 - directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
 - directory **`graalsqueak\`** contains our fork of the [hpi-swa/graalsqueak](https://github.com/hpi-swa/graalsqueak) repository as a Github submodule.
 - file [**`BUILD.md`**](README.md) is the Markdown document for this page.
-- file [**`README.md`**](README.md) is the Markdown document presenting the component installation.
+- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of GraalVM Updater.
+- file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
 We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
@@ -96,9 +96,7 @@ We distinguish different sets of batch commands:
         help        display this help message
     </pre>
 
-2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features several commands to manage a [GraalVM](https://www.graalvm.org/) installation directory. This temporary solution is a stripped down version of the official [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup>.
-
-3. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) installable component (component archive `graalsqueak-component.jar`).
+2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) installable component (component archive `graalsqueak-component.jar`).
 
     <pre style="font-size:80%;">
     <b>&gt; build help</b>
@@ -257,13 +255,7 @@ In this section we present some issues encountered in this project:
 
 ## Footnotes
 
-<a name="footnote_01">[1]</a> ***Squeak image*** [↩](#anchor_01)
-
-<p style="margin:0 0 1em 20px;">
-A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> installable component. Concretely we can either install the full <a href="https://squeak.org/downloads/">Squeak distribution</a> (32 MB) or we can just download the <a href="https://squeak.org/downloads/">Squeak image</a> (18 MB).
-</p>
-
-<a name="footnote_02">[2]</a> ***Downloads*** [↩](#anchor_02)
+<a name="footnote_01">[1]</a> ***Downloads*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
@@ -275,16 +267,10 @@ In our case we downloaded the following installation files (see <a href="#sectio
 <a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>          <i>( 30 MB)</i>
 </pre>
 
-<a name="footnote_03">[3]</a> ***Github submodule*** [↩](#anchor_03)
+<a name="footnote_02">[2]</a> ***Github submodule*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 Defining <b><code>graalsqueak</code></b> as a Github submodule allows us to make changes to this project independently from our fork of the <a href="https://github.com/hpi-swa/graalsqueak"><b><code>hpi-swa/graalsqueak</code></b></a> repository.
-</p>
-
-<a name="footnote_04">[4]</a> ***GraalVM Updater*** [↩](#anchor_04)
-
-<p style="margin:0 0 1em 20px;">
-Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Windows, so we currently run command <b><code>build install</code></b> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. component archive <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> installation directory (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
 </p>
 
 ***

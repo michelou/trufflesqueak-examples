@@ -12,6 +12,7 @@
 This document is part of a series of topics related to [GraalSqueak](https://github.com/hpi-swa/graalsqueak) on Windows:
 
 - Installing GraalSqueak on Windows [**&#9660;**](#bottom)
+- [Using **`gu.bat`** on Windows](GU.md)
 - [Building GraalSqueak on Windows](BUILD.md)
 
 ## <span id="section_01">Project dependencies</span>
@@ -45,6 +46,7 @@ This project is organized as follows:
 bin\gu.bat
 docs\
 BUILD.md
+GU.md
 README.md
 setenv.bat
 </pre>
@@ -53,7 +55,8 @@ where
 
 - file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for installing the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
 - directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
-- file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the component generation.
+- file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
+- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of GraalVM Updater.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -83,32 +86,11 @@ We distinguish different sets of batch commands:
         help        display this help message
     </pre>
 
-2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features several commands to manage a [GraalVM](https://www.graalvm.org/) installation directory. This *temporary* solution is a stripped down version of the official [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
-    For instance we use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component (or any other component such as [GraalPython](https://github.com/graalvm/graalpython) or [FastR](https://github.com/oracle/fastr)) to our [GraalVM](https://www.graalvm.org/) installation directory.
+2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features several commands to manage a [GraalVM](https://www.graalvm.org/) installation directory.
 
-    <pre style="font-size:80%;">
-    <b>&gt;where gu</b>
-    K:\bin\gu.bat
-    &nbsp;
-    <b>&gt; gu -h</b>
-    Usage: gu command { options } { params }
-      Commands:
-        available [-lv] &lt;expr&gt;         list components in the component catalog
-        info [-cL] &lt;param&gt;             print component information (from file, URL or catalog)
-        install [-0cfiLnorv] &lt;param&gt;   install specified component (ID or local archive)
-        list [-clv] &lt;expr&gt;             list installed components
-        rebuild-images                 rebuild native images
-        remove [-0fxv] &lt;id&gt;            remove component (ID)
-        update [-x][&lt;ver&gt;][&lt;param&gt;]    upgrade to the recent GraalVM version
-      Options:
-        -d, --debug                    show commands executed by this scriptD
-        -f, --force                    disable (un-)installation checks
-        -h, --help                     print this help message or a command specific help message
-        -L, --local-file               treat parameters as local filenames
-        -o, --overwrite                silently overwrite already existing component
-        -r, --replace                  replace component if already installed
-        -u, --url                      treat parameters as URLs
-        -v, --verbose                  display progress messages</pre>
+   > **:mag_right:** This *temporary* solution is a stripped down version of the official [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
+
+   We use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component (or any component such as [GraalPython](https://github.com/graalvm/graalpython) or [FastR](https://github.com/oracle/fastr)) to our [GraalVM](https://www.graalvm.org/) installation directory. More details on the usage of this command as 
 
     Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for command **`install`** (and so on for the other **`gu`** commands).
 
@@ -126,7 +108,7 @@ We distinguish different sets of batch commands:
         -r, --replace     ???
         -v, --verbose     enable verbose output</pre>
 
-   Command [**`gu.bat`**](bin/gu.bat) relies on variable <b><code>GRAAL_HOME</code></b> to know the location of the [GraalVM](https://www.graalvm.org/) installation directory.
+In the next section we present usage examples of the above batch files.
 
 ## Usage examples
 
@@ -138,7 +120,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.16, pylint 2.7.16,
-   mx 5.241.0 git 2.23.0.windows.1
+   mx 5.241.0, link 10.00.40219.01, git 2.23.0.windows.1
 
 <b>&gt; where jar</b>
 C:\opt\graalvm-ce-19.2.1\bin\jar.exe
@@ -150,12 +132,14 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.16, pylint 2.7.16,
-   mx 5.241.0 git 2.23.0.windows.1
+   mx 5.241.0, link 10.00.40219.01, git 2.23.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.16\python.exe
    C:\opt\Python-2.7.16\Scripts\pylint.exe
    K:\mx\mx.cmd
+   C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe
+   C:\opt\Git-2.23.0\usr\bin\link.exe
    C:\opt\Git-2.23.0\bin\git.exe
    C:\opt\Git-2.23.0\mingw64\bin\git.exe
 </pre>
@@ -225,24 +209,6 @@ Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
 Component ready to be installed in C:\opt\graalvm-ce-19.2.1
 Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1? y
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
-</pre>
-
-#### `gu.bat list`
-
-Command [**`gu.bat list`**](bin/gu.bat) displays components from the catalog which are eligible to be added to a [GraalVM](https://www.graalvm.org/) installation directory. For instance, we would get the following output on a Unix machine where **`GRAAL_HOME`** specify the path of a GraalVM 19.2.1 installation:
-<pre style="font-size:80%;">
-<b>&gt; grep "^(OS|GRAAL)" $GRAAL_HOME\release</b>
-OS_NAME=linux
-OS_ARCH=amd64
-GRAAL_VERSION=19.2.1
-&nbsp;
-<b>&gt; gu list</b>
-Downloading: Component catalog
-Component.19.2.1_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
-Component.19.2.1_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
-Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
-Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
-Component.19.2.1_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
 </pre>
 
 
@@ -333,7 +299,7 @@ Command **`graalsqueak`** (with no argument) opens a dialog window for selecting
 Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the provided Squeak image.
 
 <pre style="font-size:80%;">
-<b>&gt;curl -sL https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc4/GraalSqueakImage-1.0.0-rc4.zip -o GraalSqueakImage.zip</b>
+<b>&gt; curl -sL https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc4/GraalSqueakImage-1.0.0-rc4.zip -o GraalSqueakImage.zip</b>
 &nbsp;
 <b>&gt; unzip -qo GraalSqueakImage.zip</b>
  &nbsp;
