@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">GraalSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
-  This document presents <b><code>gu.bat</code></b>, a batch file we wrote as a <i>substitute</i> for <a href="https://www.graalvm.org/docs/reference-manual/install-components/">GraalVM Updater</a> on a Windows machine.
+  This document presents <b><code>gu.bat</code></b>, a batch file we wrote as a <i>substitute</i> for Oracle's <a href="https://www.graalvm.org/docs/reference-manual/install-components/">GraalVM Updater</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -69,12 +69,12 @@ In the next section we give a brief overview of batch file **`gu.bat`**.
 
 ## GU overview
 
-We wrote the batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for GraalVM Updater on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
+We wrote the batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
 
 In short [**`gu.bat`**](bin/gu.bat):
-- implements a subset of the commands featured by the official [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/).
+- implements a subset of the commands featured by Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/).
 - relies *only* on variable **`GRAAL_HOME`** (location of the [GraalVM](https://www.graalvm.org/) installation directory).
-- contains ~600 lines of batch code and a few lines of PowerShell code.
+- contains ~600 lines of batch code including a few lines of PowerShell code.
 
 Command **`gu -h`** (or **`gu --help`**) prints the following help message:
 <pre style="font-size:80%;">
@@ -92,21 +92,28 @@ Usage: gu command { options } { params }
     remove [-0fxv] &lt;id&gt;            remove component (ID)
     update [-x][&lt;ver&gt;][&lt;param&gt;]    upgrade to the recent GraalVM version
   Options:
+    -A, --auto-yes                 say YES or ACCEPT to a question
+    -c, --catalog                  treat parameters as component IDs from catalog. This is the default.
     -d, --debug                    show commands executed by this scriptD
     -f, --force                    disable (un-)installation checks
     -h, --help                     print this help message or a command specific help message
     -L, --local-file               treat parameters as local filenames
+    -n, --no-progress              do not display download progress
     -o, --overwrite                silently overwrite already existing component
     -r, --replace                  replace component if already installed
     -u, --url                      treat parameters as URLs
     -v, --verbose                  display progress messages</pre>
 
-The official [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) features seven commands and supports both long and short options (*"switches"*).
+> **:mag_right:** The definition of the above commands and options is based on the following documentation:
+> - [Oracle GraalVM EE 19 Guide](https://docs.oracle.com/en/graalvm/enterprise/19/guide/) : [GraalVM Updater](https://docs.oracle.com/en/graalvm/enterprise/19/guide/reference/graalvm-updater.html).
+> - [GraalVM Reference Manual](https://www.graalvm.org/docs/reference-manual/) : [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/).
+
+Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) features seven commands and supports both long and short options (*"switches"*).
 
 > **:mag_right:** Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for command **`install`** (same for the other **`gu`** commands).
 > <pre style="font-size:80%;">
 > <b>&gt; gu install -h</b>
->    Usage: gu install [-0cfiLnorv] <param>
+>    Usage: gu install [-0cfiLnorv] &lt;param&gt;
 >      Options:
 >        -0                ???
 >        -c, --catalog     treat parameters as component IDs from catalog (default)
@@ -124,7 +131,7 @@ In the next section we present usage examples of commands currently implemented 
 
 #### `gu.bat available`
 
-Command [**`gu.bat available`**](bin/gu.bat) prints components available from the GraalVM Catalog <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup> which fit in our environment. For instance we would get the following output with a GraalVM 19.2.1 installation on a Unix machine:
+Command [**`gu.bat available`**](bin/gu.bat) with not argument prints components available from the GraalVM Catalog <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup> which fit in our environment. For instance we would get the following output with a GraalVM 19.2.1 installation on a Unix machine:
 
 <pre style="font-size:80%;">
 <b>&gt; gu available</b>
@@ -141,6 +148,15 @@ Component.19.2.1_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
 > <b>&gt; type %GRAAL_HOME%\release | findstr /b component_catalog</b>
 > component_catalog=https://www.graalvm.org/component-catalog/graal-updater-component-catalog.properties
 > </pre>
+
+Command [**`gu.bat available python r`**](bin/gu.bat) with arguments **`python`** and **`r`** prints the corresponding components available from the GraalVM Catalog:
+
+<pre style="font-size:80%;">
+<b>&gt; gu available python r</b>
+Downloading: Component catalog
+Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
+Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
+</pre>
 
 #### `gu.bat install`
 

@@ -95,10 +95,9 @@ We distinguish different sets of batch commands:
         -debug      show commands executed by this script
         -verbose    display progress messages
       Subcommands:
-        help        display this help message
-    </pre>
+        help        display this help message</pre>
 
-2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) installable component (component archive `graalsqueak-component.jar`).
+2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) installable component.
 
     <pre style="font-size:80%;">
     <b>&gt; build help</b>
@@ -110,8 +109,7 @@ We distinguish different sets of batch commands:
       Subcommands:
         clean       delete generated files
         dist        generate the GraalSqueak component
-        help        display this help message
-    </pre>
+        help        display this help message</pre>
 
 ## Usage examples
 

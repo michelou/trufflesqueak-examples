@@ -23,14 +23,6 @@ rem ## Main
 
 call :%_COMMAND%
 goto end
-if %_COMMAND%==available call :available
-if %_COMMAND%==info      call :info
-if %_COMMAND%==install   call :install
-if %_COMMAND%==list      call :list
-if %_COMMAND%==remove    call :remove
-if %_COMMAND%==update    call :update
-if %_COMMAND%==none      call :help
-goto end
 
 rem ##########################################################################
 rem ## Subroutines
@@ -190,7 +182,7 @@ set /a _PARAMS_N+=1
 shift
 set "__PARAM=%~1"
 if defined __PARAM (
-    set "_PARAMS=!_PARAMS! %__PARAM%"
+    set _PARAMS=!_PARAMS! "%__PARAM%"
     goto args_next
 )
 :args_done
@@ -218,11 +210,14 @@ echo     rebuild-images                  rebuild native images
 echo     remove [-0fxv] ^<id^>             remove component ^(ID^)
 echo     update [-x][^<ver^>][^<param^>]     upgrade to the recent GraalVM version
 echo   Options:
+echo     -a, --auto-yes                  say YES or ACCEPT to a question
+echo     -c, --catalog                   treat parameters as component IDs from catalog. This is the default.
 echo     -d, --debug                     show commands executed by this scriptD
 echo     -f, --force                     disable ^(un-^)installation checks
 echo     -h, --help                      print this help message or a command specific help message
 echo     -L, --local-file                treat parameters as local filenames
 echo     -o, --overwrite                 silently overwrite already existing component
+echo     -n, --no-progress               do not display download progress
 echo     -r, --replace                   replace component if already installed
 echo     -u, --url                       treat parameters as URLs
 echo     -v, --verbose                   display progress messages
@@ -316,7 +311,7 @@ goto :eof
 :info_help
 echo Usage: gu info [-clLprstuv] ^<param^>
 echo   Options:
-echo     -c, --catalog     treat parameters as component IDs from catalog ^(default^)
+echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
 echo     -L, --local-file  treat parameters as local filenames of packaged components
 echo     -v, --verbose     enable verbose output
 goto :eof
@@ -378,7 +373,7 @@ goto :eof
 echo Usage: gu install [-0cfiLnorv] ^<param^>
 echo   Options:
 echo     -0                ???
-echo     -c, --catalog     treat parameters as component IDs from catalog ^(default^)
+echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
 echo     -f, --force       disable installation checks
 echo     -i                ???
 echo     -L, --local-file  treat parameters as local filenames of packaged components
@@ -434,7 +429,7 @@ goto :eof
 :list_help
 echo Usage: gu list [-clv] ^<param^>
 echo   Options:
-echo     -c, --catalog     treat parameters as component IDs from catalog ^(default^)
+echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
 echo     -l                ???
 echo     -v, --verbose     enable verbose output
 goto :eof
