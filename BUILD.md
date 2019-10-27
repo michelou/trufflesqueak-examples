@@ -23,7 +23,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [GraalVM Community Edition 19.2](https://github.com/oracle/graal/releases) ([*release notes*](https://www.graalvm.org/docs/release-notes/19_2/#19201))
 - [Microsoft Visual Studio 10](https://visualstudio.microsoft.com/vs/older-downloads/) ([*release notes*](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2010-version-history))
 - [Microsoft Windows SDK 7.1](https://www.microsoft.com/en-us/download/details.aspx?id=8279)
-- [Python 2.7](https://www.python.org/downloads/release/python-2716/)
+- [Python 2.7](https://www.python.org/downloads/release/python-2717/)
 
 <!--
 > **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -34,7 +34,7 @@ For instance our development environment looks as follows (*October 2019*) <sup 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-19.2.1\                             <i>(362 MB)</i>
 C:\opt\Git-2.23.0\                                    <i>(271 MB)</i>
-C:\opt\Python-2.7.16\                                 <i>(162 MB)</i>
+C:\opt\Python-2.7.17\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio 10.0\  <i>(555 MB)</i>
 </pre>
@@ -68,7 +68,7 @@ where
 - directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
 - directory **`graalsqueak\`** contains our fork of the [hpi-swa/graalsqueak](https://github.com/hpi-swa/graalsqueak) repository as a Github submodule.
 - file [**`BUILD.md`**](README.md) is the Markdown document for this page.
-- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of GraalVM Updater.
+- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the GraalVM Updater tool.
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -120,11 +120,11 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_232, python 2.7.16, pylint 2.7.16,
+   javac 1.8.0_232, python 2.7.17, pylint 2.7.17,
    mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
 
 <b>&gt; where python mx</b>
-C:\opt\Python-2.7.16\python.exe
+C:\opt\Python-2.7.17\python.exe
 K:\mx\mx.cmd
 </pre>
 
@@ -133,12 +133,12 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_232, python 2.7.16, pylint 2.7.16,
+   javac 1.8.0_232, python 2.7.17, pylint 2.7.17,
    mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
-   C:\opt\Python-2.7.16\python.exe
-   C:\opt\Python-2.7.16\Scripts\pylint.exe
+   C:\opt\Python-2.7.17\python.exe
+   C:\opt\Python-2.7.17\Scripts\pylint.exe
    K:\mx\mx.cmd
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe
    C:\opt\Git-2.23.0\usr\bin\link.exe
@@ -154,7 +154,7 @@ Directory **`graalsqueak\`** contains our fork of the [`hpi-swa/graalsqueak`](ht
 <b>&gt; cd graalsqueak</b>
 </pre>
 
-Running command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat) generates several archive files including the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
+Command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat) generates several archive files including the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
 
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
@@ -232,16 +232,16 @@ We present the installation of the generated component archive in document [READ
 
 ## Troubleshooting
 
-In this section we present some issues encountered in this project:
+In this section we list some issues encountered in this project:
 
-- Error message **`FAILED: trufflenfi.dll`** with command **`build dist`**:
+-  Command **`build dist`** generates the error message **`FAILED: trufflenfi.dll`**:
    <pre style="font-size:80%;">
    <b>&gt; build dist</b>
    JAVA_HOME: C:\opt\graalvm-ce-19.2.1
    [...]
    Building com.oracle.truffle.nfi.native_amd64 with Ninja...
    [1/1] LINK trufflenfi.dll
-   FAILED: trufflenfi.dll
+   <b>FAILED: trufflenfi.dll</b>
    link -nologo -dll -out:trufflenfi.dll src\api.obj src\closure.obj src\intrinsics.obj src\jni.obj src\lookup.obj src\lookup_win32.obj src\signature.obj C:\Users\michelou\workspace-perso\graalsqueak-examples\graal\truffle\mxbuild\windows-amd64\src\libffi\amd64\ffi.lib
    link: unknown option -- n
    Try 'link --help' for more information.
@@ -263,7 +263,7 @@ In our case we downloaded the following installation files (see <a href="#sectio
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar</a>  <i>(  5 MB)</i>
 <a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.2.1.zip</a>                     <i>(171 MB)</i>
-<a href="https://www.python.org/downloads/release/python-2716/">python-2.7.16.amd64.msi</a>                                 <i>( 19 MB)</i>
+<a href="https://www.python.org/downloads/release/python-2717/">python-2.7.17.amd64.msi</a>                                 <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>          <i>( 30 MB)</i>
 </pre>
 

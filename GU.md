@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">GraalSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
+  <td style="border:0;padding:0;vertical-align:text-top;"><a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
   This document presents <b><code>gu.bat</code></b>, a batch file we wrote as a <i>substitute</i> for Oracle's <a href="https://www.graalvm.org/docs/reference-manual/install-components/">GraalVM Updater</a> on a Windows machine.
   </td>
   </tr>
@@ -67,7 +67,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 
 In the next section we give a brief overview of batch file **`gu.bat`**.
 
-## GU overview
+## **`gu`** overview
 
 We wrote the batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
 
@@ -128,11 +128,11 @@ Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install
 
 In the next section we present usage examples of commands currently implemented in [**`gu.bat`**](bin/gu.bat).
 
-## GU commands
+## **`gu`** commands
 
 #### <span id="gu_available">`gu.bat available`</span>
 
-Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we would get the following output with a GraalVM 19.2.1 installation on a Unix machine:
+Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we would get the following output with a GraalVM 19.2.1 installation on a Unix machine:
 
 <pre style="font-size:80%;">
 <b>&gt; gu available</b>
@@ -161,7 +161,7 @@ Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
 
 #### `gu.bat install`
 
-Command [**`gu.bat install`**](bin/gu.bat) can add installable [GraalVM](https://www.graalvm.org/) components in three different ways, namely:
+Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](https://www.graalvm.org/) installable components in three different ways, namely:
 <ul>
 <li>from a catalog <i>(default, option </i><b><code>-c</code></b><i>)</i></li>
 <li>from a local component archive <i>(option </i><b><code>-L</code></b><i>)</i></li>
@@ -201,7 +201,7 @@ Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the
 <b>&gt; echo %GRAAL_HOME%</b>
 C:\opt\graalvm-ce-19.2.1
 &nbsp;
-<b>&gt; curl -sL https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc4/graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar -o graalsqueak-component.jar</b>
+<b>&gt; curl -sL -o graalsqueak-component.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc4/graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar</b>
 &nbsp;
 <b>&gt; gu install -L graalsqueak-component.jar</b>
 Extract GraalVM component into directory %TEMP%\graal-updater\tmp
@@ -249,7 +249,7 @@ component graalsqueak
    GRAALVM_VERSION=19.2.1
 </pre>
 
-Command [**`gu.bat list -c`**](bin/gu.bat) displays components available from the GraalVM Catalog <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup> which fit in our environment (equivalent to [**`gu.bat available`**](#gu_available)). For instance, we would get the following output with a GraalVM 19.2.1 installation on a Unix machine:
+Command [**`gu.bat list -c`**](bin/gu.bat) displays components available from the GraalVM Catalog <sup id="anchor_04b"><a href="#footnote_04">[4]</a></sup> which fit in our environment (equivalent to [**`gu.bat available`**](#gu_available)). For instance, we would get the following output with a GraalVM 19.2.1 installation on a Unix machine:
 
 <pre style="font-size:80%;">
 <b>&gt; grep "^(OS|GRAAL)" $GRAAL_HOME\release</b>
@@ -301,7 +301,7 @@ c:\opt\graalvm-ce-19.2.1\jre\languages\js\bin\js.cmd
 GraalVM JavaScript (GraalVM CE JVM 19.2.1)
 </pre>
 
-<a name="footnote_04">[4]</a> ***GraalVM Catalog*** [↩](#anchor_04)
+<a name="footnote_04">[4]</a> ***GraalVM Catalog*** [↩](#anchor_04a)
 
 <p style="margin:0 0 1em 20px;">
 At the time of writing the GraalVM Catalog contains <i>no</i> component for the Windows platform.<br/>
