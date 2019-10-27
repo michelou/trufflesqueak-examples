@@ -27,12 +27,14 @@ goto end
 rem ##########################################################################
 rem ## Subroutines
 
-rem output parameter(s): _WORKING_DIR, _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+rem output parameter(s): _WORKING_DIR, _PS1_FILE, PS1_VERBOSE,
+rem                      _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 rem                      _JAR_CMD, _GRAALVM_VERSION, _CATALOG_URL, _OS_ARCH, _OS_NAME
 :env
 set _WORKING_DIR=%TEMP%\graal-updater
 
 rem see https://stackoverflow.com/questions/11696944/powershell-v3-invoke-webrequest-https-error
+rem NB. cURL is a standard tool only from Windows 10 build 17063 and later.
 set _PS1_FILE=%_WORKING_DIR%\webrequest.ps1
 (
     echo Param^(
@@ -240,7 +242,7 @@ echo     rebuild-images                  rebuild native images
 echo     remove [-0fxv] ^<id^>             remove component ^(ID^)
 echo     update [-x][^<ver^>][^<param^>]     upgrade to the recent GraalVM version
 echo   Options:
-echo     -a, --auto-yes                  say YES or ACCEPT to a question
+echo     -A, --auto-yes                  say YES or ACCEPT to a question
 echo     -c, --catalog                   treat parameters as component IDs from catalog. This is the default.
 echo     -d, --debug                     show commands executed by this scriptD
 echo     -f, --force                     disable ^(un-^)installation checks
@@ -248,7 +250,7 @@ echo     -h, --help                      print this help message or a command sp
 echo     -L, --local-file                treat parameters as local filenames
 echo     -o, --overwrite                 silently overwrite already existing component
 echo     -n, --no-progress               do not display download progress
-echo     -r, --replace                   replace component if already installed
+echo     -r, --replace                   ???replace component if already installed???
 echo     -u, --url                       treat parameters as URLs
 echo     -v, --verbose                   display progress messages
 goto :eof
@@ -400,7 +402,7 @@ if %_HELP%==1 ( call :install_help
 goto :eof
 
 :install_help
-echo Usage: gu install [-0cfiLnorv] ^<param^>
+echo Usage: gu install [-0cfiLnoruv] ^<param^>
 echo   Options:
 echo     -0                ???
 echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
@@ -409,7 +411,8 @@ echo     -i                ???
 echo     -L, --local-file  treat parameters as local filenames of packaged components
 echo     -n, --no-progress do not display download progress
 echo     -o                silently overwrite previously installed component
-echo     -r                ???
+echo     -r, --replace     ???replace component if already installed???
+echo     -u, --url         treat parameters as URLs
 echo     -v, --verbose     enable verbose output
 goto :eof
 
@@ -504,8 +507,8 @@ for /f %%f in ('where /r "%GRAAL_HOME%\jre\languages" release') do (
         del /q "%__TMP_FILE%"
         set /a __N=+1
     )
-    if %_VERBOSE%==1 if exist "%__VERBOSE_FILE%" (
-        type "%__VERBOSE_FILE%"
+    if exist "%__VERBOSE_FILE%" (
+        if %_VERBOSE%==1 type "%__VERBOSE_FILE%"
         del /q "%__VERBOSE_FILE%"
     )
 )
@@ -517,7 +520,9 @@ goto :eof
 rem gu remove [-0fxv] <id>
 :remove
 if %_HELP%==1 ( call :remove_help
-) else ( echo Command not yet implemented
+) else (
+    echo Command remove not yet implemented
+    echo ^(current GraalVM version: %_GRAALVM_VERSION%^)
 )
 goto :eof
 

@@ -1,4 +1,4 @@
-# <span id="top">GraalSqueak Examples</span>
+# <span id="top">GraalSqueak Examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>

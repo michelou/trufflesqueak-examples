@@ -98,7 +98,7 @@ We distinguish different sets of batch commands:
 
     <pre style="font-size:80%;">
     <b>&gt; gu install -h</b>
-    Usage: gu install [-0cfiLnorv] <param>
+    Usage: gu install [-0cfiLnoruv] &lt;param&gt;
       Options:
         -0                ???
         -c, --catalog     treat parameters as component IDs from catalog (default)
@@ -108,6 +108,7 @@ We distinguish different sets of batch commands:
         -n, --no-progress do not display download progress
         -o, --overwrite   silently overwrite previously installed component
         -r, --replace     ???
+        -u, --url         treat parameters as URLs
         -v, --verbose     enable verbose output</pre>
 
 In the next section we present usage examples of the above batch files.
@@ -174,7 +175,7 @@ Command [**`gu.bat -v install python`**](bin/gu.bat) adds the [GraalPython](http
    Install GraalVM component into directory c:\opt\graalvm-ce-19.2.1
    </pre>
 
-> **:mag_right:** In the above output we recognize **`%TEMP%\graal-updater\`** as the working directory of command **`gu.bat`**:
+> **:mag_right:** With option **`-v`** we recognize from the above output that **`%TEMP%\graal-updater\`** is the working directory of **`gu.bat`**:
 > <pre style="font-size:80%;">
 > dir /a-d %TEMP%\graal-updater | findstr /r /c:"^[^ ]"
 > 23.10.2019  14:51           133 318 graal-updater-component-catalog.properties
