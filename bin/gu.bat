@@ -32,6 +32,36 @@ rem                      _JAR_CMD, _GRAALVM_VERSION, _CATALOG_URL, _OS_ARCH, _OS
 :env
 set _WORKING_DIR=%TEMP%\graal-updater
 
+rem see https://stackoverflow.com/questions/11696944/powershell-v3-invoke-webrequest-https-error
+set _PS1_FILE=%_WORKING_DIR%\webrequest.ps1
+(
+    echo Param^(
+    echo    [Parameter^(Mandatory=$True,Position=1^)]
+    echo    [string]$Uri,
+    echo    [Parameter(Mandatory=$True^)]
+    echo    [string]$OutFile
+    echo ^)
+    echo Add-Type ^@^"
+    echo using System.Net;
+    echo using System.Security.Cryptography.X509Certificates;
+    echo public class TrustAllCertsPolicy : ICertificatePolicy {
+    echo     public bool CheckValidationResult^(
+    echo         ServicePoint srvPoint, X509Certificate certificate,
+    echo         WebRequest request, int certificateProblem^) {
+    echo         return true;
+    echo     }
+    echo }
+    echo ^"^@
+    echo $Verbose=$PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent
+    echo $AllProtocols=[System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
+    echo [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
+    echo [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
+    echo $progressPreference='silentlyContinue'
+    echo Invoke-WebRequest -TimeoutSec 60 -Uri $Uri -Outfile $OutFile
+) > %_PS1_FILE%
+set _PS1_VERBOSE[0]=
+set _PS1_VERBOSE[1]=-Verbose
+
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
@@ -228,11 +258,11 @@ rem output parameter(s): _CATALOG_FILE
 if not exist "%_WORKING_DIR%" mkdir "%_WORKING_DIR%"
 for %%f in (%_CATALOG_URL%) do set "__CATALOG_NAME=%%~nxf"
 set "_CATALOG_FILE=%_WORKING_DIR%\!__CATALOG_NAME!"
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri %_CATALOG_URL% -Outfile %_CATALOG_FILE%"
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "& '%_PS1_FILE%' -Uri '%_CATALOG_URL%' -Outfile '%_CATALOG_FILE%'" 1>&2
 ) else if %_VERBOSE%==1 ( echo Downloading: Component catalog %__CATALOG_NAME% 1>&2
 ) else ( echo Downloading: Component catalog
 )
-powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri %_CATALOG_URL% -Outfile %_CATALOG_FILE%"
+powershell -c "& '%_PS1_FILE%' -Uri '%_CATALOG_URL%' -OutFile '%_CATALOG_FILE%' !_PS1_VERBOSE[%_VERBOSE%]!"
 if not !ERRORLEVEL!==0 (
     echo.
     echo %_ERROR_LABEL% Failed to download file %__CATALOG_NAME% 1>&2
@@ -270,8 +300,8 @@ for /f "delims=" %%i in ('type "!_CATALOG_FILE!" ^| findstr "%__NAMES%"') do (
     echo %%i
     set /a __N+=1
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Found !__N! component^(s^) in catalog ^(%__EXPR%^) 1>&2
-) else if %_VERBOSE%==1 ( echo Found !__N! component^(s^) in catalog ^(%__EXPR%^) 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% !__N! component^(s^) found in catalog ^(%__EXPR%^) 1>&2
+) else if %_VERBOSE%==1 ( echo !__N! component^(s^) found in catalog ^(%__EXPR%^) 1>&2
 )
 goto :eof
 
@@ -346,10 +376,10 @@ if %_HELP%==1 ( call :install_help
         if not "!__COMPONENT_URL:~0,8!"=="https://" set "__COMPONENT_URL=https://!__COMPONENT_URL!"
         for %%f in (!__COMPONENT_URL!) do set "__COMPONENT_NAME=%%~nxf"
         set "__COMPONENT_FILE=%_WORKING_DIR%\!__COMPONENT_NAME!"
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__COMPONENT_URL! -Outfile !__COMPONENT_FILE!"
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "& '%_PS1_FILE%' -Uri '!__COMPONENT_URL!' -Outfile '!__COMPONENT_FILE!'" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download component !__COMPONENT_URL! 1>&2
         )
-        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -TimeoutSec 60 -Uri !__COMPONENT_URL! -Outfile "!__COMPONENT_FILE!"
+        powershell -c "& '%_PS1_FILE%' -Uri '!__COMPONENT_URL!' -OutFile '!__COMPONENT_FILE!' !_PS1_VERBOSE[%_VERBOSE%]!"
         if not !ERRORLEVEL!==0 (
             echo.
             echo %_ERROR_LABEL% Failed to download component !__COMPONENT_NAME! 1>&2
@@ -397,11 +427,11 @@ for /f "delims=^= tokens=1,*" %%i in ('type "%_CATALOG_FILE%" ^| findstr "%__FUL
 )
 for /f "delims=" %%f in ("%__COMPONENT_URL%") do set "__COMPONENT_NAME=%%~nxf"
 set __COMPONENT_FILE=%TEMP%\%__COMPONENT_NAME%
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% __COMPONENT_FILE=^%TEMP^%\%__COMPONENT_NAME% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "& '%_PS1_FILE%' -Uri '%__COMPONENT_URL%' -OutFile '%__COMPONENT_FILE%'" 1>&2
 ) else if %_VERBOSE%==1 ( echo Downloading: Component %__COMPONENT_NAME% 1>&2
 ) else ( echo Downloading: Component %__EXPR%
 )
-powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -TimeoutSec 60 -Uri %__COMPONENT_URL% -Outfile %__COMPONENT_FILE%"
+powershell -c "& '%_PS1_FILE%' -Uri '%__COMPONENT_URL%' -OutFile '%__COMPONENT_FILE%' !_PS1_VERBOSE[%_VERBOSE%]!"
 if not %ERRORLEVEL%==0 (
     echo.
     echo %_ERROR_LABEL% Failed to download component %__COMPONENT_NAME% 1>&2
@@ -414,15 +444,15 @@ goto :eof
 
 rem gu list [-clv] <expression>
 :list
-set __CATALOG=1
-set __LOCAL=0
+set __CATALOG=0
+set __LOCAL=1
 if defined _OPTIONS (
     if not "!_OPTIONS:c=!"=="!_OPTIONS!" set __CATALOG=1
     if not "!_OPTIONS:L=!"=="!_OPTIONS!" set __LOCAL=1
 )
 if %_HELP%==1 ( call :list_help
 ) else if %__CATALOG%==1 ( call :available_catalog "%_PARAMS%"
-) else ( echo Command not yet implemented
+) else ( call :list_releases
 )
 goto :eof
 
@@ -430,8 +460,58 @@ goto :eof
 echo Usage: gu list [-clv] ^<param^>
 echo   Options:
 echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
-echo     -l                ???
+echo     -l                ???use a long list format???
 echo     -v, --verbose     enable verbose output
+goto :eof
+
+:list_releases
+set "__TMP_FILE=%_WORKING_DIR%\list.tmp"
+set "__VERBOSE_FILE=%_WORKING_DIR%\list_verbose.tmp"
+if exist "%__TMP_FILE%" del "%__TMP_FILE%"
+if exist "%__VERBOSE_FILE%" del "%__VERBOSE_FILE%"
+
+set __N=0
+for /f %%f in ('where /r "%GRAAL_HOME%\jre\languages" release') do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% %%f 1>&2
+    set __COMPONENT_ID=
+    set __COMMITTER=
+    set __REVISION=
+    for /f "delims=^= tokens=1,*" %%i in (%%f) do (
+        if "%%i"=="COMMIT_INFO" ( rem JSON string
+            set "__JSON_STRING=%%j"
+            set "__JSON_STRING=!__JSON_STRING:<=^<!"
+            set "__JSON_STRING=!__JSON_STRING:>=^>!"
+            set "__JSON_STRING=!__JSON_STRING:"=\"!"
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% COMMIT_INFO=!__JSON_STRING!
+            for /f "usebackq delims=" %%v in (`powershell -c "ConvertFrom-Json '!__JSON_STRING!' | Get-Member -MemberType Properties | ForEach-Object {$_.Name}"`) do (
+                set __COMPONENT_ID=%%v
+            )
+            for /f "usebackq delims=" %%v in (`powershell -c "$data=ConvertFrom-Json '!__JSON_STRING!' | Select-Object -Expand *; $data.'commit.committer'"`) do (
+                echo    committer=%%v>> %__VERBOSE_FILE%
+            )
+            for /f "usebackq delims=" %%v in (`powershell -c "$data=ConvertFrom-Json '!__JSON_STRING!' | Select-Object -Expand *; $data.'commit.rev'"`) do (
+                echo    revision=%%v>> %__VERBOSE_FILE%
+            )
+        ) else if "%%i"=="component_catalog" (
+            echo    %%i=%%j>> %__VERBOSE_FILE%
+        ) else (
+            echo    %%i=%%j>> %__TMP_FILE%
+        )
+    )
+    echo component !__COMPONENT_ID!
+    if exist "%__TMP_FILE%" (
+        type "%__TMP_FILE%"
+        del /q "%__TMP_FILE%"
+        set /a __N=+1
+    )
+    if %_VERBOSE%==1 if exist "%__VERBOSE_FILE%" (
+        type "%__VERBOSE_FILE%"
+        del /q "%__VERBOSE_FILE%"
+    )
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %__N% component^(s^) found in %GRAAL_HOME% 1>&2
+) else if %_VERBOSE%==1 ( echo %__N% component^(s^) found in %GRAAL_HOME% 1>&2
+)
 goto :eof
 
 rem gu remove [-0fxv] <id>
@@ -466,9 +546,10 @@ echo     -x                ???
 goto :eof
 
 rem input parameter(s): %1=relative source path, %2=absolute target path
-rem GraalSqueak example:
-rem   bin/graalsqueak = ../jre\languages\smalltalk\bin\graalsqueak
-rem GraalPython example:
+rem GraalSqueak symlinks file:
+rem   bin/graalsqueak = ../jre/bin/graalsqueak
+rem   jre/bin/graalsqueak = ../languages/smalltalk/bin/graalsqueak
+rem GraalPython symlinks file:
 rem   bin/graalpython = ../jre/bin/graalpython
 rem   jre/bin/graalpython = ../languages/python/bin/graalpython
 :install_command

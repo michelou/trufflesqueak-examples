@@ -174,7 +174,7 @@ Command [**`gu.bat -v install python`**](bin/gu.bat) adds the [GraalPython](http
    Install GraalVM component into directory c:\opt\graalvm-ce-19.2.1
    </pre>
 
-> **:mag_right:** In the above output we recognize **`%TEMP%\graal-updater`** as the working directory of command **`gu.bat`**:
+> **:mag_right:** In the above output we recognize **`%TEMP%\graal-updater\`** as the working directory of command **`gu.bat`**:
 > <pre style="font-size:80%;">
 > dir /a-d %TEMP%\graal-updater | findstr /r /c:"^[^ ]"
 > 23.10.2019  14:51           133 318 graal-updater-component-catalog.properties
@@ -200,7 +200,7 @@ Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1? y
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
 
-*Installation from a **remote** component archive:*
+*Installation from a **remote** component archive*
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -uv https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc4/graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar
