@@ -68,7 +68,7 @@ where
 - directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
 - directory **`graalsqueak\`** contains our fork of the [hpi-swa/graalsqueak](https://github.com/hpi-swa/graalsqueak) repository as a Github submodule.
 - file [**`BUILD.md`**](README.md) is the Markdown document for this page.
-- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the GraalVM Updater tool.
+- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/) tool.
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 

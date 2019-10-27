@@ -240,12 +240,22 @@ C:\opt\graalvm-ce-19.2.1
 component graalpython
    OS_NAME=linux
    OS_ARCH=amd64
-   SOURCE="graalpython:712a86dcc68db59113297a4d95ff640b75a0dc4f graalpython:712a86dcc68db59113297a4d95ff640b75a0dc4f"
+   SOURCE="graalpython:712a86dcc68db59113297a4d95ff640b75a0dc4f"
+   GRAALVM_VERSION=19.2.1
+component fastr
+   OS_NAME=linux
+   OS_ARCH=amd64
+   SOURCE="fastr:3aa5dacd30b8d0862e91a5d19bf3b59d94365500"
+   GRAALVM_VERSION=19.2.1
+component truffleruby
+   OS_NAME=linux
+   OS_ARCH=amd64
+   SOURCE="truffleruby:3b698b1a4bf9b168891f1f795858eb550c258bc7"
    GRAALVM_VERSION=19.2.1
 component graalsqueak
    OS_NAME=windows
    OS_ARCH=amd64
-   SOURCE="graalsqueak:b414a22e8e70e97674232fc30c15aac7a3853929 graalsqueak:b414a22e8e70e97674232fc30c15aac7a3853929"
+   SOURCE="graalsqueak:b414a22e8e70e97674232fc30c15aac7a3853929"
    GRAALVM_VERSION=19.2.1
 </pre>
 
@@ -288,7 +298,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 <a name="footnote_03">[3]</a> ***Preinstalled components*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-Component <a href="https://github.com/graalvm/graaljs">GraalJS</a> is preinstalled in the <a href="https://www.graalvm.org/">GraalVM</a> environment.
+Component <a href="https://github.com/graalvm/graaljs">GraalJS</a> is preinstalled in the <a href="https://www.graalvm.org/">GraalVM</a> environment. It is a <a href="https://github.com/tc39/ecma262">ECMAScript 2019</a> compliant Javascript implementation built on <a href="https://www.graalvm.org/">GraalVM</a> (with <a href="https://www.graalvm.org/docs/reference-manual/polyglot/">Polyglot language interoperability</a> support).
 </p>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
@@ -311,9 +321,9 @@ Components currently available are:
 <tr><th>ID</th><th>Version(s)</th><th>Platform(s)</th></tr>
 <tr><td><code>llvm_toolchain</code></td><td>19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
 <tr><td><code>native_image</code></td><td>19.0, 19.1, 19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
-<tr><td><code>python</code></td><td>19.0, 19.1, 19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
-<tr><td><code>r</code></td><td>19.0, 19.1, 19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
-<tr><td><code>ruby</code></td><td>19.0, 19.1, 19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
+<tr><td><a href="https://github.com/graalvm/graalpython"><code>python</code></a></td><td>19.0, 19.1, 19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
+<tr><td><a href="https://github.com/oracle/fastr"><code>r</code></a></td><td>19.0, 19.1, 19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
+<tr><td><a href="https://github.com/oracle/truffleruby"><code>ruby</code></a</td><td>19.0, 19.1, 19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
 </table>
 
 ***
