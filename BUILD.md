@@ -111,6 +111,17 @@ We distinguish different sets of batch commands:
         dist        generate the GraalSqueak component
         help        display this help message</pre>
 
+## Pull requests
+
+In this section we resume the pull requests we submitted due to issues with the generation and the execution of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) installable component.
+
+<table>
+<tr><th><a href="https://github.com/hpi-swa/graalsqueak/pulls?q=is%3Apr+author%3Amichelou">Pull request</a></th><th>Request status</th><th>Context</th></tr>
+<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/73">#73</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/803791f72e512cd09d7b2770498d27942aa87919">merged</a></td><td><b><code>build compile</code></b></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/75">#75</a></td><td>open</td><td>component (<b><code>symlinks</code></b> file)</td></tr>
+<!-- <tr><td></td><td></td><td></td></tr> -->
+</table>
+
 ## Usage examples
 
 #### `setenv.bat`
