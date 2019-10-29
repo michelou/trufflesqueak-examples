@@ -177,7 +177,7 @@ Command [**`gu.bat -v install python`**](bin/gu.bat) adds the [GraalPython](http
 
 > **:mag_right:** With option **`-v`** we recognize from the above output that **`%TEMP%\graal-updater\`** is the working directory of **`gu.bat`**:
 > <pre style="font-size:80%;">
-> dir /a-d %TEMP%\graal-updater | findstr /r /c:"^[^ ]"
+> <b>&gt; dir /a-d %TEMP%\graal-updater | findstr /r /c:"^[^ ]"</b>
 > 23.10.2019  14:51           133 318 graal-updater-component-catalog.properties
 > 23.10.2019  09:43        65 156 656 python-installable-svm-linux-amd64-19.2.1.jar
 > </pre>

@@ -228,10 +228,10 @@ META-INF/symlinks
 META-INF/permissions
 </pre>
 
-> **:mag_right:** Version [1.0.0-rc4](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc4) of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component does include file **`bin/graalsqueak.cmd`** (see PR [73](https://github.com/hpi-swa/graalsqueak/pull/73)).
+> **:mag_right:** Version [1.0.0-rc5](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc5) of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component does include file **`bin/graalsqueak.cmd`** (see PR [73](https://github.com/hpi-swa/graalsqueak/pull/73)).
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; jar tf graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar | findstr /v /e "\/"</b>
+> <b>&gt; jar tf graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar | findstr /v /e "\/"</b>
 > META-INF/MANIFEST.MF
 > jre/languages/smalltalk/bin/graalsqueak
 > jre/languages/smalltalk/bin/graalsqueak.cmd
@@ -275,7 +275,7 @@ In this section we list some issues encountered in this project:
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar</a>  <i>(  5 MB)</i>
+<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</a>  <i>(  5 MB)</i>
 <a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.2.1.zip</a>                     <i>(171 MB)</i>
 <a href="https://www.python.org/downloads/release/python-2717/">python-2.7.17.amd64.msi</a>                                 <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>          <i>( 30 MB)</i>
