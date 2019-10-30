@@ -122,8 +122,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_232, python 2.7.17, pylint 2.7.17,
-   mx 5.241.0, link 10.00.40219.01, git 2.23.0.windows.1
+   javac 1.8.0_232, python 2.7.17, pylint 1.9.2
+   mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
 
 <b>&gt; where jar link</b>
 C:\opt\graalvm-ce-19.2.1\bin\jar.exe
@@ -135,8 +135,8 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_232, python 2.7.17, pylint 2.7.17,
-   mx 5.241.0, link 10.00.40219.01, git 2.23.0.windows.1
+   javac 1.8.0_232, python 2.7.17, pylint 1.9.2
+   mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
@@ -157,32 +157,11 @@ Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](https://www.graalvm
 <li>from a remote component archive <i>(option </i><b><code>-u</code></b><i>)</i></li>
 </ul>
 
-*Installation from a **catalog***
+We present here the installation from a *local* [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive; further usage examples are available in document [GU.md](GU.md). Let's download [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive from the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) repository:
 
-Command [**`gu.bat -v install python`**](bin/gu.bat) adds the [GraalPython](https://github.com/graalvm/graalpython) component to our [GraalVM](https://www.graalvm.org/) environment:
-
-   <pre style="font-size:80%;">
-   <b>&gt; gu install -v python</b>
-   Downloading: Component catalog graal-updater-component-catalog.properties
-   Processing component archive: Component python
-   Downloading: Component python-installable-svm-linux-amd64-19.2.1.jar
-   Install remote component python-installable-svm-linux-amd64-19.2.1.jar
-   Extract GraalVM component into directory %TEMP%\graal-updater\tmp
-   Create file %TEMP%\graal-updater\tmp\bin\graalpython.cmd
-   Create file %TEMP%\graal-updater\tmp\jre\bin\graalpython.cmd
-   Component ready to be installed in c:\opt\graalvm-ce-19.2.1
-   Do you really want to add the component into directory c:\opt\graalvm-ce-19.2.1? y
-   Install GraalVM component into directory c:\opt\graalvm-ce-19.2.1
-   </pre>
-
-> **:mag_right:** With option **`-v`** we recognize from the above output that **`%TEMP%\graal-updater\`** is the working directory of **`gu.bat`**:
-> <pre style="font-size:80%;">
-> <b>&gt; dir /a-d %TEMP%\graal-updater | findstr /r /c:"^[^ ]"</b>
-> 23.10.2019  14:51           133 318 graal-updater-component-catalog.properties
-> 23.10.2019  09:43        65 156 656 python-installable-svm-linux-amd64-19.2.1.jar
-> </pre>
-
-*Installation from a **local** component archive*
+<pre style="font-size:80%;">
+<b>&gt; curl -sL -o graalsqueak-component.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
+</pre>
 
 Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
 
@@ -190,30 +169,12 @@ Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the
 <b>&gt; echo %GRAAL_HOME%</b>
 C:\opt\graalvm-ce-19.2.1
 &nbsp;
-<b>&gt; curl -sL -o graalsqueak-component.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
-&nbsp;
 <b>&gt; gu install -L graalsqueak-component.jar</b>
 Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
 Component ready for installation into directory C:\opt\graalvm-ce-19.2.1
 Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1? y
-Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
-</pre>
-
-*Installation from a **remote** component archive*
-
-Command [**`gu.bat install -uv https://../graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar`**](bin/gu.bat) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
-
-<pre style="font-size:80%;">
-<b>&gt; gu install -uv https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar
-Download component https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
-Install remote component graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar
-Extract GraalVM component into directory %TEMP%\graal-updater\tmp
-Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
-Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
-Component ready to be installed in C:\opt\graalvm-ce-19.2.1
-Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1? y
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
 
@@ -233,7 +194,7 @@ c:\opt\graalvm-ce-19.2.1\jre\languages\smalltalk\bin\graalsqueak.cmd
 c:\opt\graalvm-ce-19.2.1\jre\lib\graalvm\graalsqueak-launcher.jar
 </pre>
 
-> **:mag_right:** In the above output command files **`bin\graalsqueak.cmd`** and **`jre\bin\graalsqueak.cmd`** simply forward the call to command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`**. On Unix systems two symbolic links are created instead.
+> **:mag_right:** In the above output both command files **`bin\graalsqueak.cmd`** and **`jre\bin\graalsqueak.cmd`** simply forward the call to command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`** (on Unix systems two symbolic links are created instead).
 > <pre style="font-size:80%;">
 > <b>&gt; type c:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd</b>
 > @echo off
