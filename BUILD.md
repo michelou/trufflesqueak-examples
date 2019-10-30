@@ -42,8 +42,6 @@ C:\Program Files (x86)\Microsoft Visual Studio 10.0\  <i>(555 MB)</i>
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
-
 ## <span id="structure">Directory structure</span>
 
 This project is organized as follows:
@@ -223,12 +221,14 @@ jre/languages/smalltalk/bin/graalsqueak
 jre/languages/smalltalk/bin/graalsqueak.cmd
 jre/languages/smalltalk/graalsqueak-shared.jar
 jre/languages/smalltalk/graalsqueak.jar
+jre/languages/smalltalk/release
 jre/lib/graalvm/graalsqueak-launcher.jar
+LICENSE_GRAALSQUEAK.txt
 META-INF/symlinks
 META-INF/permissions
 </pre>
 
-> **:mag_right:** Version [1.0.0-rc5](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc5) of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component does include file **`bin/graalsqueak.cmd`** (see PR [73](https://github.com/hpi-swa/graalsqueak/pull/73)).
+> **:mag_right:** Version [1.0.0-rc5](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc5) of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component does include file **`bin/graalsqueak.cmd`** (see PR [#73](https://github.com/hpi-swa/graalsqueak/pull/73)).
 > 
 > <pre style="font-size:80%;">
 > <b>&gt; jar tf graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar | findstr /v /e "\/"</b>
@@ -242,7 +242,7 @@ META-INF/permissions
 > META-INF/permissions
 > </pre>
 
-We present the installation of the generated component archive in document [README.md](README.md).
+We present the installation of the generated [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive in document [README.md](README.md).
 
 ## Troubleshooting
 
@@ -284,7 +284,7 @@ In our case we downloaded the following installation files (see <a href="#sectio
 <a name="footnote_02">[2]</a> ***Github submodule*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Defining <b><code>graalsqueak</code></b> as a Github submodule allows us to make changes to this project independently from our fork of the <a href="https://github.com/hpi-swa/graalsqueak"><b><code>hpi-swa/graalsqueak</code></b></a> repository.
+Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submodule</a> allows us to make changes to this project independently from our fork of the <a href="https://github.com/hpi-swa/graalsqueak"><b><code>hpi-swa/graalsqueak</code></b></a> repository.
 </p>
 
 ***

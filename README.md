@@ -37,8 +37,6 @@ C:\opt\Squeak-5.2\                                    <i>(116 MB)</i>
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
-
 ## <span id="structure">Directory structure</span>
 
 This project is organized as follows:
@@ -88,9 +86,7 @@ We distinguish different sets of batch commands:
         help        display this help message
     </pre>
 
-2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features several commands to manage the [GraalVM](https://www.graalvm.org/) environment.
-
-   > **:mag_right:** This *temporary* solution is a stripped down version of the official [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
+2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features commands to manage the [GraalVM](https://www.graalvm.org/) environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
 
    We use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component (or any installable component such as [FastR](https://github.com/oracle/fastr), [GraalPython](https://github.com/graalvm/graalpython) or [TruffleRuby](https://github.com/oracle/truffleruby)) to our [GraalVM](https://www.graalvm.org/) environment. More details on the usage of this command are available in document [GU.md](GU.md).
 
@@ -157,7 +153,9 @@ Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](https://www.graalvm
 <li>from a remote component archive <i>(option </i><b><code>-u</code></b><i>)</i></li>
 </ul>
 
-We present here the installation from a *local* [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive; further usage examples are available in document [GU.md](GU.md). Let's download [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive from the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) repository:
+We present here the installation from a *local* [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive; further usage examples are available in document [GU.md](GU.md).
+
+Let's first download [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive from the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) repository:
 
 <pre style="font-size:80%;">
 <b>&gt; curl -sL -o graalsqueak-component.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
@@ -273,7 +271,7 @@ Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the 
 <b>&gt; c:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd GraalSqueak-1.0.0-rc5.image</b>
 </pre>
 
-> **:mag_right:** The contents of downloaded archive <b><code>GraalSqueakImage.zip</code></b> looks as follows:
+> **:mag_right:** The contents of downloaded archive file <b><code>GraalSqueakImage.zip</code></b> looks as follows:
 > <pre style="font-size:80%;">
 > <b>&gt; unzip -l GraalSqueakImage.zip</b>
 > Archive:  GraalSqueakImage.zip
