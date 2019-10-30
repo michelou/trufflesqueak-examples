@@ -159,6 +159,12 @@ Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
 Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
 </pre>
 
+<!--
+#### `gu.bat info`
+
+Command [**`gu.bat info`**](bin/gu.bat) prints component information (from file, URL or catalog).
+-->
+
 #### `gu.bat install`
 
 Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](https://www.graalvm.org/) installable components in three different ways, namely:
@@ -172,19 +178,19 @@ Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](https://www.graalvm
 
 Command [**`gu.bat -v install python`**](bin/gu.bat) adds the [GraalPython](https://github.com/graalvm/graalpython) component to our [GraalVM](https://www.graalvm.org/) environment:
 
-   <pre style="font-size:80%;">
-   <b>&gt; gu install -v python</b>
-   Downloading: Component catalog graal-updater-component-catalog.properties
-   Processing component archive: Component python
-   Downloading: Component python-installable-svm-linux-amd64-19.2.1.jar
-   Install remote component python-installable-svm-linux-amd64-19.2.1.jar
-   Extract GraalVM component into directory %TEMP%\graal-updater\tmp
-   Create file %TEMP%\graal-updater\tmp\bin\graalpython.cmd
-   Create file %TEMP%\graal-updater\tmp\jre\bin\graalpython.cmd
-   Component ready to be installed in c:\opt\graalvm-ce-19.2.1
-   Do you really want to add the component into directory c:\opt\graalvm-ce-19.2.1? y
-   Install GraalVM component into directory c:\opt\graalvm-ce-19.2.1
-   </pre>
+<pre style="font-size:80%;">
+<b>&gt; gu install -v python</b>
+Downloading: Component catalog graal-updater-component-catalog.properties
+Processing component archive: Component python
+Downloading: Component python-installable-svm-linux-amd64-19.2.1.jar
+Install remote component python-installable-svm-linux-amd64-19.2.1.jar
+Extract GraalVM component into directory %TEMP%\graal-updater\tmp
+Create file %TEMP%\graal-updater\tmp\bin\graalpython.cmd
+Create file %TEMP%\graal-updater\tmp\jre\bin\graalpython.cmd
+Component ready to be installed in c:\opt\graalvm-ce-19.2.1
+Do you really want to add the component into directory c:\opt\graalvm-ce-19.2.1? y
+Install GraalVM component into directory c:\opt\graalvm-ce-19.2.1
+</pre>
 
 > **:mag_right:** In the above output path **`%TEMP%\graal-updater`** is the working directory used by command **`gu.bat`**:
 > <pre style="font-size:80%;">
@@ -201,7 +207,7 @@ Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the
 <b>&gt; echo %GRAAL_HOME%</b>
 C:\opt\graalvm-ce-19.2.1
 &nbsp;
-<b>&gt; curl -sL -o graalsqueak-component.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc4/graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar</b>
+<b>&gt; curl -sL -o graalsqueak-component.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
 &nbsp;
 <b>&gt; gu install -L graalsqueak-component.jar</b>
 Extract GraalVM component into directory %TEMP%\graal-updater\tmp
@@ -214,12 +220,12 @@ Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 
 *Installation from a **remote** component archive*
 
-Command [**`gu.bat install -uv https://../graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar`**](bin/gu.bat) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
+Command [**`gu.bat install -uv https://../graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar`**](bin/gu.bat) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
 
 <pre style="font-size:80%;">
-<b>&gt; gu install -uv https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc4/graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar
-Download component https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc4/graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar</b>
-Install remote component graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar
+<b>&gt; gu install -uv https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar
+Download component https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
+Install remote component graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar
 Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
@@ -259,21 +265,36 @@ component graalsqueak
    GRAALVM_VERSION=19.2.1
 </pre>
 
-Command [**`gu.bat list -c`**](bin/gu.bat) displays components available from the GraalVM Catalog <sup id="anchor_04b"><a href="#footnote_04">[4]</a></sup> which fit in our environment (equivalent to [**`gu.bat available`**](#gu_available)). For instance, we would get the following output with a GraalVM 19.2.1 installation on a Unix machine:
+Command [**`gu.bat list -c`**](bin/gu.bat) is equivalent to [**`gu.bat available`**](#gu_available); it displays components available from the GraalVM Catalog <sup id="anchor_04b"><a href="#footnote_04">[4]</a></sup> which fit in our environment.
+
+#### <span id="gu_rebuild">`gu.bat rebuild-images`</span>
+
+We have no further plans to implement command [**`gu.bat rebuild-images`**](bin/gu.bat).
 
 <pre style="font-size:80%;">
-<b>&gt; grep "^(OS|GRAAL)" $GRAAL_HOME\release</b>
-OS_NAME=linux
-OS_ARCH=amd64
-GRAAL_VERSION=19.2.1
-&nbsp;
-<b>&gt; gu list -c</b>
-Downloading: Component catalog
-Component.19.2.1_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
-Component.19.2.1_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
-Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
-Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
-Component.19.2.1_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
+<b>&gt; gu rebuild-images</b>
+Command rebuild-images not yet implemented
+(current GraalVM version: 19.2.1)
+</pre>
+
+#### <span id="gu_remove">`gu.bat remove`</span>
+
+We have no further plans to implement command [**`gu.bat remove`**](bin/gu.bat).
+
+<pre style="font-size:80%;">
+<b>&gt; gu remove</b>
+Command remove not yet implemented
+(current GraalVM version: 19.2.1)
+</pre>
+
+#### <span id="gu_update">`gu.bat update`</span>
+
+We have no further plans to implement command [**`gu.bat update`**](bin/gu.bat).
+
+<pre style="font-size:80%;">
+<b>&gt; gu update</b>
+Command update not yet implemented
+(current GraalVM version: 19.2.1)
 </pre>
 
 
@@ -285,7 +306,7 @@ Component.19.2.1_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc4-for-GraalVM-19.2.1.jar</a>  <i>(  5 MB)</i>
+<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</a>  <i>(  5 MB)</i>
 <a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.2.1.zip</a>                     <i>(171 MB)</i>
 </pre>
 

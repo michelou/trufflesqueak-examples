@@ -328,12 +328,20 @@ if %_HELP%==1 ( call :info_help
 ) else if %__LOCAL%==1 (
     echo Command not yet implemented
 ) else (
-    set "__NAME=%_PARAMS%"
     call :catalog_file
     if not !_EXITCODE!==0 goto :eof
 
+    set __NAME_PREFIX=org\.graalvm\.
+    if not defined _PARAMS ( set "__NAMES=!__NAME_PREFIX!.*"
+    ) else (
+        set __NAMES=
+        for %%i in (%_PARAMS%) do (
+            set "__NAMES=!__NAMES! !__NAME_PREFIX!%%i"
+        )
+    )
     set __N=0
-    for /f "delims=" %%i in ('type "!_CATALOG_FILE!" ^| findstr "%__NAME%"') do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% type "!_CATALOG_FILE!" ^| findstr "!__NAMES!" 1>&2
+    for /f "delims=" %%i in ('type "!_CATALOG_FILE!" ^| findstr "!__NAMES!"') do (
         echo %%i
         set /a __N+=1
     )
@@ -515,6 +523,19 @@ for /f %%f in ('where /r "%GRAAL_HOME%\jre\languages" release') do (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %__N% component^(s^) found in %GRAAL_HOME% 1>&2
 ) else if %_VERBOSE%==1 ( echo %__N% component^(s^) found in %GRAAL_HOME% 1>&2
 )
+goto :eof
+
+:rebuild
+if %_HELP%==1 ( call :rebuild_help
+) else (
+    echo Command rebuild-images not yet implemented
+    echo ^(current GraalVM version: %_GRAALVM_VERSION%^)
+)
+goto :eof
+
+:rebuild_help
+echo Usage: gu rebuild-images
+echo   Options:
 goto :eof
 
 rem gu remove [-0fxv] <id>
