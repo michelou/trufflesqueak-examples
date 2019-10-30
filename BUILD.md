@@ -133,7 +133,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_232, python 2.7.17, pylint 2.7.17,
+   javac 1.8.0_232, python 2.7.17, pylint 1.9.2,
    mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
 
 <b>&gt; where python mx</b>
@@ -146,7 +146,7 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_232, python 2.7.17, pylint 2.7.17,
+   javac 1.8.0_232, python 2.7.17, pylint 1.9.2,
    mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe

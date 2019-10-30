@@ -88,11 +88,11 @@ We distinguish different sets of batch commands:
         help        display this help message
     </pre>
 
-2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features several commands to manage a [GraalVM](https://www.graalvm.org/) installation directory.
+2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features several commands to manage the [GraalVM](https://www.graalvm.org/) environment.
 
    > **:mag_right:** This *temporary* solution is a stripped down version of the official [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
 
-   We use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component (or any component such as [GraalPython](https://github.com/graalvm/graalpython) or [FastR](https://github.com/oracle/fastr)) to our [GraalVM](https://www.graalvm.org/) installation directory. More details on the usage of this command are available in document [GU.md](GU.md).
+   We use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component (or any installable component such as [FastR](https://github.com/oracle/fastr), [GraalPython](https://github.com/graalvm/graalpython) or [TruffleRuby](https://github.com/oracle/truffleruby)) to our [GraalVM](https://www.graalvm.org/) environment. More details on the usage of this command are available in document [GU.md](GU.md).
 
     Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for command **`install`** (and so on for the other **`gu`** commands).
 
@@ -111,7 +111,7 @@ We distinguish different sets of batch commands:
         -u, --url         treat parameters as URLs
         -v, --verbose     enable verbose output</pre>
 
-In the next section we present usage examples of the above batch files.
+In the next section we present usage examples of the batch files present in this project.
 
 ## Usage examples
 

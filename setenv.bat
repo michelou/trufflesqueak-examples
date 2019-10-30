@@ -332,7 +332,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q pylint.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('pylint.exe --version 2^>^NUL') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% pylint %%j,"
+    for /f "tokens=1,*" %%i in ('pylint.exe --version 2^>^NUL ^| findstr pylint') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% pylint %%j"
     set __WHERE_ARGS=%__WHERE_ARGS% pylint.exe
 )
 where /q mx.cmd
