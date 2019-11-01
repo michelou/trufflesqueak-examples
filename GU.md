@@ -1,4 +1,4 @@
-# <span id="top">GraalVM Updater on Microsoft Windows</span>
+# <span id="top">GraalVM Updater on Microsoft Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -71,8 +71,10 @@ We wrote batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Ora
 
 In short [**`gu.bat`**](bin/gu.bat):
 - implements a *subset* of the commands featured by Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/).
-- relies *only* on variable **`GRAAL_HOME`** (location of the [GraalVM](https://www.graalvm.org/) installation directory).
-- contains ~660 lines of batch code including a few lines of PowerShell code.
+- works properly given *one* the following two requirements is met:
+    - the environment variable **`GRAAL_HOME`**  is defined or
+    - **`gu.bat`** is located in directory **`<graalvm-dir>\bin\`**.
+- contains ~660 lines of batch code including a few lines of [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/) code.
 
 Command **`gu -h`** (or **`gu --help`**) prints the following help message:
 <pre style="font-size:80%;">

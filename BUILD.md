@@ -1,4 +1,4 @@
-# <span id="top">Building GraalSqueak on Microsoft Windows</span>
+# <span id="top">Building GraalSqueak on Microsoft Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -120,7 +120,8 @@ In this section we resume the pull requests we submitted due to issues with the 
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/81">#81</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/3e6ca64ed18f5af027cd21f6ec194be68e3d5c09">merged</a></td><td>Component</td><td><code>LICENSE-GRAALSQUEAK.txt</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/82">#82</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/2c344be64eb12a5540f9d784b307148729b1e2d2">merged</a></td><td>Component</td><td><code>release</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/83">#83</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/df7d5cee6d36726f808007a28c9b91571f3295e9">merged</a></td><td><code>build compile</code></td><td><code>template.graalsqueak.cmd</code></td></tr>
-<!-- <tr><td></td><td></td><td></td><td></td></tr> -->
+<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/84">#84</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/1288f2e8b73af6357e537be19b31df3ec2c75fc3">merged</a></td><td><code>build compile</code></td><td><code>make_component.bat</code></td></tr>
+<!--  -->
 </table>
 
 ## Usage examples
@@ -200,7 +201,7 @@ The generated archive files are either Zip archives or Java archives (**`.zip`**
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
 K:\graalsqueak
-<b>&gt; dir /o *.zip *.jar | findstr /e "jar zip"</b>
+<b>&gt; dir /o | findstr /e "jar zip"</b>
 14.10.2019  20:26        12 778 268 graalsqueak.jar
 14.10.2019  20:26         7 043 905 graalsqueak.src.zip
 14.10.2019  20:26             9 004 graalsqueak.tck.src.zip
@@ -247,7 +248,7 @@ We present the installation of the generated [GraalSqueak](https://github.com/hp
 
 ## Troubleshooting
 
-In this section we list some issues encountered in this project:
+In this section we list some issues we encountered in this project:
 
 -  Command **`build dist`** generates the error message **`FAILED: trufflenfi.dll`**:
    <pre style="font-size:80%;">

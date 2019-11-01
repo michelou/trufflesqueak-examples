@@ -71,18 +71,24 @@ set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
-if not defined GRAAL_HOME (
+if defined GRAAL_HOME (
+    set _GRAAL_HOME=%GRAAL_HOME%
+) else (
+    rem check if batch is located in a GraalVM installation directory
+    for %%f in ("%~dp0..") do set _GRAAL_HOME=%%~sf
+)
+if not defined _GRAAL_HOME (
     echo %_ERROR_LABEL% Environment variable GRAAL_HOME is undefined 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_JAR_CMD=%GRAAL_HOME%\bin\jar.exe"
+set "_JAR_CMD=%_GRAAL_HOME%\bin\jar.exe"
 if not exist "%_JAR_CMD%" (
     echo %_ERROR_LABEL% Executable jar.exe not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if not exist "%GRAAL_HOME%\release" (
+if not exist "%_GRAAL_HOME%\release" (
     echo %_ERROR_LABEL% GraalVM installation directory is invalid 1>&2
     set _EXITCODE=1
     goto :eof
@@ -92,7 +98,7 @@ set _CATALOG_URL=
 set _GRAALVM_VERSION=
 set _OS_ARCH=
 set _OS_NAME=
-for /f "delims=^= tokens=1,*" %%f in (%GRAAL_HOME%\release) do (
+for /f "delims=^= tokens=1,*" %%f in (%_GRAAL_HOME%\release) do (
     if /i "%%f"=="component_catalog" ( SET "_CATALOG_URL=%%g"
     ) else if /i "%%f"=="GRAALVM_VERSION" ( set "_GRAALVM_VERSION=%%g"
     ) else if /i "%%f"=="OS_ARCH" ( set "_OS_ARCH=%%g"
@@ -486,7 +492,7 @@ if exist "%__TMP_FILE%" del "%__TMP_FILE%"
 if exist "%__VERBOSE_FILE%" del "%__VERBOSE_FILE%"
 
 set __N=0
-for /f %%f in ('where /r "%GRAAL_HOME%\jre\languages" release') do (
+for /f %%f in ('where /r "%_GRAAL_HOME%\jre\languages" release') do (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% %%f 1>&2
     set __COMPONENT_ID=
     set __COMMITTER=
@@ -524,8 +530,8 @@ for /f %%f in ('where /r "%GRAAL_HOME%\jre\languages" release') do (
         del /q "%__VERBOSE_FILE%"
     )
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %__N% component^(s^) found in %GRAAL_HOME% 1>&2
-) else if %_VERBOSE%==1 ( echo %__N% component^(s^) found in %GRAAL_HOME% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %__N% component^(s^) found in %_GRAAL_HOME% 1>&2
+) else if %_VERBOSE%==1 ( echo %__N% component^(s^) found in %_GRAAL_HOME% 1>&2
 )
 goto :eof
 
@@ -649,18 +655,18 @@ for /f "delims=^= tokens=1,*" %%i in (%__SYMLINKS_FILE%) do (
 )
 if exist "%__TMP_DIR%\META-INF\" rmdir /s /q "%__TMP_DIR%\META-INF\" 
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Component ready to be installed in %GRAAL_HOME% 1>&2
-) else if %_VERBOSE%==1 ( echo Component ready to be installed in %GRAAL_HOME% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Component ready to be installed in %_GRAAL_HOME% 1>&2
+) else if %_VERBOSE%==1 ( echo Component ready to be installed in %_GRAAL_HOME% 1>&2
 )
-set /p "__CONFIRM=Do you really want to add the component into directory %GRAAL_HOME%? "
+set /p "__CONFIRM=Do you really want to add the component into directory %_GRAAL_HOME%? "
 if /i not "%__CONFIRM%"=="y" goto :eof
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%__TMP_DIR%\*" "%GRAAL_HOME%\" 1^>NUL 1>&2
-) else if %_VERBOSE%==1 ( echo Install GraalVM component into directory %GRAAL_HOME% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%__TMP_DIR%\*" "%_GRAAL_HOME%\" 1^>NUL 1>&2
+) else if %_VERBOSE%==1 ( echo Install GraalVM component into directory %_GRAAL_HOME% 1>&2
 )
-xcopy /s /y "%__TMP_DIR%\*" "%GRAAL_HOME%\" 1>NUL
+xcopy /s /y "%__TMP_DIR%\*" "%_GRAAL_HOME%\" 1>NUL
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to add component to directory %GRAAL_HOME% 1>&2
+    echo %_ERROR_LABEL% Failed to add component to directory %_GRAAL_HOME% 1>&2
     set _EXITCODE=1
     goto install_done
 )
