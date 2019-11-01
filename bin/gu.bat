@@ -241,25 +241,25 @@ goto :eof
 :help
 echo Usage: %_BASENAME% command { options }
 echo   Commands:
-echo     available [-lv] ^<expr^>          list components in the component catalog
-echo     info [-cL] ^<param^>              print component information ^(from file, URL or catalog^)
-echo     install [-0cDhfiLnoruv] ^<param^> install specified component ^(ID or local archive^)
-echo     list [-clv] ^<expr^>              list installed components
-echo     rebuild-images                  rebuild native images
-echo     remove [-0fxv] ^<id^>             remove component ^(ID^)
-echo     update [-x][^<ver^>][^<param^>]     upgrade to the recent GraalVM version
+echo     available [-lv] ^<expr^>           list components in the component catalog
+echo     info [-cL] ^<param^>               print component information ^(from file, URL or catalog^)
+echo     install [-0cDhfiLnoruv] ^<params^> install specified components ^(from file, URL or catalog^)
+echo     list [-clv] ^<expr^>               list installed components
+echo     rebuild-images                   rebuild native images
+echo     remove [-0fxv] ^<id^>              remove component ^(ID^)
+echo     update [-x][^<ver^>][^<param^>]      upgrade to the recent GraalVM version
 echo   Options:
-echo     -A, --auto-yes                  say YES or ACCEPT to a question
-echo     -c, --catalog                   treat parameters as component IDs from catalog. This is the default.
-echo     -d, --debug                     show commands executed by this scriptD
-echo     -f, --force                     disable ^(un-^)installation checks
-echo     -h, --help                      print this help message or a command specific help message
-echo     -L, --local-file                treat parameters as local filenames
-echo     -o, --overwrite                 silently overwrite already existing component
-echo     -n, --no-progress               do not display download progress
-echo     -r, --replace                   ???replace component if already installed???
-echo     -u, --url                       treat parameters as URLs
-echo     -v, --verbose                   display progress messages
+echo     -A, --auto-yes                   say YES or ACCEPT to a question
+echo     -c, --catalog                    treat parameters as component IDs from catalog. This is the default.
+echo     -d, --debug                      show commands executed by this scriptD
+echo     -f, --force                      disable ^(un-^)installation checks
+echo     -h, --help                       print this help message or a command specific help message
+echo     -L, --local-file                 treat parameters as local filenames
+echo     -o, --overwrite                  silently overwrite already existing component
+echo     -n, --no-progress                do not display download progress
+echo     -r, --replace                    ???replace component if already installed???
+echo     -u, --url                        treat parameters as URLs
+echo     -v, --verbose                    display progress messages
 goto :eof
 
 rem output parameter(s): _CATALOG_FILE
@@ -326,14 +326,22 @@ rem gu info [-clLprstuv] <param>
 set __CATALOG=0
 set __LOCAL=0
 set __URL=0
+set __ILLEGAL=0
 if defined _OPTIONS (
     if not "!_OPTIONS:c=!"=="!_OPTIONS!" set __CATALOG=1
     if not "!_OPTIONS:L=!"=="!_OPTIONS!" set __LOCAL=1
     if not "!_OPTIONS:u=!"=="!_OPTIONS!" set __URL=1
+    set /a __ILLEGAL=__CATALOG*__LOCAL + __CATALOG*__URL + __LOCAL*__URL
 )
 if %_HELP%==1 ( call :info_help
+) else if not %__ILLEGAL%==0 (
+    echo %_ERROR_LABEL% --catalog, --local-file and --url options are mutual exclusive 1>&2
+    set _EXITCODE=1
+    goto :eof
 ) else if %__LOCAL%==1 (
-    echo Command not yet implemented
+    call :info_local
+) else if %__URL%==1 (
+    call :info_url
 ) else (
     call :catalog_file
     if not !_EXITCODE!==0 goto :eof
@@ -356,12 +364,83 @@ if %_HELP%==1 ( call :info_help
 goto :eof
 
 :info_help
-echo Usage: gu info [-clLprstuv] ^<param^>
+echo Usage: gu info [-clLprstuv] [^<params^>]
 echo Print component information ^(from file, URL or catalog^).
 echo   Options:
 echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
 echo     -L, --local-file  treat parameters as local filenames of packaged components
+echo     -u, --url         treat parameters as URLs
 echo     -v, --verbose     enable verbose output
+goto :eof
+
+:info_local
+set __DIR_LIST=
+if not defined _PARAMS (
+    for /f %%d in ('dir /ad /b !__DIR_LIST! 2^>NUL') do (
+        set _DIR_LIST=!__DIR_LIST! "%_GRAAL_HOME%\jre\languages\%%d"
+    )
+) else (
+    for %%i in (%_PARAMS%) do (
+        if not exist "%_GRAAL_HOME%\jre\languages\%%i\" (
+            echo %_ERROR_LABEL% No directory found for parameter %%i 1>&2
+            set _EXITCODE=1
+        ) else (
+            set __DIR_LIST=!__DIR_LIST! "%_GRAAL_HOME%\jre\languages\%%~i"
+        )
+    )
+    if not !_EXITCODE!==0 goto :eof
+)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% __DIR_LIST=!__DIR_LIST! 1>&2
+for %%d in (!__DIR_LIST!) do (
+    set "__LANGUAGE_DIR=%_WORKING_DIR%\languages\%%~nd"
+    if exist "!__LANGUAGE_DIR!" rmdir /s /q "!__LANGUAGE_DIR!"
+    mkdir "!__LANGUAGE_DIR!"
+    if exist "%_GRAAL_HOME%\jre\languages\%%~nd\release" (
+        xcopy /y "%_GRAAL_HOME%\jre\languages\%%~nd\release" "!__LANGUAGE_DIR!\" 1>NUL
+    )
+    for /f %%f in ('where /r "%_GRAAL_HOME%\jre\languages\%%~nd" *.jar 2^>NUL') do (
+        set __JAR_FILE=%%f
+        pushd "!__LANGUAGE_DIR!"
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% jar.exe xf "!__JAR_FILE!" META-INF/truffle/language 1>&2
+        ) else if %_VERBOSE%==1 ( echo Extract meta data from archive !__JAR_FILE:%_GRAAL_HOME%\=! 1>&2
+        )
+        %_JAR_CMD% xf "!__JAR_FILE!" META-INF/truffle/language
+        popd
+    )
+    set "__INFO_FILE=!__LANGUAGE_DIR!\info.txt"
+    if exist "!__INFO_FILE!" del "!__INFO_FILE!" 1>NUL
+    set __COMPONENT_ID=
+    if exist "!__LANGUAGE_DIR!\META-INF\truffle\language" (
+        for /f "delims=^= tokens=1,*" %%i in (!__LANGUAGE_DIR!\META-INF\truffle\language) do (
+           set __NAME=%%i
+           set __VALUE=%%j
+           if "!__NAME:~0,10!"=="language1." (
+                set "__NAME=!__NAME:language1.=!"
+                if "!__NAME!"=="id" ( set "__COMPONENT_ID=!__VALUE!"
+                ) else if defined __VALUE ( echo    !__NAME!=!__VALUE!>> "!__INFO_FILE!"
+                )
+           )
+        )
+    )
+    if exist "!__LANGUAGE_DIR!\release" (
+        for /f "delims=^= tokens=1,*" %%i in (!__LANGUAGE_DIR!\release) do (
+           if "%%i"=="OS_NAME" ( echo    %%i=%%j>> "!__INFO_FILE!"
+           ) else if "%%i"=="OS_ARCH" ( echo    %%i=%%j>> "!__INFO_FILE!"
+           ) else if "%%i"=="GRAALVM_VERSION" ( echo    %%i=%%j>> "!__INFO_FILE!"
+           )
+        )
+    )
+    if defined __COMPONENT_ID (
+        echo Component: !__COMPONENT_ID!
+        type "!__INFO_FILE!"
+    )
+    del "!__INFO_FILE!" 1>NUL
+)
+goto :eof
+
+:info_url
+echo Command info --url not yet implemented
+echo ^(current GraalVM version: %_GRAALVM_VERSION%^)
 goto :eof
 
 rem gu install [-0cfiLnoruv] <param>
@@ -370,13 +449,19 @@ set __CATALOG=0
 set __FORCE=0
 set __LOCAL=0
 set __URL=0
+set __ILLEGAL=0
 if defined _OPTIONS (
     if not "!_OPTIONS:c=!"=="!_OPTIONS!" set __CATALOG=1
     if not "!_OPTIONS:f=!"=="!_OPTIONS!" set __FORCE=1
     if not "!_OPTIONS:L=!"=="!_OPTIONS!" set __LOCAL=1
     if not "!_OPTIONS:u=!"=="!_OPTIONS!" set __URL=1
+    set /a __ILLEGAL=__CATALOG*__LOCAL + __CATALOG*__URL + __LOCAL*__URL
 )
 if %_HELP%==1 ( call :install_help
+) else if not %__ILLEGAL%==0 (
+    echo %_ERROR_LABEL% --catalog, --local-file and --url options are mutual exclusive 1>&2
+    set _EXITCODE=1
+    goto :eof
 ) else if %__LOCAL%==1 (
     for %%f in (%_PARAMS%) do (
         set "__COMPONENT_FILE=%%f"
@@ -418,8 +503,8 @@ if %_HELP%==1 ( call :install_help
 goto :eof
 
 :install_help
-echo Usage: gu install [-0cfiLnoruv] ^<param^>
-echo Install specified component ^(ID or local archive^).
+echo Usage: gu install [-0cfiLnoruv] ^<params^>
+echo Install specified components ^(from file, URL or catalog^).
 echo   Options:
 echo     -0                ???
 echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default

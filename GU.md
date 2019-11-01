@@ -65,7 +65,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 
 In the next section we give a brief overview of batch file **`gu.bat`**.
 
-## **`gu`** overview
+## <span id="overview">**`gu`** overview</span>
 
 We wrote batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
 
@@ -74,7 +74,7 @@ In short [**`gu.bat`**](bin/gu.bat):
 - works properly given *one* the following two requirements is met:
     - the environment variable **`GRAAL_HOME`**  is defined or
     - **`gu.bat`** is located in directory **`<graalvm-dir>\bin\`**.
-- contains ~660 lines of batch code including a few lines of [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/) code.
+- contains ~760 lines of batch code including a few lines of [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/) code.
 
 Command **`gu -h`** (or **`gu --help`**) prints the following help message:
 <pre style="font-size:80%;">
@@ -86,7 +86,7 @@ Usage: gu command { options } { params }
   Commands:
     available [-lv] &lt;expr&gt;         list components in the component catalog
     info [-cL] &lt;param&gt;             print component information (from file, URL or catalog)
-    install [-0cfiLnoruv] &lt;param&gt;  install specified component (ID or local archive)
+    install [-0cfiLnoruv] &lt;param&gt;  install specified components (from file, URL or catalog)
     list [-clv] &lt;expr&gt;             list installed components
     rebuild-images                 rebuild native images
     remove [-0fxv] &lt;id&gt;            remove component (ID)
@@ -112,7 +112,7 @@ Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install
 
 In the next section we present usage examples of commands currently implemented in [**`gu.bat`**](bin/gu.bat).
 
-## **`gu`** commands
+## <span id="commands">**`gu`** commands</span>
 
 #### <span id="gu_available">`gu.bat available`</span>
 
@@ -143,37 +143,65 @@ Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
 Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
 </pre>
 
-<!--
 #### `gu.bat info`
 
-Command [**`gu.bat info`**](bin/gu.bat) prints component information (from file, URL or catalog).
--->
+Command [**`gu.bat info`**](bin/gu.bat) prints component information from file, URL or catalog.
+
+<pre style="font-size:80%;">
+<b>&gt; gu info -h</b>
+Usage: gu info [-clLprstuv] [&lt;params&gt;]
+Print component information (from file, URL or catalog).
+  Options:
+    -c, --catalog     treat parameters as component IDs from catalog. This is the default
+    -L, --local-file  treat parameters as local filenames of packaged components
+    -u, --url         treat parameters as URLs
+    -v, --verbose     enable verbose output
+</pre>
+
+Command [**`gu.bat info -L ruby`**](bin/gu.bat) prints component information for installed component **`ruby`**:
+
+<pre style="font-size:80%;">
+<b>&gt; gu info -L ruby</b>
+Component: ruby
+   characterMimeType.0=application/x-ruby
+   className=org.truffleruby.RubyLanguage
+   defaultMimeType=application/x-ruby
+   dependentLanguage.0=llvm
+   fileTypeDetector0=org.truffleruby.RubyFileTypeDetector
+   implementationName=TruffleRuby
+   interactive=true
+   internal=false
+   name=Ruby
+   version=2.6.2
+   OS_NAME=linux
+   OS_ARCH=amd64
+   GRAALVM_VERSION=19.2.1</pre>
 
 #### `gu.bat install`
 
-Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for command **`install`** (same for the other **`gu`** commands).
-<pre style="font-size:80%;">
-<b>&gt; gu install -h</b>
-  Usage: gu install [-0cfiLnorv] &lt;param&gt;
-    Options:
-      -0                ???
-      -c, --catalog     treat parameters as component IDs from catalog (default)
-      -f, --force       disable installation checks
-      -i                ???
-      -L, --local-file  treat parameters as local filenames of packaged components
-      -n, --no-progress do not display download progress
-      -o, --overwrite   silently overwrite previously installed component
-      -r, --replace     ???
-      -u, --url         treat parameters as URLs
-      -v, --verbose     enable verbose output
-</pre>
-
-Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](https://www.graalvm.org/) installable components in three different ways, namely:
+Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](https://www.graalvm.org/) installable components from three different sources, namely:
 <ul>
 <li>from a catalog <i>(default, option </i><b><code>-c</code></b><i>)</i></li>
 <li>from a local component archive <i>(option </i><b><code>-L</code></b><i>)</i></li>
 <li>from a remote component archive <i>(option </i><b><code>-u</code></b><i>)</i></li>
 </ul>
+
+<pre style="font-size:80%;">
+<b>&gt; gu install -h</b>
+Usage: gu install [-0cfiLnorv] &lt;params&gt;
+Install specified components (from file, URL or catalog).
+  Options:
+    -0                ???
+    -c, --catalog     treat parameters as component IDs from catalog (default)
+    -f, --force       disable installation checks
+    -i                ???
+    -L, --local-file  treat parameters as local filenames of packaged components
+    -n, --no-progress do not display download progress
+    -o, --overwrite   silently overwrite previously installed component
+    -r, --replace     ???
+    -u, --url         treat parameters as URLs
+    -v, --verbose     enable verbose output
+</pre>
 
 *Installation from a **catalog***
 
