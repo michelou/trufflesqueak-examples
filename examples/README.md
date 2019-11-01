@@ -34,6 +34,15 @@ Preparing image for headless execution...
 
 We observe that the result is *not* equal to zero due to limited precision in floating-point operations. By contrast, executing `log(6) - (log(2) + log(3))` in the [ke!san Online Calculator](https://keisan.casio.com/calculator) returns `0` as an answer.
 
+<!--
+<b>&gt; graalsqueak --code "3 raisedTo: 32" images\GraalSqueak-1.0.0-rc5.image</b>
+[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.2.1 (Graal-compiled)...
+[graalsqueak] Image loaded in 3822ms.
+Preparing image for headless execution...
+[graalsqueak] Evaluating '3 raisedTo: 32'...
+[graalsqueak] Result: 1853020188851841
+-->
+
 # <b><code id="222">222</code></b>
 
 xxxx

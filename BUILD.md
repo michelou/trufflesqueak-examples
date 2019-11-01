@@ -119,7 +119,7 @@ In this section we resume the pull requests we submitted due to issues with the 
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/75">#75</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/b578f1a5332b157c0fb63072dc8909acd1503d57">merged</a></td><td>Component</td><td><code>symlinks</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/81">#81</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/3e6ca64ed18f5af027cd21f6ec194be68e3d5c09">merged</a></td><td>Component</td><td><code>LICENSE-GRAALSQUEAK.txt</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/82">#82</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/2c344be64eb12a5540f9d784b307148729b1e2d2">merged</a></td><td>Component</td><td><code>release</code></td></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/83">#83</a></td><td>open</td><td><code>build compile</code></td><td><code>template.graalsqueak.cmd</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/83">#83</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/df7d5cee6d36726f808007a28c9b91571f3295e9">merged</a></td><td><code>build compile</code></td><td><code>template.graalsqueak.cmd</code></td></tr>
 <!-- <tr><td></td><td></td><td></td><td></td></tr> -->
 </table>
 
