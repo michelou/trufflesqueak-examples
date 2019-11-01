@@ -22,11 +22,11 @@ This project depends on the following external software for the **Microsoft Wind
 - [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
 - [GraalVM Community Edition 19.2](https://github.com/oracle/graal/releases) ([*release notes*](https://www.graalvm.org/docs/release-notes/19_2/#19201))
 
-For instance our development environment looks as follows (*October 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
+For instance our development environment looks as follows (*November 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-19.2.1\                             <i>(362 MB)</i>
-C:\opt\Git-2.23.0\                                    <i>(271 MB)</i>
+C:\opt\graalvm-ce-19.2.1\   <i>(362 MB)</i>
+C:\opt\Git-2.23.0\          <i>(271 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
@@ -67,12 +67,12 @@ In the next section we give a brief overview of batch file **`gu.bat`**.
 
 ## **`gu`** overview
 
-We wrote the batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
+We wrote batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
 
 In short [**`gu.bat`**](bin/gu.bat):
-- implements a subset of the commands featured by Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/).
+- implements a *subset* of the commands featured by Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/).
 - relies *only* on variable **`GRAAL_HOME`** (location of the [GraalVM](https://www.graalvm.org/) installation directory).
-- contains ~600 lines of batch code including a few lines of PowerShell code.
+- contains ~660 lines of batch code including a few lines of PowerShell code.
 
 Command **`gu -h`** (or **`gu --help`**) prints the following help message:
 <pre style="font-size:80%;">
@@ -107,22 +107,6 @@ Usage: gu command { options } { params }
 > - [GraalVM Reference Manual](https://www.graalvm.org/docs/reference-manual/) : [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/).
 
 Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) features seven commands and supports both long and short options (*"switches"*).
-
-> **:mag_right:** Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for command **`install`** (same for the other **`gu`** commands).
-> <pre style="font-size:80%;">
-> <b>&gt; gu install -h</b>
->    Usage: gu install [-0cfiLnorv] &lt;param&gt;
->      Options:
->        -0                ???
->        -c, --catalog     treat parameters as component IDs from catalog (default)
->        -f, --force       disable installation checks
->        -i                ???
->        -L, --local-file  treat parameters as local filenames of packaged components
->        -n, --no-progress do not display download progress
->        -o, --overwrite   silently overwrite previously installed component
->        -r, --replace     ???
->        -u, --url         treat parameters as URLs
->        -v, --verbose     enable verbose output</pre>
 
 In the next section we present usage examples of commands currently implemented in [**`gu.bat`**](bin/gu.bat).
 
@@ -164,6 +148,23 @@ Command [**`gu.bat info`**](bin/gu.bat) prints component information (from file,
 -->
 
 #### `gu.bat install`
+
+Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for command **`install`** (same for the other **`gu`** commands).
+<pre style="font-size:80%;">
+<b>&gt; gu install -h</b>
+  Usage: gu install [-0cfiLnorv] &lt;param&gt;
+    Options:
+      -0                ???
+      -c, --catalog     treat parameters as component IDs from catalog (default)
+      -f, --force       disable installation checks
+      -i                ???
+      -L, --local-file  treat parameters as local filenames of packaged components
+      -n, --no-progress do not display download progress
+      -o, --overwrite   silently overwrite previously installed component
+      -r, --replace     ???
+      -u, --url         treat parameters as URLs
+      -v, --verbose     enable verbose output
+</pre>
 
 Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](https://www.graalvm.org/) installable components in three different ways, namely:
 <ul>
@@ -347,5 +348,5 @@ Components currently available are:
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/October 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

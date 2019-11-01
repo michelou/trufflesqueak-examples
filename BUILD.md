@@ -29,7 +29,7 @@ This project depends on the following external software for the **Microsoft Wind
 > **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 -->
 
-For instance our development environment looks as follows (*October 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
+For instance our development environment looks as follows (*November 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-19.2.1\                             <i>(362 MB)</i>
@@ -64,7 +64,7 @@ where
 - file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch script for <i>building</i> the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
 - directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
-- directory **`graalsqueak\`** contains our fork of the [hpi-swa/graalsqueak](https://github.com/hpi-swa/graalsqueak) repository as a Github submodule.
+- directory **`graalsqueak\`** contains our *fork* of the [hpi-swa/graalsqueak](https://github.com/hpi-swa/graalsqueak) repository as a [Github submodule](.gitmodules).
 - file [**`BUILD.md`**](README.md) is the Markdown document for this page.
 - file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/) tool.
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
@@ -133,7 +133,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
+   mx 5.244.0, link 10.00.40219.01, git 2.23.0.windows.1
 
 <b>&gt; where python mx</b>
 C:\opt\Python-2.7.17\python.exe
@@ -146,7 +146,7 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.241.2, link 10.00.40219.01, git 2.23.0.windows.1
+   mx 5.244.0, link 10.00.40219.01, git 2.23.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
@@ -173,7 +173,7 @@ Command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat) generat
 K:\graalsqueak
 &nbsp;
 <b>&gt; build -verbose clean dist</b>
-MX_VERSION: 5.241.2
+MX_VERSION: 5.244.0
 Build Java archives
 JAVA_HOME: C:\opt\graalvm-ce-19.2.1
 EXTRA_JAVA_HOMES:
@@ -290,5 +290,5 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/October 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

@@ -32,6 +32,7 @@ rem                      _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 rem                      _JAR_CMD, _GRAALVM_VERSION, _CATALOG_URL, _OS_ARCH, _OS_NAME
 :env
 set _WORKING_DIR=%TEMP%\graal-updater
+if not exist "%_WORKING_DIR%" mkdir "%_WORKING_DIR%"
 
 rem see https://stackoverflow.com/questions/11696944/powershell-v3-invoke-webrequest-https-error
 rem NB. cURL is a standard tool only from Windows 10 build 17063 and later.
@@ -257,7 +258,6 @@ goto :eof
 
 rem output parameter(s): _CATALOG_FILE
 :catalog_file
-if not exist "%_WORKING_DIR%" mkdir "%_WORKING_DIR%"
 for %%f in (%_CATALOG_URL%) do set "__CATALOG_NAME=%%~nxf"
 set "_CATALOG_FILE=%_WORKING_DIR%\!__CATALOG_NAME!"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "& '%_PS1_FILE%' -Uri '%_CATALOG_URL%' -Outfile '%_CATALOG_FILE%'" 1>&2
@@ -309,6 +309,7 @@ goto :eof
 
 :available_help
 echo Usage: gu available [-lv] ^<expr^>
+echo List components in the component catalog.
 echo   Options:
 echo     -l                ???use a long listing format???
 echo     -v, --verbose     enable verbose output
@@ -350,6 +351,7 @@ goto :eof
 
 :info_help
 echo Usage: gu info [-clLprstuv] ^<param^>
+echo Print component information ^(from file, URL or catalog^).
 echo   Options:
 echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
 echo     -L, --local-file  treat parameters as local filenames of packaged components
@@ -411,6 +413,7 @@ goto :eof
 
 :install_help
 echo Usage: gu install [-0cfiLnoruv] ^<param^>
+echo Install specified component ^(ID or local archive^).
 echo   Options:
 echo     -0                ???
 echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
@@ -469,6 +472,7 @@ goto :eof
 
 :list_help
 echo Usage: gu list [-clv] ^<param^>
+echo List installed components.
 echo   Options:
 echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
 echo     -l                ???use a long list format???
@@ -535,6 +539,7 @@ goto :eof
 
 :rebuild_help
 echo Usage: gu rebuild-images
+echo Rebuild native images.
 echo   Options:
 goto :eof
 
@@ -549,6 +554,7 @@ goto :eof
 
 :remove_help
 echo Usage: gu remove [-0fxv] ^<param^>
+echo Remove component ^(ID^).
 echo   Options:
 echo     -0                ???
 echo     -f, --force       disable uninstallation checks ^(eg. non-matching versions^)
@@ -567,6 +573,7 @@ goto :eof
 
 :update_help
 echo Usage: gu update [-x] [^<ver^>] [^<param^>]
+echo Upgrade to the recent GraalVM version.
 echo   Options:
 echo     -x                ???
 goto :eof
