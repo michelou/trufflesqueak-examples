@@ -23,7 +23,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [GraalVM Community Edition 19.2](https://github.com/oracle/graal/releases) ([*release notes*](https://www.graalvm.org/docs/release-notes/19_2/#19201))
 - [Microsoft Visual Studio 10](https://visualstudio.microsoft.com/vs/older-downloads/) ([*release notes*](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2010-version-history))
 - [Microsoft Windows SDK 7.1](https://www.microsoft.com/en-us/download/details.aspx?id=8279)
-- [Python 2.7](https://www.python.org/downloads/release/python-2717/)
+- [Python 2.7](https://www.python.org/downloads/release/python-2717/) ([*release notes*](https://www.python.org/downloads/release/python-2717/))
 
 <!--
 > **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -109,7 +109,7 @@ We distinguish different sets of batch commands:
         dist        generate the GraalSqueak component
         help        display this help message</pre>
 
-## Pull requests
+## <span id="contribs">Contributions</span>
 
 In this section we resume the pull requests we submitted due to issues with the generation and the execution of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) installable component.
 

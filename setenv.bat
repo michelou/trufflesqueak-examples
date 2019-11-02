@@ -11,16 +11,10 @@ set _BASENAME=%~n0
 
 set _EXITCODE=0
 
-rem ANSI colors in standard Windows 10 shell
-rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _DEBUG_LABEL=[46m[%_BASENAME%][0m
-set _ERROR_LABEL=[91mError[0m:
-set _WARNING_LABEL=[93mWarning[0m:
-
 for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
 
-for %%f in ("%ProgramFiles%") do set _PROGRAM_FILES=%%~sf
-for %%f in ("%ProgramFiles(x86)%") do set _PROGRAM_FILES_X86=%%~sf
+call :env
+if not %_EXITCODE%==0 goto end
 
 call :args %*
 if not %_EXITCODE%==0 goto end
@@ -58,6 +52,19 @@ goto end
 
 rem ##########################################################################
 rem ## Subroutines
+
+rem output parameter(s): _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+rem                      _PROGRAM_FILES, _PROGRAM_FILES_X86
+:env
+rem ANSI colors in standard Windows 10 shell
+rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _DEBUG_LABEL=[46m[%_BASENAME%][0m
+set _ERROR_LABEL=[91mError[0m:
+set _WARNING_LABEL=[93mWarning[0m:
+
+for %%f in ("%ProgramFiles%") do set _PROGRAM_FILES=%%~sf
+for %%f in ("%ProgramFiles(x86)%") do set _PROGRAM_FILES_X86=%%~sf
+goto :eof
 
 rem input parameter: %*
 :args
@@ -358,7 +365,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k
+   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k"
     set __WHERE_ARGS=%__WHERE_ARGS% git.exe
 )
 echo Tool versions:
