@@ -40,7 +40,7 @@ C:\Program Files (x86)\Microsoft Visual Studio 10.0\  <i>(555 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
-> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 ## <span id="structure">Directory structure</span>
 
@@ -66,6 +66,7 @@ where
 - directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
 - directory **`graalsqueak\`** contains our *fork* of the [hpi-swa/graalsqueak](https://github.com/hpi-swa/graalsqueak) repository as a [Github submodule](.gitmodules).
+- directory **`mx\`** contains [mx](https://github.com/graalvm/mx), the command-line tool used for the development of Graal projects.  
 - file [**`BUILD.md`**](README.md) is the Markdown document for this page.
 - file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/) tool.
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
@@ -231,20 +232,6 @@ META-INF/symlinks
 META-INF/permissions
 </pre>
 
-> **:mag_right:** Version [1.0.0-rc5](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc5) of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component does include file **`bin/graalsqueak.cmd`** (see PR [#73](https://github.com/hpi-swa/graalsqueak/pull/73)).
-> 
-> <pre style="font-size:80%;">
-> <b>&gt; jar tf graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar | findstr /v /e "\/"</b>
-> META-INF/MANIFEST.MF
-> jre/languages/smalltalk/bin/graalsqueak
-> jre/languages/smalltalk/bin/graalsqueak.cmd
-> jre/languages/smalltalk/graalsqueak.jar
-> jre/languages/smalltalk/graalsqueak-shared.jar
-> jre/lib/graalvm/graalsqueak-launcher.jar
-> META-INF/symlinks
-> META-INF/permissions
-> </pre>
-
 We present the installation of the generated [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive in document [README.md](README.md).
 
 ## Troubleshooting
@@ -264,7 +251,7 @@ In this section we list some issues we encountered in this project:
    Try 'link --help' for more information.
    ninja: build stopped: subcommand failed.</pre>
 
-   This issue is due to a wrong executable path for **`link.exe`** (see [issue #1554](https://github.com/oracle/graal/issues/1554) in [graal](https://github.com/oracle/graal) project):
+   The error is due to a wrong executable path for **`link.exe`** (see [issue #1554](https://github.com/oracle/graal/issues/1554) in [graal](https://github.com/oracle/graal) project):
    <pre style="font-size:80%;">
    <b>&gt; where link</b>
    C:\opt\Git-2.23.0\usr\bin\link.exe

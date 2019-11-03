@@ -35,7 +35,7 @@ C:\opt\Squeak-5.2\          <i>(116 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
-> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 ## <span id="structure">Directory structure</span>
 
@@ -133,7 +133,7 @@ Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for comm
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -h</b>
-Usage: gu install [-0cfiLnoruv] &lt;param&gt;
+Usage: gu install [-0cfiLnoruv] {&lt;param&gt;}
   Options:
     -0                ???
     -c, --catalog     treat parameters as component IDs from catalog (default)

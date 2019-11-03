@@ -30,7 +30,7 @@ C:\opt\Git-2.23.0\          <i>(271 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
-> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 ## <span id="structure">Directory structure</span>
 
@@ -65,7 +65,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 
 In the next section we give a brief overview of batch file **`gu.bat`**.
 
-## <span id="overview">**`gu`** overview</span>
+## <span id="overview">**`gu.bat`** overview</span>
 
 We wrote batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
 
@@ -82,7 +82,7 @@ Command **`gu -h`** (or **`gu --help`**) prints the following help message:
 K:\bin\gu.bat
 &nbsp;
 <b>&gt; gu -h</b>
-Usage: gu command { options } { params }
+Usage: gu command {&lt;option&gt;} {&lt;param&gt;}
   Commands:
     available [-lv] &lt;expr&gt;           list components in the component catalog
     info [-cL] &lt;param&gt;               print component information (from file, URL or catalog)
@@ -112,11 +112,11 @@ Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install
 
 In the next section we present usage examples of commands currently implemented in [**`gu.bat`**](bin/gu.bat).
 
-## <span id="commands">**`gu`** commands</span>
+## <span id="commands">**`gu.bat`** commands</span>
 
-### <span id="gu_available">`gu.bat available`</span>
+#### <span id="gu_available">`gu.bat available`</span>
 
-Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we would get the following output with a GraalVM 19.2.1 installation on a Unix machine:
+Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we get the following output with a GraalVM 19.2.1 installation on a Unix machine:
 
 <pre style="font-size:80%;">
 <b>&gt; gu available</b>
@@ -143,14 +143,14 @@ Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
 Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
 </pre>
 
-### `gu.bat info`
+#### <span id="gu_info">`gu.bat info`</span>
 
 Command [**`gu.bat info`**](bin/gu.bat) prints component information from file, URL or catalog.
 
 <pre style="font-size:80%;">
 <b>&gt; gu info -h</b>
-Usage: gu info [-clLprstuv] [&lt;params&gt;]
-Print component information (from file, URL or catalog).
+Usage: gu info [-clLprstuv] {&lt;param&gt;}
+Print component information from file, URL or catalog.
   Options:
     -c, --catalog     treat parameters as component IDs from catalog. This is the default
     -L, --local-file  treat parameters as local filenames of packaged components
@@ -158,7 +158,7 @@ Print component information (from file, URL or catalog).
     -v, --verbose     enable verbose output
 </pre>
 
-Command [**`gu.bat info -L ruby`**](bin/gu.bat) displays component information for installed component **`ruby`**:
+Command [**`gu.bat info -L ruby`**](bin/gu.bat) displays component information for the installed component **`ruby`**:
 
 <pre style="font-size:80%;">
 <b>&gt; gu info -L ruby</b>
@@ -177,7 +177,7 @@ Component: ruby
    OS_ARCH=amd64
    GRAALVM_VERSION=19.2.1</pre>
 
-### `gu.bat install`
+#### <span id="gu_install">`gu.bat install`</span>
 
 Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](https://www.graalvm.org/) installable components from three different sources, namely:
 <ul>
@@ -194,8 +194,8 @@ Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](https://www.graalv
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -h</b>
-Usage: gu install [-0cfiLnorv] &lt;params&gt;
-Install specified components (from file, URL or catalog).
+Usage: gu install [-0cfiLnorv] {&lt;param&gt;}
+Install specified components from file, URL or catalog.
   Options:
     -0                ???
     -c, --catalog     treat parameters as component IDs from catalog (default)
@@ -223,13 +223,13 @@ Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalpython.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalpython.cmd
 Component ready to be installed in c:\opt\graalvm-ce-19.2.1
-Do you really want to add the component into directory c:\opt\graalvm-ce-19.2.1? y
+Do you really want to add the component into directory c:\opt\graalvm-ce-19.2.1  (y/*)? y
 Install GraalVM component into directory c:\opt\graalvm-ce-19.2.1
 </pre>
 
 > **:mag_right:** In the above output path **`%TEMP%\graal-updater`** is the working directory used by command **`gu.bat`**:
 > <pre style="font-size:80%;">
-> dir /a-d %TEMP%\graal-updater | findstr /r /c:"^[^ ]"
+> <b>&gt; dir /a-d %TEMP%\graal-updater | findstr /r /c:"^[^ ]"</b>
 > 23.10.2019  14:51           133 318 graal-updater-component-catalog.properties
 > 23.10.2019  09:43        65 156 656 python-installable-svm-linux-amd64-19.2.1.jar
 > </pre>
@@ -249,7 +249,7 @@ Install local component graalsqueak-component.jar
 Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1 (y/*)? y
 </pre>
 
-Adding option **`-A`** removes user confirmation before proceeding with the installation:
+Adding option **`-A`** skips user confirmation before proceeding with the installation:
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -AL graalsqueak-component.jar</b>
@@ -258,7 +258,7 @@ Install local component graalsqueak-component.jar
 
 *Installation from a **remote** component archive*
 
-Command [**`gu.bat install -uv https://../graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar`**](bin/gu.bat) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
+Command [**`gu.bat install -uv`**](bin/gu.bat)` `[**`https://../graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar`**](https://github.com/hpi-swa/graalsqueak/releases/) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -uv https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar
@@ -268,11 +268,11 @@ Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
 Component ready to be installed in C:\opt\graalvm-ce-19.2.1
-Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1? y
+Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1  (y/*)? y
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
 
-### <span id="gu_list">`gu.bat list`</span>
+#### <span id="gu_list">`gu.bat list`</span>
 
 Command [**`gu.bat list`**](bin/gu.bat) prints the components installed in our [GraalVM](https://www.graalvm.org/) environment:
 
@@ -305,7 +305,7 @@ component graalsqueak
 
 Command [**`gu.bat list -c`**](bin/gu.bat) is equivalent to [**`gu.bat available`**](#gu_available); it displays components available from the GraalVM Catalog <sup id="anchor_04b"><a href="#footnote_04">[4]</a></sup> which fit in our environment.
 
-### <span id="gu_rebuild">`gu.bat rebuild-images`</span>
+#### <span id="gu_rebuild">`gu.bat rebuild-images`</span>
 
 We have no further plans to implement command [**`gu.bat rebuild-images`**](bin/gu.bat).
 
@@ -315,7 +315,7 @@ Command rebuild-images not yet implemented
 (current GraalVM version: 19.2.1)
 </pre>
 
-### <span id="gu_remove">`gu.bat remove`</span>
+#### <span id="gu_remove">`gu.bat remove`</span>
 
 We have no further plans to implement command [**`gu.bat remove`**](bin/gu.bat).
 
@@ -325,7 +325,7 @@ Command remove not yet implemented
 (current GraalVM version: 19.2.1)
 </pre>
 
-### <span id="gu_update">`gu.bat update`</span>
+#### <span id="gu_update">`gu.bat update`</span>
 
 We have no further plans to implement command [**`gu.bat update`**](bin/gu.bat).
 

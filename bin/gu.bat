@@ -27,10 +27,16 @@ goto end
 rem ##########################################################################
 rem ## Subroutines
 
-rem output parameter(s): _WORKING_DIR, _PS1_FILE, PS1_VERBOSE,
-rem                      _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                      _JAR_CMD, _GRAALVM_VERSION, _CATALOG_URL, _OS_ARCH, _OS_NAME
+rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+rem                    _WORKING_DIR, _PS1_FILE, PS1_VERBOSE,
+rem                    _JAR_CMD, _GRAALVM_VERSION, _CATALOG_URL, _OS_ARCH, _OS_NAME
 :env
+rem ANSI colors in standard Windows 10 shell
+rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _DEBUG_LABEL=[46m[%_BASENAME%][0m
+set _ERROR_LABEL=[91mError[0m:
+set _WARNING_LABEL=[93mWarning[0m:
+
 set _WORKING_DIR=%TEMP%\graal-updater
 if not exist "%_WORKING_DIR%" mkdir "%_WORKING_DIR%"
 
@@ -64,12 +70,6 @@ set _PS1_FILE=%_WORKING_DIR%\webrequest.ps1
 ) > %_PS1_FILE%
 set _PS1_VERBOSE[0]=
 set _PS1_VERBOSE[1]=-Verbose
-
-rem ANSI colors in standard Windows 10 shell
-rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _DEBUG_LABEL=[46m[%_BASENAME%][0m
-set _ERROR_LABEL=[91mError[0m:
-set _WARNING_LABEL=[93mWarning[0m:
 
 if defined GRAAL_HOME (
     set _GRAAL_HOME=%GRAAL_HOME%
@@ -150,10 +150,11 @@ if %__LONG_OPTION%==auto-yes ( set _SHORT_OPTION=-A
 )
 goto :eof
 
-rem output parameter(s): _COMMAND, _OPTIONS, _PARAMS
+rem output parameters: _COMMAND, _COMMAND_OPTS, _OPTIONS, _PARAMS
 rem see https://docs.oracle.com/en/graalvm/enterprise/19/guide/reference/graalvm-updater.html
 :args
 set _COMMAND=help
+set _COMMAND_OPTS=
 set _OPTIONS=
 set _PARAMS=
 set _PARAMS_N=0
@@ -241,11 +242,11 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% _COMMAND=%_COMMAND% _OPTIONS=%_OPTIONS% _PARA
 goto :eof
 
 :help
-echo Usage: %_BASENAME% command { options } { params }
+echo Usage: %_BASENAME% command {^<option^>} {^<param^>}
 echo   Commands:
 echo     available [-lv] ^<expr^>            list components in the component catalog
 echo     info [-cL] ^<param^>                print component information ^(from file, URL or catalog^)
-echo     install [-0AcDhfiLnoruv] ^<params^> install specified components ^(from file, URL or catalog^)
+echo     install [-0AcDhfiLnoruv] {^<param^>} install specified components ^(from file, URL or catalog^)
 echo     list [-clv] ^<expr^>                list installed components
 echo     rebuild-images                    rebuild native images
 echo     remove [-0fxv] ^<id^>               remove component ^(ID^)
@@ -263,8 +264,8 @@ echo     -r, --replace                     ???replace component if already insta
 echo     -u, --url                         treat parameters as URLs
 echo     -v, --verbose                     display progress messages
 goto :eof
-%%d
-rem output parameter(s): _CATALOG_FILE
+
+rem output parameter: _CATALOG_FILE
 :catalog_file
 for %%f in (%_CATALOG_URL%) do set "__CATALOG_NAME=%%~nxf"
 set "_CATALOG_FILE=%_WORKING_DIR%\%__CATALOG_NAME%"
@@ -304,7 +305,7 @@ if defined __EXPR (
 call :catalog_file
 if not %_EXITCODE%==0 goto :eof
 
-if %_DEBUG%==1 echo %_DEBUG_LABEL% __NAMES=%__NAMES%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% __NAMES=%__NAMES% 1>&2
 set __N=0
 for /f "delims=" %%i in ('type "!_CATALOG_FILE!" ^| findstr "%__NAMES%"') do (
     echo %%i
@@ -366,8 +367,8 @@ if %_HELP%==1 ( call :info_help
 goto :eof
 
 :info_help
-echo Usage: gu info [-clLprstuv] [^<params^>]
-echo Print component information ^(from file, URL or catalog^).
+echo Usage: gu info [-clLprstuv] {^<param^>}
+echo Print component information from file, URL or catalog.
 echo   Options:
 echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
 echo     -L, --local-file  treat parameters as local filenames of packaged components
@@ -507,8 +508,8 @@ if %_HELP%==1 ( call :install_help
 goto :eof
 
 :install_help
-echo Usage: gu install [-0cfiLnoruv] ^<params^>
-echo Install specified components ^(from file, URL or catalog^).
+echo Usage: gu install [-0cfiLnoruv] {^<param^>}
+echo Install specified components from file, URL or catalog.
 echo   Options:
 echo     -0                ???
 echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
