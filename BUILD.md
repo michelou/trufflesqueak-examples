@@ -46,6 +46,7 @@ C:\Program Files (x86)\Microsoft Visual Studio 10.0\  <i>(555 MB)</i>
 
 This project is organized as follows:
 <pre style="font-size:80%;">
+bin\gu.bat
 bin\graalsqueak\build.bat
 docs\
 examples\README.md

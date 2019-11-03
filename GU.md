@@ -1,4 +1,4 @@
-# <span id="top">GraalVM Updater on Microsoft Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">Using <code>gu.bat</code> on Microsoft Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -84,25 +84,25 @@ K:\bin\gu.bat
 <b>&gt; gu -h</b>
 Usage: gu command { options } { params }
   Commands:
-    available [-lv] &lt;expr&gt;         list components in the component catalog
-    info [-cL] &lt;param&gt;             print component information (from file, URL or catalog)
-    install [-0cfiLnoruv] &lt;param&gt;  install specified components (from file, URL or catalog)
-    list [-clv] &lt;expr&gt;             list installed components
-    rebuild-images                 rebuild native images
-    remove [-0fxv] &lt;id&gt;            remove component (ID)
-    update [-x][&lt;ver&gt;][&lt;param&gt;]    upgrade to the recent GraalVM version
+    available [-lv] &lt;expr&gt;           list components in the component catalog
+    info [-cL] &lt;param&gt;               print component information (from file, URL or catalog)
+    install [-0AcfiLnoruv] &lt;params&gt;  install specified components (from file, URL or catalog)
+    list [-clv] &lt;expr&gt;               list installed components
+    rebuild-images                   rebuild native images
+    remove [-0fxv] &lt;id&gt;              remove component (ID)
+    update [-x][&lt;ver&gt;][&lt;param&gt;]      upgrade to the recent GraalVM version
   Options:
-    -A, --auto-yes                 say YES or ACCEPT to a question
-    -c, --catalog                  treat parameters as component IDs from catalog. This is the default.
-    -d, --debug                    show commands executed by this scriptD
-    -f, --force                    disable (un-)installation checks
-    -h, --help                     print this help message or a command specific help message
-    -L, --local-file               treat parameters as local filenames
-    -n, --no-progress              do not display download progress
-    -o, --overwrite                silently overwrite already existing component
-    -r, --replace                  replace component if already installed
-    -u, --url                      treat parameters as URLs
-    -v, --verbose                  display progress messages</pre>
+    -A, --auto-yes                   say YES or ACCEPT to a question
+    -c, --catalog                    treat parameters as component IDs from catalog. This is the default.
+    -d, --debug                      show commands executed by this scriptD
+    -f, --force                      disable (un-)installation checks
+    -h, --help                       print this help message or a command specific help message
+    -L, --local-file                 treat parameters as local filenames
+    -n, --no-progress                do not display download progress
+    -o, --overwrite                  silently overwrite already existing component
+    -r, --replace                    replace component if already installed
+    -u, --url                        treat parameters as URLs
+    -v, --verbose                    display progress messages</pre>
 
 > **:mag_right:** The definition of the above commands and options is based on the following documentation:
 > - [Oracle GraalVM EE 19 Guide](https://docs.oracle.com/en/graalvm/enterprise/19/guide/) : [GraalVM Updater](https://docs.oracle.com/en/graalvm/enterprise/19/guide/reference/graalvm-updater.html).
@@ -114,7 +114,7 @@ In the next section we present usage examples of commands currently implemented 
 
 ## <span id="commands">**`gu`** commands</span>
 
-#### <span id="gu_available">`gu.bat available`</span>
+### <span id="gu_available">`gu.bat available`</span>
 
 Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we would get the following output with a GraalVM 19.2.1 installation on a Unix machine:
 
@@ -143,7 +143,7 @@ Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
 Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
 </pre>
 
-#### `gu.bat info`
+### `gu.bat info`
 
 Command [**`gu.bat info`**](bin/gu.bat) prints component information from file, URL or catalog.
 
@@ -158,7 +158,7 @@ Print component information (from file, URL or catalog).
     -v, --verbose     enable verbose output
 </pre>
 
-Command [**`gu.bat info -L ruby`**](bin/gu.bat) prints component information for installed component **`ruby`**:
+Command [**`gu.bat info -L ruby`**](bin/gu.bat) displays component information for installed component **`ruby`**:
 
 <pre style="font-size:80%;">
 <b>&gt; gu info -L ruby</b>
@@ -177,7 +177,7 @@ Component: ruby
    OS_ARCH=amd64
    GRAALVM_VERSION=19.2.1</pre>
 
-#### `gu.bat install`
+### `gu.bat install`
 
 Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](https://www.graalvm.org/) installable components from three different sources, namely:
 <ul>
@@ -185,6 +185,12 @@ Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](https://www.graalv
 <li>from a local component archive <i>(option </i><b><code>-L</code></b><i>)</i></li>
 <li>from a remote component archive <i>(option </i><b><code>-u</code></b><i>)</i></li>
 </ul>
+
+> **:mag_right:** Options **`-c`**, **`-L`** and **`-u`** are mutual exclusive:
+> <pre style="font-size:80%;">
+> <b>&gt; gu install -cL python</b>
+> Error: --catalog, --local-file and --url options are mutual exclusive
+> </pre>
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -h</b>
@@ -239,12 +245,15 @@ C:\opt\graalvm-ce-19.2.1
 <b>&gt; curl -sL -o graalsqueak-component.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
 &nbsp;
 <b>&gt; gu install -L graalsqueak-component.jar</b>
-Extract GraalVM component into directory %TEMP%\graal-updater\tmp
-Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
-Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
-Component ready for installation into directory C:\opt\graalvm-ce-19.2.1
-Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1? y
-Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
+Install local component graalsqueak-component.jar
+Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1 (y/*)? y
+</pre>
+
+Adding option **`-A`** removes user confirmation before proceeding with the installation:
+
+<pre style="font-size:80%;">
+<b>&gt; gu install -AL graalsqueak-component.jar</b>
+Install local component graalsqueak-component.jar
 </pre>
 
 *Installation from a **remote** component archive*
@@ -263,7 +272,7 @@ Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1?
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
 
-#### <span id="gu_list">`gu.bat list`</span>
+### <span id="gu_list">`gu.bat list`</span>
 
 Command [**`gu.bat list`**](bin/gu.bat) prints the components installed in our [GraalVM](https://www.graalvm.org/) environment:
 
@@ -296,7 +305,7 @@ component graalsqueak
 
 Command [**`gu.bat list -c`**](bin/gu.bat) is equivalent to [**`gu.bat available`**](#gu_available); it displays components available from the GraalVM Catalog <sup id="anchor_04b"><a href="#footnote_04">[4]</a></sup> which fit in our environment.
 
-#### <span id="gu_rebuild">`gu.bat rebuild-images`</span>
+### <span id="gu_rebuild">`gu.bat rebuild-images`</span>
 
 We have no further plans to implement command [**`gu.bat rebuild-images`**](bin/gu.bat).
 
@@ -306,7 +315,7 @@ Command rebuild-images not yet implemented
 (current GraalVM version: 19.2.1)
 </pre>
 
-#### <span id="gu_remove">`gu.bat remove`</span>
+### <span id="gu_remove">`gu.bat remove`</span>
 
 We have no further plans to implement command [**`gu.bat remove`**](bin/gu.bat).
 
@@ -316,7 +325,7 @@ Command remove not yet implemented
 (current GraalVM version: 19.2.1)
 </pre>
 
-#### <span id="gu_update">`gu.bat update`</span>
+### <span id="gu_update">`gu.bat update`</span>
 
 We have no further plans to implement command [**`gu.bat update`**](bin/gu.bat).
 
@@ -327,7 +336,7 @@ Command update not yet implemented
 </pre>
 
 
-## Footnotes
+## <span id="footnotes">Footnotes</span>
 
 <a name="footnote_01">[1]</a> ***Downloads*** [↩](#anchor_01)
 
@@ -342,7 +351,7 @@ In our case we downloaded the following installation files (see <a href="#sectio
 <a name="footnote_02">[2]</a> ***GraalVM Updater*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
+Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
 </p>
 
 <a name="footnote_03">[3]</a> ***Preinstalled components*** [↩](#anchor_03)
@@ -368,7 +377,7 @@ At the time of writing the GraalVM Catalog contains <i>no</i> component for the 
 Components currently available are:
 </p>
 <table style="margin:0 0 1em 20px;">
-<tr><th>ID</th><th>Version(s)</th><th>Platform(s)</th></tr>
+<tr><th>ID</th><th>Version(s)</th><th>Supported platform(s)</th></tr>
 <tr><td><code>llvm_toolchain</code></td><td>19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
 <tr><td><code>native_image</code></td><td>19.0, 19.1, 19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
 <tr><td><a href="https://github.com/graalvm/graalpython"><code>python</code></a></td><td>19.0, 19.1, 19.2</td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>

@@ -132,12 +132,13 @@ if defined __INPUT_SET (
 goto :eof
 
 rem input parameter: %1=long option
-rem output parameter: _SHORT_OPTION (-9: long option is unknown)
+rem output parameter: _SHORT_OPTION (-9 if long option is unknown)
 :short_option
 set __LONG_OPTION=%~1
 
 set _SHORT_OPTION=-9
-if %__LONG_OPTION%==debug ( set _SHORT_OPTION=-d
+if %__LONG_OPTION%==auto-yes ( set _SHORT_OPTION=-A
+) else if %__LONG_OPTION%==debug ( set _SHORT_OPTION=-d
 ) else if %__LONG_OPTION%==help ( set _SHORT_OPTION=-h
 ) else if %__LONG_OPTION%==force ( set _SHORT_OPTION=-f
 ) else if %__LONG_OPTION%==local-file ( set _SHORT_OPTION=-L
@@ -173,7 +174,7 @@ if "%__ARG%"=="info" (
     set _COMMAND_OPTS=Dhlv
 ) else if "%__ARG%"=="install" (
     set _COMMAND=install
-    set _COMMAND_OPTS=0cDhfiLnoruv rem 0cDhfiLnorvyxY
+    set _COMMAND_OPTS=0AcDhfiLnoruv rem 0cDhfiLnorvyxY
 ) else if "%__ARG%"=="list" (
     set _COMMAND=list
     set _COMMAND_OPTS=cDhlv
@@ -189,7 +190,7 @@ if "%__ARG%"=="info" (
 ) else if "%__ARG%"=="-h" ( set _HELP=1
 ) else if "%__ARG%"=="--help" ( set _HELP=1
 ) else (
-    echo %_ERROR_LABEL% Unkown command %__ARG% 1>&2
+    echo %_ERROR_LABEL% Unknown command %__ARG% 1>&2
     set _EXITCODE=1
     goto args_next
 )
@@ -199,15 +200,16 @@ set "__ARG=%~1"
 if not defined __ARG goto args_done
 
 if "!__ARG:~0,2!"=="--" (
+    rem turn long option into short one
     call :short_option "!__ARG:~2!"
     set "__ARG=!_SHORT_OPTION!"
 )
 if "!__ARG:~0,1!"=="-" (
-    rem custom option: -D
+    rem check validity of short option list
     call :is_valid "%_COMMAND_OPTS%" "!__ARG:~1!"
     if defined _IS_VALID ( set "_OPTIONS=!_OPTIONS!!__ARG:~1!"
     ) else (
-        echo %_ERROR_LABEL% Invalid option !__ARG! for command info 1>&2
+        echo %_ERROR_LABEL% Invalid option^(s^) !__ARG! for command %_COMMAND% 1>&2
         set _EXITCODE=1
     )
 ) else (
@@ -227,7 +229,7 @@ if defined __PARAM (
 :args_done
 rem global options
 if defined _OPTIONS (
-    if not "!_OPTIONS:D=!"=="!_OPTIONS!" set _DEBUG=1
+    if not "!_OPTIONS:d=!"=="!_OPTIONS!" set _DEBUG=1
     if not "!_OPTIONS:h=!"=="!_OPTIONS!" set _HELP=1
     if not "!_OPTIONS:v=!"=="!_OPTIONS!" set _VERBOSE=1
 )
@@ -239,33 +241,33 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% _COMMAND=%_COMMAND% _OPTIONS=%_OPTIONS% _PARA
 goto :eof
 
 :help
-echo Usage: %_BASENAME% command { options }
+echo Usage: %_BASENAME% command { options } { params }
 echo   Commands:
-echo     available [-lv] ^<expr^>           list components in the component catalog
-echo     info [-cL] ^<param^>               print component information ^(from file, URL or catalog^)
-echo     install [-0cDhfiLnoruv] ^<params^> install specified components ^(from file, URL or catalog^)
-echo     list [-clv] ^<expr^>               list installed components
-echo     rebuild-images                   rebuild native images
-echo     remove [-0fxv] ^<id^>              remove component ^(ID^)
-echo     update [-x][^<ver^>][^<param^>]      upgrade to the recent GraalVM version
+echo     available [-lv] ^<expr^>            list components in the component catalog
+echo     info [-cL] ^<param^>                print component information ^(from file, URL or catalog^)
+echo     install [-0AcDhfiLnoruv] ^<params^> install specified components ^(from file, URL or catalog^)
+echo     list [-clv] ^<expr^>                list installed components
+echo     rebuild-images                    rebuild native images
+echo     remove [-0fxv] ^<id^>               remove component ^(ID^)
+echo     update [-x][^<ver^>][^<param^>]       upgrade to the recent GraalVM version
 echo   Options:
-echo     -A, --auto-yes                   say YES or ACCEPT to a question
-echo     -c, --catalog                    treat parameters as component IDs from catalog. This is the default.
-echo     -d, --debug                      show commands executed by this scriptD
-echo     -f, --force                      disable ^(un-^)installation checks
-echo     -h, --help                       print this help message or a command specific help message
-echo     -L, --local-file                 treat parameters as local filenames
-echo     -o, --overwrite                  silently overwrite already existing component
-echo     -n, --no-progress                do not display download progress
-echo     -r, --replace                    ???replace component if already installed???
-echo     -u, --url                        treat parameters as URLs
-echo     -v, --verbose                    display progress messages
+echo     -A, --auto-yes                    say YES or ACCEPT to a question
+echo     -c, --catalog                     treat parameters as component IDs from catalog. This is the default.
+echo     -d, --debug                       show commands executed by this scriptD
+echo     -f, --force                       disable ^(un-^)installation checks
+echo     -h, --help                        print this help message or a command specific help message
+echo     -L, --local-file                  treat parameters as local filenames
+echo     -o, --overwrite                   silently overwrite already existing component
+echo     -n, --no-progress                 do not display download progress
+echo     -r, --replace                     ???replace component if already installed???
+echo     -u, --url                         treat parameters as URLs
+echo     -v, --verbose                     display progress messages
 goto :eof
-
+%%d
 rem output parameter(s): _CATALOG_FILE
 :catalog_file
 for %%f in (%_CATALOG_URL%) do set "__CATALOG_NAME=%%~nxf"
-set "_CATALOG_FILE=%_WORKING_DIR%\!__CATALOG_NAME!"
+set "_CATALOG_FILE=%_WORKING_DIR%\%__CATALOG_NAME%"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "& '%_PS1_FILE%' -Uri '%_CATALOG_URL%' -Outfile '%_CATALOG_FILE%'" 1>&2
 ) else if %_VERBOSE%==1 ( echo Downloading: Component catalog %__CATALOG_NAME% 1>&2
 ) else ( echo Downloading: Component catalog
@@ -376,7 +378,7 @@ goto :eof
 :info_local
 set __DIR_LIST=
 if not defined _PARAMS (
-    for /f %%d in ('dir /ad /b !__DIR_LIST! 2^>NUL') do (
+    for /f %%d in ('dir /ad /b "%_GRAAL_HOME%\jre\languages\*" 2^>NUL') do (
         set _DIR_LIST=!__DIR_LIST! "%_GRAAL_HOME%\jre\languages\%%d"
     )
 ) else (
@@ -445,12 +447,14 @@ goto :eof
 
 rem gu install [-0cfiLnoruv] <param>
 :install
+set __AUTO_YES=0
 set __CATALOG=0
 set __FORCE=0
 set __LOCAL=0
 set __URL=0
 set __ILLEGAL=0
 if defined _OPTIONS (
+    if not "!_OPTIONS:A=!"=="!_OPTIONS!" set __AUTO_YES=1
     if not "!_OPTIONS:c=!"=="!_OPTIONS!" set __CATALOG=1
     if not "!_OPTIONS:f=!"=="!_OPTIONS!" set __FORCE=1
     if not "!_OPTIONS:L=!"=="!_OPTIONS!" set __LOCAL=1
@@ -471,7 +475,7 @@ if %_HELP%==1 ( call :install_help
             goto :eof
         )
         echo Install local component !__COMPONENT_FILE!
-        call :install_local "!__COMPONENT_FILE!" %__FORCE%
+        call :install_local "!__COMPONENT_FILE!" %__AUTO_YES%
     )
 ) else if %__URL%==1 (
     for %%f in (%_PARAMS%) do (
@@ -490,14 +494,14 @@ if %_HELP%==1 ( call :install_help
             goto :eof
         )
         echo Install remote component !__COMPONENT_NAME!
-        call :install_local "!__COMPONENT_FILE!" %__FORCE%
+        call :install_local "!__COMPONENT_FILE!" %__AUTO_YES%
     )
 ) else (
     call :catalog_file
     if not !_EXITCODE!==0 goto :eof
     for %%f in (%_PARAMS%) do (
         echo Processing component archive: Component %%f
-        call :install_component "%%f" %__FORCE%
+        call :install_component "%%f" %__AUTO_YES%
     )
 )
 goto :eof
@@ -518,10 +522,10 @@ echo     -u, --url         treat parameters as URLs
 echo     -v, --verbose     enable verbose output
 goto :eof
 
-rem input parameter(s): %1=component ID, %2=force
+rem input parameter(s): %1=component ID, %2=auto-yes
 :install_component
 set "__EXPR=%~1"
-set __FORCE=%~2
+set __AUTO_YES=%~2
 set __PREFIX=%_GRAALVM_VERSION%_%_OS_NAME%_%_OS_ARCH%.org.graalvm.
 set __FULLNAME=%__PREFIX%%__EXPR%
 set __COMPONENT_URL=
@@ -544,18 +548,24 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 echo Install remote component !__COMPONENT_NAME!
-call :install_local "!__COMPONENT_FILE!" %__FORCE%
+call :install_local "!__COMPONENT_FILE!" %__AUTO_YES%
 goto :eof
 
 rem gu list [-clv] <expression>
 :list
 set __CATALOG=0
 set __LOCAL=1
+set __ILLEGAL=0
 if defined _OPTIONS (
     if not "!_OPTIONS:c=!"=="!_OPTIONS!" set __CATALOG=1
     if not "!_OPTIONS:L=!"=="!_OPTIONS!" set __LOCAL=1
+    set /a __ILLEGAL=__CATALOG*__LOCAL
 )
 if %_HELP%==1 ( call :list_help
+) else if not %__ILLEGAL%==0 (
+    echo %_ERROR_LABEL% --catalog and --local-file options are mutual exclusive 1>&2
+    set _EXITCODE=1
+    goto :eof
 ) else if %__CATALOG%==1 ( call :available_catalog "%_PARAMS%"
 ) else ( call :list_releases
 )
@@ -693,11 +703,11 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Create file !__TARGET_FILE:%TEMP%=%%TEMP%%!
 ) > %__TARGET_FILE%
 goto :eof
 
-rem input parameter(s): %1=input file, %2=force
+rem input parameter(s): %1=input file, %2=auto-yes
 :install_local
 rem ensure absolute path for input file
 for %%i in (%1) do set __JAR_FILE=%%~dpnxi
-set __FORCE_CREATION=%~2
+set __AUTO_YES=%~2
 if not exist "%__JAR_FILE%" (
     echo %_ERROR_LABEL% Installable component not found 1>&2
     set _EXITCODE=1
@@ -740,12 +750,13 @@ for /f "delims=^= tokens=1,*" %%i in (%__SYMLINKS_FILE%) do (
 )
 if exist "%__TMP_DIR%\META-INF\" rmdir /s /q "%__TMP_DIR%\META-INF\" 
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Component ready to be installed in %_GRAAL_HOME% 1>&2
-) else if %_VERBOSE%==1 ( echo Component ready to be installed in %_GRAAL_HOME% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Component ready to be installed in %_GRAAL_HOME% ^(auto-yes=%__AUTO_YES%^)1>&2
+) else if %_VERBOSE%==1 ( echo Component ready to be installed in %_GRAAL_HOME% ^(auto-yes=%__AUTO_YES%^) 1>&2
 )
-set /p "__CONFIRM=Do you really want to add the component into directory %_GRAAL_HOME%? "
-if /i not "%__CONFIRM%"=="y" goto :eof
-
+if %__AUTO_YES%==0 (
+    set /p "__CONFIRM=Do you really want to add the component into directory %_GRAAL_HOME% (y/*)? "
+    if /i not "!__CONFIRM!"=="y" goto install_done
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%__TMP_DIR%\*" "%_GRAAL_HOME%\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Install GraalVM component into directory %_GRAAL_HOME% 1>&2
 )
