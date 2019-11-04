@@ -15,6 +15,8 @@ This document is part of a series of topics related to [GraalSqueak](https://git
 - [Using **`gu.bat`** on Windows](GU.md)
 - [Building GraalSqueak on Windows](BUILD.md)
 
+[Dotty](https://github.com/michelou/dotty-examples), [GraalVM](https://github.com/michelou/graalvm-examples) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
+
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
