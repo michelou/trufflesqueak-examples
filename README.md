@@ -173,7 +173,7 @@ Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
 Component ready for installation into directory C:\opt\graalvm-ce-19.2.1
-Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1? y
+Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1 (y/*)? y
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
 

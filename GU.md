@@ -15,7 +15,7 @@ This document is part of a series of topics related to [GraalSqueak](https://git
 - Using **`gu.bat`** on Windows [**&#9660;**](#bottom)
 - [Building GraalSqueak on Windows](BUILD.md)
 
-## <span id="section_01">Project dependencies</span>
+## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
@@ -223,7 +223,7 @@ Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalpython.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalpython.cmd
 Component ready to be installed in c:\opt\graalvm-ce-19.2.1
-Do you really want to add the component into directory c:\opt\graalvm-ce-19.2.1  (y/*)? y
+Do you really want to add the component into directory c:\opt\graalvm-ce-19.2.1 (y/*)? y
 Install GraalVM component into directory c:\opt\graalvm-ce-19.2.1
 </pre>
 
@@ -268,7 +268,7 @@ Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
 Component ready to be installed in C:\opt\graalvm-ce-19.2.1
-Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1  (y/*)? y
+Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1 (y/*)? y
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
 
@@ -335,13 +335,16 @@ Command update not yet implemented
 (current GraalVM version: 19.2.1)
 </pre>
 
+## <span id="license">License</span>
+
+**`gu.bat`** is released under the [MIT License](LICENSE).
 
 ## <span id="footnotes">Footnotes</span>
 
 <a name="footnote_01">[1]</a> ***Downloads*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
+In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</a>  <i>(  5 MB)</i>
