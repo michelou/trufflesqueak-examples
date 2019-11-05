@@ -110,6 +110,7 @@ set _OS_NAME=linux
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _CATALOG_URL=%_CATALOG_URL% _GRAALVM_VERSION=%_GRAALVM_VERSION% _OS_ARCH=%_OS_ARCH% _OS_NAME=%_OS_NAME%
 goto :eof
 
+rem input parameters: %1=valid charset, %2=input charset
 rem output parameter: _IS_VALID
 :is_valid
 set __VALID_SET=%~1
@@ -120,8 +121,11 @@ set _IS_VALID=1
 :is_valid_loop
 if defined __INPUT_SET (
     set "__ELEM=!__INPUT_SET:~0,1!"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% __VALID_SET=%__VALID_SET% __ELEM=!__ELEM!
-    if "!__VALID_SET:%__ELEM%=!"=="%__VALID_SET%" (
+    rem batch string substitution cannot distinguish between 'A' and 'a'
+    rem e.g. set XXX=Abc & echo %XXX:a=1% prints '1bc' instead of 'Abc'
+    set __INX=-1
+    for /f "usebackq" %%i in (`powershell -c "'!__VALID_SET!'.indexOf('!__ELEM!')"`) do set __INX=%%i
+    if !__INX! lss 0 (
         set _IS_VALID=
         goto is_valid_done
     )
@@ -129,6 +133,7 @@ if defined __INPUT_SET (
     goto is_valid_loop
 )
 :is_valid_done
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _IS_VALID=%_IS_VALID%
 goto :eof
 
 rem input parameter: %1=long option
@@ -136,16 +141,27 @@ rem output parameter: _SHORT_OPTION (-9 if long option is unknown)
 :short_option
 set __LONG_OPTION=%~1
 
+rem see https://github.com/oracle/graal/blob/master/vm/src/org.graalvm.component.installer/src/org/graalvm/component/installer/Commands.java
 set _SHORT_OPTION=-9
-if %__LONG_OPTION%==auto-yes ( set _SHORT_OPTION=-A
+if %__LONG_OPTION%==all-versions ( set _SHORT_OPTION=-a
+) else if %__LONG_OPTION%==auto-yes ( set _SHORT_OPTION=-A
 ) else if %__LONG_OPTION%==debug ( set _SHORT_OPTION=-d
+) else if %__LONG_OPTION%==dry-run ( set _SHORT_OPTION=-0
 ) else if %__LONG_OPTION%==help ( set _SHORT_OPTION=-h
+) else if %__LONG_OPTION%==fail-existing ( set _SHORT_OPTION=-i
 ) else if %__LONG_OPTION%==force ( set _SHORT_OPTION=-f
+) else if %__LONG_OPTION%==ignore ( set _SHORT_OPTION=-x
+) else if %__LONG_OPTION%==list-files ( set _SHORT_OPTION=-l
 ) else if %__LONG_OPTION%==local-file ( set _SHORT_OPTION=-L
 ) else if %__LONG_OPTION%==no-progress ( set _SHORT_OPTION=-n
+) else if %__LONG_OPTION%==no-tables ( set _SHORT_OPTION=-t
+) else if %__LONG_OPTION%==non-interactive ( set _SHORT_OPTION=-N
+) else if %__LONG_OPTION%==only-validate ( set _SHORT_OPTION=y
 ) else if %__LONG_OPTION%==overwrite ( set _SHORT_OPTION=-o
+) else if %__LONG_OPTION%==paths ( set _SHORT_OPTION=-p
 ) else if %__LONG_OPTION%==replace ( set _SHORT_OPTION=-r
 ) else if %__LONG_OPTION%==url ( set _SHORT_OPTION=-u
+) else if %__LONG_OPTION%==validate-before ( set _SHORT_OPTION=-Y
 ) else if %__LONG_OPTION%==verbose ( set _SHORT_OPTION=-v
 )
 goto :eof
@@ -154,7 +170,7 @@ rem output parameters: _COMMAND, _COMMAND_OPTS, _OPTIONS, _PARAMS
 rem see https://docs.oracle.com/en/graalvm/enterprise/19/guide/reference/graalvm-updater.html
 :args
 set _COMMAND=help
-set _COMMAND_OPTS=
+set _COMMAND_OPTS=dhv
 set _OPTIONS=
 set _PARAMS=
 set _PARAMS_N=0
@@ -169,25 +185,25 @@ if not defined __ARG (
 )
 if "%__ARG%"=="info" (
     set _COMMAND=info
-    set _COMMAND_OPTS=cDhLprstuv
+    set _COMMAND_OPTS=!_COMMAND_OPTS!cLprstu
 ) else if "%__ARG%"=="available" (
     set _COMMAND=available
-    set _COMMAND_OPTS=Dhlv
+    set _COMMAND_OPTS=!_COMMAND_OPTS!l
 ) else if "%__ARG%"=="install" (
     set _COMMAND=install
-    set _COMMAND_OPTS=0AcDhfiLnoruv rem 0cDhfiLnorvyxY
+    set _COMMAND_OPTS=!_COMMAND_OPTS!0AcfiLnoru rem 0cDhfiLnorvyxY
 ) else if "%__ARG%"=="list" (
     set _COMMAND=list
-    set _COMMAND_OPTS=cDhlv
+    set _COMMAND_OPTS=!_COMMAND_OPTS!cl
 ) else if "%__ARG%"=="rebuild-images" (
     set _COMMAND=rebuild
-    set _COMMAND_OPTS=Dv
+    rem set _COMMAND_OPTS=dhv
 ) else if "%__ARG%"=="remove" (
     set _COMMAND=remove
-    set _COMMAND_OPTS=0Dfhvxv
+    set _COMMAND_OPTS=!_COMMAND_OPTS!0fvx
 ) else if "%__ARG%"=="update" (
     set _COMMAND=update
-    set _COMMAND_OPTS=Dhxv
+    set _COMMAND_OPTS=!_COMMAND_OPTS!x
 ) else if "%__ARG%"=="-h" ( set _HELP=1
 ) else if "%__ARG%"=="--help" ( set _HELP=1
 ) else (
@@ -243,26 +259,35 @@ goto :eof
 
 :help
 echo Usage: %_BASENAME% command {^<option^>} {^<param^>}
+echo.
 echo   Commands:
-echo     available [-lv] ^<expr^>            list components in the component catalog
-echo     info [-cL] ^<param^>                print component information ^(from file, URL or catalog^)
-echo     install [-0AcDhfiLnoruv] {^<param^>} install specified components ^(from file, URL or catalog^)
-echo     list [-clv] ^<expr^>                list installed components
-echo     rebuild-images                    rebuild native images
-echo     remove [-0fxv] ^<id^>               remove component ^(ID^)
-echo     update [-x][^<ver^>][^<param^>]       upgrade to the recent GraalVM version
+echo     available [-l] ^<expr^>            List components in the component catalog.
+echo     info [-cLu] ^<param^>              Print component information ^(from file, URL or catalog^).
+echo     install [-0AcfiLnoru] {^<param^>}  Install specified components ^(from file, URL or catalog^).
+echo     list [-cl] ^<expr^>                List installed components.
+echo     rebuild-images                   Rebuild native images.
+echo     remove [-0fx] ^<id^>               Remove component ^(ID^).
+echo     update [-x][^<ver^>][^<param^>]      Upgrade to the recent GraalVM version.
+echo.
+echo   Options supported by all commands:
+echo     -d, --debug                      Show commands executed by this script.
+echo     -h, --help                       Print this help message or a command specific help message.
+echo     -v, --verbose                    Display progress messages.
+echo.
 echo   Options:
-echo     -A, --auto-yes                    say YES or ACCEPT to a question
-echo     -c, --catalog                     treat parameters as component IDs from catalog. This is the default.
-echo     -d, --debug                       show commands executed by this scriptD
-echo     -f, --force                       disable ^(un-^)installation checks
-echo     -h, --help                        print this help message or a command specific help message
-echo     -L, --local-file                  treat parameters as local filenames
-echo     -o, --overwrite                   silently overwrite already existing component
-echo     -n, --no-progress                 do not display download progress
-echo     -r, --replace                     ???replace component if already installed???
-echo     -u, --url                         treat parameters as URLs
-echo     -v, --verbose                     display progress messages
+echo     -0, --dry-run                    Dry run. Do not change any files.
+echo     -A, --auto-yes                   Say YES or ACCEPT to a question.
+echo     -c, --catalog                    Treat parameters as component IDs from catalog. This is the default.
+echo     -f, --force                      Disable ^(un-^)installation checks.
+echo     -i, --fail-existing              Fail if the to be installed component already exists.
+echo     -L, --local-file                 Treat parameters as local filenames.
+echo     -l, --list-files                 List files.
+echo     -n, --no-progress                Do not display download progress.
+echo     -o, --overwrite                  Silently overwrite already existing component.
+echo     -p, --paths                      Display full paths in lists.
+echo     -r, --replace                    Replace different files.
+echo     -u, --url                        Treat parameters as URLs.
+echo     -x, --ignore                     Do not terminate uninstall on failed file deletions.
 goto :eof
 
 rem output parameter: _CATALOG_FILE
@@ -293,35 +318,54 @@ rem input parameter(s): %1=component IDs (0..n)
 rem examples: python
 :available_catalog
 set "__EXPR=%~1"
-set __PREFIX=%_GRAALVM_VERSION%_%_OS_NAME%_%_OS_ARCH%.org.graalvm.
-if defined __EXPR (
-    set __NAMES=
-    for %%f in (%__EXPR%) do (
-        set "__NAMES=!__NAMES! %__PREFIX%%%f-Bundle-Name"
-    )
-) else (
-    set "__NAMES=%__PREFIX%*-Bundle-Name"
+set __LIST_FILES=0
+if defined _OPTIONS (
+    if not "!_OPTIONS:l=!"=="!_OPTIONS!" set __LIST_FILES=1
 )
 call :catalog_file
 if not %_EXITCODE%==0 goto :eof
 
-if %_DEBUG%==1 echo %_DEBUG_LABEL% __NAMES=%__NAMES% 1>&2
+set __PREFIX=%_GRAALVM_VERSION%_%_OS_NAME%_%_OS_ARCH%.org.graalvm.
 set __N=0
-for /f "delims=" %%i in ('type "!_CATALOG_FILE!" ^| findstr "%__NAMES%"') do (
-    echo %%i
-    set /a __N+=1
+if %__LIST_FILES%==0 (
+    if defined __EXPR (
+        set __NAMES=
+        for %%f in (%__EXPR%) do (
+            set "__NAMES=!__NAMES! %__PREFIX%%%f-Bundle-Name="
+        )
+    ) else (
+        set "__NAMES=%__PREFIX%*-Bundle-Name="
+    )
+    for /f "delims=" %%i in ('type "!_CATALOG_FILE!" ^| findstr "!__NAMES!"') do (
+        echo %%i
+        set /a __N+=1
+    )
+) else (
+    if defined __EXPR (
+        set __NAMES=
+        for %%f in (%__EXPR%) do (
+            set "__NAMES=!__NAMES! %__PREFIX%%%f="
+        )
+    ) else (
+        set "__NAMES=%__PREFIX%[^-]*="
+    )
+    for /f "delims=^= tokens=1,*" %%i in ('type "!_CATALOG_FILE!" ^| findstr "!__NAMES!"') do (
+        echo %%j
+        set /a __N+=1
+    )
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% !__N! component^(s^) found in catalog ^(%__EXPR%^) 1>&2
-) else if %_VERBOSE%==1 ( echo !__N! component^(s^) found in catalog ^(%__EXPR%^) 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% !__N! component^(s^) found in catalog 1>&2
+) else if %_VERBOSE%==1 ( echo !__N! component^(s^) found in catalog 1>&2
 )
 goto :eof
 
 :available_help
 echo Usage: gu available [-lv] ^<expr^>
 echo List components in the component catalog.
+echo.
 echo   Options:
-echo     -l                ???use a long listing format???
-echo     -v, --verbose     enable verbose output
+echo     -l                List files.
+echo     -v, --verbose     Enable verbose output.
 goto :eof
 
 rem gu info [-clLprstuv] <param>
@@ -369,11 +413,12 @@ goto :eof
 :info_help
 echo Usage: gu info [-clLprstuv] {^<param^>}
 echo Print component information from file, URL or catalog.
+echo.
 echo   Options:
-echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
-echo     -L, --local-file  treat parameters as local filenames of packaged components
-echo     -u, --url         treat parameters as URLs
-echo     -v, --verbose     enable verbose output
+echo     -c, --catalog     Treat parameters as component IDs from catalog. This is the default.a
+echo     -L, --local-file  Treat parameters as local filenames of packaged components.
+echo     -u, --url         Treat parameters as URLs.
+echo     -v, --verbose     Enable verbose output.
 goto :eof
 
 :info_local
@@ -450,11 +495,13 @@ rem gu install [-0cfiLnoruv] <param>
 :install
 set __AUTO_YES=0
 set __CATALOG=0
+set __DRY_RUN=0
 set __FORCE=0
 set __LOCAL=0
 set __URL=0
 set __ILLEGAL=0
 if defined _OPTIONS (
+    if not "!_OPTIONS:0=!"=="!_OPTIONS!" set __DRY_RUN=1
     if not "!_OPTIONS:A=!"=="!_OPTIONS!" set __AUTO_YES=1
     if not "!_OPTIONS:c=!"=="!_OPTIONS!" set __CATALOG=1
     if not "!_OPTIONS:f=!"=="!_OPTIONS!" set __FORCE=1
@@ -476,7 +523,7 @@ if %_HELP%==1 ( call :install_help
             goto :eof
         )
         echo Install local component !__COMPONENT_FILE!
-        call :install_local "!__COMPONENT_FILE!" %__AUTO_YES%
+        call :install_local "!__COMPONENT_FILE!" %__AUTO_YES% %__DRY_RUN%
     )
 ) else if %__URL%==1 (
     for %%f in (%_PARAMS%) do (
@@ -495,14 +542,14 @@ if %_HELP%==1 ( call :install_help
             goto :eof
         )
         echo Install remote component !__COMPONENT_NAME!
-        call :install_local "!__COMPONENT_FILE!" %__AUTO_YES%
+        call :install_local "!__COMPONENT_FILE!" %__AUTO_YES% %__DRY_RUN%
     )
 ) else (
     call :catalog_file
     if not !_EXITCODE!==0 goto :eof
     for %%f in (%_PARAMS%) do (
         echo Processing component archive: Component %%f
-        call :install_component "%%f" %__AUTO_YES%
+        call :install_component "%%f" %__AUTO_YES% %__DRY_RUN%
     )
 )
 goto :eof
@@ -510,23 +557,25 @@ goto :eof
 :install_help
 echo Usage: gu install [-0cfiLnoruv] {^<param^>}
 echo Install specified components from file, URL or catalog.
+echo.
 echo   Options:
-echo     -0                ???
-echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
-echo     -f, --force       disable installation checks
-echo     -i                ???
-echo     -L, --local-file  treat parameters as local filenames of packaged components
-echo     -n, --no-progress do not display download progress
-echo     -o                silently overwrite previously installed component
-echo     -r, --replace     ???replace component if already installed???
-echo     -u, --url         treat parameters as URLs
-echo     -v, --verbose     enable verbose output
+echo     -0, --dry-run        Dry run. Do not change any files.
+echo     -c, --catalog        Treat parameters as component IDs from catalog. This is the default
+echo     -f, --force          Disable installation checks
+echo     -i, --fail-existing  Fail if the to be installed component already exists
+echo     -L, --local-file     Treat parameters as local filenames of packaged components
+echo     -n, --no-progress    Do not display download progress
+echo     -o, --overwrite      Silently overwrite previously installed component
+echo     -r, --replace        Replace different files
+echo     -u, --url            Treat parameters as URLs
+echo     -v, --verbose        Enable verbose output
 goto :eof
 
-rem input parameter(s): %1=component ID, %2=auto-yes
+rem input parameter(s): %1=component ID, %2=auto-yes %3=dry-run
 :install_component
 set "__EXPR=%~1"
 set __AUTO_YES=%~2
+set __DRY_RUN=%~3
 set __PREFIX=%_GRAALVM_VERSION%_%_OS_NAME%_%_OS_ARCH%.org.graalvm.
 set __FULLNAME=%__PREFIX%%__EXPR%
 set __COMPONENT_URL=
@@ -549,7 +598,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 echo Install remote component !__COMPONENT_NAME!
-call :install_local "!__COMPONENT_FILE!" %__AUTO_YES%
+call :install_local "!__COMPONENT_FILE!" %__AUTO_YES% %__DRY_RUN%
 goto :eof
 
 rem gu list [-clv] <expression>
@@ -575,10 +624,11 @@ goto :eof
 :list_help
 echo Usage: gu list [-clv] ^<param^>
 echo List installed components.
+echo.
 echo   Options:
-echo     -c, --catalog     treat parameters as component IDs from catalog. This is the default
-echo     -l                ???use a long list format???
-echo     -v, --verbose     enable verbose output
+echo     -c, --catalog     Treat parameters as component IDs from catalog. This is the default.
+echo     -l, --list-files  List files.
+echo     -v, --verbose     Enable verbose output.
 goto :eof
 
 :list_releases
@@ -642,6 +692,7 @@ goto :eof
 :rebuild_help
 echo Usage: gu rebuild-images
 echo Rebuild native images.
+echo.
 echo   Options:
 goto :eof
 
@@ -657,11 +708,12 @@ goto :eof
 :remove_help
 echo Usage: gu remove [-0fxv] ^<param^>
 echo Remove component ^(ID^).
+echo.
 echo   Options:
-echo     -0                ???
-echo     -f, --force       disable uninstallation checks ^(eg. non-matching versions^)
-echo     -x                ???
-echo     -v, --verbose     enable verbose output
+echo     -0, --dry-run     Dry run. Do not change any files.
+echo     -f, --force       Disable uninstallation checks ^(eg. non-matching versions^).
+echo     -x, --ignore      Do not terminate uninstall on failed file deletions.
+echo     -v, --verbose     Enable verbose output.
 goto :eof
 
 rem gu update [-x] [<ver>] [<param>]
@@ -676,8 +728,9 @@ goto :eof
 :update_help
 echo Usage: gu update [-x] [^<ver^>] [^<param^>]
 echo Upgrade to the recent GraalVM version.
+echo.
 echo   Options:
-echo     -x                ???
+echo     -x, --ignore      Do not terminate uninstall on failed file deletions.
 goto :eof
 
 rem input parameter(s): %1=relative source path, %2=absolute target path
@@ -704,15 +757,22 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Create file !__TARGET_FILE:%TEMP%=%%TEMP%%!
 ) > %__TARGET_FILE%
 goto :eof
 
-rem input parameter(s): %1=input file, %2=auto-yes
+rem input parameter(s): %1=input file, %2=auto-yes %3=dry-run
 :install_local
 rem ensure absolute path for input file
 for %%i in (%1) do set __JAR_FILE=%%~dpnxi
-set __AUTO_YES=%~2
 if not exist "%__JAR_FILE%" (
     echo %_ERROR_LABEL% Installable component not found 1>&2
     set _EXITCODE=1
     goto :eof
+)
+set __AUTO_YES=%~2
+set __DRY_RUN=%~3
+if not defined __DRY_RUN (
+    echo Internal error: Missing 3rd argument in subroutine :install_local 1>&2
+    set _EXITCODE=1
+    goto :eof
+) else if %__DRY_RUN%==1 ( echo Dry-run execution of command 'install'
 )
 if not defined GRAAL_HOME (
     echo %_ERROR_LABEL% Graal installation directory not found 1>&2
@@ -757,6 +817,13 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Component ready to be installed in %_GRAAL_
 if %__AUTO_YES%==0 (
     set /p "__CONFIRM=Do you really want to add the component into directory %_GRAAL_HOME% (y/*)? "
     if /i not "!__CONFIRM!"=="y" goto install_done
+)
+if %__DRY_RUN%==1 (
+    for /f %%f in ('where /r "%__TMP_DIR%" *') do (
+        set __FILE=%%f
+        echo Copy file !__FILE:%__TMP_DIR%\=! to %_GRAAL_HOME%\
+    )
+    goto install_done
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%__TMP_DIR%\*" "%_GRAAL_HOME%\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Install GraalVM component into directory %_GRAAL_HOME% 1>&2

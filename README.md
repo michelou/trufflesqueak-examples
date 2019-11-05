@@ -21,7 +21,7 @@ This document is part of a series of topics related to [GraalSqueak](https://git
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
+- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
 - [GraalSqueak Image 1.0](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc5)
 - [GraalVM Community Edition 19.2](https://github.com/oracle/graal/releases) ([*release notes*](https://www.graalvm.org/docs/release-notes/19_2/#19201))
 
@@ -32,7 +32,7 @@ For instance our development environment looks as follows (*November 2019*) <sup
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-19.2.1\   <i>(362 MB)</i>
-C:\opt\Git-2.23.0\          <i>(271 MB)</i>
+C:\opt\Git-2.24.0\          <i>(271 MB)</i>
 C:\opt\Squeak-5.2\          <i>(116 MB)</i>
 </pre>
 
@@ -104,7 +104,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.244.0, link 10.00.40219.01, git 2.23.0.windows.1
+   mx 5.244.0, link 10.00.40219.01, git 2.24.0.windows.1
 
 <b>&gt; where jar link</b>
 C:\opt\graalvm-ce-19.2.1\bin\jar.exe
@@ -117,16 +117,16 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.244.0, link 10.00.40219.01, git 2.23.0.windows.1
+   mx 5.244.0, link 10.00.40219.01, git 2.24.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
    C:\opt\Python-2.7.17\Scripts\pylint.exe
    K:\mx\mx.cmd
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe
-   C:\opt\Git-2.23.0\usr\bin\link.exe
-   C:\opt\Git-2.23.0\bin\git.exe
-   C:\opt\Git-2.23.0\mingw64\bin\git.exe
+   C:\opt\Git-2.24.0\usr\bin\link.exe
+   C:\opt\Git-2.24.0\bin\git.exe
+   C:\opt\Git-2.24.0\mingw64\bin\git.exe
 </pre>
 
 #### `gu.bat install`
@@ -137,16 +137,16 @@ Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for comm
 <b>&gt; gu install -h</b>
 Usage: gu install [-0cfiLnoruv] {&lt;param&gt;}
   Options:
-    -0                ???
-    -c, --catalog     treat parameters as component IDs from catalog (default)
-    -f, --force       disable installation checks
-    -i                ???
-    -L, --local-file  treat parameters as local filenames of packaged components
-    -n, --no-progress do not display download progress
-    -o, --overwrite   silently overwrite previously installed component
-    -r, --replace     ???
-    -u, --url         treat parameters as URLs
-    -v, --verbose     enable verbose output
+    -0, --dry-run        Dry run. Do not change any files.
+    -c, --catalog        Treat parameters as component IDs from catalog. This is the default.
+    -f, --force          Disable installation checks.
+    -i, --fail-existing  Fail if the to be installed component already exists.
+    -L, --local-file     Treat parameters as local filenames of packaged components.
+    -n, --no-progress    Do not display download progress.
+    -o, --overwrite      Silently overwrite previously installed component.
+    -r, --replace        Replace different files.
+    -u, --url            Treat parameters as URLs
+    -v, --verbose        Enable verbose output.
 </pre>
 
 Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](https://www.graalvm.org/) installable components in three different ways, namely:

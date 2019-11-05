@@ -19,14 +19,14 @@ This document is part of a series of topics related to [GraalSqueak](https://git
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
+- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
 - [GraalVM Community Edition 19.2](https://github.com/oracle/graal/releases) ([*release notes*](https://www.graalvm.org/docs/release-notes/19_2/#19201))
 
 For instance our development environment looks as follows (*November 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-19.2.1\   <i>(362 MB)</i>
-C:\opt\Git-2.23.0\          <i>(271 MB)</i>
+C:\opt\Git-2.24.0\          <i>(271 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
@@ -74,7 +74,7 @@ In short [**`gu.bat`**](bin/gu.bat):
 - works properly given *one* the following two requirements is met:
     - the environment variable **`GRAAL_HOME`**  is defined or
     - **`gu.bat`** is located in directory **`<graalvm-dir>\bin\`**.
-- contains ~760 lines of batch code including a few lines of [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/) code.
+- contains ~850 lines of batch code including a few lines of [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/) code.
 
 Command **`gu -h`** (or **`gu --help`**) prints the following help message:
 <pre style="font-size:80%;">
@@ -83,26 +83,35 @@ K:\bin\gu.bat
 &nbsp;
 <b>&gt; gu -h</b>
 Usage: gu command {&lt;option&gt;} {&lt;param&gt;}
+&nbsp;
   Commands:
-    available [-lv] &lt;expr&gt;           list components in the component catalog
-    info [-cL] &lt;param&gt;               print component information (from file, URL or catalog)
-    install [-0AcfiLnoruv] &lt;params&gt;  install specified components (from file, URL or catalog)
-    list [-clv] &lt;expr&gt;               list installed components
-    rebuild-images                   rebuild native images
-    remove [-0fxv] &lt;id&gt;              remove component (ID)
-    update [-x][&lt;ver&gt;][&lt;param&gt;]      upgrade to the recent GraalVM version
+    available [-l] &lt;expr&gt;            List components in the component catalog.
+    info [-cL] &lt;param&gt;               Print component information (from file, URL or catalog).
+    install [-0AcfiLnoru] {&lt;param&gt;}  Install specified components (from file, URL or catalog).
+    list [-cl] &lt;expr&gt;                List installed components.
+    rebuild-images                   Rebuild native images.
+    remove [-0fx] &lt;id&gt;               Remove component (ID).
+    update [-x][&lt;ver&gt;][&lt;param&gt;]      Upgrade to the recent GraalVM version.
+&nbsp;
+  Options supported by all commands:
+    -d, --debug                      Show commands executed by this script.
+    -h, --help                       Print this help message or a command specific help message.
+    -v, --verbose                    Display progress messages.
+&nbsp;
   Options:
-    -A, --auto-yes                   say YES or ACCEPT to a question
-    -c, --catalog                    treat parameters as component IDs from catalog. This is the default.
-    -d, --debug                      show commands executed by this scriptD
-    -f, --force                      disable (un-)installation checks
-    -h, --help                       print this help message or a command specific help message
-    -L, --local-file                 treat parameters as local filenames
-    -n, --no-progress                do not display download progress
-    -o, --overwrite                  silently overwrite already existing component
-    -r, --replace                    replace component if already installed
-    -u, --url                        treat parameters as URLs
-    -v, --verbose                    display progress messages</pre>
+    -0, --dry-run                    Dry run. Do not change any files.
+    -A, --auto-yes                   Say YES or ACCEPT to a question.
+    -c, --catalog                    Treat parameters as component IDs from catalog. This is the default.
+    -f, --force                      Disable (un-)installation checks.
+    -i, --fail-existing              Fail if the to be installed component already exists.
+    -L, --local-file                 Treat parameters as local filenames.
+    -l, --list-files                 List files.
+    -n, --no-progress                Do not display download progress.
+    -o, --overwrite                  Silently overwrite already existing component.
+    -p, --paths                      Display full paths in lists.
+    -r, --replace                    Replace different files.
+    -u, --url                        Treat parameters as URLs.
+    -x, --ignore                     Do not terminate uninstall on failed file deletions.</pre>
 
 > **:mag_right:** The definition of the above commands and options is based on the following documentation:
 > - [Oracle GraalVM EE 19 Guide](https://docs.oracle.com/en/graalvm/enterprise/19/guide/) : [GraalVM Updater](https://docs.oracle.com/en/graalvm/enterprise/19/guide/reference/graalvm-updater.html).
@@ -134,13 +143,22 @@ Component.19.2.1_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
 > component_catalog=https://www.graalvm.org/component-catalog/graal-updater-component-catalog.properties
 > </pre>
 
-Command [**`gu.bat available python r`**](bin/gu.bat) with arguments **`python`** and **`r`** displays the corresponding components available from the GraalVM Catalog:
+Command [**`gu.bat available python r`**](bin/gu.bat) with arguments **`python`** and **`r`** displays components available from the GraalVM Catalog which fit our environment:
 
 <pre style="font-size:80%;">
 <b>&gt; gu available python r</b>
 Downloading: Component catalog
 Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
 Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
+</pre>
+
+Command [**`gu.bat available -l python r`**](bin/gu.bat) with option **`-l`** instead displays their URL addresses:
+
+<pre style="font-size:80%;">
+<b>&gt; gu available -l python r</b>
+Downloading: Component catalog
+https://github.com/graalvm/graalpython/releases/download/vm-19.2.1/python-installable-svm-linux-amd64-19.2.1.jar
+https://github.com/oracle/fastr/releases/download/vm-19.2.1/r-installable-linux-amd64-19.2.1.jar
 </pre>
 
 #### <span id="gu_info">`gu.bat info`</span>
@@ -196,17 +214,18 @@ Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](https://www.graalv
 <b>&gt; gu install -h</b>
 Usage: gu install [-0cfiLnorv] {&lt;param&gt;}
 Install specified components from file, URL or catalog.
+&nbsp;
   Options:
-    -0                ???
-    -c, --catalog     treat parameters as component IDs from catalog (default)
-    -f, --force       disable installation checks
-    -i                ???
-    -L, --local-file  treat parameters as local filenames of packaged components
-    -n, --no-progress do not display download progress
-    -o, --overwrite   silently overwrite previously installed component
-    -r, --replace     ???
-    -u, --url         treat parameters as URLs
-    -v, --verbose     enable verbose output
+    -0, --dry-run        Dry run. Do not change any files.
+    -c, --catalog        Treat parameters as component IDs from catalog (default).
+    -f, --force          Disable installation checks
+    -i, --fail-existing  Fail if the to be installed component already exists.
+    -L, --local-file     Treat parameters as local filenames of packaged components.
+    -n, --no-progress    Do not display download progress.
+    -o, --overwrite      Silently overwrite previously installed component.
+    -r, --replace        Replace different files.
+    -u, --url            Treat parameters as URLs.
+    -v, --verbose        Enable verbose output.
 </pre>
 
 *Installation from a **catalog***

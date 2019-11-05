@@ -19,7 +19,7 @@ This document is part of a series of topics related to [GraalSqueak](https://git
 
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
-- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
+- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
 - [GraalVM Community Edition 19.2](https://github.com/oracle/graal/releases) ([*release notes*](https://www.graalvm.org/docs/release-notes/19_2/#19201))
 - [Microsoft Visual Studio 10](https://visualstudio.microsoft.com/vs/older-downloads/) ([*release notes*](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2010-version-history))
 - [Microsoft Windows SDK 7.1](https://www.microsoft.com/en-us/download/details.aspx?id=8279)
@@ -33,7 +33,7 @@ For instance our development environment looks as follows (*November 2019*) <sup
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-19.2.1\                             <i>(362 MB)</i>
-C:\opt\Git-2.23.0\                                    <i>(271 MB)</i>
+C:\opt\Git-2.24.0\                                    <i>(271 MB)</i>
 C:\opt\Python-2.7.17\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio 10.0\  <i>(555 MB)</i>
@@ -136,7 +136,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.244.0, link 10.00.40219.01, git 2.23.0.windows.1
+   mx 5.244.0, link 10.00.40219.01, git 2.24.0.windows.1
 
 <b>&gt; where python mx</b>
 C:\opt\Python-2.7.17\python.exe
@@ -149,16 +149,16 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.244.0, link 10.00.40219.01, git 2.23.0.windows.1
+   mx 5.244.0, link 10.00.40219.01, git 2.24.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
    C:\opt\Python-2.7.17\Scripts\pylint.exe
    K:\mx\mx.cmd
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe
-   C:\opt\Git-2.23.0\usr\bin\link.exe
-   C:\opt\Git-2.23.0\bin\git.exe
-   C:\opt\Git-2.23.0\mingw64\bin\git.exe
+   C:\opt\Git-2.24.0\usr\bin\link.exe
+   C:\opt\Git-2.24.0\bin\git.exe
+   C:\opt\Git-2.24.0\mingw64\bin\git.exe
 </pre>
 
 #### `graalsqueak\build.bat`
@@ -254,7 +254,7 @@ In this section we list some issues we encountered in this project:
    The error is due to a wrong executable path for **`link.exe`** (see [issue #1554](https://github.com/oracle/graal/issues/1554) in [graal](https://github.com/oracle/graal) project):
    <pre style="font-size:80%;">
    <b>&gt; where link</b>
-   C:\opt\Git-2.23.0\usr\bin\link.exe
+   C:\opt\Git-2.24.0\usr\bin\link.exe
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe</pre>
 
 ## Footnotes

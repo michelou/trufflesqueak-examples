@@ -96,7 +96,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _DIST=%_DIST% _VERBOSE=%_VERB
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { options ^| subcommands }
+echo Usage: %_BASENAME% { option ^| subcommand }
 echo   Options:
 echo     -debug      show commands executed by this script
 echo     -timer      display total elapsed time
