@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="./"><b><code>examples\</code></b></a> contains <a href="https://squeak.org/">Squeak</a> examples coming from various websites and books and tested on a Windows machine.
+  <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="./"><b><code>examples\</code></b></a> contains <a href="https://squeak.org/">Squeak</a> code examples coming from various websites and books and tested on a Windows machine.
   </td>
   </tr>
 </table>
@@ -60,7 +60,7 @@ xxx
 </pre>
 
 
-## Footnotes
+## <span id="footnotes">Footnotes</span>
 
 <a name="footnote_01">[1]</a> ***Squeak image*** [↩](#anchor_01)
 

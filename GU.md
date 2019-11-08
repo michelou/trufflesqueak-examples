@@ -25,8 +25,8 @@ This project depends on the following external software for the **Microsoft Wind
 For instance our development environment looks as follows (*November 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-19.2.1\   <i>(362 MB)</i>
 C:\opt\Git-2.24.0\          <i>(271 MB)</i>
+C:\opt\graalvm-ce-19.2.1\   <i>(362 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
@@ -47,7 +47,7 @@ setenv.bat
 
 where
 
-- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for installing the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
+- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
 - directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
@@ -95,7 +95,7 @@ Usage: gu command {&lt;option&gt;} {&lt;param&gt;}
 &nbsp;
   Options supported by all commands:
     -d, --debug                      Show commands executed by this script.
-    -h, --help                       Print this help message or a command specific help message.
+    -h, --help                       Display this help message or a command specific help message.
     -v, --verbose                    Display progress messages.
 &nbsp;
   Options:
@@ -167,13 +167,15 @@ Command [**`gu.bat info`**](bin/gu.bat) prints component information from file, 
 
 <pre style="font-size:80%;">
 <b>&gt; gu info -h</b>
-Usage: gu info [-clLprstuv] {&lt;param&gt;}
+Usage: gu info [-cdhlLprstuv] {&lt;param&gt;}
 Print component information from file, URL or catalog.
   Options:
-    -c, --catalog     treat parameters as component IDs from catalog. This is the default
-    -L, --local-file  treat parameters as local filenames of packaged components
-    -u, --url         treat parameters as URLs
-    -v, --verbose     enable verbose output
+    -c, --catalog     Treat parameters as component IDs from catalog. This is the default.
+    -d, --debug       Show commands executed by this script.
+    -h, --help        Display this help message.
+    -L, --local-file  Treat parameters as local filenames of packaged components.
+    -u, --url         Treat parameters as URLs.
+    -v, --verbose     Enable verbose output.
 </pre>
 
 Command [**`gu.bat info -L ruby`**](bin/gu.bat) displays component information for the installed component **`ruby`**:
@@ -212,13 +214,15 @@ Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](https://www.graalv
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -h</b>
-Usage: gu install [-0cfiLnorv] {&lt;param&gt;}
+Usage: gu install [-0cdfhiLnorv] {&lt;param&gt;}
 Install specified components from file, URL or catalog.
 &nbsp;
   Options:
     -0, --dry-run        Dry run. Do not change any files.
     -c, --catalog        Treat parameters as component IDs from catalog (default).
-    -f, --force          Disable installation checks
+    -d, --debug          Show commands executed by this script.
+    -f, --force          Disable installation checks.
+    -h, --help           Display this help message.
     -i, --fail-existing  Fail if the to be installed component already exists.
     -L, --local-file     Treat parameters as local filenames of packaged components.
     -n, --no-progress    Do not display download progress.
@@ -280,13 +284,8 @@ Install local component graalsqueak-component.jar
 Command [**`gu.bat install -uv`**](bin/gu.bat)` `[**`https://../graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar`**](https://github.com/hpi-swa/graalsqueak/releases/) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
 
 <pre style="font-size:80%;">
-<b>&gt; gu install -uv https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar
-Download component https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
+<b>&gt; gu install -u https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
 Install remote component graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar
-Extract GraalVM component into directory %TEMP%\graal-updater\tmp
-Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
-Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
-Component ready to be installed in C:\opt\graalvm-ce-19.2.1
 Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1 (y/*)? y
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
@@ -336,6 +335,22 @@ Command rebuild-images not yet implemented
 
 #### <span id="gu_remove">`gu.bat remove`</span>
 
+Command **`gu remove`** removes the installed component specified by its component ID.
+
+<pre style="font-size:80%;">
+<b>&gt; gu remove -h</b>
+Usage: gu remove [-0dfhxv] &lt;param&gt;
+Remove component (ID).
+
+  Options:
+    -0, --dry-run     Dry run. Do not change any files.
+    -d, --debug       Show commands executed by this script.
+    -f, --force       Disable uninstallation checks (eg. non-matching versions).
+    -h, --help        Display this help message.
+    -x, --ignore      Do not terminate uninstall on failed file deletions.
+    -v, --verbose     Enable verbose output.
+</pre>
+
 We have no further plans to implement command [**`gu.bat remove`**](bin/gu.bat).
 
 <pre style="font-size:80%;">
@@ -345,6 +360,20 @@ Command remove not yet implemented
 </pre>
 
 #### <span id="gu_update">`gu.bat update`</span>
+
+Command **`gu update`** upgrades our environment to the specified GraalVM version.
+
+<pre style="font-size:80%;">
+<b>&gt; gu update -h</b>
+Usage: gu update [-dhvx] [&lt;ver&gt;] [&lt;param&gt;]
+Upgrade to the recent GraalVM version.
+
+  Options:
+    -d, --debug       Show commands executed by this script.
+    -h, --help        Display this help message.
+    -v, --verbose     Enable verbose output.
+    -x, --ignore      Do not terminate uninstall on failed file deletions.
+</pre>
 
 We have no further plans to implement command [**`gu.bat update`**](bin/gu.bat).
 

@@ -86,7 +86,7 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     rem subcommand
-    set /a __N=+1
+    set /a __N+=1
     if /i "%__ARG%"=="help" ( set _HELP=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
@@ -101,7 +101,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% _HELP=%_HELP% _VERBOSE=%_VERBOSE% 1>&2
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { options ^| subcommands }
+echo Usage: %_BASENAME% { option ^| subcommand }
 echo   Options:
 echo     -debug      show commands executed by this script
 echo     -verbose    display environment settings
@@ -117,14 +117,14 @@ set _GRAAL_PATH=
 set __JAVAC_CMD=
 for /f %%f in ('where javac.exe 2^>NUL') do set __JAVAC_CMD=%%f
 if defined __JAVAC_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of javac executable found in PATH
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of javac executable found in PATH 1>&2
     for %%i in ("%__JAVAC_CMD%") do set __GRAAL_BIN_DIR=%%~dpsi
     for %%f in ("!__GRAAL_BIN_DIR!..") do set _GRAAL_HOME=%%~sf
     rem keep _GRAAL_PATH undefined since executable already in path
     goto :eof
 ) else if defined GRAAL_HOME (
     set _GRAAL_HOME=%GRAAL_HOME%
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GRAAL_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GRAAL_HOME 1>&2
 ) else (
     set __PATH=C:\opt
     for /f %%f in ('dir /ad /b "!__PATH!\graalvm-ce*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
@@ -152,15 +152,15 @@ rem output parameter(s): _PYTHON_PATH
 set _PYTHON_PATH=
 
 set __PYTHON_HOME=
-set __PYTHON_EXE=
-for /f %%f in ('where python.exe 2^>NUL') do set __PYTHON_EXE=%%f
-if defined __PYTHON_EXE (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH
+set __PYTHON_CMD=
+for /f %%f in ('where python.exe 2^>NUL') do set __PYTHON_CMD=%%f
+if defined __PYTHON_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
     rem keep _PYTHON_PATH undefined since executable already in path
     goto :eof
 ) else if defined PYTHON_HOME (
     set "__PYTHON_HOME=%PYTHON_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable PYTHON_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable PYTHON_HOME 1>&2
 ) else (
     set __PATH=C:\opt
     if exist "!__PATH!\Python\" ( set __PYTHON_HOME=!__PATH!\Python
@@ -203,24 +203,26 @@ if %ERRORLEVEL%==0 (
         set "_GIT_CMD=%_GIT_HOME%\bin\git.exe"
     )
 )
-goto :eof
-
-:mx
-call :mx_git
 if not defined _GIT_CMD (
     echo %_ERROR_LABEL% Executable git.exe not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
+goto :eof
+
+:mx
+call :mx_git
+if not %_EXITCODE%==0 goto :eof
+
 set __MX_URL=https://github.com/graalvm/mx.git
 
 set __MX_HOME=%_ROOT_DIR%mx
 if exist "%__MX_HOME%\mx.cmd" (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_GIT_CMD% pull 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_GIT_CMD% fetch ^&^& %_GIT_CMD% merge 1^>NUL 1>&2
     ) else if %_VERBOSE%==1 ( echo Update mx directory %__MX_HOME% 1>&2
     ) else ( echo Update mx directory
     )
-    %_GIT_CMD% pull
+    call "%_GIT_CMD%" fetch && call "%_GIT_CMD%" merge 1>NUL
     if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
         goto :eof
@@ -230,7 +232,7 @@ if exist "%__MX_HOME%\mx.cmd" (
     ) else if %_VERBOSE%==1 ( echo Clone mx repository to directory %__MX_HOME% 1>&2
     ) else ( echo Clone mx directory
     )
-    %_GIT_CMD% clone %__MX_URL% %__MX_HOME%
+    call "%_GIT_CMD%" clone %__MX_URL% %__MX_HOME%
     if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
         goto :eof

@@ -271,7 +271,7 @@ echo     update [-x][^<ver^>][^<param^>]      Upgrade to the recent GraalVM vers
 echo.
 echo   Options supported by all commands:
 echo     -d, --debug                      Show commands executed by this script.
-echo     -h, --help                       Print this help message or a command specific help message.
+echo     -h, --help                       Display this help message or a command specific help message.
 echo     -v, --verbose                    Display progress messages.
 echo.
 echo   Options:
@@ -360,10 +360,12 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% !__N! component^(s^) found in catalog 1>&2
 goto :eof
 
 :available_help
-echo Usage: gu available [-lv] ^<expr^>
+echo Usage: gu available [-dhlv] ^<expr^>
 echo List components in the component catalog.
 echo.
 echo   Options:
+echo     -d, --debug       Show commands executed by this script.
+echo     -h, --help        Display this help message.
 echo     -l                List files.
 echo     -v, --verbose     Enable verbose output.
 goto :eof
@@ -411,11 +413,13 @@ if %_HELP%==1 ( call :info_help
 goto :eof
 
 :info_help
-echo Usage: gu info [-clLprstuv] {^<param^>}
+echo Usage: gu info [-cdhlLprstuv] {^<param^>}
 echo Print component information from file, URL or catalog.
 echo.
 echo   Options:
-echo     -c, --catalog     Treat parameters as component IDs from catalog. This is the default.a
+echo     -c, --catalog     Treat parameters as component IDs from catalog. This is the default.
+echo     -d, --debug       Show commands executed by this script.
+echo     -h, --help        Display this help message.
 echo     -L, --local-file  Treat parameters as local filenames of packaged components.
 echo     -u, --url         Treat parameters as URLs.
 echo     -v, --verbose     Enable verbose output.
@@ -555,20 +559,22 @@ if %_HELP%==1 ( call :install_help
 goto :eof
 
 :install_help
-echo Usage: gu install [-0cfiLnoruv] {^<param^>}
+echo Usage: gu install [-0cdfhiLnoruv] {^<param^>}
 echo Install specified components from file, URL or catalog.
 echo.
 echo   Options:
 echo     -0, --dry-run        Dry run. Do not change any files.
-echo     -c, --catalog        Treat parameters as component IDs from catalog. This is the default
-echo     -f, --force          Disable installation checks
-echo     -i, --fail-existing  Fail if the to be installed component already exists
-echo     -L, --local-file     Treat parameters as local filenames of packaged components
-echo     -n, --no-progress    Do not display download progress
-echo     -o, --overwrite      Silently overwrite previously installed component
-echo     -r, --replace        Replace different files
-echo     -u, --url            Treat parameters as URLs
-echo     -v, --verbose        Enable verbose output
+echo     -c, --catalog        Treat parameters as component IDs from catalog. This is the default.
+echo     -d, --debug          Show commands executed by this script.
+echo     -f, --force          Disable installation checks.
+echo     -h, --help           Display this help message.
+echo     -i, --fail-existing  Fail if the to be installed component already exists.
+echo     -L, --local-file     Treat parameters as local filenames of packaged components.
+echo     -n, --no-progress    Do not display download progress.
+echo     -o, --overwrite      Silently overwrite previously installed component.
+echo     -r, --replace        Replace different files.
+echo     -u, --url            Treat parameters as URLs.
+echo     -v, --verbose        Enable verbose output.
 goto :eof
 
 rem input parameter(s): %1=component ID, %2=auto-yes %3=dry-run
@@ -622,11 +628,13 @@ if %_HELP%==1 ( call :list_help
 goto :eof
 
 :list_help
-echo Usage: gu list [-clv] ^<param^>
+echo Usage: gu list [-cdhlv] ^<param^>
 echo List installed components.
 echo.
 echo   Options:
 echo     -c, --catalog     Treat parameters as component IDs from catalog. This is the default.
+echo     -d, --debug       Show commands executed by this script.
+echo     -h, --help        Display this help message.
 echo     -l, --list-files  List files.
 echo     -v, --verbose     Enable verbose output.
 goto :eof
@@ -690,10 +698,13 @@ if %_HELP%==1 ( call :rebuild_help
 goto :eof
 
 :rebuild_help
-echo Usage: gu rebuild-images
+echo Usage: gu rebuild-images [-dhv]
 echo Rebuild native images.
 echo.
 echo   Options:
+echo     -d, --debug       Show commands executed by this script.
+echo     -h, --help        Display this help message.
+echo     -v, --verbose     Enable verbose output.
 goto :eof
 
 rem gu remove [-0fxv] <id>
@@ -706,12 +717,14 @@ if %_HELP%==1 ( call :remove_help
 goto :eof
 
 :remove_help
-echo Usage: gu remove [-0fxv] ^<param^>
+echo Usage: gu remove [-0dfhxv] ^<param^>
 echo Remove component ^(ID^).
 echo.
 echo   Options:
 echo     -0, --dry-run     Dry run. Do not change any files.
+echo     -d, --debug       Show commands executed by this script.
 echo     -f, --force       Disable uninstallation checks ^(eg. non-matching versions^).
+echo     -h, --help        Display this help message.
 echo     -x, --ignore      Do not terminate uninstall on failed file deletions.
 echo     -v, --verbose     Enable verbose output.
 goto :eof
@@ -726,10 +739,13 @@ if %_HELP%==1 ( call :update_help
 goto :eof
 
 :update_help
-echo Usage: gu update [-x] [^<ver^>] [^<param^>]
+echo Usage: gu update [-dhvx] [^<ver^>] [^<param^>]
 echo Upgrade to the recent GraalVM version.
 echo.
 echo   Options:
+echo     -d, --debug       Show commands executed by this script.
+echo     -h, --help        Display this help message.
+echo     -v, --verbose     Enable verbose output.
 echo     -x, --ignore      Do not terminate uninstall on failed file deletions.
 goto :eof
 

@@ -54,7 +54,7 @@ setenv.bat
 
 where
 
-- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for installing the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
+- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
 - directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
@@ -80,7 +80,7 @@ We distinguish different sets of batch commands:
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
-    Usage: setenv { options | subcommands }
+    Usage: setenv { option | subcommand }
       Options:
         -debug      show commands executed by this script
         -verbose    display progress messages
@@ -104,7 +104,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.244.0, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.1, link 10.00.40219.01, git 2.24.0.windows.1
 
 <b>&gt; where jar link</b>
 C:\opt\graalvm-ce-19.2.1\bin\jar.exe
@@ -117,7 +117,7 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.244.0, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.1, link 10.00.40219.01, git 2.24.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
@@ -171,10 +171,7 @@ Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the
 C:\opt\graalvm-ce-19.2.1
 &nbsp;
 <b>&gt; gu install -L graalsqueak-component.jar</b>
-Extract GraalVM component into directory %TEMP%\graal-updater\tmp
-Create file %TEMP%\graal-updater\tmp\bin\graalsqueak.cmd
-Create file %TEMP%\graal-updater\tmp\jre\bin\graalsqueak.cmd
-Component ready for installation into directory C:\opt\graalvm-ce-19.2.1
+Install local component graalsqueak-component.jar
 Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1 (y/*)? y
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
@@ -307,6 +304,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</a>  <i>(  5 MB)</i>
 <a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.2.1.zip</a>                     <i>(171 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.24.0-64-bit.7z.exe</a>                        <i>( 41 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>          <i>( 30 MB)</i>
 </pre>
 

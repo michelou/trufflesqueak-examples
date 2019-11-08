@@ -19,7 +19,7 @@ This document is part of a series of topics related to [GraalSqueak](https://git
 
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
-- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
+- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
 - [GraalVM Community Edition 19.2](https://github.com/oracle/graal/releases) ([*release notes*](https://www.graalvm.org/docs/release-notes/19_2/#19201))
 - [Microsoft Visual Studio 10](https://visualstudio.microsoft.com/vs/older-downloads/) ([*release notes*](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2010-version-history))
 - [Microsoft Windows SDK 7.1](https://www.microsoft.com/en-us/download/details.aspx?id=8279)
@@ -90,7 +90,7 @@ We distinguish different sets of batch commands:
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
-    Usage: setenv { options | subcommands }
+    Usage: setenv { option | subcommand }
       Options:
         -debug      show commands executed by this script
         -verbose    display progress messages
@@ -101,7 +101,7 @@ We distinguish different sets of batch commands:
 
     <pre style="font-size:80%;">
     <b>&gt; build help</b>
-    Usage: build { options | subcommands }
+    Usage: build { option | subcommand }
       Options:
         -debug      show commands executed by this script
         -timer      display total elapsed time
@@ -136,7 +136,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.244.0, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.1, link 10.00.40219.01, git 2.24.0.windows.1
 
 <b>&gt; where python mx</b>
 C:\opt\Python-2.7.17\python.exe
@@ -149,7 +149,7 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.244.0, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.1, link 10.00.40219.01, git 2.24.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
@@ -176,7 +176,7 @@ Command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat) generat
 K:\graalsqueak
 &nbsp;
 <b>&gt; build -verbose clean dist</b>
-MX_VERSION: 5.244.0
+MX_VERSION: 5.247.1
 Build Java archives
 JAVA_HOME: C:\opt\graalvm-ce-19.2.1
 EXTRA_JAVA_HOMES:
@@ -195,7 +195,7 @@ Archiving GRAALSQUEAK... [dependency de.hpi.swa.graal.squeak updated]
 Archiving GRAALSQUEAK_TEST... [dependency de.hpi.swa.graal.squeak.test updated]
 Archiving GRAALSQUEAK_LAUNCHER... [dependency de.hpi.swa.graal.squeak.launcher updated]
 Executing script scripts\make_component.bat
-SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\graalsqueak-component.jar'.
+SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar'.
 </pre>
 
 The generated archive files are either Zip archives or Java archives (**`.zip`** files contain the source code of the corresponding **`.jar`** files):
@@ -204,22 +204,22 @@ The generated archive files are either Zip archives or Java archives (**`.zip`**
 <b>&gt; cd</b>
 K:\graalsqueak
 <b>&gt; dir /o | findstr /e "jar zip"</b>
-14.10.2019  20:26        12 778 268 graalsqueak.jar
-14.10.2019  20:26         7 043 905 graalsqueak.src.zip
-14.10.2019  20:26             9 004 graalsqueak.tck.src.zip
-14.10.2019  20:26           100 902 graalsqueak.tests.src.zip
-14.10.2019  20:26           368 450 graalsqueak_test.jar
-14.10.2019  20:26         4 995 080 graalsqueak-component.jar
-14.10.2019  20:26            16 085 graalsqueak-launcher.jar
-14.10.2019  20:26            11 357 graalsqueak-launcher.src.zip
-14.10.2019  20:25               883 graalsqueak-shared.jar
-14.10.2019  20:25               786 graalsqueak-shared.src.zip
+08.11.2019  17:13        13 643 436 graalsqueak.jar
+08.11.2019  17:13         7 663 307 graalsqueak.src.zip
+08.11.2019  17:13             9 004 graalsqueak.tck.src.zip
+08.11.2019  17:13           101 565 graalsqueak.tests.src.zip
+08.11.2019  17:13           373 998 graalsqueak_test.jar
+08.11.2019  17:13         5 126 160 graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar
+08.11.2019  17:13            16 374 graalsqueak-launcher.jar
+08.11.2019  17:13            11 593 graalsqueak-launcher.src.zip
+08.11.2019  17:12               883 graalsqueak-shared.jar
+08.11.2019  17:12               786 graalsqueak-shared.src.zip
 </pre>
 
-The [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component is packed into the installable component archive **`graalsqueak-component.jar`** whose contents looks as follows:
+The [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; jar tf graalsqueak-component.jar | findstr /v /e "\/"</b>
+<b>&gt; jar tf graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar | findstr /v /e "\/"</b>
 META-INF/MANIFEST.MF
 jre/languages/smalltalk/bin/graalsqueak
 jre/languages/smalltalk/bin/graalsqueak.cmd
