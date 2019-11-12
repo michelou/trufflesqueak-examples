@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;"><a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
-  This repository gathers several batch scripts for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
+  This repository gathers several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -82,7 +82,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 
 In the next section we give a brief description of the batch files present in this project.
 
-## Batch commands
+## <span id="commands">Batch commands</span>
 
 We distinguish different sets of batch commands:
 
@@ -90,10 +90,12 @@ We distinguish different sets of batch commands:
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
-    Usage: setenv { option | subcommand }
+    Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
+    &nbsp;
       Options:
         -debug      show commands executed by this script
         -verbose    display progress messages
+    &nbsp;
       Subcommands:
         help        display this help message</pre>
 
@@ -101,11 +103,13 @@ We distinguish different sets of batch commands:
 
     <pre style="font-size:80%;">
     <b>&gt; build help</b>
-    Usage: build { option | subcommand }
+    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+    &nbsp;
       Options:
         -debug      show commands executed by this script
         -timer      display total elapsed time
         -verbose    display progress messages
+    &nbsp;
       Subcommands:
         clean       delete generated files
         dist        generate the GraalSqueak component
@@ -123,10 +127,11 @@ In this section we resume the pull requests we submitted due to issues with the 
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/82">#82</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/2c344be64eb12a5540f9d784b307148729b1e2d2">merged</a></td><td>Component</td><td><code>release</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/83">#83</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/df7d5cee6d36726f808007a28c9b91571f3295e9">merged</a></td><td><code>build compile</code></td><td><code>template.graalsqueak.cmd</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/84">#84</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/1288f2e8b73af6357e537be19b31df3ec2c75fc3">merged</a></td><td><code>build compile</code></td><td><code>make_component.bat</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/85">#85</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/2c5d5d0">merged</a></td><td><code>build compile</code></td><td><code>make_component.bat</code></td></tr>
 <!-- <tr><td></td><td></td><td></td><td></td></tr> -->
 </table>
 
-## Usage examples
+## <span id="usage">Usage examples</span>
 
 #### `setenv.bat`
 
@@ -234,7 +239,7 @@ META-INF/permissions
 
 We present the installation of the generated [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive in document [README.md](README.md).
 
-## Troubleshooting
+## <span id="troubleshooting">Troubleshooting</span>
 
 In this section we list some issues we encountered in this project:
 
@@ -257,7 +262,7 @@ In this section we list some issues we encountered in this project:
    C:\opt\Git-2.24.0\usr\bin\link.exe
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe</pre>
 
-## Footnotes
+## <span id="footnotes">Footnotes</span>
 
 <a name="footnote_01">[1]</a> ***Downloads*** [↩](#anchor_01)
 

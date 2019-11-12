@@ -101,10 +101,12 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% _HELP=%_HELP% _VERBOSE=%_VERBOSE% 1>&2
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { option ^| subcommand }
+echo Usage: %_BASENAME% { ^<optio^> ^| ^<subcommand^> }
+echo.
 echo   Options:
 echo     -debug      show commands executed by this script
 echo     -verbose    display environment settings
+echo.
 echo   Subcommands:
 echo     help        display this help message
 goto :eof
@@ -115,7 +117,7 @@ set _GRAAL_HOME=
 set _GRAAL_PATH=
 
 set __JAVAC_CMD=
-for /f %%f in ('where javac.exe 2^>NUL') do set __JAVAC_CMD=%%f
+for /f %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
 if defined __JAVAC_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of javac executable found in PATH 1>&2
     for %%i in ("%__JAVAC_CMD%") do set __GRAAL_BIN_DIR=%%~dpsi
@@ -153,7 +155,7 @@ set _PYTHON_PATH=
 
 set __PYTHON_HOME=
 set __PYTHON_CMD=
-for /f %%f in ('where python.exe 2^>NUL') do set __PYTHON_CMD=%%f
+for /f %%f in ('where python.exe 2^>NUL') do set "__PYTHON_CMD=%%f"
 if defined __PYTHON_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
     rem keep _PYTHON_PATH undefined since executable already in path
