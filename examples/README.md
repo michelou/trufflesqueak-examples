@@ -11,8 +11,8 @@
 In this document we present the following [Squeak](https://squeak.org/) examples:
 
 - [Logarithmic equation](#log)
-- 222
-- 333
+- [tinyBenchmarks](#tiny_benchmarks)
+- [System reporter](#system_reporter)
 
 > **:mag_right:** The [Terse Guide to Squeak](https://wiki.squeak.org/squeak/5699) is included in the Squeak image <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> and is accessible from the '**Help**' menu of the Squeak IDE.
 
@@ -43,20 +43,67 @@ Preparing image for headless execution...
 [graalsqueak] Result: 1853020188851841
 -->
 
-## <b><code id="222">222</code></b>
+## <span id="tiny_benchmarks">tinyBenchmarks</span>
 
-xxxx
+This micro-benchmark suite is often used to measure and compare the performance of different hardware platforms and Squeak VMs and consists of two benchmarks:
+- The first one is bytecode-heavy as it allocates, fills, and reads from a large array.
+- The other one is a recursive [Fibonacci](http://wiki.squeak.org/squeak/1481) benchmark and therefore send-heavy
 
 <pre style="font-size:80%;">
-xxx
+<b>&gt; graalsqueak --code "1 tinyBenchmarks" images\GraalSqueak-1.0.0-rc5.image</b>
+[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.2.1 (Graal-compiled)...
+[graalsqueak] Image loaded in 3358ms.
+Preparing image for headless execution...
+[graalsqueak] Evaluating '1 tinyBenchmarks'...
+[graalsqueak] Result: 10,000,000,000 bytecodes/sec; 150,000,000 sends/sec
 </pre>
 
-## <b><code id="333">333</code></b>
+## <span id="system_reporter">System Reporter</span>
 
-xxxx
+This Squeak code displays the user environment variables including the Java system properties of our [GraalVM](https://www.graalvm.org/) environment:
 
 <pre style="font-size:80%;">
-xxx
+<b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" GraalSqueak-1.0.0-rc5.image</b>
+[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.2.1 (Graal-compiled)...
+[graalsqueak] Image loaded in 3031ms.
+Preparing image for headless execution...
+[graalsqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
+platform sources revision ilt on Nov 12 2019 22:08:49 CET
+OpenJDK 64-Bit GraalVM CE 19.2.1 (25.232-b07-jvmci-19.2-b03; mixed mode)
+GRAAL_VERSION=19.2.1
+GRAAL_HOME=C:\opt\graalvm-ce-19.2.1
+&nbsp;
+== System Properties =================================>
+R.home = C:\opt\graalvm-ce-19.2.1\jre\languages\R
+awt.toolkit = sun.awt.windows.WToolkit
+chromeinspector.home = C:\opt\graalvm-ce-19.2.1\jre\tools\chromeinspector
+file.encoding = Cp1252
+file.encoding.pkg = sun.io
+file.separator = \
+graalvm.home = C:\opt\graalvm-ce-19.2.1
+graalvm.version = 19.2.1
+[...]
+sun.boot.library.path = C:\opt\graalvm-ce-19.2.1\jre\bin
+sun.cpu.endian = little
+sun.cpu.isalist = amd64
+sun.desktop = windows
+sun.io.unicode.encoding = UnicodeLittle
+sun.java.command = de.hpi.swa.graal.squeak.launcher.GraalSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 GraalSqueak-1.0.0-rc5.image
+sun.java.launcher = SUN_STANDARD
+sun.jnu.encoding = Cp1252
+sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+sun.os.patch.level =
+sun.stderr.encoding = cp850
+sun.stdout.encoding = cp850
+user.country = CH
+user.dir = K:\examples
+user.home = %USERPROFILE%
+user.language = fr
+user.name = %USERNAME%
+user.script =
+user.timezone = Europe/Berlin
+user.variant =
+<= System Properties ===================================
 </pre>
 
 

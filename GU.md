@@ -169,6 +169,7 @@ Command [**`gu.bat info`**](bin/gu.bat) prints component information from file, 
 <b>&gt; gu info -h</b>
 Usage: gu info [-cdhlLprstuv] {&lt;param&gt;}
 Print component information from file, URL or catalog.
+&nbsp;
   Options:
     -c, --catalog     Treat parameters as component IDs from catalog. This is the default.
     -d, --debug       Show commands executed by this script.
@@ -209,7 +210,7 @@ Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](https://www.graalv
 > **:mag_right:** Options **`-c`**, **`-L`** and **`-u`** are mutual exclusive:
 > <pre style="font-size:80%;">
 > <b>&gt; gu install -cL python</b>
-> Error: --catalog, --local-file and --url options are mutual exclusive
+> Error: --catalog(-c), --local-file(-L) and --url(-u) options are mutual exclusive
 > </pre>
 
 <pre style="font-size:80%;">

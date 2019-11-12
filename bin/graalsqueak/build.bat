@@ -40,14 +40,14 @@ rem ## Subroutines
 
 rem output parameter(s): _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
-set _MX_CMD=mx.cmd
-set _MX_OPTS=
-
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
+
+set _MX_CMD=mx.cmd
+set _MX_OPTS=
 goto :eof
 
 rem input parameter: %*
@@ -96,11 +96,13 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _DIST=%_DIST% _VERBOSE=%_VERB
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { option ^| subcommand }
+echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+echo.
 echo   Options:
 echo     -debug      show commands executed by this script
 echo     -timer      display total elapsed time
 echo     -verbose    display progress messages
+echo.
 echo   Subcommands:
 echo     clean       delete generated files
 echo     dist        generate component archive

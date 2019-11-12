@@ -384,7 +384,7 @@ if defined _OPTIONS (
 )
 if %_HELP%==1 ( call :info_help
 ) else if not %__ILLEGAL%==0 (
-    echo %_ERROR_LABEL% --catalog, --local-file and --url options are mutual exclusive 1>&2
+    echo %_ERROR_LABEL% --catalog^(-c^), --local-file^(-L^) and --url^(-u^) options are mutual exclusive 1>&2
     set _EXITCODE=1
     goto :eof
 ) else if %__LOCAL%==1 (
@@ -515,7 +515,7 @@ if defined _OPTIONS (
 )
 if %_HELP%==1 ( call :install_help
 ) else if not %__ILLEGAL%==0 (
-    echo %_ERROR_LABEL% --catalog, --local-file and --url options are mutual exclusive 1>&2
+    echo %_ERROR_LABEL% --catalog^(-c^), --local-file^(-L^) and --url^(-u^) options are mutual exclusive 1>&2
     set _EXITCODE=1
     goto :eof
 ) else if %__LOCAL%==1 (
@@ -619,7 +619,7 @@ if defined _OPTIONS (
 )
 if %_HELP%==1 ( call :list_help
 ) else if not %__ILLEGAL%==0 (
-    echo %_ERROR_LABEL% --catalog and --local-file options are mutual exclusive 1>&2
+    echo %_ERROR_LABEL% --catalog^(-c^) and --local-file^(-L^) options are mutual exclusive 1>&2
     set _EXITCODE=1
     goto :eof
 ) else if %__CATALOG%==1 ( call :available_catalog "%_PARAMS%"
