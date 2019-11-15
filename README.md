@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://squeak.org/">Squeak</a> code examples coming from various websites and books.<br/>
-  It also includes several batch scripts for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
+  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -80,10 +80,12 @@ We distinguish different sets of batch commands:
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
-    Usage: setenv { option | subcommand }
+    Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
+    &nbsp;
       Options:
         -debug      show commands executed by this script
         -verbose    display progress messages
+    &nbsp;
       Subcommands:
         help        display this help message
     </pre>
@@ -136,6 +138,7 @@ Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for comm
 <pre style="font-size:80%;">
 <b>&gt; gu install -h</b>
 Usage: gu install [-0cfiLnoruv] {&lt;param&gt;}
+&nbsp;
   Options:
     -0, --dry-run        Dry run. Do not change any files.
     -c, --catalog        Treat parameters as component IDs from catalog. This is the default.
@@ -287,6 +290,8 @@ Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the 
 > ---------                     -------
 >  94060932                     3 files
 > </pre>
+
+Code examples are presented in document [examples\README.md](examples/README.md).
 
 ## Footnotes
 
