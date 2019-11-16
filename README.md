@@ -9,24 +9,24 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [GraalSqueak](https://github.com/hpi-swa/graalsqueak) on Windows:
+This document is part of a series of topics related to [GraalSqueak](graalsqueak) on Windows:
 
 - Installing GraalSqueak on Windows [**&#9660;**](#bottom)
 - [Using **`gu.bat`** on Windows](GU.md)
 - [Building GraalSqueak on Windows](BUILD.md)
 
-[Dotty](https://github.com/michelou/dotty-examples), [GraalVM](https://github.com/michelou/graalvm-examples) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
+[Dotty](dotty_examples), [GraalVM](graalvm_examples) and [LLVM](llvm_examples) are other topics we are currently investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
-- [GraalSqueak Image 1.0](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc5)
-- [GraalVM Community Edition 19.2](https://github.com/oracle/graal/releases) ([*release notes*](https://www.graalvm.org/docs/release-notes/19_2/#19201))
+- [Git 2.24](git_downloads) ([*release notes*](git_relnotes))
+- [GraalSqueak Image 1.0](graalsqueak_image)
+- [GraalVM Community Edition 19.2](graalvm_downloads) ([*release notes*](graalvm_relnotes))
 
 Optionally one may also install the following software:
-- [Squeak 5.2](https://squeak.org/downloads/) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
+- [Squeak 5.2](squeak_downloads) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 
 For instance our development environment looks as follows (*November 2019*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
@@ -37,7 +37,7 @@ C:\opt\Squeak-5.2\          <i>(116 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
-> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a [Zip archive](zip_archive) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](linux_opt) directory on Unix).
 
 ## <span id="structure">Directory structure</span>
 
@@ -54,17 +54,17 @@ setenv.bat
 
 where
 
-- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
-- directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
-- directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
-- file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
-- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/) tool.
+- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [GraalSqueak](graalsqueak) component on a Windows machine.
+- directory [**`docs\`**](docs/) contains several [GraalSqueak](graalsqueak) related papers/articles.
+- directory [**`examples\`**](examples/) contains [Squeak](squeak) code examples (see [**`examples\README.md`**](examples/README.md)).
+- file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [GraalSqueak](graalsqueak) component.
+- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the [GraalVM Updater](gu_refman) tool.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
-We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
+We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](windows_limitation) from Microsoft Support).
 
-> **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
+> **:mag_right:** We use the Windows external command [**`subst`**](windows_subst) to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
 > <b>&gt; subst K: %USERPROFILE%\workspace\graalsqueak-examples</b>
@@ -76,7 +76,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`java.exe`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`java.exe`**](java_exe) and [**`git.exe`**](git_exe) directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
@@ -90,9 +90,9 @@ We distinguish different sets of batch commands:
         help        display this help message
     </pre>
 
-2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features commands to manage the [GraalVM](https://www.graalvm.org/) environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**](https://www.graalvm.org/docs/reference-manual/install-components/) command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
+2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features commands to manage the [GraalVM](graalvm) environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**](gu_refman) command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
 
-   We use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component (or any installable component such as [FastR](https://github.com/oracle/fastr), [GraalPython](https://github.com/graalvm/graalpython) or [TruffleRuby](https://github.com/oracle/truffleruby)) to our [GraalVM](https://www.graalvm.org/) environment. More details on the usage of this command are available in document [GU.md](GU.md).
+   We use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak](graalsqueak) component (or any installable component such as [FastR](fastr), [GraalPython](graalpython) or [TruffleRuby](truffleruby)) to our [GraalVM](graalvm) environment. More details on the usage of this command are available in document [GU.md](GU.md).
 
 In the next section we present usage examples of the batch files present in this project.
 
@@ -100,7 +100,7 @@ In the next section we present usage examples of the batch files present in this
 
 #### `setenv.bat`
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`jar.exe`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
+Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`jar.exe`**](jar_exe) and [**`git.exe`**](git_exe) directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
@@ -137,12 +137,15 @@ Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for comm
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -h</b>
-Usage: gu install [-0cfiLnoruv] {&lt;param&gt;}
+Usage: gu install [-0cdfhiLnoruv] {&lt;param&gt;}
+Install specified components from file, URL or catalog.
 &nbsp;
   Options:
     -0, --dry-run        Dry run. Do not change any files.
     -c, --catalog        Treat parameters as component IDs from catalog. This is the default.
+    -d, --debug          Show commands executed by this script.
     -f, --force          Disable installation checks.
+    -h, --help           Display this help message.
     -i, --fail-existing  Fail if the to be installed component already exists.
     -L, --local-file     Treat parameters as local filenames of packaged components.
     -n, --no-progress    Do not display download progress.
@@ -152,22 +155,22 @@ Usage: gu install [-0cfiLnoruv] {&lt;param&gt;}
     -v, --verbose        Enable verbose output.
 </pre>
 
-Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](https://www.graalvm.org/) installable components in three different ways, namely:
+Command [**`gu.bat install`**](bin/gu.bat) can add [GraalVM](graalvm) installable components in three different ways, namely:
 <ul>
 <li>from a catalog <i>(default, option </i><b><code>-c</code></b><i>)</i></li>
 <li>from a local component archive <i>(option </i><b><code>-L</code></b><i>)</i></li>
 <li>from a remote component archive <i>(option </i><b><code>-u</code></b><i>)</i></li>
 </ul>
 
-We present below the installation from a *local* [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive; further usage examples are available in document [GU.md](GU.md).
+We present below the installation from a *local* [GraalSqueak](graalsqueak) component archive; further usage examples are available in document [GU.md](GU.md).
 
-Let's first download [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component archive from the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) repository:
+Let's first download [GraalSqueak](graalsqueak) component archive from the [GraalSqueak](graalsqueak) repository:
 
 <pre style="font-size:80%;">
 <b>&gt; curl -sL -o graalsqueak-component.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
 </pre>
 
-Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
+Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the [GraalSqueak](graalsqueak) component to our [GraalVM](graalvm) environment.
 
 <pre style="font-size:80%;">
 <b>&gt; echo %GRAAL_HOME%</b>
@@ -182,7 +185,7 @@ Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 
 ## <span id="execution">Squeak execution</span>
 
-The [GraalVM](https://www.graalvm.org/) installation directory looks as follows after adding the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component:
+The [GraalVM](graalvm) installation directory looks as follows after adding the [GraalSqueak](graalsqueak) component:
 
 <pre style="font-size:80%;">
 <b>&gt; where /r c:\opt\graalvm-ce-19.2.1 *squeak*</b>
@@ -208,7 +211,7 @@ c:\opt\graalvm-ce-19.2.1\jre\lib\graalvm\graalsqueak-launcher.jar
 > set location=%~dp0
 > "%location%..\languages\smalltalk\bin\graalsqueak.cmd" %*
 > </pre>
-> Command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`** itself is copied from template file [**`template.graalsqueak.cmd`**](https://github.com/hpi-swa/graalsqueak/blob/dev/scripts/template.graalsqueak.cmd) during the generation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
+> Command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`** itself is copied from template file [**`template.graalsqueak.cmd`**](graalsqueak_cmd) during the generation of the [GraalSqueak](graalsqueak) component.
 
 #### `graalsqueak.cmd`
 
@@ -264,8 +267,8 @@ GraalVM Home c:\opt\graalvm-ce-19.2.1
 Command **`graalsqueak`** (with no argument) opens a dialog window for selecting a Squeak image before starting the Squeak IDE.
 
 > **:mag_right:** We have the choice between two Squeak images:
-> - [GraalSqueak project](https://github.com/hpi-swa/graalsqueak) : [**`GraalSqueakImage-<version>.image`**](https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc5).
-> - [Squeak project](https://squeak.org/) : [**`Squeak<version>-64bit.image`**](https://squeak.org/downloads/).<br/>
+> - [GraalSqueak project](graalsqueak) : [**`GraalSqueakImage-<version>.image`**](graalsqueak_image).
+> - [Squeak project](squeak) : [**`Squeak<version>-64bit.image`**](squeak_downloads).<br/>
 > &nbsp;
 
 Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the provided Squeak image.
@@ -323,3 +326,30 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
+
+<!-- hrefs -->
+
+[dotty_examples]: https://github.com/michelou/dotty-examples
+[fastr]: https://github.com/oracle/fastr
+[git_downloads]: https://git-scm.com/download/win
+[git_exe]: https://git-scm.com/docs/git
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[graalpython]: https://github.com/graalvm/graalpython
+[graalsqueak]: https://github.com/hpi-swa/graalsqueak
+[graalsqueak_cmd]: https://github.com/hpi-swa/graalsqueak/blob/dev/scripts/template.graalsqueak.cmd
+[graalsqueak_image]: https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc5
+[graalvm]: https://www.graalvm.org/
+[graalvm_downloads]: https://github.com/oracle/graal/releases
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_2/#19201
+[graalvm_examples]: https://github.com/michelou/graalvm-examples
+[gu_refman]: https://www.graalvm.org/docs/reference-manual/
+[jar_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
+[java_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html
+[linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[llvm_examples]: https://github.com/michelou/llvm-examples
+[squeak]: https://squeak.org/
+[squeak_downloads]: https://squeak.org/downloads/
+[truffleruby]: https://github.com/oracle/truffleruby
+[windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
+[windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
+[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

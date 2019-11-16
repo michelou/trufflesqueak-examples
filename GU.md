@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [GraalSqueak](https://github.com/hpi-swa/graalsqueak) on Windows:
+This document is part of a series of topics related to [GraalSqueak](graalsqueak) on Windows:
 
 - [Installing GraalSqueak on Windows](README.md)
 - Using **`gu.bat`** on Windows [**&#9660;**](#bottom)
@@ -19,8 +19,8 @@ This document is part of a series of topics related to [GraalSqueak](https://git
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
-- [GraalVM Community Edition 19.2](https://github.com/oracle/graal/releases) ([*release notes*](https://www.graalvm.org/docs/release-notes/19_2/#19201))
+- [Git 2.24](git_downloads) ([*release notes*](git_relnotes))
+- [GraalVM Community Edition 19.2](graalvm_downloads) ([*release notes*](graalvm_relnotes))
 
 For instance our development environment looks as follows (*November 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
@@ -30,7 +30,7 @@ C:\opt\graalvm-ce-19.2.1\   <i>(362 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
-> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a [Zip archive](zip_archive) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](linux_opt) directory on Unix).
 
 ## <span id="structure">Directory structure</span>
 
@@ -47,17 +47,17 @@ setenv.bat
 
 where
 
-- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component on a Windows machine.
-- directory [**`docs\`**](docs/) contains several [GraalSqueak](https://github.com/hpi-swa/graalsqueak) related papers/articles.
-- directory [**`examples\`**](examples/) contains [Squeak](https://squeak.org/) code examples (see [**`examples\README.md`**](examples/README.md)).
-- file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
+- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [GraalSqueak](graalsqueak) component on a Windows machine.
+- directory [**`docs\`**](docs/) contains several [GraalSqueak](graalsqueak) related papers/articles.
+- directory [**`examples\`**](examples/) contains [Squeak](squeak) code examples (see [**`examples\README.md`**](examples/README.md)).
+- file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [GraalSqueak](graalsqueak) component.
 - file [**`GU.md`**](GU.md) is the Markdown document for this page.
-- file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component.
+- file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](graalsqueak) component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
-We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
+We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](windows_limitation) from Microsoft Support).
 
-> **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
+> **:mag_right:** We use the Windows external command [**`subst`**](windows_subst) to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
 > <b>&gt; subst K: %USERPROFILE%\workspace\graalsqueak-examples</b>
@@ -67,14 +67,14 @@ In the next section we give a brief overview of batch file **`gu.bat`**.
 
 ## <span id="overview">**`gu.bat`** overview</span>
 
-We wrote batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
+We wrote batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Oracle's [GraalVM Updater](gu_refman) on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
 
 In short [**`gu.bat`**](bin/gu.bat):
-- implements a *subset* of the commands featured by Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/).
+- implements a *subset* of the commands featured by Oracle's [GraalVM Updater](gu_refman/).
 - works properly given *one* the following two requirements is met:
     - the environment variable **`GRAAL_HOME`**  is defined or
     - **`gu.bat`** is located in directory **`<graalvm-dir>\bin\`**.
-- contains ~850 lines of batch code including a few lines of [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/) code.
+- contains ~850 lines of batch code including a few lines of [PowerShell](powershell) code.
 
 Command **`gu -h`** (or **`gu --help`**) prints the following help message:
 <pre style="font-size:80%;">
@@ -114,10 +114,10 @@ Usage: gu command {&lt;option&gt;} {&lt;param&gt;}
     -x, --ignore                     Do not terminate uninstall on failed file deletions.</pre>
 
 > **:mag_right:** The definition of the above commands and options is based on the following documentation:
-> - [Oracle GraalVM EE 19 Guide](https://docs.oracle.com/en/graalvm/enterprise/19/guide/) : [GraalVM Updater](https://docs.oracle.com/en/graalvm/enterprise/19/guide/reference/graalvm-updater.html).
-> - [GraalVM Reference Manual](https://www.graalvm.org/docs/reference-manual/) : [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/).
+> - [Oracle GraalVM EE 19 Guide](graalvm_ee_refman) : [GraalVM Updater](gu_ee_refman).
+> - [GraalVM Reference Manual](graalvm_refman) : [GraalVM Updater](gu_refman).
 
-Oracle's [GraalVM Updater](https://www.graalvm.org/docs/reference-manual/install-components/) features seven commands and supports both long and short options (*"switches"*).
+Oracle's [GraalVM Updater](gu_refman) features seven commands and supports both long and short options (*"switches"*).
 
 In the next section we present usage examples of commands currently implemented in [**`gu.bat`**](bin/gu.bat).
 
@@ -200,7 +200,7 @@ Component: ruby
 
 #### <span id="gu_install">`gu.bat install`</span>
 
-Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](https://www.graalvm.org/) installable components from three different sources, namely:
+Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM](graalvm) installable components from three different sources, namely:
 <ul>
 <li>from a catalog <i>(default, option </i><b><code>-c</code></b><i>)</i></li>
 <li>from a local component archive <i>(option </i><b><code>-L</code></b><i>)</i></li>
@@ -235,7 +235,7 @@ Install specified components from file, URL or catalog.
 
 *Installation from a **catalog***
 
-Command [**`gu.bat -v install python`**](bin/gu.bat) adds the [GraalPython](https://github.com/graalvm/graalpython) component to our [GraalVM](https://www.graalvm.org/) environment:
+Command [**`gu.bat -v install python`**](bin/gu.bat) adds the [GraalPython](graalpython) component to our [GraalVM](graalvm) environment:
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -v python</b>
@@ -260,7 +260,7 @@ Install GraalVM component into directory c:\opt\graalvm-ce-19.2.1
 
 *Installation from a **local** component archive*
 
-Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
+Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the [GraalSqueak](graalsqueak) component to our [GraalVM](graalvm) environment.
 
 <pre style="font-size:80%;">
 <b>&gt; echo %GRAAL_HOME%</b>
@@ -282,7 +282,7 @@ Install local component graalsqueak-component.jar
 
 *Installation from a **remote** component archive*
 
-Command [**`gu.bat install -uv`**](bin/gu.bat)` `[**`https://../graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar`**](https://github.com/hpi-swa/graalsqueak/releases/) adds the [GraalSqueak](https://github.com/hpi-swa/graalsqueak) component to our [GraalVM](https://www.graalvm.org/) environment.
+Command [**`gu.bat install -uv`**](bin/gu.bat)` `[**`https://../graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar`**](graalsqueak_downloads) adds the [GraalSqueak](graalsqueak) component to our [GraalVM](graalvm) environment.
 
 <pre style="font-size:80%;">
 <b>&gt; gu install -u https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
@@ -293,7 +293,7 @@ Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 
 #### <span id="gu_list">`gu.bat list`</span>
 
-Command [**`gu.bat list`**](bin/gu.bat) prints the components installed in our [GraalVM](https://www.graalvm.org/) environment:
+Command [**`gu.bat list`**](bin/gu.bat) prints the components installed in our [GraalVM](graalvm) environment:
 
 <pre style="font-size:80%;">
 <b>&gt; echo %GRAAL_HOME%</b>
@@ -441,3 +441,24 @@ Components currently available are:
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
+
+<!-- hrefs -->
+
+[git_downloads]: https://git-scm.com/download/win
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[graalpython]: https://github.com/graalvm/graalpython
+[graalsqueak]: https://github.com/hpi-swa/graalsqueak
+[graalsqueak_downloads]: https://github.com/hpi-swa/graalsqueak/releases/
+[graalvm]: https://www.graalvm.org/
+[graalvm_downloads]: https://github.com/oracle/graal/releases
+[graalvm_ee_refman]: https://docs.oracle.com/en/graalvm/enterprise/19/guide/
+[graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_2/#19201
+[gu_ee_refman]: https://docs.oracle.com/en/graalvm/enterprise/19/guide/reference/graalvm-updater.html
+[gu_refman]: https://www.graalvm.org/docs/reference-manual/install-components/
+[linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[powershell]: https://docs.microsoft.com/en-us/powershell/scripting/
+[squeak]: https://squeak.org/
+[windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
+[windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
+[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
