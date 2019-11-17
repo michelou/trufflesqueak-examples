@@ -55,10 +55,10 @@ setenv.bat
 where
 
 - file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [GraalSqueak] component on a Windows machine.
-- directory [**`docs\`**](docs/) contains several [GraalSqueak] related papers/articles.
+- directory [**`docs\`**](docs/) contains [GraalSqueak] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [GraalSqueak] component.
-- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the [GraalVM Updater][gu_refman] tool.
+- file [**`GU.md`**](GU.md) is the [Markdown][github_markdown] document presenting the usage of the [GraalVM Updater][gu_refman] tool.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -106,7 +106,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.1, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.4, link 10.00.40219.01, git 2.24.0.windows.1
 
 <b>&gt; where jar link</b>
 C:\opt\graalvm-ce-19.2.1\bin\jar.exe
@@ -119,7 +119,7 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.1, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.4, link 10.00.40219.01, git 2.24.0.windows.1
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
@@ -334,6 +334,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[github_markdown]: https://github.github.com/gfm/
 [graalpython]: https://github.com/graalvm/graalpython
 [graalsqueak]: https://github.com/hpi-swa/graalsqueak
 [graalsqueak_cmd]: https://github.com/hpi-swa/graalsqueak/blob/dev/scripts/template.graalsqueak.cmd

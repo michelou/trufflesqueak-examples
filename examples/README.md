@@ -8,17 +8,17 @@
   </tr>
 </table>
 
-In this document we present the following [Squeak](https://squeak.org/) examples:
+In this document we present the following [Squeak] code examples:
 
 - [Logarithmic equation](#log)
 - [tinyBenchmarks](#tiny_benchmarks)
 - [System reporter](#system_reporter)
 
-> **:mag_right:** The [Terse Guide to Squeak](https://wiki.squeak.org/squeak/5699) is included in the Squeak image <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> and is accessible from the '**Help**' menu of the Squeak IDE.
+> **:mag_right:** The [Terse Guide to Squeak][squeak_guide] is included in the Squeak image <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> and is accessible from the '**Help**' menu of the Squeak IDE.
 
 ## <span id="log">Logarithmic equation</span>
 
-Let's take as first example the [logarithmic equation](https://en.wikipedia.org/wiki/Logarithm) *"The logarithm of a product is the sum of the logarithms of the factors"*, i.e. <code>log<sub>b</sub>(x*y) = log<sub>b</sub>(x) + log<sub>b</sub>(y)</code>:
+Let's take as first example the [logarithmic equation][wiki_logarithm] *"The logarithm of a product is the sum of the logarithms of the factors"*, i.e. <code>log<sub>b</sub>(x*y) = log<sub>b</sub>(x) + log<sub>b</sub>(y)</code>:
 
 <pre style="font-size:80%;">
 <b>&gt; where graalsqueak</b>
@@ -32,7 +32,7 @@ Preparing image for headless execution...
 [graalsqueak] Result: <b>-1.1102230246251565E-16</b>
 </pre>
 
-We observe that the result is *not* equal to zero due to limited precision in floating-point operations. By contrast, executing `log(6) - (log(2) + log(3))` in the [ke!san Online Calculator](https://keisan.casio.com/calculator) returns `0` as an answer.
+We observe that the result is *not* equal to zero due to limited precision in floating-point operations. By contrast, executing `log(6) - (log(2) + log(3))` in the [ke!san Online Calculator][keisan] returns `0` as an answer.
 
 <!--
 <b>&gt; graalsqueak --code "3 raisedTo: 32" images\GraalSqueak-1.0.0-rc5.image</b>
@@ -60,7 +60,7 @@ Preparing image for headless execution...
 
 ## <span id="system_reporter">System Reporter</span>
 
-This Squeak code displays the user environment variables including the Java system properties of our [GraalVM](https://www.graalvm.org/) environment:
+This Squeak code displays the user environment variables including the Java system properties of our [GraalVM] environment:
 
 <pre style="font-size:80%;">
 <b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" GraalSqueak-1.0.0-rc5.image</b>
@@ -119,3 +119,11 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/g
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
+
+<!-- link refs -->
+
+[graalvm]: https://www.graalvm.org/
+[keisan]: https://keisan.casio.com/calculator
+[squeak]: https://squeak.org/
+[squeak_guide]: https://wiki.squeak.org/squeak/5699
+[wiki_logarithm]: https://en.wikipedia.org/wiki/Logarithm
