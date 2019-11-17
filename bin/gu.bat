@@ -258,7 +258,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% _COMMAND=%_COMMAND% _OPTIONS=%_OPTIONS% _PARA
 goto :eof
 
 :help
-echo Usage: %_BASENAME% command {^<option^>} {^<param^>}
+echo Usage: %_BASENAME% ^<command^> {^<option^>} {^<param^>}
 echo.
 echo   Commands:
 echo     available [-l] ^<expr^>            List components in the component catalog.
@@ -360,7 +360,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% !__N! component^(s^) found in catalog 1>&2
 goto :eof
 
 :available_help
-echo Usage: gu available [-dhlv] ^<expr^>
+echo Usage: %_BASENAME% available [-dhlv] ^<expr^>
 echo List components in the component catalog.
 echo.
 echo   Options:
@@ -413,7 +413,7 @@ if %_HELP%==1 ( call :info_help
 goto :eof
 
 :info_help
-echo Usage: gu info [-cdhlLprstuv] {^<param^>}
+echo Usage: %_BASENAME% info [-cdhlLprstuv] {^<param^>}
 echo Print component information from file, URL or catalog.
 echo.
 echo   Options:
@@ -559,7 +559,7 @@ if %_HELP%==1 ( call :install_help
 goto :eof
 
 :install_help
-echo Usage: gu install [-0cdfhiLnoruv] {^<param^>}
+echo Usage: %_BASENAME% install [-0cdfhiLnoruv] {^<param^>}
 echo Install specified components from file, URL or catalog.
 echo.
 echo   Options:
@@ -628,7 +628,7 @@ if %_HELP%==1 ( call :list_help
 goto :eof
 
 :list_help
-echo Usage: gu list [-cdhlv] ^<param^>
+echo Usage: %_BASENAME% list [-cdhlv] ^<param^>
 echo List installed components.
 echo.
 echo   Options:
@@ -698,7 +698,7 @@ if %_HELP%==1 ( call :rebuild_help
 goto :eof
 
 :rebuild_help
-echo Usage: gu rebuild-images [-dhv]
+echo Usage: %_BASENAME% rebuild-images [-dhv]
 echo Rebuild native images.
 echo.
 echo   Options:
@@ -717,7 +717,7 @@ if %_HELP%==1 ( call :remove_help
 goto :eof
 
 :remove_help
-echo Usage: gu remove [-0dfhxv] ^<param^>
+echo Usage: %_BASENAME% remove [-0dfhxv] ^<param^>
 echo Remove component ^(ID^).
 echo.
 echo   Options:
@@ -739,7 +739,7 @@ if %_HELP%==1 ( call :update_help
 goto :eof
 
 :update_help
-echo Usage: gu update [-dhvx] [^<ver^>] [^<param^>]
+echo Usage: %_BASENAME% update [-dhvx] [^<ver^>] [^<param^>]
 echo Upgrade to the recent GraalVM version.
 echo.
 echo   Options:

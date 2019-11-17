@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [GraalSqueak](graalsqueak) on Windows:
+This document is part of a series of topics related to [GraalSqueak] on Windows:
 
 - [Installing GraalSqueak on Windows](README.md)
 - [Using **`gu.bat`** on Windows](GU.md)
@@ -19,11 +19,11 @@ This document is part of a series of topics related to [GraalSqueak](graalsqueak
 
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
-- [Git 2.24](git_downloads) ([*release notes*](git_relnotes))
-- [GraalVM Community Edition 19.2](graalvm_downloads) ([*release notes*](graalvm_relnotes))
-- [Microsoft Visual Studio 10](vs2010_downloads) ([*release notes*](vs2010_relnotes))
-- [Microsoft Windows SDK 7.1](windows_sdk)
-- [Python 2.7](python_downloads) ([*release notes*](python_relnotes))
+- [Git 2.24][git_downloads] ([*release notes*][git_relnotes])
+- [GraalVM Community Edition 19.2][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [Microsoft Visual Studio 10][vs2010_downloads] ([*release notes*][vs2010_relnotes])
+- [Microsoft Windows SDK 7.1][windows_sdk]
+- [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
 
 For instance our development environment looks as follows (*November 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
@@ -36,7 +36,7 @@ C:\Program Files (x86)\Microsoft Visual Studio 10.0\  <i>(555 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
-> When possible we install software from a [Zip archive](zip_archive) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](linux_opt) directory on Unix).
+> When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
 
 ## <span id="structure">Directory structure</span>
 
@@ -57,20 +57,20 @@ setenv.bat
 
 where
 
-- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [GraalSqueak](graalsqueak) component on a Windows machine.
-- file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch script for <i>building</i> the [GraalSqueak](graalsqueak) component on a Windows machine.
-- directory [**`docs\`**](docs/) contains several [GraalSqueak](graalsqueak) related papers/articles.
-- directory [**`examples\`**](examples/) contains [Squeak](squeak) code examples (see [**`examples\README.md`**](examples/README.md)).
-- directory **`graalsqueak\`** contains our *fork* of the [hpi-swa/graalsqueak](graalsqueak) repository as a [Github submodule](.gitmodules).
-- directory **`mx\`** contains [mx](mx_cmd), the command-line tool used for the development of Graal projects.  
+- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [GraalSqueak] component on a Windows machine.
+- file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch script for <i>building</i> the [GraalSqueak] component on a Windows machine.
+- directory [**`docs\`**](docs/) contains [GraalSqueak] related papers/articles.
+- directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
+- directory **`graalsqueak\`** contains our *fork* of the [hpi-swa/graalsqueak][graalsqueak] repository as a [Github submodule](.gitmodules).
+- directory **`mx\`** contains [mx][mx_cmd], the command-line tool used for the development of Graal projects.  
 - file [**`BUILD.md`**](README.md) is the Markdown document for this page.
-- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the [GraalVM Updater](graalvm_refman) tool.
-- file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](graalsqueak) component.
+- file [**`GU.md`**](GU.md) is the Markdown document presenting the usage of the [GraalVM Updater][graalvm_refman] tool.
+- file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak] component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
-We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](windows_limitation) from Microsoft Support).
+We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
 
-> **:mag_right:** We use the Windows external command [**`subst`**](windows_subst) to create virtual drives; for instance:
+> **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
 > <b>&gt; subst K: %USERPROFILE%\workspace\graalsqueak-examples</b>
@@ -82,7 +82,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`python.exe`**](python_exe), [**`mx.cmd`**](mx_cmd) and [**`git.exe`**](git_exe) directly available from the command prompt (see section [**Project dependencies**](#section_01)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`python.exe`**][python_exe], [**`mx.cmd`**][mx_cmd] and [**`git.exe`**][git_exe] directly available from the command prompt (see section [**Project dependencies**](#section_01)).
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
@@ -95,7 +95,7 @@ We distinguish different sets of batch commands:
       Subcommands:
         help        display this help message</pre>
 
-2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak](graalsqueak) installable component.
+2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak] installable component.
 
     <pre style="font-size:80%;">
     <b>&gt; build help</b>
@@ -113,7 +113,7 @@ We distinguish different sets of batch commands:
 
 ## <span id="contribs">Contributions</span>
 
-In this section we resume the pull requests we submitted due to issues with the generation and the execution of the [GraalSqueak](graalsqueak) installable component.
+In this section we resume the pull requests we submitted due to issues with the generation and the execution of the [GraalSqueak] installable component.
 
 <table>
 <tr><th><a href="https://github.com/hpi-swa/graalsqueak/pulls?q=is%3Apr+author%3Amichelou">Pull request</a></th><th>Request status</th><th>Context</th><th>File(s)</th></tr>
@@ -131,7 +131,7 @@ In this section we resume the pull requests we submitted due to issues with the 
 
 #### `setenv.bat`
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`python.exe`**](python_exe), [**`mx.cmd`**](mx_cmd) and [**`git.exe`**](git_exe) directly available from the command prompt:
+Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`python.exe`**][python_exe], [**`mx.cmd`**][mx_cmd] and [**`git.exe`**][git_exe] directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
@@ -164,13 +164,13 @@ Tool paths:
 
 #### `graalsqueak\build.bat`
 
-Directory **`graalsqueak\`** contains our fork of the [`hpi-swa/graalsqueak`](graalsqueak) repository; it is setup as follows:
+Directory **`graalsqueak\`** contains our fork of the [`hpi-swa/graalsqueak`][graalsqueak] repository; it is setup as follows:
 <pre style="font-size:80%;">
 <b>&gt; cp bin\graalsqueak\build.bat graalsqueak</b>
 <b>&gt; cd graalsqueak</b>
 </pre>
 
-Command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat) generates several archive files including the [GraalSqueak](graalsqueak) component.
+Command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat) generates several archive files including the [GraalSqueak] component.
 
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
@@ -217,7 +217,7 @@ K:\graalsqueak
 08.11.2019  17:12               786 graalsqueak-shared.src.zip
 </pre>
 
-The [GraalSqueak](graalsqueak) component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar`** whose contents looks as follows:
+The [GraalSqueak] component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
 <b>&gt; jar tf graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar | findstr /v /e "\/"</b>
@@ -233,7 +233,7 @@ META-INF/symlinks
 META-INF/permissions
 </pre>
 
-We present the installation of the generated [GraalSqueak](graalsqueak) component archive in document [README.md](README.md).
+We present the installation of the generated [GraalSqueak] component archive in document [README.md](README.md).
 
 ## <span id="troubleshooting">Troubleshooting</span>
 
@@ -252,7 +252,7 @@ In this section we list some issues we encountered in this project:
    Try 'link --help' for more information.
    ninja: build stopped: subcommand failed.</pre>
 
-   The error is due to a wrong executable path for **`link.exe`** (see [issue #1554](https://github.com/oracle/graal/issues/1554) in [graal](https://github.com/oracle/graal) project):
+   The error is due to a wrong executable path for **`link.exe`** (see [issue #1554](https://github.com/oracle/graal/issues/1554) in [oracle/graal][oracle_graal] project):
    <pre style="font-size:80%;">
    <b>&gt; where link</b>
    C:\opt\Git-2.24.0\usr\bin\link.exe
@@ -294,6 +294,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 [graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_2/#19201
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [mx_cmd]: https://github.com/graalvm/mx
+[oracle_graal]: https://github.com/oracle/graal
 [python_exe]: https://docs.python.org/2/using/cmdline.html
 [python_downloads]: https://www.python.org/downloads/release/python-2717/
 [python_relnotes]: https://www.python.org/downloads/release/python-2717/

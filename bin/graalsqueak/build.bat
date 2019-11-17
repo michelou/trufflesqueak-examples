@@ -91,8 +91,8 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto :args_loop
 :args_done
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _DIST=%_DIST% _VERBOSE=%_VERBOSE% 1>&2
+if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -198,7 +198,7 @@ rem ## Cleanups
 if %_TIMER%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Elapsed time: !_DURATION! 1>&2
+    echo Total elapsed time: !_DURATION! 1>&2
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
