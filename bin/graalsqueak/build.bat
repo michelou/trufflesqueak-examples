@@ -1,6 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
+rem only for interactive debugging
 set _DEBUG=0
 
 rem ##########################################################################
@@ -125,33 +126,8 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-:dist_env_msvc
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
-    set __MSVC_ARCH=\amd64
-    set __NET_ARCH=Framework64\v4.0.30319
-    set __SDK_ARCH=\x64
-    set __KIT_ARCH=\x64
-) else (
-    set __MSVC_ARCH=\x86
-    set __NET_ARCH=Framework\v4.0.30319
-    set __SDK_ARCH=
-    set __KIT_ARCH=\x86
-)
-rem Variables MSVC_HOME, MSVS_HOME and SDK_HOME are defined by setenv.bat
-set INCLUDE=%MSVC_HOME%\include;%SDK_HOME%\include
-set LIB=%MSVC_HOME%\Lib%__MSVC_ARCH%;%SDK_HOME%\lib%__SDK_ARCH%
-if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% ===== B U I L D   V A R I A B L E S ===== 1>&2
-    echo %_DEBUG_LABEL% INCLUDE=%INCLUDE% 1>&2
-    echo %_DEBUG_LABEL% LIB=%LIB% 1>&2
-    echo %_DEBUG_LABEL% ========================================= 1>&2
-)
-goto :eof
-
 :dist
 setlocal
-call :dist_env_msvc
-
 set /a __SHOW_VERSION=_DEBUG+_VERBOSE
 if not %__SHOW_VERSION%==0 (
     for /f "tokens=1,2,*" %%i in ('%_MX_CMD% --version') do set __MX_VERSION=%%k

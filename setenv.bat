@@ -69,6 +69,7 @@ goto :eof
 rem input parameter: %*
 :args
 set _HELP=0
+set _TRAVIS=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -78,6 +79,7 @@ if not defined __ARG goto args_done
 if "%__ARG:~0,1%"=="-" (
     rem option
     if /i "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if /i "%__ARG%"=="-travis" ( set _TRAVIS=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -97,7 +99,7 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto :args_loop
 :args_done
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _HELP=%_HELP% _VERBOSE=%_VERBOSE% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _HELP=%_HELP% _TRAVIS=%_TRAVIS% _VERBOSE=%_VERBOSE% 1>&2
 goto :eof
 
 :help
@@ -105,6 +107,7 @@ echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
 echo     -debug      show commands executed by this script
+echo     -travis     start Git bash shell instead of Windows command prompt
 echo     -verbose    display environment settings
 echo.
 echo   Subcommands:
@@ -224,7 +227,7 @@ if exist "%__MX_HOME%\mx.cmd" (
     ) else if %_VERBOSE%==1 ( echo Update mx directory %__MX_HOME% 1>&2
     ) else ( echo Update mx directory
     )
-    call "%_GIT_CMD%" fetch && call "%_GIT_CMD%" merge 1>NUL
+    call "%_GIT_CMD%" -C "%__MX_HOME%" fetch && call "%_GIT_CMD%" -C "%__MX_HOME%" merge 1>NUL
     if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
         goto :eof
@@ -234,7 +237,7 @@ if exist "%__MX_HOME%\mx.cmd" (
     ) else if %_VERBOSE%==1 ( echo Clone mx repository to directory %__MX_HOME% 1>&2
     ) else ( echo Clone mx directory
     )
-    call "%_GIT_CMD%" clone %__MX_URL% %__MX_HOME%
+    call "%_GIT_CMD%" clone "%__MX_URL%" "%__MX_HOME%"
     if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
         goto :eof
@@ -305,10 +308,17 @@ rem output parameter(s): _GIT_HOME, _GIT_PATH
 set _GIT_HOME=
 set _GIT_PATH=
 
-set __GIT_EXE=
-for /f %%f in ('where git.exe 2^>NUL') do set __GIT_EXE=%%f
-if defined __GIT_EXE (
+set __GIT_CMD=
+for /f %%f in ('where git.exe 2^>NUL') do set __GIT_CMD=%%f
+if defined __GIT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
+    
+    for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
+    for %%f in ("!__GIT_BIN_DIR!..") do set _GIT_HOME=%%~sf
+    rem Executable git.exe is present both in bin\ and \mingw64\bin\
+    if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
+        for %%f in ("!_GIT_HOME!\..") do set _GIT_HOME=%%~sf
+    )
     rem keep _GIT_PATH undefined since executable already in path
     goto :eof
 ) else if defined GIT_HOME (
@@ -339,8 +349,10 @@ goto :eof
 
 :print_env
 set __VERBOSE=%1
+set __GIT_HOME=%~2
 set "__VERSIONS_LINE1=  "
 set "__VERSIONS_LINE2=  "
+set "__VERSIONS_LINE3=  "
 set __WHERE_ARGS=
 where /q javac.exe
 if %ERRORLEVEL%==0 (
@@ -364,17 +376,23 @@ if %ERRORLEVEL%==0 (
 )
 where /q link.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-5,*" %%i in ('link.exe ^| findstr Version 2^>^NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% link %%n,"
+    for /f "tokens=1-5,*" %%i in ('link.exe ^| findstr Version 2^>^NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% link %%n"
     set __WHERE_ARGS=%__WHERE_ARGS% link.exe
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k"
+    for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% git.exe
+)
+where /q "%__GIT_HOME%\bin":bash.exe
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-3,4,*" %%i in ('"%__GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash %%l"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%__GIT_HOME%\bin:bash.exe"
 )
 echo Tool versions:
 echo %__VERSIONS_LINE1%
 echo %__VERSIONS_LINE2%
+echo %__VERSIONS_LINE3%
 if %__VERBOSE%==1 if defined __WHERE_ARGS (
     rem if %_DEBUG%==1 echo %_DEBUG_LABEL% where %__WHERE_ARGS%
     echo Tool paths: 1>&2
@@ -395,7 +413,11 @@ endlocal & (
         if not defined MSVS_HOME set MSVS_HOME=%_MSVS_HOME%
         if not defined SDK_HOME set SDK_HOME=%_SDK_HOME%
         set "PATH=%_GRAAL_PATH%%PATH%%_PYTHON_PATH%%_MX_PATH%%_MSVS_PATH%%_SDK_PATH%%_GIT_PATH%;%~dp0bin"
-        if %_EXITCODE%==0 call :print_env %_VERBOSE%
+        call :print_env %_VERBOSE% "%_GIT_HOME%"
+        if %_TRAVIS%==1 (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\bin\bash.exe --login 1>&2
+            call %_GIT_HOME%\bin\bash.exe --login
+        )
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=

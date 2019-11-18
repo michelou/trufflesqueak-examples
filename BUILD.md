@@ -43,6 +43,7 @@ C:\Program Files (x86)\Microsoft Visual Studio 10.0\  <i>(555 MB)</i>
 This project is organized as follows:
 <pre style="font-size:80%;">
 bin\gu.bat
+bin\graalsqueak\build
 bin\graalsqueak\build.bat
 docs\
 examples\README.md
@@ -58,7 +59,8 @@ setenv.bat
 where
 
 - file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [GraalSqueak] component on a Windows machine.
-- file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch script for <i>building</i> the [GraalSqueak] component on a Windows machine.
+- file [**`bin\graalsqueak\build`**](bin/graalsqueak/build) is the bash script for <i>building</i> the [GraalSqueak] component on a Windows machine.
+- file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch file for <i>building</i> the [GraalSqueak] component on a Windows machine.
 - directory [**`docs\`**](docs/) contains [GraalSqueak] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
 - directory **`graalsqueak\`** contains our *fork* of the [hpi-swa/graalsqueak][graalsqueak] repository as a [Github submodule](.gitmodules).
@@ -84,32 +86,56 @@ We distinguish different sets of batch commands:
 
 1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`python.exe`**][python_exe], [**`mx.cmd`**][mx_cmd] and [**`git.exe`**][git_exe] directly available from the command prompt (see section [**Project dependencies**](#section_01)).
 
-    <pre style="font-size:80%;">
-    <b>&gt; setenv help</b>
-    Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
-    &nbsp;
-      Options:
-        -debug      show commands executed by this script
-        -verbose    display progress messages
-    &nbsp;
-      Subcommands:
-        help        display this help message</pre>
+   <pre style="font-size:80%;">
+   <b>&gt; setenv help</b>
+   Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
+   &nbsp;
+     Options:
+       -debug      show commands executed by this script
+       -travis     start Git bash shell instead of Windows command prompt
+       -verbose    display progress messages
+   &nbsp;
+     Subcommands:
+       help        display this help message</pre>
 
-2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak] installable component.
+2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak] installable component from a [Windows Commands](windows_commands) shell.
 
-    <pre style="font-size:80%;">
-    <b>&gt; build help</b>
-    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
-    &nbsp;
-      Options:
-        -debug      show commands executed by this script
-        -timer      display total elapsed time
-        -verbose    display progress messages
-    &nbsp;
-      Subcommands:
-        clean       delete generated files
-        dist        generate the GraalSqueak component
-        help        display this help message</pre>
+   <pre style="font-size:80%;">
+   <b>&gt; cd graasqueak</b>
+   <b>&gt; cp ..\bin\graalsqueak\build.bat .</b>
+   <b>&gt; build help</b>
+   Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+   &nbsp;
+     Options:
+       -debug      show commands executed by this script
+       -timer      display total elapsed time
+       -verbose    display progress messages
+   &nbsp;
+     Subcommands:
+       clean       delete generated files
+       dist        generate the GraalSqueak component
+       help        display this help message</pre>
+
+
+3. [**`bin\graalsqueak\build`**](bin/graalsqueak/build) - This bash script generates the [GraalSqueak] installable component from a Git bash shell.
+
+   <pre style="font-size:80%;">
+   <b>&gt; setenv -travis</b>
+   <b>$ cd graasqueak</b>
+   <b>$ cp ../bin/graalsqueak/build. .</b>
+   <b>$ ./build help</b>
+   Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+   &nbsp;
+     Options:
+       -debug      show commands executed by this script
+       -timer      display total elapsed time
+       -verbose    display progress messages
+   &nbsp;
+     Subcommands:
+       clean       delete generated files
+       dist        generate the GraalSqueak component
+       help        display this help message</pre>
+
 
 ## <span id="contribs">Contributions</span>
 
@@ -124,7 +150,7 @@ In this section we resume the pull requests we submitted due to issues with the 
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/83">#83</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/df7d5cee6d36726f808007a28c9b91571f3295e9">merged</a></td><td><code>build compile</code></td><td><code>template.graalsqueak.cmd</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/84">#84</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/1288f2e8b73af6357e537be19b31df3ec2c75fc3">merged</a></td><td><code>build compile</code></td><td><code>make_component.bat</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/85">#85</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/2c5d5d0">merged</a></td><td><code>build compile</code></td><td><code>make_component.bat</code></td></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/90">#90</a></td><td>open</td><td><code>build compile</code></td><td><code>make_component.(sh|bat)</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/90">#90</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/eeb73a7">merged</a></td><td><code>build compile</code></td><td><code>make_component.sh</code></td></tr>
 <!-- <tr><td></td><td></td><td></td><td></td></tr> -->
 </table>
 
@@ -303,6 +329,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 [squeak]: https://squeak.org/
 [vs2010_downloads]: https://visualstudio.microsoft.com/vs/older-downloads/
 [vs2010_relnotes]: https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2010-version-history
+[windows_commands]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_sdk]: https://www.microsoft.com/en-us/download/details.aspx?id=8279
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
