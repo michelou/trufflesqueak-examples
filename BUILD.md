@@ -101,8 +101,6 @@ We distinguish different sets of batch commands:
 2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak] installable component from a [Windows Commands](windows_commands) shell.
 
    <pre style="font-size:80%;">
-   <b>&gt; cd graasqueak</b>
-   <b>&gt; cp ..\bin\graalsqueak\build.bat .</b>
    <b>&gt; build help</b>
    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
@@ -120,9 +118,6 @@ We distinguish different sets of batch commands:
 3. [**`bin\graalsqueak\build`**](bin/graalsqueak/build) - This bash script generates the [GraalSqueak] installable component from a Git bash shell.
 
    <pre style="font-size:80%;">
-   <b>&gt; setenv -travis</b>
-   <b>$ cd graasqueak</b>
-   <b>$ cp ../bin/graalsqueak/build. .</b>
    <b>$ ./build help</b>
    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
@@ -164,7 +159,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.4, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.4, link 10.00.40219.01
+   git 2.24.0.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; where python mx</b>
 C:\opt\Python-2.7.17\python.exe
@@ -177,7 +173,8 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.4, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.4, link 10.00.40219.01
+   git 2.24.0.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
@@ -187,11 +184,12 @@ Tool paths:
    C:\opt\Git-2.24.0\usr\bin\link.exe
    C:\opt\Git-2.24.0\bin\git.exe
    C:\opt\Git-2.24.0\mingw64\bin\git.exe
+   C:\opt\Git-2.24.0\bin\bash.exe
 </pre>
 
 #### `graalsqueak\build.bat`
 
-Directory **`graalsqueak\`** contains our fork of the [`hpi-swa/graalsqueak`][graalsqueak] repository; it is setup as follows:
+Directory **`graalsqueak\`** contains our fork of the [`hpi-swa/graalsqueak`][graalsqueak] repository; it is setup as follows when executing commands in the Windows Command shell:
 <pre style="font-size:80%;">
 <b>&gt; cp bin\graalsqueak\build.bat graalsqueak</b>
 <b>&gt; cd graalsqueak</b>
@@ -213,15 +211,7 @@ Dependencies removed from build:
  project com.oracle.mxtool.junit.jdk9 was removed as JDK 9 is not available
 Non-default dependencies removed from build (use mx build --all to build them):
  JACOCOREPORT_0.8.4
-Archiving GRAALSQUEAK_SHARED... [K:\graalsqueak\graalsqueak-shared.jar does not exist]
-Compiling de.hpi.swa.graal.squeak with javac-daemon(JDK 1.8)... [dependency GRAALSQUEAK_SHARED updated]
-Compiling de.hpi.swa.graal.squeak.test with javac-daemon(JDK 1.8)... [dependency de.hpi.swa.graal.squeak updated]
-Compiling de.hpi.swa.graal.squeak.tck with javac-daemon(JDK 1.8)... [dependency GRAALSQUEAK_SHARED updated]
-Compiling de.hpi.swa.graal.squeak.launcher with javac-daemon(JDK 1.8)... [dependency GRAALSQUEAK_SHARED updated]
-Archiving GRAALSQUEAK_TCK... [dependency de.hpi.swa.graal.squeak.tck updated]
-Archiving GRAALSQUEAK... [dependency de.hpi.swa.graal.squeak updated]
-Archiving GRAALSQUEAK_TEST... [dependency de.hpi.swa.graal.squeak.test updated]
-Archiving GRAALSQUEAK_LAUNCHER... [dependency de.hpi.swa.graal.squeak.launcher updated]
+[...]
 Executing script scripts\make_component.bat
 SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar'.
 </pre>
@@ -261,6 +251,32 @@ META-INF/permissions
 </pre>
 
 We present the installation of the generated [GraalSqueak] component archive in document [README.md](README.md).
+
+#### `graalsqueak\build`
+
+Directory **`graalsqueak\`** contains our fork of the [`hpi-swa/graalsqueak`][graalsqueak] repository; it is setup as follows when executing commands in the Git bash shell (started with option **`-travis`**):
+
+<pre style="font-size:80%;">
+<b>&gt; setenv -travis</b>
+<b>$ cp bin/graalsqueak/build graalsqueak</b>
+<b>$ cd graalsqueak</b>
+</pre>
+
+Command [**`build clean dist`**](bin/graalsqueak/build) generates several archive files including the [GraalSqueak] component.
+
+<pre style="font-size:80%;">
+<b>$ ./build clean dist</b>
+JAVA_HOME: C:\opt\graalvm-ce-19.2.1
+EXTRA_JAVA_HOMES:
+Dependencies removed from build:
+ project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
+ project com.oracle.mxtool.junit.jdk9 was removed as JDK 9 is not available
+Non-default dependencies removed from build (use mx build --all to build them):
+ JACOCOREPORT_0.8.4
+[...]
+SUCCESS! The component is located at '/k/graalsqueak/scripts/../graalsqueak-installable-windows-amd64-1.0.0-rc5-59-g656c1823-for-GraalVM-19.2.1.jar'.
+</pre>
+
 
 ## <span id="troubleshooting">Troubleshooting</span>
 

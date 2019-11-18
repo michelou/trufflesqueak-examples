@@ -84,6 +84,7 @@ We distinguish different sets of batch commands:
     &nbsp;
       Options:
         -debug      show commands executed by this script
+        -travis     start Git bash shell instead of Windows command prompt
         -verbose    display progress messages
     &nbsp;
       Subcommands:
@@ -119,7 +120,8 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.4, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.4, link 10.00.40219.01
+   git 2.24.0.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\graalvm-ce-19.2.1\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
@@ -129,6 +131,7 @@ Tool paths:
    C:\opt\Git-2.24.0\usr\bin\link.exe
    C:\opt\Git-2.24.0\bin\git.exe
    C:\opt\Git-2.24.0\mingw64\bin\git.exe
+   C:\opt\Git-2.24.0\bin\bash.exe
 </pre>
 
 #### `gu.bat install`
