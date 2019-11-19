@@ -72,7 +72,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 
 In the next section we give a brief description of the batch files present in this project.
 
-## Batch commands
+## Batch/Bash commands
 
 We distinguish different sets of batch commands:
 
