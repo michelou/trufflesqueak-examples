@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;"><a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
-  This repository gathers several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
+  This repository gathers several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> and <a href="https://www.gnu.org/software/bash/manual/bash.html">bash scripts</a> for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -58,7 +58,7 @@ setenv.bat
 where
 
 - file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [GraalSqueak] component on a Windows machine.
-- directory [**`bin\graalsqueak\`**](bin/graalsqueak/) contains the bash script [**`build`**](bin/graalsqueak/build) and the batch file [**`build.bat`**](bin/graalsqueak/build.bat) for <i>building</i> the [GraalSqueak] component on a Windows machine.
+- directory [**`bin\graalsqueak\`**](bin/graalsqueak/) contains the batch file [**`build.bat`**](bin/graalsqueak/build.bat) and the bash script [**`build`**](bin/graalsqueak/build) for <i>building</i> the [GraalSqueak] component on a Windows machine.
 - directory [**`docs\`**](docs/) contains [GraalSqueak] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
 - directory **`graalsqueak\`** contains our *fork* of the [hpi-swa/graalsqueak][graalsqueak] repository as a [Github submodule](.gitmodules).
