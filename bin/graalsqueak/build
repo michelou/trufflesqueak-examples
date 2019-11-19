@@ -103,13 +103,13 @@ dist() {
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
     local SCRIPT_FILE=$TOOL_HOME/scripts/make_component.sh
     if [[ ! -f "$SCRIPT_FILE" ]]; then
-        echo "$ERROR_LABEL Batch file !_SCRIPT_FILE:%_ROOT_DIR%=! not found" 1>&2
+        echo "$ERROR_LABEL Bash script !_SCRIPT_FILE:%_ROOT_DIR%=! not found" 1>&2
         EXITCODE=1 && return $EXITCODE
     fi
     if [[ $DEBUG -eq 1 ]]; then
         echo "%_DEBUG_LABEL% source $SCRIPT_FILE" 1>&2
     elif [[ $VERBOSE -eq 1 ]]; then
-        echo "Executing script $TOOL_HOME/scripts/make_component.sh" 1>&2
+        echo "Execute script $TOOL_HOME/scripts/make_component.sh" 1>&2
     fi
     source $SCRIPT_FILE
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
@@ -163,6 +163,10 @@ if [[ ! -f "$MX_CMD" ]]; then
     cleanup 1
 fi
 
+## mx command tool requires Java installation
+## - either option --java-home or --extra-java-homes
+## - or environment variable JAVA_HOME or EXTRA_JAVA_HOMES 
+## - or mx.<proj>\env (using mx/select_jdk.py - p <proj_path>)
 MX_OPTS=
 [[ -n "$JAVA_HOME" ]] && MX_OPTS="--java-home $JAVA_HOME"
 

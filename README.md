@@ -107,7 +107,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.4, link 10.00.40219.01, git 2.24.0.windows.1
+   mx 5.247.4, link 10.00.40219.01
+   git 2.24.0.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; where jar link</b>
 C:\opt\graalvm-ce-19.2.1\bin\jar.exe

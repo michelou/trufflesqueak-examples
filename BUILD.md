@@ -43,8 +43,7 @@ C:\Program Files (x86)\Microsoft Visual Studio 10.0\  <i>(555 MB)</i>
 This project is organized as follows:
 <pre style="font-size:80%;">
 bin\gu.bat
-bin\graalsqueak\build
-bin\graalsqueak\build.bat
+bin\graalsqueak\
 docs\
 examples\README.md
 graal\        <i>(created by</i> <a href="https://github.com/hpi-swa/graalsqueak/tree/master/mx.graalsqueak"><b><code>mx.graalsqueak</code></b><i></a>)</i>
@@ -59,8 +58,7 @@ setenv.bat
 where
 
 - file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [GraalSqueak] component on a Windows machine.
-- file [**`bin\graalsqueak\build`**](bin/graalsqueak/build) is the bash script for <i>building</i> the [GraalSqueak] component on a Windows machine.
-- file [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) is the batch file for <i>building</i> the [GraalSqueak] component on a Windows machine.
+- directory [**`bin\graalsqueak\`**](bin/graalsqueak/) contains the bash script [**`build`**](bin/graalsqueak/build) and the batch file [**`build.bat`**](bin/graalsqueak/build.bat) for <i>building</i> the [GraalSqueak] component on a Windows machine.
 - directory [**`docs\`**](docs/) contains [GraalSqueak] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
 - directory **`graalsqueak\`** contains our *fork* of the [hpi-swa/graalsqueak][graalsqueak] repository as a [Github submodule](.gitmodules).
@@ -98,7 +96,7 @@ We distinguish different sets of batch commands:
      Subcommands:
        help        display this help message</pre>
 
-2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak] installable component from a [Windows Commands](windows_commands) shell.
+2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak] installable component from the [Windows command prompt](windows_prompt).
 
    <pre style="font-size:80%;">
    <b>&gt; build help</b>
@@ -115,7 +113,9 @@ We distinguish different sets of batch commands:
        help        display this help message</pre>
 
 
-3. [**`bin\graalsqueak\build`**](bin/graalsqueak/build) - This bash script generates the [GraalSqueak] installable component from a Git bash shell.
+3. [**`bin\graalsqueak\build`**](bin/graalsqueak/build) - This bash script generates the [GraalSqueak] installable component from the [Git bash][git_bash] shell.
+
+   > **:mag_right:** Bash script [**`build`**](bin/graalsqueak/build) behaves the same as batch file [**`build.bat`**](bin/graalsqueak/build.bat). We have to use the [**`./`**][linux_dotslash] notation here since, unlike the Windows command prompt, Unix-like shells do not check the current directory for executables before checking the **`PATH`** environment variable.
 
    <pre style="font-size:80%;">
    <b>$ ./build help</b>
@@ -132,7 +132,7 @@ We distinguish different sets of batch commands:
        help        display this help message</pre>
 
 
-## <span id="contribs">Contributions</span>
+## <span id="contributions">Contributions</span>
 
 In this section we resume the pull requests we submitted due to issues with the generation and the execution of the [GraalSqueak] installable component.
 
@@ -328,6 +328,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 
 <!-- hrefs -->
 
+[git_bash]: https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
@@ -336,6 +337,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 [graalvm_downloads]: https://github.com/oracle/graal/releases
 [graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
 [graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_2/#19201
+[linux_dotslash]: http://www.linfo.org/dot_slash.html
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [mx_cmd]: https://github.com/graalvm/mx
 [oracle_graal]: https://github.com/oracle/graal
@@ -345,7 +347,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 [squeak]: https://squeak.org/
 [vs2010_downloads]: https://visualstudio.microsoft.com/vs/older-downloads/
 [vs2010_relnotes]: https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2010-version-history
-[windows_commands]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands
+[windows_prompt]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_sdk]: https://www.microsoft.com/en-us/download/details.aspx?id=8279
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
