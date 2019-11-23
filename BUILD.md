@@ -20,7 +20,7 @@ This document is part of a series of topics related to [GraalSqueak] on Windows:
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
 - [Git 2.24][git_downloads] ([*release notes*][git_relnotes])
-- [GraalVM Community Edition 19.2][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [GraalVM Community Edition 19.3][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 - [Microsoft Visual Studio 10][vs2010_downloads] ([*release notes*][vs2010_relnotes])
 - [Microsoft Windows SDK 7.1][windows_sdk]
 - [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
@@ -28,7 +28,7 @@ This project depends on the following external software for the **Microsoft Wind
 For instance our development environment looks as follows (*November 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-19.2.1\                             <i>(362 MB)</i>
+C:\opt\graalvm-ce-java8-19.3.0\                       <i>(360 MB)</i>
 C:\opt\Git-2.24.0\                                    <i>(271 MB)</i>
 C:\opt\Python-2.7.17\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
@@ -176,7 +176,7 @@ Tool versions:
    mx 5.247.4, link 10.00.40219.01
    git 2.24.0.windows.1, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\graalvm-ce-19.2.1\bin\javac.exe
+   C:\opt\graalvm-ce-java8-19.3.0\bin\javac.exe
    C:\opt\Python-2.7.17\python.exe
    C:\opt\Python-2.7.17\Scripts\pylint.exe
    K:\mx\mx.cmd
@@ -185,6 +185,10 @@ Tool paths:
    C:\opt\Git-2.24.0\bin\git.exe
    C:\opt\Git-2.24.0\mingw64\bin\git.exe
    C:\opt\Git-2.24.0\bin\bash.exe
+Environment variables:
+   INCLUDE="C:\PROGRA~2\MICROS~1.0\VC\include;C:\PROGRA~1\MICROS~4\Windows\v7.1\include"
+   LIB="C:\PROGRA~2\MICROS~1.0\VC\Lib\amd64;C:\PROGRA~1\MICROS~4\Windows\v7.1\lib\x64"
+   LINK="C:\PROGRA~2\MICROS~1.0\VC\bin\amd64\link.exe"
 </pre>
 
 #### `graalsqueak\build.bat`
@@ -204,7 +208,7 @@ K:\graalsqueak
 <b>&gt; build -verbose clean dist</b>
 MX_VERSION: 5.247.4
 Build Java archives
-JAVA_HOME: C:\opt\graalvm-ce-19.2.1
+JAVA_HOME: C:\opt\graalvm-ce-java8-19.3.0
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -213,7 +217,7 @@ Non-default dependencies removed from build (use mx build --all to build them):
  JACOCOREPORT_0.8.4
 [...]
 Executing script scripts\make_component.bat
-SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar'.
+SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.3.0.jar'.
 </pre>
 
 The generated archive files are either Zip archives or Java archives (**`.zip`** files contain the source code of the corresponding **`.jar`** files):
@@ -227,25 +231,25 @@ K:\graalsqueak
 08.11.2019  17:13             9 004 graalsqueak.tck.src.zip
 08.11.2019  17:13           101 565 graalsqueak.tests.src.zip
 08.11.2019  17:13           373 998 graalsqueak_test.jar
-08.11.2019  17:13         5 126 160 graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar
+08.11.2019  17:13         5 126 160 graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.3.0.jar
 08.11.2019  17:13            16 374 graalsqueak-launcher.jar
 08.11.2019  17:13            11 593 graalsqueak-launcher.src.zip
 08.11.2019  17:12               883 graalsqueak-shared.jar
 08.11.2019  17:12               786 graalsqueak-shared.src.zip
 </pre>
 
-The [GraalSqueak] component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar`** whose contents looks as follows:
+The [GraalSqueak] component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.3.0.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; jar tf graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.2.1.jar | findstr /v /e "\/"</b>
+<b>&gt; jar tf graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.3.0.jar | findstr /v /e "\/"</b>
 META-INF/MANIFEST.MF
 jre/languages/smalltalk/bin/graalsqueak
 jre/languages/smalltalk/bin/graalsqueak.cmd
 jre/languages/smalltalk/graalsqueak-shared.jar
 jre/languages/smalltalk/graalsqueak.jar
+jre/languages/smalltalk/LICENSE_GRAALSQUEAK.txt
 jre/languages/smalltalk/release
 jre/lib/graalvm/graalsqueak-launcher.jar
-LICENSE_GRAALSQUEAK.txt
 META-INF/symlinks
 META-INF/permissions
 </pre>
@@ -266,7 +270,7 @@ Command [**`build clean dist`**](bin/graalsqueak/build) generates several archiv
 
 <pre style="font-size:80%;">
 <b>$ ./build clean dist</b>
-JAVA_HOME: C:\opt\graalvm-ce-19.2.1
+JAVA_HOME: C:\opt\graalvm-ce-java8-19.3.0
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -274,7 +278,7 @@ Dependencies removed from build:
 Non-default dependencies removed from build (use mx build --all to build them):
  JACOCOREPORT_0.8.4
 [...]
-SUCCESS! The component is located at '/k/graalsqueak/scripts/../graalsqueak-installable-windows-amd64-1.0.0-rc5-59-g656c1823-for-GraalVM-19.2.1.jar'.
+SUCCESS! The component is located at '/k/graalsqueak/scripts/../graalsqueak-installable-windows-amd64-1.0.0-rc5-59-g656c1823-for-GraalVM-19.3.0.jar'.
 </pre>
 
 
@@ -285,7 +289,7 @@ In this section we list some issues we encountered in this project:
 -  Command **`build dist`** generates the error message **`FAILED: trufflenfi.dll`**:
    <pre style="font-size:80%;">
    <b>&gt; build dist</b>
-   JAVA_HOME: C:\opt\graalvm-ce-19.2.1
+   JAVA_HOME: C:\opt\graalvm-ce-java8-19.3.0
    [...]
    Building com.oracle.truffle.nfi.native_amd64 with Ninja...
    [1/1] LINK trufflenfi.dll
@@ -309,10 +313,10 @@ In this section we list some issues we encountered in this project:
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</a>  <i>(  5 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.2.1.zip</a>                     <i>(171 MB)</i>
-<a href="https://www.python.org/downloads/release/python-2717/">python-2.7.17.amd64.msi</a>                                 <i>( 19 MB)</i>
-<a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>          <i>( 30 MB)</i>
+<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-installable-windows-amd64-test-release-for-GraalVM-19.3.0.jar</a>  <i>( 20 MB)</i>
+<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.3.0.zip</a>              <i>(150 MB)</i>
+<a href="https://www.python.org/downloads/release/python-2717/">python-2.7.17.amd64.msi</a>                          <i>( 19 MB)</i>
+<a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>   <i>( 30 MB)</i>
 </pre>
 
 <a name="footnote_02">[2]</a> ***Github submodule*** [↩](#anchor_02)
@@ -336,7 +340,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 [graalsqueak]: https://github.com/hpi-swa/graalsqueak
 [graalvm_downloads]: https://github.com/oracle/graal/releases
 [graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_2/#19201
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_3/
 [linux_dotslash]: http://www.linfo.org/dot_slash.html
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [mx_cmd]: https://github.com/graalvm/mx

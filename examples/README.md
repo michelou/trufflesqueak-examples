@@ -22,10 +22,10 @@ Let's take as first example the [logarithmic equation][wiki_logarithm] *"The log
 
 <pre style="font-size:80%;">
 <b>&gt; where graalsqueak</b>
-C:\opt\graalvm-ce-19.2.1\bin\graalsqueak.cmd
+C:\opt\graalvm-ce-java8-19.3.0\bin\graalsqueak.cmd
 &nbsp;
 <b>&gt; graalsqueak --code "6 log - (2 log + 3 log)" images\GraalSqueak-1.0.0-rc5.image</b>
-[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.2.1 (Graal-compiled)...
+[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.3.0 (Graal-compiled)...
 [graalsqueak] Image loaded in 3833ms.
 Preparing image for headless execution...
 [graalsqueak] Evaluating '6 log - (3 log + 2 log)'...
@@ -36,7 +36,7 @@ We observe that the result is *not* equal to zero due to limited precision in fl
 
 <!--
 <b>&gt; graalsqueak --code "3 raisedTo: 32" images\GraalSqueak-1.0.0-rc5.image</b>
-[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.2.1 (Graal-compiled)...
+[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.3.0 (Graal-compiled)...
 [graalsqueak] Image loaded in 3822ms.
 Preparing image for headless execution...
 [graalsqueak] Evaluating '3 raisedTo: 32'...
@@ -51,7 +51,7 @@ This micro-benchmark suite is often used to measure and compare the performance 
 
 <pre style="font-size:80%;">
 <b>&gt; graalsqueak --code "1 tinyBenchmarks" images\GraalSqueak-1.0.0-rc5.image</b>
-[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.2.1 (Graal-compiled)...
+[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.3.0 (Graal-compiled)...
 [graalsqueak] Image loaded in 3358ms.
 Preparing image for headless execution...
 [graalsqueak] Evaluating '1 tinyBenchmarks'...
@@ -64,26 +64,26 @@ This Squeak code displays the user environment variables including the Java syst
 
 <pre style="font-size:80%;">
 <b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" GraalSqueak-1.0.0-rc5.image</b>
-[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.2.1 (Graal-compiled)...
+[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.3.0 (Graal-compiled)...
 [graalsqueak] Image loaded in 3031ms.
 Preparing image for headless execution...
 [graalsqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
 platform sources revision ilt on Nov 12 2019 22:08:49 CET
-OpenJDK 64-Bit GraalVM CE 19.2.1 (25.232-b07-jvmci-19.2-b03; mixed mode)
-GRAAL_VERSION=19.2.1
-GRAAL_HOME=C:\opt\graalvm-ce-19.2.1
+OpenJDK 64-Bit GraalVM CE 19.3.0 (build 25.232-b07-jvmci-19.3-b05; mixed mode)
+GRAAL_VERSION=19.3.0
+GRAAL_HOME=C:\opt\graalvm-ce-java8-19.3.0
 &nbsp;
 == System Properties =================================>
-R.home = C:\opt\graalvm-ce-19.2.1\jre\languages\R
+R.home = C:\opt\graalvm-ce-java8-19.3.0\jre\languages\R
 awt.toolkit = sun.awt.windows.WToolkit
-chromeinspector.home = C:\opt\graalvm-ce-19.2.1\jre\tools\chromeinspector
+chromeinspector.home = C:\opt\graalvm-ce-java8-19.3.0\jre\tools\chromeinspector
 file.encoding = Cp1252
 file.encoding.pkg = sun.io
 file.separator = \
-graalvm.home = C:\opt\graalvm-ce-19.2.1
-graalvm.version = 19.2.1
+graalvm.home = C:\opt\graalvm-ce-java8-19.3.0
+graalvm.version = 19.3.0
 [...]
-sun.boot.library.path = C:\opt\graalvm-ce-19.2.1\jre\bin
+sun.boot.library.path = C:\opt\graalvm-ce-java8-19.3.0\jre\bin
 sun.cpu.endian = little
 sun.cpu.isalist = amd64
 sun.desktop = windows
