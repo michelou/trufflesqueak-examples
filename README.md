@@ -72,7 +72,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 
 In the next section we give a brief description of the batch files present in this project.
 
-## Batch/Bash commands
+## <span id="commands">Batch commands</span>
 
 We distinguish different sets of batch commands:
 
@@ -186,9 +186,6 @@ Do you really want to add the component to directory C:\opt\graalvm-ce-19.2.1 (y
 Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
 </pre>
 
-
-## <span id="execution">Squeak execution</span>
-
 The [GraalVM] installation directory looks as follows after adding the [GraalSqueak] component:
 
 <pre style="font-size:80%;">
@@ -217,7 +214,8 @@ c:\opt\graalvm-ce-19.2.1\jre\lib\graalvm\graalsqueak-launcher.jar
 > </pre>
 > Command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`** itself is copied from template file [**`template.graalsqueak.cmd`**][graalsqueak_cmd] during the generation of the [GraalSqueak] component.
 
-#### `graalsqueak.cmd`
+
+## <span id="execution">Squeak execution</span>
 
 Command **`graalsqueak.cmd --help`** prints the usage message:
 
@@ -300,7 +298,7 @@ Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the 
 
 Code examples are presented in document [examples\README.md](examples/README.md).
 
-## Footnotes
+## <span id="footnotes">Footnotes</span>
 
 <a name="footnote_01">[1]</a> ***Squeak image*** [↩](#anchor_01)
 

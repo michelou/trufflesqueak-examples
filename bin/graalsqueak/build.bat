@@ -127,25 +127,29 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :dist
-setlocal
-set /a __SHOW_VERSION=_DEBUG+_VERBOSE
-if not %__SHOW_VERSION%==0 (
+set /a __SHOW_ALL=_DEBUG+_VERBOSE
+if not %__SHOW_ALL%==0 (
+    rem mx command tool requires environment variables INCLUDE, LIB and LINK
+    echo INCLUDE="%INCLUDE%" 1>&2
+    echo LIB="%LIB%" 1>&2
+    echo LINK="%LINK%" 1>&2
     for /f "tokens=1,2,*" %%i in ('%_MX_CMD% --version') do set __MX_VERSION=%%k
     echo MX_VERSION: !__MX_VERSION! 1>&2
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_MX_CMD% build 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_MX_CMD% gate --strict-mode --tags build 1>&2
 ) else if %_VERBOSE%==1 ( echo Build Java archives 1>&2
 )
-call %_MX_CMD% build
+rem call %_MX_CMD% %_MX_OPTS% gate --strict-mode --tags build
+call %_MX_CMD% %_MX_OPTS% build
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
-    goto dist_done
+    goto :eof
 )
 set _SCRIPT_FILE=%_ROOT_DIR%scripts\make_component.bat
 if not exist "%_SCRIPT_FILE%" (
     echo %_ERROR_LABEL% Batch file !_SCRIPT_FILE:%_ROOT_DIR%=! not found 1>&2
     set _EXITCODE=1
-    goto dist_done
+    goto :eof
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCRIPT_FILE% 1>&2
 ) else if %_VERBOSE%==1 ( echo Executing script !_SCRIPT_FILE:%_ROOT_DIR%=! 1>&2
@@ -153,10 +157,8 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCRIPT_FILE% 1>&2
 call "%_SCRIPT_FILE%"
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
-    goto dist_done
+    goto :eof
 )
-:dist_done
-endlocal
 goto :eof
 
 rem output parameter: _DURATION

@@ -78,7 +78,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 
 In the next section we give a brief description of the batch files present in this project.
 
-## <span id="commands">Batch commands</span>
+## <span id="commands">Batch/Bash commands</span>
 
 We distinguish different sets of batch commands:
 
@@ -115,7 +115,7 @@ We distinguish different sets of batch commands:
 
 3. [**`bin\graalsqueak\build`**](bin/graalsqueak/build) - This bash script generates the [GraalSqueak] installable component from the [Git bash][git_bash] shell.
 
-   > **:mag_right:** Bash script [**`build`**](bin/graalsqueak/build) behaves the same as batch file [**`build.bat`**](bin/graalsqueak/build.bat). We have to use the [**`./`**][linux_dotslash] notation here since, unlike the Windows command prompt, Unix-like shells do not check the current directory for executables before checking the **`PATH`** environment variable.
+   > **:mag_right:** Bash script [**`build`**](bin/graalsqueak/build) behaves the same as batch file [**`build.bat`**](bin/graalsqueak/build.bat). We have to use the [**`./`** notation][linux_dotslash] here since, unlike the Windows command prompt, Unix-like shells do not check the current directory for executables before checking the **`PATH`** environment variable.
 
    <pre style="font-size:80%;">
    <b>$ ./build help</b>

@@ -89,16 +89,21 @@ clean() {
 }
 
 dist() {
-    local SHOW_VERSION=$((DEBUG+VERBOSE))
-    if [[ $SHOW_VERSION -gt 0 ]]; then
+    local SHOW_ALL=$((DEBUG+VERBOSE))
+    if [[ $SHOW_ALL -gt 0 ]]; then
+        ## mx command tool requires environment variables INCLUDE and LIB
+        echo "INCLUDE=$INCLUDE" 1>&2
+        echo "LIB=$LIB" 1>&2
+        echo "LINK=$LINK" 1>&2
         local MX_VERSION=$($MX_CMD --version | cut -d ' ' -f 3)
         echo "MX_VERSION: $MX_VERSION" 1>&2
     fi
     if [[ $DEBUG -eq 1 ]]; then
-        echo "$DEBUG_LABEL $MX_CMD $MX_OPTS build" 1>&2
+        echo "$DEBUG_LABEL $MX_CMD $MX_OPTS gate --strict-mode --tags build" 1>&2
     elif [[ $VERBOSE -eq 1 ]]; then
         echo "Build Java archives" 1>&2
     fi
+    ## $MX_CMD $MX_OPTS gate --strict-mode --tags build
     $MX_CMD $MX_OPTS build
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
     local SCRIPT_FILE=$TOOL_HOME/scripts/make_component.sh
@@ -107,7 +112,7 @@ dist() {
         EXITCODE=1 && return $EXITCODE
     fi
     if [[ $DEBUG -eq 1 ]]; then
-        echo "%_DEBUG_LABEL% source $SCRIPT_FILE" 1>&2
+        echo "$DEBUG_LABEL source $SCRIPT_FILE" 1>&2
     elif [[ $VERBOSE -eq 1 ]]; then
         echo "Execute script $TOOL_HOME/scripts/make_component.sh" 1>&2
     fi
@@ -160,6 +165,10 @@ fi
 ## graalsqueak is a mx project
 if [[ ! -f "$MX_CMD" ]]; then
     echo "$ERROR_LABEL mx command tool not found" 1>&2
+    cleanup 1
+fi
+if [[ -z ${INCLUDE+x} ]]; then
+    echo "$ERROR_LABEL Variable INCLUDE not defined" 1>&2
     cleanup 1
 fi
 

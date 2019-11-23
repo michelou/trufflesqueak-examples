@@ -53,8 +53,7 @@ goto end
 rem ##########################################################################
 rem ## Subroutines
 
-rem output parameter(s): _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                      _PROGRAM_FILES, _PROGRAM_FILES_X86
+rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -114,7 +113,7 @@ echo   Subcommands:
 echo     help        display this help message
 goto :eof
 
-rem output parameter(s): _GRAAL_HOME, _GRAAL_PATH
+rem output parameters: _GRAAL_HOME, _GRAAL_PATH
 :graal
 set _GRAAL_HOME=
 set _GRAAL_PATH=
@@ -134,7 +133,7 @@ if defined __JAVAC_CMD (
     set __PATH=C:\opt
     for /f %%f in ('dir /ad /b "!__PATH!\graalvm-ce*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
     if not defined _GRAAL_HOME (
-        set "__PATH=%_PROGRAM_FILES%"
+        set "__PATH=%ProgramFiles%"
         for /f "delims=" %%f in ('dir /ad /b "!__PATH!\graalvm-ce*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
     )
 )
@@ -152,7 +151,7 @@ rem Here we use trailing separator because it will be prepended to PATH
 set "_GRAAL_PATH=%_GRAAL_HOME%\bin;"
 goto :eof
 
-rem output parameter(s): _PYTHON_PATH
+rem output parameter: _PYTHON_PATH
 :python
 set _PYTHON_PATH=
 
@@ -172,7 +171,7 @@ if defined __PYTHON_CMD (
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\Python-2*" 2^>NUL') do set "__PYTHON_HOME=!__PATH!\%%f"
         if not defined __PYTHON_HOME (
-            set "__PATH=%_PROGRAM_FILES%"
+            set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Python-2*" 2^>NUL') do set "__PYTHON_HOME=!__PATH!\%%f"
         )
     )
@@ -225,7 +224,6 @@ set __MX_HOME=%_ROOT_DIR%mx
 if exist "%__MX_HOME%\mx.cmd" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_GIT_CMD% fetch ^&^& %_GIT_CMD% merge 1^>NUL 1>&2
     ) else if %_VERBOSE%==1 ( echo Update mx directory %__MX_HOME% 1>&2
-    ) else ( echo Update mx directory
     )
     call "%_GIT_CMD%" -C "%__MX_HOME%" fetch && call "%_GIT_CMD%" -C "%__MX_HOME%" merge 1>NUL
     if not !ERRORLEVEL!==0 (
@@ -234,8 +232,7 @@ if exist "%__MX_HOME%\mx.cmd" (
     )
 ) else (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_GIT_CMD% clone %__MX_URL% %__MX_HOME% 1>&2
-    ) else if %_VERBOSE%==1 ( echo Clone mx repository to directory %__MX_HOME% 1>&2
-    ) else ( echo Clone mx directory
+    ) else if %_VERBOSE%==1 ( echo Clone mx repository to directory !_MX_HOME:%_ROOT_DIR%=! 1>&2
     )
     call "%_GIT_CMD%" clone "%__MX_URL%" "%__MX_HOME%"
     if not !ERRORLEVEL!==0 (
@@ -246,14 +243,14 @@ if exist "%__MX_HOME%\mx.cmd" (
 set "_MX_PATH=;%__MX_HOME%"
 goto :eof
 
-rem output parameter(s): _MSVC_HOME, _MSVC_HOME, _MSVS_PATH
+rem output parameters: _MSVC_HOME, _MSVC_HOME, _MSVS_PATH
 rem Visual Studio 10
 :msvs
 set _MSVC_HOME=
 set _MSVS_PATH=
 set _MSVS_HOME=
 
-for /f "delims=" %%f in ("%_PROGRAM_FILES_X86%\Microsoft Visual Studio 10.0") do set _MSVS_HOME=%%~sf
+for /f "delims=" %%f in ("%ProgramFiles(x86)%\Microsoft Visual Studio 10.0") do set "_MSVS_HOME=%%f"
 if not exist "%_MSVS_HOME%\" (
     echo %_ERROR_LABEL% Could not find installation directory for Microsoft Visual Studio 10 1>&2
     echo        ^(see https://github.com/oracle/graal/blob/master/compiler/README.md^) 1>&2
@@ -264,10 +261,10 @@ rem From now on use short name of MSVS installation path
 for %%f in ("%_MSVS_HOME%") do set _MSVS_HOME=%%~sf
 
 set "_MSVC_HOME=%_MSVS_HOME%\VC"
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __MSVC_ARCH=\amd64
-) else ( set __MSVC_ARCH=
+if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __MSVC_BIN=bin\amd64
+) else ( set __MSVC_BIN=bin
 )
-if not exist "%_MSVC_HOME%\bin%__MSVC_ARCH%\" (
+if not exist "%_MSVC_HOME%\%__MSVC_BIN%\" (
     echo %_ERROR_LABEL% Could not find installation directory for Microsoft Visual Studio 10 1>&2
     echo        ^(see https://github.com/oracle/graal/blob/master/compiler/README.md^) 1>&2
     set _EXITCODE=1
@@ -281,7 +278,7 @@ if not exist "%__MSBUILD_HOME%\MSBuild.exe" (
     set _EXITCODE=1
     goto :eof
 )
-set "_MSVS_PATH=;%_MSVC_HOME%\bin%__MSVC_ARCH%;%__MSBUILD_HOME%"
+set "_MSVS_PATH=;%_MSVC_HOME%\%__MSVC_BIN%;%__MSBUILD_HOME%"
 goto :eof
 
 rem output parameter(s): _SDK_HOME, _SDK_PATH
@@ -290,7 +287,7 @@ rem native-image dependency
 set _SDK_HOME=
 set _SDK_PATH=
 
-for /f "delims=" %%f in ("%_PROGRAM_FILES%\Microsoft SDKs\Windows\v7.1") do set _SDK_HOME=%%~sf
+for /f "delims=" %%f in ("%ProgramFiles%\Microsoft SDKs\Windows\v7.1") do set "_SDK_HOME=%%~sf"
 if not exist "%_SDK_HOME%" (
     echo %_ERROR_LABEL% Could not find installation directory for Microsoft Windows SDK 7.1 1>&2
     echo        ^(see https://github.com/oracle/graal/blob/master/compiler/README.md^) 1>&2
@@ -312,7 +309,6 @@ set __GIT_CMD=
 for /f %%f in ('where git.exe 2^>NUL') do set __GIT_CMD=%%f
 if defined __GIT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
-    
     for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
     for %%f in ("!__GIT_BIN_DIR!..") do set _GIT_HOME=%%~sf
     rem Executable git.exe is present both in bin\ and \mingw64\bin\
@@ -330,7 +326,7 @@ if defined __GIT_CMD (
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
-            set "__PATH=%_PROGRAM_FILES%"
+            set "__PATH=%ProgramFiles%"
             for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
@@ -398,6 +394,12 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
 )
+if %__VERBOSE%==1 if defined INCLUDE (
+    echo Environment variables: 1>&2
+    echo    INCLUDE="%INCLUDE%" 1>&2
+    echo    LIB="%LIB%" 1>&2
+    echo    LINK="%LINK%" 1>&2
+)
 goto :eof
 
 rem ##########################################################################
@@ -406,17 +408,27 @@ rem ## Cleanups
 :end
 endlocal & (
     if %_EXITCODE%==0 (
-        if not defined GRAAL_HOME set GRAAL_HOME=%_GRAAL_HOME%
-        if not defined JAVA_HOME set JAVA_HOME=%_GRAAL_HOME%
-        if not defined MSVC_HOME set MSVC_HOME=%_MSVC_HOME%
-        if not defined MSVS_CMAKE_CMD set MSVS_CMAKE_CMD=%_MSVS_CMAKE_CMD%
-        if not defined MSVS_HOME set MSVS_HOME=%_MSVS_HOME%
-        if not defined SDK_HOME set SDK_HOME=%_SDK_HOME%
+        if not defined GRAAL_HOME set "GRAAL_HOME=%_GRAAL_HOME%"
+        if not defined JAVA_HOME set "JAVA_HOME=%_GRAAL_HOME%"
+        if not defined MSVC_HOME set "MSVC_HOME=%_MSVC_HOME%"
+        if not defined MSVS_CMAKE_CMD set "MSVS_CMAKE_CMD=%_MSVS_CMAKE_CMD%"
+        if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
+        if not defined SDK_HOME set "SDK_HOME=%_SDK_HOME%"
         set "PATH=%_GRAAL_PATH%%PATH%%_PYTHON_PATH%%_MX_PATH%%_MSVS_PATH%%_SDK_PATH%%_GIT_PATH%;%~dp0bin"
+        rem mx command tool requires environment variables INCLUDE, LIB and LINK
+        rem (minimal version of "%_MSVC_HOME%\Auxiliary\Build\vcvarsall.bat" amd64)
+        set "INCLUDE=%_MSVC_HOME%\include;%_SDK_HOME%\include"
+        if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+            set "LIB=%_MSVC_HOME%\Lib\amd64;%_SDK_HOME%\lib\x64"
+            set "LINK=%_MSVC_HOME%\bin\amd64\link.exe"
+        ) else (
+            set "LIB=%_MSVC_HOME%\Lib\x86;%_SDK_HOME%\lib"
+            set "LINK=%_MSVC_HOME%\bin\link.exe"
+        )
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_TRAVIS%==1 (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\bin\bash.exe --login 1>&2
-            call %_GIT_HOME%\bin\bash.exe --login
+            cmd.exe /c "%_GIT_HOME%\bin\bash.exe --login"
         )
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
