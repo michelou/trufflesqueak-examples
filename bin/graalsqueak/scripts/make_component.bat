@@ -53,9 +53,9 @@ copy /y "%_GRAALSQUEAK_DIR%\graalsqueak-launcher.jar" "%_LIB_GRAALVM_PATH%" 1>NU
 copy /y "%_GRAALSQUEAK_DIR%\LICENSE" "%_COMPONENT_DIR%\LICENSE_GRAALSQUEAK.txt" 1>NUL
 
 mkdir "%_COMPONENT_DIR%\META-INF"
-call :version_major
+call :java_version_major
 if not %_EXITCODE%==0 goto end
-set _JAVA_VERSION=%_VERSION_MAJOR%
+set _JAVA_VERSION=%_JAVA_VERSION_MAJOR%
 (
     rem see https://github.com/oracle/graal/blob/master/sdk/mx.sdk/mx_sdk_vm_impl.py#L1770
     echo Bundle-Name: GraalSqueak
@@ -141,18 +141,18 @@ if not %ERRORLEVEL%==0 (
 set _JAR_CMD=jar.exe
 goto :eof
 
-rem output parameter: _VERSION_MAJOR
+rem output parameter: _JAVA_VERSION_MAJOR
 rem see http://openjdk.java.net/jeps/223
 rem before Java 9: full = 1.8.0_232, short = 8.0_232, major = 8
 rem since Java 9 : full = 11.0.5, major = 11
-:version_major
-set _VERSION_MAJOR=
+:java_version_major
+set _JAVA_VERSION_MAJOR=
 for /f "tokens=1,2,3,*" %%v in ('%_JAVA_CMD% -version 2^>^&1 ^| findstr version') do (
     set "__VERSION=%%~x"
     if "!__VERSION:~0,2!"=="1." set __VERSION=!__VERSION:~2!
-    for /f "delims=. tokens=1,2,*" %%i in ("!__VERSION!") do set _VERSION_MAJOR=%%i
+    for /f "delims=. tokens=1,2,*" %%i in ("!__VERSION!") do set _JAVA_VERSION_MAJOR=%%i
 )
-if not defined _VERSION_MAJOR (
+if not defined _JAVA_VERSION_MAJOR (
     echo Java major version could not be detected 1>&2
     set _EXITCODE=1
     goto :eof

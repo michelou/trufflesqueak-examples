@@ -18,7 +18,6 @@ if not %_EXITCODE%==0 goto end
 
 call :args %*
 if not %_EXITCODE%==0 goto end
-if %_HELP%==1 call :help & exit /b %_EXITCODE%
 
 rem ##########################################################################
 rem ## Main
@@ -30,6 +29,10 @@ set _MSVS_PATH=
 set _SDK_PATH=
 set _GIT_PATH=
 
+if %_HELP%==1 (
+    call :help
+    exit /b !_EXITCODE!
+)
 call :graal
 if not %_EXITCODE%==0 goto end
 
@@ -63,6 +66,8 @@ set _WARNING_LABEL=[93mWarning[0m:
 
 for %%f in ("%ProgramFiles%") do set _PROGRAM_FILES=%%~sf
 for %%f in ("%ProgramFiles(x86)%") do set _PROGRAM_FILES_X86=%%~sf
+
+set _GRAAVML_VERSION=java8-19.2
 goto :eof
 
 rem input parameter: %*
@@ -131,10 +136,10 @@ if defined __JAVAC_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GRAAL_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!__PATH!\graalvm-ce*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
+    for /f %%f in ('dir /ad /b "!__PATH!\graalvm-ce-%_GRAAVML_VERSION%*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
     if not defined _GRAAL_HOME (
         set "__PATH=%ProgramFiles%"
-        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\graalvm-ce*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\graalvm-ce-%_GRAAVML_VERSION%*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
     )
 )
 if not exist "%_GRAAL_HOME%\bin\javac.exe" (
@@ -287,17 +292,17 @@ rem native-image dependency
 set _SDK_HOME=
 set _SDK_PATH=
 
-for /f "delims=" %%f in ("%ProgramFiles%\Microsoft SDKs\Windows\v7.1") do set "_SDK_HOME=%%~sf"
+for /f "delims=" %%f in ("%ProgramFiles%\Microsoft SDKs\Windows\v7.1") do set "_SDK_HOME=%%f"
 if not exist "%_SDK_HOME%" (
     echo %_ERROR_LABEL% Could not find installation directory for Microsoft Windows SDK 7.1 1>&2
     echo        ^(see https://github.com/oracle/graal/blob/master/compiler/README.md^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __SDK_ARCH=\x64
-) else ( set __SDK_ARCH=
+if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __SDK_BIN=bin\x64
+) else ( set __SDK_BIN=bin
 )
-set "_SDK_PATH=;%_SDK_HOME%\bin%__SDK_ARCH%"
+set "_SDK_PATH=;%_SDK_HOME%\%__SDK_BIN%"
 goto :eof
 
 rem output parameter(s): _GIT_HOME, _GIT_PATH
@@ -306,7 +311,7 @@ set _GIT_HOME=
 set _GIT_PATH=
 
 set __GIT_CMD=
-for /f %%f in ('where git.exe 2^>NUL') do set __GIT_CMD=%%f
+for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
@@ -372,8 +377,13 @@ if %ERRORLEVEL%==0 (
 )
 where /q link.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-5,*" %%i in ('link.exe ^| findstr Version 2^>^NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% link %%n"
+    for /f "tokens=1-5,*" %%i in ('link.exe ^| findstr Version 2^>^NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% link %%n,"
     set __WHERE_ARGS=%__WHERE_ARGS% link.exe
+)
+where /q uuidgen.exe
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-3,4,*" %%i in ('uuidgen.exe -version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% uuidgen %%l"
+    set __WHERE_ARGS=%__WHERE_ARGS% uuidgen.exe
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (

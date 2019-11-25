@@ -15,7 +15,7 @@ This document is part of a series of topics related to [GraalSqueak] on Windows:
 - [Using **`gu.bat`** on Windows](GU.md)
 - [Building GraalSqueak on Windows](BUILD.md)
 
-[Dotty][dotty_examples], [GraalVM][graalvm_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
+[Dotty][dotty_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -23,7 +23,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 - [Git 2.24][git_downloads] ([*release notes*][git_relnotes])
 - [GraalSqueak Image 1.0][graalsqueak_image]
-- [GraalVM Community Edition 19.3][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [GraalVM Community Edition 19.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
 Optionally one may also install the following software:
 - [Squeak 5.2][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
@@ -107,12 +107,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.4, link 10.00.40219.01
+   mx 5.247.4, link 10.00.40219.01, uuidgen v1.01
    git 2.24.0.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; where jar link</b>
 C:\opt\graalvm-ce-java8-19.3.0\bin\jar.exe
 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe
+C:\opt\Git-2.24.0\usr\bin\link.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -125,11 +126,12 @@ Tool versions:
    git 2.24.0.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\graalvm-ce-java8-19.3.0\bin\javac.exe
-   C:\opt\Python-2.7.17\python.exe
+   C:\opt\Python-2.7.17\python.exe, uuidgen v1.01
    C:\opt\Python-2.7.17\Scripts\pylint.exe
    K:\mx\mx.cmd
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe
    C:\opt\Git-2.24.0\usr\bin\link.exe
+   C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\x64\Uuidgen.Exe
    C:\opt\Git-2.24.0\bin\git.exe
    C:\opt\Git-2.24.0\mingw64\bin\git.exe
    C:\opt\Git-2.24.0\bin\bash.exe
@@ -352,6 +354,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [gu_refman]: https://www.graalvm.org/docs/reference-manual/
 [jar_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
 [java_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html
+[kotlin_examples]: https://github.com/michelou/kotlin-examples
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [llvm_examples]: https://github.com/michelou/llvm-examples
 [squeak]: https://squeak.org/
