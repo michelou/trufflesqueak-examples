@@ -22,33 +22,23 @@ if not %_EXITCODE%==0 goto end
 rem ##########################################################################
 rem ## Main
 
-set _GRAAL_PATH=
 set _PYTHON_PATH=
-set _MX_PATH=
-set _MSVS_PATH=
-set _SDK_PATH=
 set _GIT_PATH=
 
 if %_HELP%==1 (
     call :help
     exit /b !_EXITCODE!
 )
-call :graal
-if not %_EXITCODE%==0 goto end
-
 call :python
 if not %_EXITCODE%==0 goto end
 
 call :msvs
 if not %_EXITCODE%==0 goto end
 
-call :sdk
-if not %_EXITCODE%==0 goto end
+rem call :sdk
+rem if not %_EXITCODE%==0 goto end
 
 call :git
-if not %_EXITCODE%==0 goto end
-
-call :mx
 if not %_EXITCODE%==0 goto end
 
 goto end
@@ -63,17 +53,12 @@ rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
-
-for %%f in ("%ProgramFiles%") do set _PROGRAM_FILES=%%~sf
-for %%f in ("%ProgramFiles(x86)%") do set _PROGRAM_FILES_X86=%%~sf
-
-set _GRAAVML_VERSION=java8-19.2
 goto :eof
 
 rem input parameter: %*
 :args
+set _BASH=0
 set _HELP=0
-set _TRAVIS=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -82,8 +67,8 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     rem option
-    if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if /i "%__ARG%"=="-travis" ( set _TRAVIS=1
+    if /i "%__ARG%"=="-bash" ( set _BASH=1
+    ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -110,50 +95,12 @@ goto :eof
 echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
+echo     -bash       start Git bash shell instead of Windows command prompt
 echo     -debug      show commands executed by this script
-echo     -travis     start Git bash shell instead of Windows command prompt
 echo     -verbose    display environment settings
 echo.
 echo   Subcommands:
 echo     help        display this help message
-goto :eof
-
-rem output parameters: _GRAAL_HOME, _GRAAL_PATH
-:graal
-set _GRAAL_HOME=
-set _GRAAL_PATH=
-
-set __JAVAC_CMD=
-for /f %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
-if defined __JAVAC_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of javac executable found in PATH 1>&2
-    for %%i in ("%__JAVAC_CMD%") do set __GRAAL_BIN_DIR=%%~dpsi
-    for %%f in ("!__GRAAL_BIN_DIR!..") do set _GRAAL_HOME=%%~sf
-    rem keep _GRAAL_PATH undefined since executable already in path
-    goto :eof
-) else if defined GRAAL_HOME (
-    set _GRAAL_HOME=%GRAAL_HOME%
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GRAAL_HOME 1>&2
-) else (
-    set __PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!__PATH!\graalvm-ce-%_GRAAVML_VERSION%*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
-    if not defined _GRAAL_HOME (
-        set "__PATH=%ProgramFiles%"
-        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\graalvm-ce-%_GRAAVML_VERSION%*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
-    )
-)
-if not exist "%_GRAAL_HOME%\bin\javac.exe" (
-    echo %_ERROR_LABEL% Executable javac.exe not found ^(%_GRAAL_HOME%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-if not exist "%_GRAAL_HOME%\bin\polyglot.cmd" (
-    echo %_ERROR_LABEL% Executable polyglot.cmd not found ^(%_GRAAL_HOME%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-rem Here we use trailing separator because it will be prepended to PATH
-set "_GRAAL_PATH=%_GRAAL_HOME%\bin;"
 goto :eof
 
 rem output parameter: _PYTHON_PATH
@@ -199,91 +146,29 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Python installation directory %
 set "_PYTHON_PATH=;%__PYTHON_HOME%;%__PYTHON_HOME%\Scripts"
 goto :eof
 
-rem output parameter: _GIT_CMD
-:mx_git
-set _GIT_CMD=
-
-where /q git.exe
-if %ERRORLEVEL%==0 (
-    set _GIT_CMD=git.exe
-) else if defined _GIT_HOME (
-    where /q "%_GIT_HOME%\bin:git.exe"
-    if !ERRORLEVEL!==0 (
-        set "_GIT_CMD=%_GIT_HOME%\bin\git.exe"
-    )
-)
-if not defined _GIT_CMD (
-    echo %_ERROR_LABEL% Executable git.exe not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-goto :eof
-
-:mx
-call :mx_git
-if not %_EXITCODE%==0 goto :eof
-
-set __MX_URL=https://github.com/graalvm/mx.git
-
-set __MX_HOME=%_ROOT_DIR%mx
-if exist "%__MX_HOME%\mx.cmd" (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_GIT_CMD% fetch ^&^& %_GIT_CMD% merge 1^>NUL 1>&2
-    ) else if %_VERBOSE%==1 ( echo Update mx directory %__MX_HOME% 1>&2
-    )
-    call "%_GIT_CMD%" -C "%__MX_HOME%" fetch && call "%_GIT_CMD%" -C "%__MX_HOME%" merge 1>NUL
-    if not !ERRORLEVEL!==0 (
-        set _EXITCODE=1
-        goto :eof
-    )
-) else (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_GIT_CMD% clone %__MX_URL% %__MX_HOME% 1>&2
-    ) else if %_VERBOSE%==1 ( echo Clone mx repository to directory !_MX_HOME:%_ROOT_DIR%=! 1>&2
-    )
-    call "%_GIT_CMD%" clone "%__MX_URL%" "%__MX_HOME%"
-    if not !ERRORLEVEL!==0 (
-        set _EXITCODE=1
-        goto :eof
-    )
-)
-set "_MX_PATH=;%__MX_HOME%"
-goto :eof
-
-rem output parameters: _MSVC_HOME, _MSVC_HOME, _MSVS_PATH
-rem Visual Studio 10
+rem output parameters: _MSVC_HOME, _MSVC_HOME
+rem Visual Studio 2017/2019
 :msvs
 set _MSVC_HOME=
-set _MSVS_PATH=
 set _MSVS_HOME=
 
-for /f "delims=" %%f in ("%ProgramFiles(x86)%\Microsoft Visual Studio 10.0") do set "_MSVS_HOME=%%f"
+set __MSVS_VERSION=2017
+for /f "delims=" %%f in ("%ProgramFiles(x86)%\Microsoft Visual Studio\%__MSVS_VERSION%") do set "_MSVS_HOME=%%f"
 if not exist "%_MSVS_HOME%\" (
-    echo %_ERROR_LABEL% Could not find installation directory for Microsoft Visual Studio 10 1>&2
-    echo        ^(see https://github.com/oracle/graal/blob/master/compiler/README.md^) 1>&2
+    echo %_ERROR_LABEL% Could not find installation directory for Microsoft Visual Studio %__MSVS_VERSION% 1>&2
     set _EXITCODE=1
     goto :eof
 )
-rem From now on use short name of MSVS installation path
-for %%f in ("%_MSVS_HOME%") do set _MSVS_HOME=%%~sf
-
-set "_MSVC_HOME=%_MSVS_HOME%\VC"
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __MSVC_BIN=bin\amd64
-) else ( set __MSVC_BIN=bin
-)
-if not exist "%_MSVC_HOME%\%__MSVC_BIN%\" (
-    echo %_ERROR_LABEL% Could not find installation directory for Microsoft Visual Studio 10 1>&2
-    echo        ^(see https://github.com/oracle/graal/blob/master/compiler/README.md^) 1>&2
+set __VC_BATCH_FILE=
+for /f "delims=" %%f in ('where /r "%_MSVS_HOME%" vcvarsall.bat') do set "__VC_BATCH_FILE=%%f"
+if not exist "%__VC_BATCH_FILE%" (
+    echo %_ERROR_LABEL% Could not find file vcvarsall.bat in directory "%_MSVS_HOME%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set __MSBUILD_HOME=
-set "__FRAMEWORK_DIR=%SystemRoot%\Microsoft.NET\Framework"
-for /f %%f in ('dir /ad /b "%__FRAMEWORK_DIR%\*" 2^>NUL') do set "__MSBUILD_HOME=%__FRAMEWORK_DIR%\%%f"
-if not exist "%__MSBUILD_HOME%\MSBuild.exe" (
-    echo %_ERROR_LABEL% Could not find Microsoft builder 1>&2
-    set _EXITCODE=1
-    goto :eof
+if "%__VC_BATCH_FILE:Community=%"=="%__VC_BATCH_FILE%" ( set "_MSVC_HOME=%_MSVS_HOME%\BuildTools\VC"
+) else ( set "_MSVC_HOME=%_MSVS_HOME%\Community\VC"
 )
-set "_MSVS_PATH=;%_MSVC_HOME%\%__MSVC_BIN%;%__MSBUILD_HOME%"
 goto :eof
 
 rem output parameter(s): _SDK_HOME, _SDK_PATH
@@ -353,13 +238,7 @@ set __VERBOSE=%1
 set __GIT_HOME=%~2
 set "__VERSIONS_LINE1=  "
 set "__VERSIONS_LINE2=  "
-set "__VERSIONS_LINE3=  "
 set __WHERE_ARGS=
-where /q javac.exe
-if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('javac.exe -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% javac.exe
-)
 where /q python.exe
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('python.exe --version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% python %%j,"
@@ -370,45 +249,28 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('pylint.exe --version 2^>^NUL ^| findstr pylint') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% pylint %%j"
     set __WHERE_ARGS=%__WHERE_ARGS% pylint.exe
 )
-where /q mx.cmd
-if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('mx.cmd --version 2^>^NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mx %%k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% mx.cmd
-)
-where /q link.exe
-if %ERRORLEVEL%==0 (
-    for /f "tokens=1-5,*" %%i in ('link.exe ^| findstr Version 2^>^NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% link %%n,"
-    set __WHERE_ARGS=%__WHERE_ARGS% link.exe
-)
-where /q uuidgen.exe
-if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,4,*" %%i in ('uuidgen.exe -version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% uuidgen %%l"
-    set __WHERE_ARGS=%__WHERE_ARGS% uuidgen.exe
-)
 where /q git.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,"
+    for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% git.exe
 )
 where /q "%__GIT_HOME%\bin":bash.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,4,*" %%i in ('"%__GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash %%l"
+    for /f "tokens=1-3,4,*" %%i in ('"%__GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% bash %%l"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__GIT_HOME%\bin:bash.exe"
 )
 echo Tool versions:
 echo %__VERSIONS_LINE1%
 echo %__VERSIONS_LINE2%
-echo %__VERSIONS_LINE3%
 if %__VERBOSE%==1 if defined __WHERE_ARGS (
     rem if %_DEBUG%==1 echo %_DEBUG_LABEL% where %__WHERE_ARGS%
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
 )
-if %__VERBOSE%==1 if defined INCLUDE (
+if %__VERBOSE%==1 if defined MSVS_HOME (
     echo Environment variables: 1>&2
-    echo    INCLUDE="%INCLUDE%" 1>&2
-    echo    LIB="%LIB%" 1>&2
-    echo    LINK="%LINK%" 1>&2
+    echo    MSVC_HOME="%MSVC_HOME%" 1>&2
+    echo    MSVS_HOME="%MSVS_HOME%" 1>&2
 )
 goto :eof
 
@@ -418,27 +280,13 @@ rem ## Cleanups
 :end
 endlocal & (
     if %_EXITCODE%==0 (
-        if not defined GRAAL_HOME set "GRAAL_HOME=%_GRAAL_HOME%"
-        if not defined JAVA_HOME set "JAVA_HOME=%_GRAAL_HOME%"
         if not defined MSVC_HOME set "MSVC_HOME=%_MSVC_HOME%"
-        if not defined MSVS_CMAKE_CMD set "MSVS_CMAKE_CMD=%_MSVS_CMAKE_CMD%"
         if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
-        if not defined SDK_HOME set "SDK_HOME=%_SDK_HOME%"
-        set "PATH=%_GRAAL_PATH%%PATH%%_PYTHON_PATH%%_MX_PATH%%_MSVS_PATH%%_SDK_PATH%%_GIT_PATH%;%~dp0bin"
-        rem mx command tool requires environment variables INCLUDE, LIB and LINK
-        rem (minimal version of "%_MSVC_HOME%\Auxiliary\Build\vcvarsall.bat" amd64)
-        set "INCLUDE=%_MSVC_HOME%\include;%_SDK_HOME%\include"
-        if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
-            set "LIB=%_MSVC_HOME%\Lib\amd64;%_SDK_HOME%\lib\x64"
-            set "LINK=%_MSVC_HOME%\bin\amd64\link.exe"
-        ) else (
-            set "LIB=%_MSVC_HOME%\Lib\x86;%_SDK_HOME%\lib"
-            set "LINK=%_MSVC_HOME%\bin\link.exe"
-        )
+        set "PATH=%PATH%%_PYTHON_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
-        if %_TRAVIS%==1 (
-            if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\bin\bash.exe --login 1>&2
-            cmd.exe /c "%_GIT_HOME%\bin\bash.exe --login"
+        if %_BASH%==1 (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
+            cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
         )
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2

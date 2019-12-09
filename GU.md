@@ -20,13 +20,13 @@ This document is part of a series of topics related to [GraalSqueak](graalsqueak
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.24](git_downloads) ([*release notes*](git_relnotes))
-- [GraalVM Community Edition 19.2](graalvm_downloads) ([*release notes*](graalvm_relnotes))
+- [GraalVM Community Edition 19.3 LTS](graalvm_downloads) ([*release notes*](graalvm_relnotes))
 
-For instance our development environment looks as follows (*November 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
+For instance our development environment looks as follows (*December 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.24.0\          <i>(271 MB)</i>
-C:\opt\graalvm-ce-19.2.1\   <i>(362 MB)</i>
+C:\opt\Git-2.24.0\                <i>(271 MB)</i>
+C:\opt\graalvm-ce-java8-19.3.0\   <i>(362 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
@@ -125,16 +125,16 @@ In the next section we present usage examples of commands currently implemented 
 
 #### <span id="gu_available">`gu.bat available`</span>
 
-Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we get the following output with a GraalVM 19.2.1 installation on a Unix machine:
+Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we get the following output with a GraalVM 19.3.0 installation on a Unix machine:
 
 <pre style="font-size:80%;">
 <b>&gt; gu available</b>
 Downloading: Component catalog
-Component.19.2.1_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
-Component.19.2.1_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
-Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
-Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
-Component.19.2.1_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
+Component.19.3.0_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
+Component.19.3.0_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
+Component.19.3.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
+Component.19.3.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
+Component.19.3.0_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
 </pre>
 
 > **:mag_right:** The address of the GraalVM Catalog is stored in file **`%GRAAL_HOME%\release`** :
@@ -148,8 +148,8 @@ Command [**`gu.bat available python r`**](bin/gu.bat) with arguments **`python`*
 <pre style="font-size:80%;">
 <b>&gt; gu available python r</b>
 Downloading: Component catalog
-Component.19.2.1_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
-Component.19.2.1_linux_amd64.org.graalvm.r-Bundle-Name=FastR
+Component.19.3.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
+Component.19.3.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
 </pre>
 
 Command [**`gu.bat available -l python r`**](bin/gu.bat) with option **`-l`** instead displays their URL addresses:
@@ -157,8 +157,8 @@ Command [**`gu.bat available -l python r`**](bin/gu.bat) with option **`-l`** in
 <pre style="font-size:80%;">
 <b>&gt; gu available -l python r</b>
 Downloading: Component catalog
-https://github.com/graalvm/graalpython/releases/download/vm-19.2.1/python-installable-svm-linux-amd64-19.2.1.jar
-https://github.com/oracle/fastr/releases/download/vm-19.2.1/r-installable-linux-amd64-19.2.1.jar
+https://github.com/graalvm/graalpython/releases/download/vm-19.3.0/python-installable-svm-java8-linux-amd64-19.3.0.jar
+https://github.com/oracle/fastr/releases/download/vm-19.3.0/r-installable-java8-linux-amd64-19.3.0.jar
 </pre>
 
 #### <span id="gu_info">`gu.bat info`</span>
@@ -246,9 +246,9 @@ Install remote component python-installable-svm-linux-amd64-19.2.1.jar
 Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalpython.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalpython.cmd
-Component ready to be installed in c:\opt\graalvm-ce-19.2.1
-Do you really want to add the component into directory c:\opt\graalvm-ce-19.2.1 (y/*)? y
-Install GraalVM component into directory c:\opt\graalvm-ce-19.2.1
+Component ready to be installed in c:\opt\graalvm-ce-java8-19.3.0
+Do you really want to add the component into directory c:\opt\graalvm-ce-java8-19.3.0 (y/*)? y
+Install GraalVM component into directory c:\opt\graalvm-ce-java8-19.3.0
 </pre>
 
 > **:mag_right:** In the above output path **`%TEMP%\graal-updater`** is the working directory used by command **`gu.bat`**:
@@ -264,13 +264,13 @@ Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the
 
 <pre style="font-size:80%;">
 <b>&gt; echo %GRAAL_HOME%</b>
-C:\opt\graalvm-ce-19.2.1
+C:\opt\graalvm-ce-java8-19.3.0
 &nbsp;
 <b>&gt; curl -sL -o graalsqueak-component.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
 &nbsp;
 <b>&gt; gu install -L graalsqueak-component.jar</b>
 Install local component graalsqueak-component.jar
-Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1 (y/*)? y
+Do you really want to add the component into directory C:\opt\graalvm-ce-java8-19.3.0 (y/*)? y
 </pre>
 
 Adding option **`-A`** skips user confirmation before proceeding with the installation:
@@ -287,8 +287,8 @@ Command [**`gu.bat install -uv`**](bin/gu.bat)` `[**`https://../graalsqueak-comp
 <pre style="font-size:80%;">
 <b>&gt; gu install -u https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</b>
 Install remote component graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar
-Do you really want to add the component into directory C:\opt\graalvm-ce-19.2.1 (y/*)? y
-Install GraalVM component into directory C:\opt\graalvm-ce-19.2.1
+Do you really want to add the component into directory C:\opt\graalvm-ce-java8-19.3.0 (y/*)? y
+Install GraalVM component into directory C:\opt\graalvm-ce-java8-19.3.0
 </pre>
 
 #### <span id="gu_list">`gu.bat list`</span>
@@ -297,7 +297,7 @@ Command [**`gu.bat list`**](bin/gu.bat) prints the components installed in our [
 
 <pre style="font-size:80%;">
 <b>&gt; echo %GRAAL_HOME%</b>
-C:\opt\graalvm-ce-19.2.1
+C:\opt\graalvm-ce-java8-19.3.0
 &nbsp;
 <b>&gt; gu list</b>
 component graalpython
@@ -403,7 +403,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a name="footnote_02">[2]</a> ***GraalVM Updater*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-19.2.1\</code></b>).
+Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-java8-19.3.0\</code></b>).
 </p>
 
 <a name="footnote_03">[3]</a> ***Preinstalled components*** [↩](#anchor_03)
@@ -413,10 +413,10 @@ Component <a href="https://github.com/graalvm/graaljs">GraalJS</a> is preinstall
 </p>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; where /r c:\opt\graalvm-ce-19.2.1 js.cmd</b>
-c:\opt\graalvm-ce-19.2.1\bin\js.cmd
-c:\opt\graalvm-ce-19.2.1\jre\bin\js.cmd
-c:\opt\graalvm-ce-19.2.1\jre\languages\js\bin\js.cmd
+<b>&gt; where /r c:\opt\graalvm-ce-java8-19.3.0 js.cmd</b>
+c:\opt\graalvm-ce-java8-19.3.0\bin\js.cmd
+c:\opt\graalvm-ce-java8-19.3.0\jre\bin\js.cmd
+c:\opt\graalvm-ce-java8-19.3.0\jre\languages\js\bin\js.cmd
 &nbsp;
 <b>&gt; js --version</b>
 GraalVM JavaScript (GraalVM CE JVM 19.2.1)
@@ -439,7 +439,7 @@ Components currently available are:
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->

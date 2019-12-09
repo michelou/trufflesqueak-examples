@@ -15,7 +15,7 @@ This document is part of a series of topics related to [GraalSqueak] on Windows:
 - [Using **`gu.bat`** on Windows](GU.md)
 - [Building GraalSqueak on Windows](BUILD.md)
 
-[Dotty][dotty_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
+[Dotty][dotty_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other topics we are currently investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -28,7 +28,7 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 - [Squeak 5.2][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 
-For instance our development environment looks as follows (*November 2019*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*December 2019*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java8-19.3.0\   <i>(360 MB)</i>
@@ -76,7 +76,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`java.exe`**][java_exe] and [**`git.exe`**][git_exe] directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`java.exe`**][java_exe] and [**`git.exe`**][git_cli] directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
@@ -101,13 +101,13 @@ In the next section we present usage examples of the batch files present in this
 
 #### `setenv.bat`
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`jar.exe`**][jar_exe] and [**`git.exe`**][git_exe] directly available from the command prompt:
+Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`jar.exe`**][jar_exe] and [**`git.exe`**][git_cli] directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.4, link 10.00.40219.01, uuidgen v1.01
+   mx 5.247.12, link 10.00.40219.01, uuidgen v1.01
    git 2.24.0.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; where jar link</b>
@@ -122,7 +122,7 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.4, link 10.00.40219.01
+   mx 5.247.12, link 10.00.40219.01
    git 2.24.0.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\graalvm-ce-java8-19.3.0\bin\javac.exe
@@ -173,7 +173,7 @@ We present below the installation from a *local* [GraalSqueak] component archive
 Let's first download [GraalSqueak] component archive from the [GraalSqueak] repository:
 
 <pre style="font-size:80%;">
-<b>&gt; curl -sL -o graalsqueak-installable.jar https://github.com/hpi-swa/graalsqueak/releases/download/test-release/graalsqueak-installable-windows-amd64-test-release-for-GraalVM-19.3.0.jar</b>
+<b>&gt; curl -sL -o graalsqueak-installable.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc6/graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar</b>
 </pre>
 
 Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the [GraalSqueak] component to our [GraalVM] environment.
@@ -261,7 +261,7 @@ GraalVM Polyglot Engine Version 19.3.0
 GraalVM Home C:\opt\graalvm-ce-java8-19.3.0
   Installed Languages:
     JavaScript       version 19.3.0
-    Squeak/Smalltalk version 1.0.0-rc5
+    Squeak/Smalltalk version 1.0.0-rc6
   Installed Tools:
     Agent Script            version 0.1
     Code Coverage           version 0.1.0
@@ -282,11 +282,11 @@ Command **`graalsqueak`** (with no argument) opens a dialog window for selecting
 Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the provided Squeak image.
 
 <pre style="font-size:80%;">
-<b>&gt; curl -sL -o GraalSqueakImage.zip https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc5/GraalSqueakImage-1.0.0-rc5.zip</b>
+<b>&gt; curl -sL -o GraalSqueakImage.zip https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc6/GraalSqueakImage-1.0.0-rc6.zip</b>
 &nbsp;
 <b>&gt; unzip -qo GraalSqueakImage.zip</b>
  &nbsp;
-<b>&gt; graalsqueak.cmd GraalSqueak-1.0.0-rc5.image</b>
+<b>&gt; graalsqueak.cmd GraalSqueak-1.0.0-rc6.image</b>
 </pre>
 
 > **:mag_right:** The contents of downloaded archive file <b><code>GraalSqueakImage.zip</code></b> looks as follows:
@@ -295,11 +295,11 @@ Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the 
 > Archive:  GraalSqueakImage.zip
 >   Length      Date    Time    Name
 > ---------  ---------- -----   ----
->  14510453  2019-10-20 13:41   GraalSqueak-1.0.0-rc5.changes
->  44365496  2019-10-20 13:41   GraalSqueak-1.0.0-rc5.image
+>  14522738  2019-12-06 14:52   GraalSqueak-1.0.0-rc6.changes
+>  44111432  2019-12-06 14:52   GraalSqueak-1.0.0-rc6.image
 >  35184983  2017-02-06 09:21   SqueakV50.sources
 > ---------                     -------
->  94060932                     3 files
+>  93819153                     3 files
 > </pre>
 
 Code examples are presented in document [examples\README.md](examples/README.md).
@@ -318,10 +318,10 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/g
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-installable-windows-amd64-test-release-for-GraalVM-19.3.0.jar</a>  <i>( 20 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-java8-windows-amd64-19.3.0.zip</a>        <i>(150 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.24.0-64-bit.7z.exe</a>                 <i>( 41 MB)</i>
-<a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>   <i>( 30 MB)</i>
+<a href="https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc6/graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar">graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar</a>  <i>(5 MB)</i>
+<a href="https://github.com/oracle/graal/releases">graalvm-ce-java8-windows-amd64-19.3.0.zip</a>       <i>(150 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.24.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>  <i>( 30 MB)</i>
 </pre>
 
 <a name="footnote_03">[3]</a> ***GraalVM Updater*** [↩](#anchor_03)
@@ -332,21 +332,21 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
 
 [dotty_examples]: https://github.com/michelou/dotty-examples
 [fastr]: https://github.com/oracle/fastr
+[git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_exe]: https://git-scm.com/docs/git
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalpython]: https://github.com/graalvm/graalpython
 [graalsqueak]: https://github.com/hpi-swa/graalsqueak
 [graalsqueak_cmd]: https://github.com/hpi-swa/graalsqueak/blob/dev/scripts/template.graalsqueak.cmd
-[graalsqueak_image]: https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc5
+[graalsqueak_image]: https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc6
 [graalvm]: https://www.graalvm.org/
 [graalvm_downloads]: https://github.com/oracle/graal/releases
 [graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_3/
@@ -357,6 +357,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [llvm_examples]: https://github.com/michelou/llvm-examples
+[nodejs_examples]: https://github.com/michelou/nodejs-examples
 [squeak]: https://squeak.org/
 [squeak_downloads]: https://squeak.org/downloads/
 [truffleruby]: https://github.com/oracle/truffleruby

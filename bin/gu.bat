@@ -429,7 +429,7 @@ goto :eof
 set __DIR_LIST=
 if not defined _PARAMS (
     for /f %%d in ('dir /ad /b "%_GRAAL_HOME%\jre\languages\*" 2^>NUL') do (
-        set _DIR_LIST=!__DIR_LIST! "%_GRAAL_HOME%\jre\languages\%%d"
+        set __DIR_LIST=!__DIR_LIST! "%_GRAAL_HOME%\jre\languages\%%d"
     )
 ) else (
     for %%i in (%_PARAMS%) do (

@@ -8,14 +8,14 @@
 ##############################################################################
 ## Subroutines
 
-getHome() {
+getRoot() {
     local source="${BASH_SOURCE[0]}"
     while [ -h "$source" ] ; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
     done
-    ( cd -P "$(dirname "$source")" && pwd )
+    ( cd -P "$(dirname "$source")/.." && pwd )
 }
 
 # use variables BASENAME, DEBUG, EXITCODE, TIMER_START
@@ -46,9 +46,10 @@ args() {
             EXITCODE=1 && return $EXITCODE
             ;;
         ## subcommands
-        clean) CLEAN=1 ;;
-        dist)  DIST=1 ;;
-        help)  HELP=1 ;;
+        clean)    CLEAN=1 ;;
+        dist)     DIST=1 ;;
+        help)     HELP=1 ;;
+        update)   UPDATE=1 ;;
         *)
             echo "$ERROR_LABEL Unknown subcommand $arg" 1>&2
             EXITCODE=1 && return $EXITCODE
@@ -74,51 +75,149 @@ Usage: $BASENAME { <option> | <subcommand> }
     clean       delete generated files
     dist        generate component archive
     help        display this help message
+    update      fetch/merge local directories graal/mx
 EOS
 }
 
 clean() {
     if [[ $DEBUG -eq 1 ]]; then
-        echo "$DEBUG_LABEL rm -rf $TOOL_HOME/graalsqueak*.zip $TOOL_HOME/graalsqueak*.jar" 1>&2
+        echo "$DEBUG_LABEL rm -rf $GRAALSQUEAK_PATH/graalsqueak*.zip $GRAALSQUEAK_PATH/graalsqueak*.jar" 1>&2
     elif [[ $VERBOSE -eq 1 ]]; then
-        echo "Delete files $TOOL_HOME/graalsqueak*.zip/jar" 1>&2
+        echo "Delete files $GRAALSQUEAK_PATH/graalsqueak*.zip/jar" 1>&2
     fi
-    rm -rf $TOOL_HOME/graalsqueak*.zip $TOOL_HOME/graalsqueak*.jar
+    rm -rf $GRAALSQUEAK_PATH/graalsqueak*.zip $GRAALSQUEAK_PATH/graalsqueak*.jar
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
-    $EXITCODE
+
+    return $EXITCODE
 }
 
-dist() {
+dist_before() {
+    $UTILS_SCRIPT_FILE ensure-test-image
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+
+    if [[ ! -f "$MX_CMD" ]]; then
+        if [[ $DEBUG -eq 1 ]]; then
+            echo "$DEBUG_LABEL $GIT_CMD $GIT_OPTS clone --quiet --depth 1 https://github.com/graalvm/mx.git \"$MX_PATH\"" 1>&2
+        elif [[ $VERBOSE -eq 1 ]]; then
+            echo "Clone mx.git into directory $MX_PATH" 1>&2
+        fi
+        $GIT_CMD $GIT_OPTS clone --quiet --depth 1 https://github.com/graalvm/mx.git "$MX_PATH"
+        [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+    fi
+
+    JVMCI_HOME="$(find "$ROOT_PATH" -type d -name "openjdk*jvmci*")"
+    if [[ ! -f "$JVMCI_HOME/release" ]]; then
+        if [[ $DEBUG -eq 1 ]]; then
+            echo "$DEBUG_LABEL $UTILS_SCRIPT_FILE download-openjdk8-jvmci \"$ROOT_PATH\"" 1>&2
+        elif [[ $VERBOSE -eq 1 ]]; then
+            echo "Download OpenJDK 8 JVMCI" 1>&2
+        fi
+        JVMCI_HOME="$($UTILS_SCRIPT_FILE download-openjdk8-jvmci "$ROOT_PATH")"
+        [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+        
+        [[ ! -f "$JVMCI_HOME/release" ]] || ( EXITCODE=1 && return $EXITCODE )
+    fi
+
+    if [[ ! -f "$GRAAL_PATH/.travis.yml" ]]; then
+        if [[ $DEBUG -eq 1 ]]; then
+            echo "$DEBUG_LABEL $UTILS_SCRIPT_FILE shallow-clone-graalvm-project https://github.com/oracle/graal.git" 1>&2
+        elif [[ $VERBOSE -eq 1 ]]; then
+            echo "Clone graal.git into directory $GRAAL_PATH" 1>&2
+        fi
+        $UTILS_SCRIPT_FILE shallow-clone-graalvm-project https://github.com/oracle/graal.git
+        [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+
+        [[ ! -f "$GRAAL_PATH/.travis.yml" ]] || ( EXITCODE=1 && return $EXITCODE )
+    fi
+
+    if [[ $DEBUG -eq 1 ]]; then
+        echo "$DEBUG_LABEL $VCVARSALL_FILE amd64" 1>&2
+    elif [[ $VERBOSE -eq 1 ]]; then
+        echo "Set Visual C++ environment variables (x64 architecture)" 1>&2
+    fi
+    "$VCVARSALL_FILE" amd64
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+
     local SHOW_ALL=$((DEBUG+VERBOSE))
     if [[ $SHOW_ALL -gt 0 ]]; then
-        ## mx command tool requires environment variables INCLUDE and LIB
+        ## mx build tool requires environment variables INCLUDE and LIB
         echo "INCLUDE=$INCLUDE" 1>&2
         echo "LIB=$LIB" 1>&2
-        echo "LINK=$LINK" 1>&2
         local MX_VERSION=$($MX_CMD --version | cut -d ' ' -f 3)
         echo "MX_VERSION: $MX_VERSION" 1>&2
     fi
+
+    return $EXITCODE
+}
+
+dist() {
+    dist_before
+    [[ $EXITCODE -eq 0 ]] || return $EXITCODE
+
+    export JAVA_HOME="$JVMCI_HOME"
+    export PATH="$JVMCI_HOME/bin:$PATH:$MX_PATH"
+
     if [[ $DEBUG -eq 1 ]]; then
-        echo "$DEBUG_LABEL $MX_CMD $MX_OPTS gate --strict-mode --tags build" 1>&2
-    elif [[ $VERBOSE -eq 1 ]]; then
-        echo "Build Java archives" 1>&2
+        echo "$DEBUG_LABEL $MX_CMD $MX_OPTS gate --strict-mode --tags build,test" 1>&2
     fi
-    ## $MX_CMD $MX_OPTS gate --strict-mode --tags build
-    $MX_CMD $MX_OPTS build
+    $MX_CMD $MX_OPTS gate --strict-mode --tags build,test
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
-    local SCRIPT_FILE=$TOOL_HOME/scripts/make_component.sh
-    if [[ ! -f "$SCRIPT_FILE" ]]; then
-        echo "$ERROR_LABEL Bash script !_SCRIPT_FILE:%_ROOT_DIR%=! not found" 1>&2
-        EXITCODE=1 && return $EXITCODE
-    fi
+
     if [[ $DEBUG -eq 1 ]]; then
-        echo "$DEBUG_LABEL source $SCRIPT_FILE" 1>&2
-    elif [[ $VERBOSE -eq 1 ]]; then
-        echo "Execute script $TOOL_HOME/scripts/make_component.sh" 1>&2
-    fi
-    source $SCRIPT_FILE
+        echo "$DEBUG_LABEL $MX_CMD $MX_OPTS --env ce-graalsqueak --dy /vm --force-bash-launchers=true build" 1>&2
+    fi   
+    $MX_CMD $MX_OPTS --env ce-graalsqueak --dy /vm --force-bash-launchers=true build
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
-    $EXITCODE
+
+    if [[ $DEBUG -eq 1 ]]; then
+        echo "$DEBUG_LABEL $MX_CMD $MX_OPTS --env ce-graalsqueak --dy /vm --force-bash-launchers=true paths SMALLTALK_INSTALLABLE_BGRAALSQUEAK.EXE_JAVA8" 1>&2
+    fi   
+    $MX_CMD $MX_OPTS --env ce-graalsqueak --dy /vm --force-bash-launchers=true paths SMALLTALK_INSTALLABLE_BGRAALSQUEAK.EXE_JAVA8
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+
+    return $EXITCODE
+}
+
+update() {
+    pushd "$MX_PATH"
+
+    if [[ $DEBUG -eq 1 ]]; then
+        echo "$DEBUG_LABEL $GIT_CMD $GIT_OPTS $GIT_OPTS fetch" 1>&2
+    elif [[ $VERBOSE -eq 1 ]]; then
+        echo "Update MX directory $MX_PATH" 1>&2
+    fi
+    $GIT_CMD $GIT_OPTS fetch
+    [[ $? -eq 0 ]] || ( popd && EXITCODE=1 && return $EXITCODE )
+
+    if [[ $DEBUG -eq 1 ]]; then
+        echo "$DEBUG_LABEL $GIT_CMD $GIT_OPTS $GIT_OPTS merge" 1>&2
+    elif [[ $VERBOSE -eq 1 ]]; then
+        echo "Update MX directory $MX_PATH" 1>&2
+    fi
+    $GIT_CMD $GIT_OPTS merge
+    [[ $? -eq 0 ]] || ( popd && EXITCODE=1 && return $EXITCODE )
+    popd
+
+    pushd "$GRAALSQUEAK_PATH"
+
+    if [[ $DEBUG -eq 1 ]]; then
+        echo "$DEBUG_LABEL $GIT_CMD $GIT_OPTS $GIT_OPTS fetch upstream dev" 1>&2
+    elif [[ $VERBOSE -eq 1 ]]; then
+        echo "Update MX directory $MX_PATH" 1>&2
+    fi
+    $GIT_CMD $GIT_OPTS fetch upstream dev
+    [[ $? -eq 0 ]] || ( popd && EXITCODE=1 && return $EXITCODE )
+
+    if [[ $DEBUG -eq 1 ]]; then
+        echo "$DEBUG_LABEL $GIT_CMD $GIT_OPTS $GIT_OPTS merge upstream/dev" 1>&2
+    elif [[ $VERBOSE -eq 1 ]]; then
+        echo "Update MX directory $MX_PATH" 1>&2
+    fi
+    $GIT_CMD $GIT_OPTS merge upstream/dev
+    [[ $? -eq 0 ]] || ( popd && EXITCODE=1 && return $EXITCODE )
+
+    popd
+    return $EXITCODE
 }
 
 ##############################################################################
@@ -128,13 +227,25 @@ BASENAME=$(basename "${BASH_SOURCE[0]%.*}")
 
 EXITCODE=0
 
-TOOL_HOME="$(getHome)"
+ROOT_PATH="$(getRoot)"
+GRAAL_PATH="$ROOT_PATH/graal"
+GRAALSQUEAK_PATH="$ROOT_PATH/graalsqueak"
+MX_PATH="$ROOT_PATH/mx"
+
+JVMCI_HOME=
+
+VCVARSALL_FILE="$(find "$MSVS_HOME" -name vcvarsall.bat)"
+[[ -f "$VCVARSALL_FILE" ]] || cleanup 1
+
+UTILS_SCRIPT_FILE=$GRAALSQUEAK_PATH/mx.graalsqueak/utils.sh
+[[ -f "$UTILS_SCRIPT_FILE" ]] || cleanup 1
 
 CLEAN=0
 DIST=0
 DEBUG=0
 HELP=0
 TIMER=0
+UPDATE=0
 VERBOSE=0
 
 DEBUG_LABEL="[46m[DEBUG][0m"
@@ -143,13 +254,13 @@ ERROR_LABEL="[91mError:[0m"
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
     "msys"*|"cygwin"*|"mingw"*)
         PYTHON_CMD="$(which python).exe"
-        MX_CMD="$(dirname "$TOOL_HOME")/mx/mx.cmd"
-        JAR_CMD="$(which jar).exe"
+        MX_CMD="$MX_PATH/mx.cmd"
+        GIT_CMD="$(which git).exe"
         ;;
     *)
         PYTHON_CMD="$(which python)"
-        MX_CMD="$(dirname "$TOOL_HOME")/mx/mx"
-        JAR_CMD="$(which jar)"
+        MX_CMD="$MX_PATH/mx"
+        GIT_CMD="$(which git)"
         ;;
 esac
 ## mx command tool requires Python 2.7+ to be in PATH
@@ -157,18 +268,14 @@ if [[ ! -x "$PYTHON_CMD" ]]; then
     echo "$ERROR_LABEL Python command not found" 1>&2
     cleanup 1
 fi
-## scripts/make_component.sh requires jar executable to be in PATH
-if [[ ! -x "$JAR_CMD" ]]; then
-    echo "$ERROR_LABEL jar command not found" 1>&2
-    cleanup 1
-fi
 ## graalsqueak is a mx project
 if [[ ! -f "$MX_CMD" ]]; then
-    echo "$ERROR_LABEL mx command tool not found" 1>&2
+    echo "$ERROR_LABEL mx build tool not found" 1>&2
     cleanup 1
 fi
-if [[ -z ${INCLUDE+x} ]]; then
-    echo "$ERROR_LABEL Variable INCLUDE not defined" 1>&2
+## both directories mx/ and graalsqueak/ are Github clones
+if [[ ! -f "$GIT_CMD" ]]; then
+    echo "$ERROR_LABEL git command tool not found" 1>&2
     cleanup 1
 fi
 
@@ -177,7 +284,7 @@ fi
 ## - or environment variable JAVA_HOME or EXTRA_JAVA_HOMES 
 ## - or mx.<proj>\env (using mx/select_jdk.py - p <proj_path>)
 MX_OPTS=
-[[ -n "$JAVA_HOME" ]] && MX_OPTS="--java-home $JAVA_HOME"
+GIT_OPTS=
 
 args "$@"
 [[ $EXITCODE -eq 0 ]] || cleanup 1
@@ -189,6 +296,10 @@ args "$@"
 
 if [[ $CLEAN -eq 1 ]]; then
     clean
+    [[ $EXITCODE -eq 0 ]] || cleanup 1
+fi
+if [[ $UPDATE -eq 1 ]]; then
+    update
     [[ $EXITCODE -eq 0 ]] || cleanup 1
 fi
 if [[ $DIST -eq 1 ]]; then

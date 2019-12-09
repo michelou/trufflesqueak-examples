@@ -24,7 +24,7 @@ Let's take as first example the [logarithmic equation][wiki_logarithm] *"The log
 <b>&gt; where graalsqueak</b>
 C:\opt\graalvm-ce-java8-19.3.0\bin\graalsqueak.cmd
 &nbsp;
-<b>&gt; graalsqueak --code "6 log - (2 log + 3 log)" images\GraalSqueak-1.0.0-rc5.image</b>
+<b>&gt; graalsqueak --code "6 log - (2 log + 3 log)" images\GraalSqueak-1.0.0-rc6.image</b>
 [graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.3.0 (Graal-compiled)...
 [graalsqueak] Image loaded in 3833ms.
 Preparing image for headless execution...
@@ -35,7 +35,7 @@ Preparing image for headless execution...
 We observe that the result is *not* equal to zero due to limited precision in floating-point operations. By contrast, executing `log(6) - (log(2) + log(3))` in the [ke!san Online Calculator][keisan] returns `0` as an answer.
 
 <!--
-<b>&gt; graalsqueak --code "3 raisedTo: 32" images\GraalSqueak-1.0.0-rc5.image</b>
+<b>&gt; graalsqueak --code "3 raisedTo: 32" images\GraalSqueak-1.0.0-rc6.image</b>
 [graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.3.0 (Graal-compiled)...
 [graalsqueak] Image loaded in 3822ms.
 Preparing image for headless execution...
@@ -47,10 +47,10 @@ Preparing image for headless execution...
 
 This micro-benchmark suite is often used to measure and compare the performance of different hardware platforms and Squeak VMs and consists of two benchmarks:
 - The first one is bytecode-heavy as it allocates, fills, and reads from a large array.
-- The other one is a recursive [Fibonacci](http://wiki.squeak.org/squeak/1481) benchmark and therefore send-heavy
+- The other one is a recursive [Fibonacci][wiki_fibonacci] benchmark and therefore send-heavy
 
 <pre style="font-size:80%;">
-<b>&gt; graalsqueak --code "1 tinyBenchmarks" images\GraalSqueak-1.0.0-rc5.image</b>
+<b>&gt; graalsqueak --code "1 tinyBenchmarks" images\GraalSqueak-1.0.0-rc6.image</b>
 [graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.3.0 (Graal-compiled)...
 [graalsqueak] Image loaded in 3358ms.
 Preparing image for headless execution...
@@ -63,7 +63,7 @@ Preparing image for headless execution...
 This Squeak code displays the user environment variables including the Java system properties of our [GraalVM] environment:
 
 <pre style="font-size:80%;">
-<b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" GraalSqueak-1.0.0-rc5.image</b>
+<b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" GraalSqueak-1.0.0-rc6.image</b>
 [graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 19.3.0 (Graal-compiled)...
 [graalsqueak] Image loaded in 3031ms.
 Preparing image for headless execution...
@@ -88,7 +88,7 @@ sun.cpu.endian = little
 sun.cpu.isalist = amd64
 sun.desktop = windows
 sun.io.unicode.encoding = UnicodeLittle
-sun.java.command = de.hpi.swa.graal.squeak.launcher.GraalSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 GraalSqueak-1.0.0-rc5.image
+sun.java.command = de.hpi.swa.graal.squeak.launcher.GraalSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 GraalSqueak-1.0.0-rc6.image
 sun.java.launcher = SUN_STANDARD
 sun.jnu.encoding = Cp1252
 sun.management.compiler = HotSpot 64-Bit Tiered Compilers
@@ -117,7 +117,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/g
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -126,4 +126,5 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/g
 [keisan]: https://keisan.casio.com/calculator
 [squeak]: https://squeak.org/
 [squeak_guide]: https://wiki.squeak.org/squeak/5699
+[wiki_fibonacci]: http://wiki.squeak.org/squeak/1481
 [wiki_logarithm]: https://en.wikipedia.org/wiki/Logarithm
