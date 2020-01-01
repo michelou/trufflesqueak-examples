@@ -24,11 +24,11 @@ This project depends on the following external software for the **Microsoft Wind
 - [Microsoft Visual Studio 2017][vs2017_downloads] ([*release notes*][vs2017_relnotes])
 - [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*December 2019*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
+For instance our development environment looks as follows (*January 2020*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java8-19.3.0\                       <i>(360 MB)</i>
-C:\opt\Git-2.24.0\                                    <i>(271 MB)</i>
+C:\opt\graalvm-ce-java8-19.3.0.2\                     <i>(360 MB)</i>
+C:\opt\Git-2.24.1\                                    <i>(277 MB)</i>
 C:\opt\Python-2.7.17\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2017\  <i>(3.1 GB)</i>
@@ -159,7 +159,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    python 2.7.17, pylint 1.9.2
-   git 2.24.0.windows.1, bash 4.4.23(1)-release
+   git 2.24.1.windows.2, bash 4.4.23(1)-release
 
 <b>&gt; where python</b>
 C:\opt\Python-2.7.17\python.exe
@@ -171,13 +171,13 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    python 2.7.17, pylint 1.9.2
-   git 2.24.0.windows.1, bash 4.4.23(1)-release
+   git 2.24.1.windows.2, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\Python-2.7.17\python.exe
    C:\opt\Python-2.7.17\Scripts\pylint.exe
-   C:\opt\Git-2.24.0\bin\git.exe
-   C:\opt\Git-2.24.0\mingw64\bin\git.exe
-   C:\opt\Git-2.24.0\bin\bash.exe
+   C:\opt\Git-2.24.1\bin\git.exe
+   C:\opt\Git-2.24.1\mingw64\bin\git.exe
+   C:\opt\Git-2.24.1\bin\bash.exe
 Environment variables:
    MSVC_HOME="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
    MSVS_HOME="C:\Program Files (x86)\Microsoft Visual Studio\2017"
@@ -200,7 +200,7 @@ K:\graalsqueak
 <b>&gt; build -verbose clean dist</b>
 MX_VERSION: 5.247.12
 Build Java archives
-JAVA_HOME: C:\opt\graalvm-ce-java8-19.3.0
+JAVA_HOME: C:\opt\graalvm-ce-java8-19.3.0.2
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -209,7 +209,7 @@ Non-default dependencies removed from build (use mx build --all to build them):
  JACOCOREPORT_0.8.4
 [...]
 Executing script scripts\make_component.bat
-SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.3.0.jar'.
+SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-19.3.0.2.jar'.
 </pre>
 
 The generated archive files are either Zip archives or Java archives (**`.zip`** files contain the source code of the corresponding **`.jar`** files):
@@ -221,7 +221,7 @@ K:\graalsqueak
 <b>&gt; dir /o mxbuild\dists\jdk1.8 | findstr /e "jar zip"</b>
 09.12.2019  12:06        13 652 401 graalsqueak.jar
 09.12.2019  12:06         7 689 787 graalsqueak.src.zip
-09.12.2019  12:07         5 126 160 graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar
+09.12.2019  12:07         5 126 160 graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.2.jar
 09.12.2019  12:06            16 363 graalsqueak-launcher.jar
 09.12.2019  12:06            11 723 graalsqueak-launcher.src.zip
 09.12.2019  12:04               883 graalsqueak-shared.jar
@@ -232,10 +232,10 @@ K:\graalsqueak
 09.12.2019  12:06           102 781 graalsqueak-test.src.zip
 </pre>
 
-The [GraalSqueak] component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar`** whose contents looks as follows:
+The [GraalSqueak] component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.2.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; jar tf graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar | findstr /v /e "\/"</b>
+<b>&gt; jar tf graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.2.jar | findstr /v /e "\/"</b>
 jre/lib/graalvm/graalsqueak-launcher.jar
 jre/lib/graalvm/graalsqueak-launcher.src.zip
 jre/bin/graalsqueak.cmd
@@ -285,7 +285,7 @@ Command [**`build clean dist`**](bin/graalsqueak/build) generates several archiv
 
 <pre style="font-size:80%;">
 <b>$ ./build clean dist</b>
-JAVA_HOME: C:\opt\graalvm-ce-java8-19.3.0
+JAVA_HOME: C:\opt\graalvm-ce-java8-19.3.0.2
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -293,7 +293,7 @@ Dependencies removed from build:
 Non-default dependencies removed from build (use mx build --all to build them):
  JACOCOREPORT_0.8.4
 [...]
-SUCCESS! The component is located at '/k/graalsqueak/scripts/../graalsqueak-installable-windows-amd64-1.0.0-rc5-59-g656c1823-for-GraalVM-19.3.0.jar'.
+SUCCESS! The component is located at '/k/graalsqueak/scripts/../graalsqueak-installable-windows-amd64-1.0.0-rc5-59-g656c1823-for-GraalVM-19.3.0.2.jar'.
 </pre>
 
 ## <span id="troubleshooting">Troubleshooting</span>
@@ -303,7 +303,7 @@ In this section we list some issues we encountered in this project:
 -  Command **`build dist`** generates the error message **`FAILED: trufflenfi.dll`**:
    <pre style="font-size:80%;">
    <b>&gt; build dist</b>
-   JAVA_HOME: C:\opt\graalvm-ce-java8-19.3.0
+   JAVA_HOME: C:\opt\graalvm-ce-java8-19.3.0.2
    [...]
    Building com.oracle.truffle.nfi.native_amd64 with Ninja...
    [1/1] LINK trufflenfi.dll
@@ -316,7 +316,7 @@ In this section we list some issues we encountered in this project:
    The error is due to a wrong executable path for **`link.exe`** (see [issue #1554][github_issue_1554] in [oracle/graal][oracle_graal] project):
    <pre style="font-size:80%;">
    <b>&gt; where link</b>
-   C:\opt\Git-2.24.0\usr\bin\link.exe
+   C:\opt\Git-2.24.1\usr\bin\link.exe
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe</pre>
 
 ## <span id="footnotes">Footnotes</span>
@@ -328,7 +328,7 @@ In our case we downloaded the following installation files (see <a href="#sectio
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-installable-windows-amd64-test-release-for-GraalVM-19.3.0.jar</a>  <i>( 20 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.3.0.zip</a>              <i>(150 MB)</i>
+<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-19.3.0.2.zip</a>            <i>(154 MB)</i>
 <a href="https://www.python.org/downloads/release/python-2717/">python-2.7.17.amd64.msi</a>                          <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>   <i>( 30 MB)</i>
 </pre>
@@ -341,7 +341,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -349,7 +349,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 [git_bash]: https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables
 [git_downloads]: https://git-scm.com/download/win
 [git_cli]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.1.txt
 [github_issue_1554]: https://github.com/oracle/graal/issues/1554
 [github_markdown]: https://github.github.com/gfm/
 [graalsqueak]: https://github.com/hpi-swa/graalsqueak

@@ -2,3 +2,11 @@
 	path = graalsqueak
 	url = https://github.com/michelou/graalsqueak.git
 	branch = dev
+
+[submodule "graal"]
+	path = graal
+	url = https://github.com/oracle/graal.git
+
+[submodule "mx"]
+	path = mx
+	url = https://github.com/graalvm/mx.git

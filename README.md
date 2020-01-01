@@ -28,11 +28,11 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 - [Squeak 5.2][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 
-For instance our development environment looks as follows (*December 2019*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*January 2020*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java8-19.3.0\   <i>(360 MB)</i>
-C:\opt\Git-2.24.0\                <i>(271 MB)</i>
+C:\opt\graalvm-ce-java8-19.3.0.2\ <i>(360 MB)</i>
+C:\opt\Git-2.24.1\                <i>(277 MB)</i>
 C:\opt\Squeak-5.2\                <i>(116 MB)</i>
 </pre>
 
@@ -106,14 +106,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.12, link 10.00.40219.01, uuidgen v1.01
-   git 2.24.0.windows.1, bash 4.4.23(1)-release
+   python 2.7.17, pylint 1.9.2
+   git 2.24.1.windows.2, bash 4.4.23(1)-release
 
-<b>&gt; where jar link</b>
-C:\opt\graalvm-ce-java8-19.3.0\bin\jar.exe
-C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe
-C:\opt\Git-2.24.0\usr\bin\link.exe
+<b>&gt; where git link</b>
+C:\opt\Git-2.24.1\bin\git.exe
+C:\opt\Git-2.24.1\mingw64\bin\git.exe
+C:\opt\Git-2.24.1\usr\bin\link.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -121,20 +120,17 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_232, python 2.7.17, pylint 1.9.2
-   mx 5.247.12, link 10.00.40219.01
-   git 2.24.0.windows.1, bash 4.4.23(1)-release
+   python 2.7.17, pylint 1.9.2
+   git 2.24.1.windows.2, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\graalvm-ce-java8-19.3.0\bin\javac.exe
-   C:\opt\Python-2.7.17\python.exe, uuidgen v1.01
+   C:\opt\Python-2.7.17\python.exe
    C:\opt\Python-2.7.17\Scripts\pylint.exe
-   K:\mx\mx.cmd
-   C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe
-   C:\opt\Git-2.24.0\usr\bin\link.exe
-   C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\x64\Uuidgen.Exe
-   C:\opt\Git-2.24.0\bin\git.exe
-   C:\opt\Git-2.24.0\mingw64\bin\git.exe
-   C:\opt\Git-2.24.0\bin\bash.exe
+   C:\opt\Git-2.24.1\bin\git.exe
+   C:\opt\Git-2.24.1\mingw64\bin\git.exe
+   C:\opt\Git-2.24.1\bin\bash.exe
+Environment variables:
+   MSVC_HOME="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
+   MSVS_HOME="C:\Program Files (x86)\Microsoft Visual Studio\2017"
 </pre>
 
 #### `gu.bat install`
@@ -180,38 +176,38 @@ Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the
 
 <pre style="font-size:80%;">
 <b>&gt; echo %GRAAL_HOME%</b>
-C:\opt\graalvm-ce-java8-19.3.0
+C:\opt\graalvm-ce-java8-19.3.0.2
 &nbsp;
 <b>&gt; gu install -L graalsqueak-installable.jar</b>
 Install local component graalsqueak-installable.jar
-Do you really want to add the component to directory C:\opt\graalvm-ce-java8-19.3.0 (y/*)? y
-Install GraalVM component into directory C:\opt\graalvm-ce-java8-19.3.0
+Do you really want to add the component to directory C:\opt\graalvm-ce-java8-19.3.0.2 (y/*)? y
+Install GraalVM component into directory C:\opt\graalvm-ce-java8-19.3.0.2
 </pre>
 
 The [GraalVM] installation directory looks as follows after adding the [GraalSqueak] component:
 
 <pre style="font-size:80%;">
-<b>&gt; where /r c:\opt\graalvm-ce-java8-19.3.0 *squeak*</b>
-c:\opt\graalvm-ce-java8-19.3.0\bin\graalsqueak.cmd
-c:\opt\graalvm-ce-java8-19.3.0\jre\bin\graalsqueak.cmd
-c:\opt\graalvm-ce-java8-19.3.0\jre\languages\smalltalk\graalsqueak-shared.jar
-c:\opt\graalvm-ce-java8-19.3.0\jre\languages\smalltalk\graalsqueak-shared.src.zip
-c:\opt\graalvm-ce-java8-19.3.0\jre\languages\smalltalk\graalsqueak.jar
-c:\opt\graalvm-ce-java8-19.3.0\jre\languages\smalltalk\graalsqueak.src.zip
-c:\opt\graalvm-ce-java8-19.3.0\jre\languages\smalltalk\LICENSE_GRAALSQUEAK.txt
-c:\opt\graalvm-ce-java8-19.3.0\jre\languages\smalltalk\bin\graalsqueak.cmd
-c:\opt\graalvm-ce-java8-19.3.0\jre\lib\graalvm\graalsqueak-launcher.jar
-c:\opt\graalvm-ce-java8-19.3.0\jre\lib\graalvm\graalsqueak-launcher.src.zip
+<b>&gt; where /r c:\opt\graalvm-ce-java8-19.3.0.2 *squeak*</b>
+c:\opt\graalvm-ce-java8-19.3.0.2\bin\graalsqueak.cmd
+c:\opt\graalvm-ce-java8-19.3.0.2\jre\bin\graalsqueak.cmd
+c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\graalsqueak-shared.jar
+c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\graalsqueak-shared.src.zip
+c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\graalsqueak.jar
+c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\graalsqueak.src.zip
+c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\LICENSE_GRAALSQUEAK.txt
+c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\bin\graalsqueak.cmd
+c:\opt\graalvm-ce-java8-19.3.0.2\jre\lib\graalvm\graalsqueak-launcher.jar
+c:\opt\graalvm-ce-java8-19.3.0.2\jre\lib\graalvm\graalsqueak-launcher.src.zip
 </pre>
 
 > **:mag_right:** In the above output both command files **`bin\graalsqueak.cmd`** and **`jre\bin\graalsqueak.cmd`** simply forward the call to command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`** (on Unix systems two symbolic links are created instead).
 > <pre style="font-size:80%;">
-> <b>&gt; type c:\opt\graalvm-ce-java8-19.3.0\bin\graalsqueak.cmd</b>
+> <b>&gt; type c:\opt\graalvm-ce-java8-19.3.0.2\bin\graalsqueak.cmd</b>
 > @echo off
 > set location=%~dp0
 > "%location%..\jre\bin\graalsqueak.cmd" %*
 > &nbsp;
-> <b>&gt; type c:\opt\graalvm-ce-java8-19.3.0\jre\bin\graalsqueak.cmd</b>
+> <b>&gt; type c:\opt\graalvm-ce-java8-19.3.0.2\jre\bin\graalsqueak.cmd</b>
 > @echo off
 > set location=%~dp0
 > "%location%..\languages\smalltalk\bin\graalsqueak.cmd" %*
@@ -225,7 +221,7 @@ Command **`graalsqueak.cmd --help`** prints the usage message:
 
 <pre style="font-size:80%;">
 <b>&gt; where graalsqueak</b>
-C:\opt\graalvm-ce-java8-19.3.0\bin\graalsqueak.cmd
+C:\opt\graalvm-ce-java8-19.3.0.2\bin\graalsqueak.cmd
 &nbsp;
 <b>&gt; graalsqueak.cmd --help</b>
 Usage: graalsqueak [options] <image file> [image arguments]
@@ -257,10 +253,10 @@ Command **`graalsqueak --version:graalvm`** prints the version of the installed 
 
 <pre style="font-size:80%;">
 <b>&gt; graalsqueak.cmd --version:graalvm</b>
-GraalVM Polyglot Engine Version 19.3.0
-GraalVM Home C:\opt\graalvm-ce-java8-19.3.0
+GraalVM Polyglot Engine Version 19.3.0.2
+GraalVM Home C:\opt\graalvm-ce-java8-19.3.0.2
   Installed Languages:
-    JavaScript       version 19.3.0
+    JavaScript       version 19.3.0.2
     Squeak/Smalltalk version 1.0.0-rc6
   Installed Tools:
     Agent Script            version 0.1
@@ -319,20 +315,20 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc6/graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar">graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar</a>  <i>(5 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-java8-windows-amd64-19.3.0.zip</a>       <i>(150 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.24.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java8-windows-amd64-19.3.0.2.zip</a>     <i>(154 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.24.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>  <i>( 30 MB)</i>
 </pre>
 
 <a name="footnote_03">[3]</a> ***GraalVM Updater*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-java8-19.3.0\</code></b>).
+Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-java8-19.3.0.2\</code></b>).
 </p>
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
@@ -341,14 +337,14 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [fastr]: https://github.com/oracle/fastr
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalpython]: https://github.com/graalvm/graalpython
 [graalsqueak]: https://github.com/hpi-swa/graalsqueak
 [graalsqueak_cmd]: https://github.com/hpi-swa/graalsqueak/blob/dev/scripts/template.graalsqueak.cmd
 [graalsqueak_image]: https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc6
 [graalvm]: https://www.graalvm.org/
-[graalvm_downloads]: https://github.com/oracle/graal/releases
+[graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_3/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gu_refman]: https://www.graalvm.org/docs/reference-manual/
