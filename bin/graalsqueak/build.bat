@@ -78,16 +78,16 @@ set _UNZIP_CMD=unzip.exe
 set _UNZIP_OPTS=
 
 rem see https://github.com/graalvm/openjdk8-jvmci-builder/releases
-set _JVMCI_VERSION=jvmci-19.3-b05
-set _JDK8_UPDATE_VERSION=232
+set _JVMCI_VERSION=jvmci-20.0-b02
+set _JDK8_UPDATE_VERSION=242
 rem set _JVMCI_VERSION=jvmci-19.2-b01
 rem set _JDK8_UPDATE_VERSION=212
 set _JDK8_UPDATE_VERSION_SUFFIX=
 rem rule: <os_name>-<os_arch>, eg. darwin-amd64, linux-amd64, windows-amd64
 set _JDK8_PLATFORM=windows-amd64
 
-rem see https://github.com/oracle/graal/releases/
-set _GRAALVM_VERSION=19.2.1
+rem see https://github.com/graalvm/graalvm-ce-builds/releases
+set _GRAALVM_VERSION=20.0.0
 set _GRAALVM_PLATFORM=windows-amd64
 goto :eof
 

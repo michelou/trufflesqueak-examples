@@ -21,18 +21,18 @@ This document is part of a series of topics related to [GraalSqueak] on Windows:
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.24][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.25][git_downloads] ([*release notes*][git_relnotes])
 - [GraalSqueak Image 1.0][graalsqueak_image]
-- [GraalVM Community Edition 19.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [GraalVM Community Edition 20.0 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
 Optionally one may also install the following software:
 - [Squeak 5.2][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 
-For instance our development environment looks as follows (*January 2020*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*February 2020*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java8-19.3.0.2\ <i>(360 MB)</i>
-C:\opt\Git-2.24.1\                <i>(277 MB)</i>
+C:\opt\graalvm-ce-java8-20.0.0\   <i>(360 MB)</i>
+C:\opt\Git-2.25.1\                <i>(268 MB)</i>
 C:\opt\Squeak-5.2\                <i>(116 MB)</i>
 </pre>
 
@@ -93,6 +93,8 @@ We distinguish different sets of batch commands:
 
 2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features commands to manage the [GraalVM] environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**][gu_refman] command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
 
+   > **&#9755;** *Great news!* Windows users can use command `gu.cmd`  from the [GraalVM] distribution starting with version 20.0 !
+
    We use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak] component (or any installable component such as [FastR], [GraalPython] or [TruffleRuby] to our [GraalVM] environment. More details on the usage of this command are available in document [GU.md](GU.md).
 
 In the next section we present usage examples of the batch files present in this project.
@@ -107,12 +109,12 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    python 2.7.17, pylint 1.9.2
-   git 2.24.1.windows.2, bash 4.4.23(1)-release
+   git 2.25.1.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; where git link</b>
-C:\opt\Git-2.24.1\bin\git.exe
-C:\opt\Git-2.24.1\mingw64\bin\git.exe
-C:\opt\Git-2.24.1\usr\bin\link.exe
+C:\opt\Git-2.25.1\bin\git.exe
+C:\opt\Git-2.25.1\mingw64\bin\git.exe
+C:\opt\Git-2.25.1\usr\bin\link.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -121,19 +123,21 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    python 2.7.17, pylint 1.9.2
-   git 2.24.1.windows.2, bash 4.4.23(1)-release
+   git 2.25.1.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\Python-2.7.17\python.exe
    C:\opt\Python-2.7.17\Scripts\pylint.exe
-   C:\opt\Git-2.24.1\bin\git.exe
-   C:\opt\Git-2.24.1\mingw64\bin\git.exe
-   C:\opt\Git-2.24.1\bin\bash.exe
+   C:\opt\Git-2.25.1\bin\git.exe
+   C:\opt\Git-2.25.1\mingw64\bin\git.exe
+   C:\opt\Git-2.25.1\bin\bash.exe
 Environment variables:
    MSVC_HOME="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
    MSVS_HOME="C:\Program Files (x86)\Microsoft Visual Studio\2017"
 </pre>
 
 #### `gu.bat install`
+
+> **&#9755;** Starting with *version 20.0* command `gu.cmd` is part of from the [GraalVM] distribution; Windows users should use `gu.cmd` instead of `gu.bat`.
 
 Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for command **`install`**.
 
@@ -176,38 +180,38 @@ Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the
 
 <pre style="font-size:80%;">
 <b>&gt; echo %GRAAL_HOME%</b>
-C:\opt\graalvm-ce-java8-19.3.0.2
+C:\opt\graalvm-ce-java8-20.0.0
 &nbsp;
 <b>&gt; gu install -L graalsqueak-installable.jar</b>
 Install local component graalsqueak-installable.jar
-Do you really want to add the component to directory C:\opt\graalvm-ce-java8-19.3.0.2 (y/*)? y
-Install GraalVM component into directory C:\opt\graalvm-ce-java8-19.3.0.2
+Do you really want to add the component to directory C:\opt\graalvm-ce-java8-20.0.0 (y/*)? y
+Install GraalVM component into directory C:\opt\graalvm-ce-java8-20.0.0
 </pre>
 
 The [GraalVM] installation directory looks as follows after adding the [GraalSqueak] component:
 
 <pre style="font-size:80%;">
-<b>&gt; where /r c:\opt\graalvm-ce-java8-19.3.0.2 *squeak*</b>
-c:\opt\graalvm-ce-java8-19.3.0.2\bin\graalsqueak.cmd
-c:\opt\graalvm-ce-java8-19.3.0.2\jre\bin\graalsqueak.cmd
-c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\graalsqueak-shared.jar
-c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\graalsqueak-shared.src.zip
-c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\graalsqueak.jar
-c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\graalsqueak.src.zip
-c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\LICENSE_GRAALSQUEAK.txt
-c:\opt\graalvm-ce-java8-19.3.0.2\jre\languages\smalltalk\bin\graalsqueak.cmd
-c:\opt\graalvm-ce-java8-19.3.0.2\jre\lib\graalvm\graalsqueak-launcher.jar
-c:\opt\graalvm-ce-java8-19.3.0.2\jre\lib\graalvm\graalsqueak-launcher.src.zip
+<b>&gt; where /r c:\opt\graalvm-ce-java8-20.0.0 *squeak*</b>
+c:\opt\graalvm-ce-java8-20.0.0\bin\graalsqueak.cmd
+c:\opt\graalvm-ce-java8-20.0.0\jre\bin\graalsqueak.cmd
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\graalsqueak-shared.jar
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\graalsqueak-shared.src.zip
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\graalsqueak.jar
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\graalsqueak.src.zip
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\LICENSE_GRAALSQUEAK.txt
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\bin\graalsqueak.cmd
+c:\opt\graalvm-ce-java8-20.0.0\jre\lib\graalvm\graalsqueak-launcher.jar
+c:\opt\graalvm-ce-java8-20.0.0\jre\lib\graalvm\graalsqueak-launcher.src.zip
 </pre>
 
 > **:mag_right:** In the above output both command files **`bin\graalsqueak.cmd`** and **`jre\bin\graalsqueak.cmd`** simply forward the call to command file **`jre\languages\smalltalk\bin\graalsqueak.cmd`** (on Unix systems two symbolic links are created instead).
 > <pre style="font-size:80%;">
-> <b>&gt; type c:\opt\graalvm-ce-java8-19.3.0.2\bin\graalsqueak.cmd</b>
+> <b>&gt; type c:\opt\graalvm-ce-java8-20.0.0\bin\graalsqueak.cmd</b>
 > @echo off
 > set location=%~dp0
 > "%location%..\jre\bin\graalsqueak.cmd" %*
 > &nbsp;
-> <b>&gt; type c:\opt\graalvm-ce-java8-19.3.0.2\jre\bin\graalsqueak.cmd</b>
+> <b>&gt; type c:\opt\graalvm-ce-java8-20.0.0\jre\bin\graalsqueak.cmd</b>
 > @echo off
 > set location=%~dp0
 > "%location%..\languages\smalltalk\bin\graalsqueak.cmd" %*
@@ -221,7 +225,7 @@ Command **`graalsqueak.cmd --help`** prints the usage message:
 
 <pre style="font-size:80%;">
 <b>&gt; where graalsqueak</b>
-C:\opt\graalvm-ce-java8-19.3.0.2\bin\graalsqueak.cmd
+C:\opt\graalvm-ce-java8-20.0.0\bin\graalsqueak.cmd
 &nbsp;
 <b>&gt; graalsqueak.cmd --help</b>
 Usage: graalsqueak [options] <image file> [image arguments]
@@ -246,17 +250,17 @@ Runtime options:
   --log.file=&lt;String&gt;                          Redirect guest languages logging into a given file.
   --log.[logger].level=&lt;String&gt;                Set language log level to OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST or ALL.
 
-See http://www.graalvm.org for more information.
+See https://www.graalvm.org for more information.
 </pre>
 
 Command **`graalsqueak --version:graalvm`** prints the version of the installed languages and tools: 
 
 <pre style="font-size:80%;">
 <b>&gt; graalsqueak.cmd --version:graalvm</b>
-GraalVM Polyglot Engine Version 19.3.0.2
-GraalVM Home C:\opt\graalvm-ce-java8-19.3.0.2
+GraalVM Polyglot Engine Version 20.0.0
+GraalVM Home C:\opt\graalvm-ce-java8-20.0.0
   Installed Languages:
-    JavaScript       version 19.3.0.2
+    JavaScript       version 20.0.0
     Squeak/Smalltalk version 1.0.0-rc6
   Installed Tools:
     Agent Script            version 0.1
@@ -314,21 +318,21 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/g
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc6/graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar">graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar</a>  <i>(5 MB)</i>
-<a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java8-windows-amd64-19.3.0.2.zip</a>     <i>(154 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.24.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc7">graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-19.3.0.jar</a>  <i>(5 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java8-windows-amd64-20.0.0.zip</a>       <i>(154 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.25.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>  <i>( 30 MB)</i>
 </pre>
 
 <a name="footnote_03">[3]</a> ***GraalVM Updater*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-java8-19.3.0.2\</code></b>).
+Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> component (e.g. archive file <b><code>graalsqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-java8-20.0.0\</code></b>).
 </p>
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
@@ -337,21 +341,21 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [fastr]: https://github.com/oracle/fastr
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalpython]: https://github.com/graalvm/graalpython
 [graalsqueak]: https://github.com/hpi-swa/graalsqueak
 [graalsqueak_cmd]: https://github.com/hpi-swa/graalsqueak/blob/dev/scripts/template.graalsqueak.cmd
-[graalsqueak_image]: https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc6
+[graalsqueak_image]: https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc7
 [graalvm]: https://www.graalvm.org/
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_3/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_0/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gu_refman]: https://www.graalvm.org/docs/reference-manual/
 [jar_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
 [java_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
-[linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[linux_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [llvm_examples]: https://github.com/michelou/llvm-examples
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [squeak]: https://squeak.org/
