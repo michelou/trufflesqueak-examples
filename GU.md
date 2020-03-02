@@ -55,12 +55,12 @@ where
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak](graalsqueak) component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
-We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](windows_limitation) from Microsoft Support).
+We also define a virtual drive **`Q:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](windows_limitation) from Microsoft Support).
 
 > **:mag_right:** We use the Windows external command [**`subst`**](windows_subst) to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst K: %USERPROFILE%\workspace\graalsqueak-examples</b>
+> <b>&gt; subst Q: %USERPROFILE%\workspace\graalsqueak-examples</b>
 > </pre>
 
 In the next section we give a brief overview of batch file **`gu.bat`**.
@@ -68,6 +68,8 @@ In the next section we give a brief overview of batch file **`gu.bat`**.
 ## <span id="overview">**`gu.bat`** overview</span>
 
 We wrote batch command [**`gu.bat`**](bin/gu.bat) as a <i>substitute</i> for Oracle's [GraalVM Updater](gu_refman) on a Windows machine <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>.
+
+ > **&#9755;** Starting with version 20.0 command `gu.cmd` is part of the [GraalVM] distribution; Windows users can should use `gu.cmd` instead `gu.bat`.
 
 In short [**`gu.bat`**](bin/gu.bat):
 - implements a *subset* of the commands featured by Oracle's [GraalVM Updater](gu_refman/).
@@ -79,7 +81,7 @@ In short [**`gu.bat`**](bin/gu.bat):
 Command **`gu -h`** (or **`gu --help`**) prints the following help message:
 <pre style="font-size:80%;">
 <b>&gt;where gu</b>
-K:\bin\gu.bat
+Q:\bin\gu.bat
 &nbsp;
 <b>&gt; gu -h</b>
 Usage: gu command {&lt;option&gt;} {&lt;param&gt;}
@@ -396,8 +398,10 @@ Command update not yet implemented
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-component-1.0.0-rc5-for-GraalVM-19.2.1.jar</a>  <i>(  5 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.0.0.zip</a>                     <i>(154 MB)</i>
+<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-19.3.0.jar</a>  <i>(5 MB)</i>
+<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.0.0.zip</a>             <i>(154 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.25.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>  <i>( 30 MB)</i>
 </pre>
 
 <a name="footnote_02">[2]</a> ***GraalVM Updater*** [↩](#anchor_02)

@@ -23,10 +23,11 @@
 hs_err_pid*
 
 # graalsqueak-examples project
-archives/
 *_LOCAL/
 graal/
+graalvm-ce-java8-*/
 mx/
+openjdk1.8.0*-jvmci-*/
 *.changes
 *.image
 *.sources

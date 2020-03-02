@@ -15,7 +15,7 @@ This document is part of a series of topics related to [GraalSqueak] on Windows:
 - [Using **`gu.bat`** on Windows](GU.md)
 - [Building GraalSqueak on Windows](BUILD.md)
 
-[Dotty][dotty_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other topics we are currently investigating.
+[Dotty][dotty_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other topics we are currently investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -62,12 +62,12 @@ where
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
-We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
+We also define a virtual drive **`Q:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
 
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst K: %USERPROFILE%\workspace\graalsqueak-examples</b>
+> <b>&gt; subst Q: %USERPROFILE%\workspace\graalsqueak-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this project.
@@ -93,7 +93,7 @@ We distinguish different sets of batch commands:
 
 2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features commands to manage the [GraalVM] environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**][gu_refman] command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
 
-   > **&#9755;** *Great news!* Windows users can use command `gu.cmd`  from the [GraalVM] distribution starting with version 20.0 !
+   > **&#9755;** Starting with version 20.0 command `gu.cmd` is part of the [GraalVM] distribution; Windows users can should use `gu.cmd` instead `gu.bat`.
 
    We use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak] component (or any installable component such as [FastR], [GraalPython] or [TruffleRuby] to our [GraalVM] environment. More details on the usage of this command are available in document [GU.md](GU.md).
 
@@ -137,7 +137,7 @@ Environment variables:
 
 #### `gu.bat install`
 
-> **&#9755;** Starting with *version 20.0* command `gu.cmd` is part of from the [GraalVM] distribution; Windows users should use `gu.cmd` instead of `gu.bat`.
+> **&#9755;** Starting with *version 20.0* command `gu.cmd` is part of the [GraalVM] distribution; Windows users should use `gu.cmd` instead of `gu.bat`.
 
 Command [**`gu.bat install -h`**](bin/gu.bat) displays the help message for command **`install`**.
 
@@ -352,6 +352,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_0/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gu_refman]: https://www.graalvm.org/docs/reference-manual/
+[haskell_examples]: https://github.com/michelou/haskell-examples
 [jar_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
 [java_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html
 [kotlin_examples]: https://github.com/michelou/kotlin-examples

@@ -113,7 +113,7 @@ user.variant =
 
 <p style="margin:0 0 1em 20px;">
 A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> installable component. Concretely we can either install the full <a href="https://squeak.org/downloads/">Squeak distribution</a> (32 MB) or we can just download the <a href="https://squeak.org/downloads/">Squeak image</a> (18 MB).
-</p>git 
+</p>
 
 ***
 
@@ -126,5 +126,5 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/g
 [keisan]: https://keisan.casio.com/calculator
 [squeak]: https://squeak.org/
 [squeak_guide]: https://wiki.squeak.org/squeak/5699
-[wiki_fibonacci]: http://wiki.squeak.org/squeak/1481
+[wiki_fibonacci]: https://wiki.squeak.org/squeak/1481
 [wiki_logarithm]: https://en.wikipedia.org/wiki/Logarithm
