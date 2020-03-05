@@ -22,7 +22,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [Git 2.25](git_downloads) ([*release notes*](git_relnotes))
 - [GraalVM Community Edition 20.0 LTS](graalvm_downloads) ([*release notes*](graalvm_relnotes))
 
-For instance our development environment looks as follows (*February 2020*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
+For instance our development environment looks as follows (*March 2020*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.25.1\                <i>(268 MB)</i>
@@ -444,7 +444,7 @@ Components currently available are:
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->

@@ -24,7 +24,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [Microsoft Visual Studio 2017][vs2017_downloads] ([*release notes*][vs2017_relnotes])
 - [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*February 2020*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
+For instance our development environment looks as follows (*March 2020*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java8-20.0.0\                       <i>(360 MB)</i>
@@ -341,7 +341,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

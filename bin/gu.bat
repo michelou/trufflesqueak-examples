@@ -74,22 +74,15 @@ set _PS1_VERBOSE[1]=-Verbose
 if defined GRAAL_HOME (
     set _GRAAL_HOME=%GRAAL_HOME%
 ) else (
-    rem check if batch is located in a GraalVM installation directory
-    for %%f in ("%~dp0..") do set _GRAAL_HOME=%%~sf
-)
-if not defined _GRAAL_HOME (
-    echo %_ERROR_LABEL% Environment variable GRAAL_HOME is undefined 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_JAR_CMD=%_GRAAL_HOME%\bin\jar.exe"
-if not exist "%_JAR_CMD%" (
-    echo %_ERROR_LABEL% Executable jar.exe not found 1>&2
-    set _EXITCODE=1
-    goto :eof
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\graalvm-ce*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
+    if not defined _GRAAL_HOME (
+        set "__PATH=%ProgramFiles%"
+        for /f %%f in ('dir /ad /b "!__PATH!\graalvm-ce*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
+    )
 )
 if not exist "%_GRAAL_HOME%\release" (
-    echo %_ERROR_LABEL% GraalVM installation directory is invalid 1>&2
+    echo %_ERROR_LABEL% GraalVM installation directory is invalid ^(%_GRAAL_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -104,6 +97,14 @@ for /f "delims=^= tokens=1,*" %%f in (%_GRAAL_HOME%\release) do (
     ) else if /i "%%f"=="OS_ARCH" ( set "_OS_ARCH=%%g"
     ) else if /i "%%f"=="OS_NAME" ( set "_OS_NAME=%%g"
     )
+)
+set _JAR_CMD=
+for /f %%f in ('where jar.exe 2^>NUL') do set "_JAR_CMD=%%f"
+if not defined _JAR_CMD set "_JAR_CMD=%_GRAAL_HOME%\bin\jar.exe"
+if not exist "%_JAR_CMD%" (
+    echo %_ERROR_LABEL% Executable jar.exe not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 rem TODO remove (for testing only)
 set _OS_NAME=linux
@@ -296,7 +297,7 @@ for %%f in (%_CATALOG_URL%) do set "__CATALOG_NAME=%%~nxf"
 set "_CATALOG_FILE=%_WORKING_DIR%\%__CATALOG_NAME%"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "& '%_PS1_FILE%' -Uri '%_CATALOG_URL%' -Outfile '%_CATALOG_FILE%'" 1>&2
 ) else if %_VERBOSE%==1 ( echo Downloading: Component catalog %__CATALOG_NAME% 1>&2
-) else ( echo Downloading: Component catalog
+) else ( echo Downloading: Component catalog from www.graalvm.org
 )
 powershell -c "& '%_PS1_FILE%' -Uri '%_CATALOG_URL%' -OutFile '%_CATALOG_FILE%' !_PS1_VERBOSE[%_VERBOSE%]!"
 if not !ERRORLEVEL!==0 (
@@ -453,10 +454,16 @@ for %%d in (!__DIR_LIST!) do (
     for /f %%f in ('where /r "%_GRAAL_HOME%\jre\languages\%%~nd" *.jar 2^>NUL') do (
         set __JAR_FILE=%%f
         pushd "!__LANGUAGE_DIR!"
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% jar.exe xf "!__JAR_FILE!" META-INF/truffle/language 1>&2
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAR_CMD% xf "!__JAR_FILE!" META-INF/truffle/language 1>&2
         ) else if %_VERBOSE%==1 ( echo Extract meta data from archive !__JAR_FILE:%_GRAAL_HOME%\=! 1>&2
         )
         %_JAR_CMD% xf "!__JAR_FILE!" META-INF/truffle/language
+        if not !ERRORLEVEL!==0 (
+            popd
+            echo %_ERROR_LABEL% Failed to extract file from archive "!__JAR_FILE:%_GRAAL_HOME%=!" 1>&2
+            set _EXITCODE=1
+            goto :eof
+        )
         popd
     )
     set "__INFO_FILE=!__LANGUAGE_DIR!\info.txt"
@@ -545,7 +552,7 @@ if %_HELP%==1 ( call :install_help
             set _EXITCODE=1
             goto :eof
         )
-        echo Install remote component !__COMPONENT_NAME!
+        echo Installing new component: !__COMPONENT_NAME!
         call :install_local "!__COMPONENT_FILE!" %__AUTO_YES% %__DRY_RUN%
     )
 ) else (

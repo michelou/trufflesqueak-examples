@@ -15,7 +15,7 @@ This document is part of a series of topics related to [GraalSqueak] on Windows:
 - [Using **`gu.bat`** on Windows](GU.md)
 - [Building GraalSqueak on Windows](BUILD.md)
 
-[Dotty][dotty_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other topics we are currently investigating.
+[Dotty][dotty_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -28,7 +28,7 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 - [Squeak 5.2][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 
-For instance our development environment looks as follows (*February 2020*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*March 2020*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java8-20.0.0\   <i>(360 MB)</i>
@@ -93,9 +93,9 @@ We distinguish different sets of batch commands:
 
 2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features commands to manage the [GraalVM] environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**][gu_refman] command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
 
-   > **&#9755;** Starting with version 20.0 command `gu.cmd` is part of the [GraalVM] distribution; Windows users can should use `gu.cmd` instead `gu.bat`.
+   > **&#9755;** Starting with version 20.0 command [`gu.cmd`][gu_refman] is part of the [GraalVM] distribution; Windows users should use `gu.cmd` instead `gu.bat`.
 
-   We use [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak] component (or any installable component such as [FastR], [GraalPython] or [TruffleRuby] to our [GraalVM] environment. More details on the usage of this command are available in document [GU.md](GU.md).
+   We wrote [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak] component (or any installable component such as [FastR], [GraalPython] or [TruffleRuby] to our [GraalVM] environment. More details on the usage of this command are available in document [GU.md](GU.md).
 
 In the next section we present usage examples of the batch files present in this project.
 
@@ -261,7 +261,7 @@ GraalVM Polyglot Engine Version 20.0.0
 GraalVM Home C:\opt\graalvm-ce-java8-20.0.0
   Installed Languages:
     JavaScript       version 20.0.0
-    Squeak/Smalltalk version 1.0.0-rc6
+    Squeak/Smalltalk version 1.0.0-rc7
   Installed Tools:
     Agent Script            version 0.1
     Code Coverage           version 0.1.0
@@ -282,11 +282,11 @@ Command **`graalsqueak`** (with no argument) opens a dialog window for selecting
 Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the provided Squeak image.
 
 <pre style="font-size:80%;">
-<b>&gt; curl -sL -o GraalSqueakImage.zip https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc6/GraalSqueakImage-1.0.0-rc6.zip</b>
+<b>&gt; curl -sL -o GraalSqueakImage.zip https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc7/GraalSqueakImage-1.0.0-rc7.zip</b>
 &nbsp;
 <b>&gt; unzip -qo GraalSqueakImage.zip</b>
  &nbsp;
-<b>&gt; graalsqueak.cmd GraalSqueak-1.0.0-rc6.image</b>
+<b>&gt; graalsqueak.cmd GraalSqueak-1.0.0-rc7.image</b>
 </pre>
 
 > **:mag_right:** The contents of downloaded archive file <b><code>GraalSqueakImage.zip</code></b> looks as follows:
@@ -295,11 +295,11 @@ Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the 
 > Archive:  GraalSqueakImage.zip
 >   Length      Date    Time    Name
 > ---------  ---------- -----   ----
->  14522738  2019-12-06 14:52   GraalSqueak-1.0.0-rc6.changes
->  44111432  2019-12-06 14:52   GraalSqueak-1.0.0-rc6.image
+>  17026208  2020-01-28 16:17   GraalSqueak-1.0.0-rc7.changes
+>  49185976  2020-01-28 16:17   GraalSqueak-1.0.0-rc7.image
 >  35184983  2017-02-06 09:21   SqueakV50.sources
 > ---------                     -------
->  93819153                     3 files
+> 101397167                     3 files
 > </pre>
 
 Code examples are presented in document [examples\README.md](examples/README.md).
@@ -332,7 +332,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
@@ -349,9 +349,9 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [graalsqueak_image]: https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc7
 [graalvm]: https://www.graalvm.org/
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_0/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
-[gu_refman]: https://www.graalvm.org/docs/reference-manual/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_0/
+[gu_refman]: https://www.graalvm.org/docs/reference-manual/install-components/
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jar_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
 [java_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html
