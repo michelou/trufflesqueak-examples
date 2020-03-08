@@ -20,15 +20,15 @@ This document is part of a series of topics related to [GraalSqueak] on Windows:
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
 - [Git 2.25][git_downloads] ([*release notes*][git_relnotes])
-- [GraalVM Community Edition 19.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [GraalVM Community Edition 20.0 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 - [Microsoft Visual Studio 2017][vs2017_downloads] ([*release notes*][vs2017_relnotes])
 - [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
 
 For instance our development environment looks as follows (*March 2020*) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java8-20.0.0\                       <i>(360 MB)</i>
-C:\opt\Git-2.25.1\                                    <i>(268 MB)</i>
+C:\opt\graalvm-ce-java8-20.0.0\                       <i>(695 MB)</i>
+C:\opt\Git-2.25.1\                                    <i>(269 MB)</i>
 C:\opt\Python-2.7.17\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2017\  <i>(3.1 GB)</i>
@@ -355,7 +355,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 [graalsqueak]: https://github.com/hpi-swa/graalsqueak
 [graalvm_downloads]: https://github.com/oracle/graal/releases
 [graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_3/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_0/
 [linux_dotslash]: http://www.linfo.org/dot_slash.html
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [mx_cmd]: https://github.com/graalvm/mx

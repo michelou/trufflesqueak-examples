@@ -25,10 +25,10 @@ Let's take as first example the [logarithmic equation][wiki_logarithm] *"The log
 C:\opt\graalvm-ce-java8-20.0.0\bin\graalsqueak.cmd
 &nbsp;
 <b>&gt; graalsqueak --code "6 log - (2 log + 3 log)" images\GraalSqueak-1.0.0-rc7.image</b>
-[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 20.0.0 (Graal-compiled)...
-[graalsqueak] Image loaded in 3833ms.
-Preparing image for headless execution...
-[graalsqueak] Evaluating '6 log - (3 log + 2 log)'...
+[graalsqueak] Running Squeak/Smalltalk on GraalVM CE...
+[graalsqueak] Image loaded in 1390ms.
+[graalsqueak] Preparing image for headless execution...
+[graalsqueak] Evaluating '6 log - (2 log + 3 log)'...
 [graalsqueak] Result: <b>-1.1102230246251565E-16</b>
 </pre>
 
@@ -51,11 +51,11 @@ This micro-benchmark suite is often used to measure and compare the performance 
 
 <pre style="font-size:80%;">
 <b>&gt; graalsqueak --code "1 tinyBenchmarks" images\GraalSqueak-1.0.0-rc7.image</b>
-[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 20.0.0 (Graal-compiled)...
-[graalsqueak] Image loaded in 3358ms.
-Preparing image for headless execution...
+[graalsqueak] Running Squeak/Smalltalk on GraalVM CE...
+[graalsqueak] Image loaded in 1204ms.
+[graalsqueak] Preparing image for headless execution...
 [graalsqueak] Evaluating '1 tinyBenchmarks'...
-[graalsqueak] Result: 10,000,000,000 bytecodes/sec; 150,000,000 sends/sec
+[graalsqueak] Result: 27,000,000 bytecodes/sec; 150,000,000 sends/sec
 </pre>
 
 ## <span id="system_reporter">System Reporter</span>
@@ -63,25 +63,48 @@ Preparing image for headless execution...
 This Squeak code displays the user environment variables including the Java system properties of our [GraalVM] environment:
 
 <pre style="font-size:80%;">
-<b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" GraalSqueak-1.0.0-rc7.image</b>
-[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 20.0.0 (Graal-compiled)...
-[graalsqueak] Image loaded in 3031ms.
-Preparing image for headless execution...
+<b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" images\GraalSqueak-1.0.0-rc7.image</b>
+[graalsqueak] Running Squeak/Smalltalk on GraalVM CE...
+[graalsqueak] Image loaded in 1321ms.
+[graalsqueak] Preparing image for headless execution...
 [graalsqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
-platform sources revision ilt on Nov 12 2019 22:08:49 CET
-OpenJDK 64-Bit GraalVM CE 20.0.0 (build 25.232-b07-jvmci-19.3-b06; mixed mode)
-GRAAL_VERSION=20.0.0
-GRAAL_HOME=C:\opt\graalvm-ce-java8-20.0.0
+platform sources revision ilt on Mar 08 2020 11:51:16 CET
+OpenJDK 64-Bit Server VM GraalVM CE 20.0.0 (25.242-b06-jvmci-20.0-b02; mixed mode)
 &nbsp;
 == System Properties =================================>
-R.home = C:\opt\graalvm-ce-java8-20.0.0\jre\languages\R
+agentscript.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\agentscript
 awt.toolkit = sun.awt.windows.WToolkit
-chromeinspector.home = C:\opt\graalvm-ce-java8-20.0.0\jre\tools\chromeinspector
+chromeinspector.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\chromeinspector
+coverage.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\coverage
 file.encoding = Cp1252
 file.encoding.pkg = sun.io
 file.separator = \
-graalvm.home = C:\opt\graalvm-ce-java8-20.0.0
-graalvm.version = 20.0.0
+[...]
+java.version = 1.8.0_242
+java.vm.info = mixed mode
+java.vm.name = OpenJDK 64-Bit Server VM GraalVM CE 20.0.0
+java.vm.specification.name = Java Virtual Machine Specification
+java.vm.specification.vendor = Oracle Corporation
+java.vm.specification.version = 1.8
+java.vm.vendor = Oracle Corporation
+java.vm.version = 25.242-b06-jvmci-20.0-b02
+js.home = c:\opt\graalvm-ce-java8-20.0.0\jre\languages\js
+jvmci.Compiler = graal
+line.separator =
+
+lsp.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\lsp
+nfi.home = c:\opt\graalvm-ce-java8-20.0.0\jre\languages\nfi
+org.graalvm.home = c:\opt\graalvm-ce-java8-20.0.0
+org.graalvm.launcher.shell = true
+org.graalvm.version = 20.0.0
+os.arch = amd64
+os.name = Windows 10
+os.version = 10.0
+path.separator = ;
+profiler.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\profiler
+regex.home = c:\opt\graalvm-ce-java8-20.0.0\jre\languages\regex
+smalltalk.home = c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk
+sun.arch.data.model = 64
 [...]
 sun.boot.library.path = C:\opt\graalvm-ce-java8-20.0.0\jre\bin
 sun.cpu.endian = little
@@ -89,20 +112,7 @@ sun.cpu.isalist = amd64
 sun.desktop = windows
 sun.io.unicode.encoding = UnicodeLittle
 sun.java.command = de.hpi.swa.graal.squeak.launcher.GraalSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 GraalSqueak-1.0.0-rc7.image
-sun.java.launcher = SUN_STANDARD
-sun.jnu.encoding = Cp1252
-sun.management.compiler = HotSpot 64-Bit Tiered Compilers
-sun.os.patch.level =
-sun.stderr.encoding = cp850
-sun.stdout.encoding = cp850
-user.country = CH
-user.dir = K:\examples
-user.home = %USERPROFILE%
-user.language = fr
-user.name = %USERNAME%
-user.script =
-user.timezone = Europe/Berlin
-user.variant =
+[...]
 <= System Properties ===================================
 </pre>
 
@@ -117,7 +127,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/g
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

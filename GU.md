@@ -401,7 +401,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-19.3.0.jar</a>  <i>(5 MB)</i>
 <a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.0.0.zip</a>             <i>(154 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.25.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
-<a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>  <i>( 30 MB)</i>
+<a href="https://squeak.org/downloads/">Squeak5.3-19431-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
 </pre>
 
 <a name="footnote_02">[2]</a> ***GraalVM Updater*** [↩](#anchor_02)

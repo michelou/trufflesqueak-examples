@@ -26,14 +26,14 @@ This project depends on the following external software for the **Microsoft Wind
 - [GraalVM Community Edition 20.0 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
 Optionally one may also install the following software:
-- [Squeak 5.2][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
+- [Squeak 5.3][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 
 For instance our development environment looks as follows (*March 2020*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java8-20.0.0\   <i>(360 MB)</i>
-C:\opt\Git-2.25.1\                <i>(268 MB)</i>
-C:\opt\Squeak-5.2\                <i>(116 MB)</i>
+C:\opt\graalvm-ce-java8-20.0.0\   <i>(695 MB)</i>
+C:\opt\Git-2.25.1\                <i>(269 MB)</i>
+C:\opt\Squeak-5.3\                <i>(130 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
@@ -93,7 +93,7 @@ We distinguish different sets of batch commands:
 
 2. [**`bin\gu.bat`**](bin/gu.bat) - This batch command features commands to manage the [GraalVM] environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**][gu_refman] command <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>.<br/>
 
-   > **&#9755;** Starting with version 20.0 command [`gu.cmd`][gu_refman] is part of the [GraalVM] distribution; Windows users should use `gu.cmd` instead `gu.bat`.
+   > **&#9755;** Starting with version 20.0 command [`gu.cmd`][gu_refman] is part of the [GraalVM] distribution; Windows users should use `gu.cmd` instead of `gu.bat`.
 
    We wrote [**`gu.bat`**](bin/gu.bat) to add the [GraalSqueak] component (or any installable component such as [FastR], [GraalPython] or [TruffleRuby] to our [GraalVM] environment. More details on the usage of this command are available in document [GU.md](GU.md).
 
@@ -173,7 +173,7 @@ We present below the installation from a *local* [GraalSqueak] component archive
 Let's first download [GraalSqueak] component archive from the [GraalSqueak] repository:
 
 <pre style="font-size:80%;">
-<b>&gt; curl -sL -o graalsqueak-installable.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc6/graalsqueak-installable-windows-amd64-1.0.0-rc6-for-GraalVM-19.3.0.jar</b>
+<b>&gt; curl -sL -o graalsqueak-installable.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc7/graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-19.3.0.jar</b>
 </pre>
 
 Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the [GraalSqueak] component to our [GraalVM] environment.
@@ -321,7 +321,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc7">graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-19.3.0.jar</a>  <i>(5 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java8-windows-amd64-20.0.0.zip</a>       <i>(154 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.25.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
-<a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>  <i>( 30 MB)</i>
+<a href="https://squeak.org/downloads/">Squeak5.3-19431-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
 </pre>
 
 <a name="footnote_03">[3]</a> ***GraalVM Updater*** [↩](#anchor_03)
