@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="Sqeak logo"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="./"><b><code>examples\</code></b></a> contains <a href="https://squeak.org/">Squeak</a> code examples coming from various websites and books and tested on a Windows machine.
   </td>
   </tr>
@@ -24,7 +24,7 @@ Let's take as first example the [logarithmic equation][wiki_logarithm] *"The log
 <b>&gt; where graalsqueak</b>
 C:\opt\graalvm-ce-java8-20.0.0\bin\graalsqueak.cmd
 &nbsp;
-<b>&gt; graalsqueak --code "6 log - (2 log + 3 log)" images\GraalSqueak-1.0.0-rc7.image</b>
+<b>&gt; graalsqueak --code "6 log - (2 log + 3 log)" images\GraalSqueak-1.0.0-rc8.image</b>
 [graalsqueak] Running Squeak/Smalltalk on GraalVM CE...
 [graalsqueak] Image loaded in 1390ms.
 [graalsqueak] Preparing image for headless execution...
@@ -35,7 +35,7 @@ C:\opt\graalvm-ce-java8-20.0.0\bin\graalsqueak.cmd
 We observe that the result is *not* equal to zero due to limited precision in floating-point operations. By contrast, executing `log(6) - (log(2) + log(3))` in the [ke!san Online Calculator][keisan] returns `0` as an answer.
 
 <!--
-<b>&gt; graalsqueak --code "3 raisedTo: 32" images\GraalSqueak-1.0.0-rc7.image</b>
+<b>&gt; graalsqueak --code "3 raisedTo: 32" images\GraalSqueak-1.0.0-rc8.image</b>
 [graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 20.0.0 (Graal-compiled)...
 [graalsqueak] Image loaded in 3822ms.
 Preparing image for headless execution...
@@ -50,7 +50,7 @@ This micro-benchmark suite is often used to measure and compare the performance 
 - The other one is a recursive [Fibonacci][wiki_fibonacci] benchmark and therefore send-heavy
 
 <pre style="font-size:80%;">
-<b>&gt; graalsqueak --code "1 tinyBenchmarks" images\GraalSqueak-1.0.0-rc7.image</b>
+<b>&gt; graalsqueak --code "1 tinyBenchmarks" images\GraalSqueak-1.0.0-rc8.image</b>
 [graalsqueak] Running Squeak/Smalltalk on GraalVM CE...
 [graalsqueak] Image loaded in 1204ms.
 [graalsqueak] Preparing image for headless execution...
@@ -63,7 +63,7 @@ This micro-benchmark suite is often used to measure and compare the performance 
 This Squeak code displays the user environment variables including the Java system properties of our [GraalVM] environment:
 
 <pre style="font-size:80%;">
-<b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" images\GraalSqueak-1.0.0-rc7.image</b>
+<b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" images\GraalSqueak-1.0.0-rc8.image</b>
 [graalsqueak] Running Squeak/Smalltalk on GraalVM CE...
 [graalsqueak] Image loaded in 1321ms.
 [graalsqueak] Preparing image for headless execution...
@@ -111,7 +111,7 @@ sun.cpu.endian = little
 sun.cpu.isalist = amd64
 sun.desktop = windows
 sun.io.unicode.encoding = UnicodeLittle
-sun.java.command = de.hpi.swa.graal.squeak.launcher.GraalSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 GraalSqueak-1.0.0-rc7.image
+sun.java.command = de.hpi.swa.graal.squeak.launcher.GraalSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 GraalSqueak-1.0.0-rc8.image
 [...]
 <= System Properties ===================================
 </pre>
@@ -127,7 +127,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/g
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
