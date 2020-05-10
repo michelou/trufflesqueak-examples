@@ -232,10 +232,10 @@ K:\graalsqueak
 09.12.2019  12:06           102 781 graalsqueak-test.src.zip
 </pre>
 
-The [GraalSqueak] component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-20.0.0.jar`** whose contents looks as follows:
+The [GraalSqueak] component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; jar tf graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-20.0.0.jar | findstr /v /e "\/"</b>
+<b>&gt; jar tf graalsqueak-installable-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar | findstr /v /e "\/"</b>
 jre/lib/graalvm/graalsqueak-launcher.jar
 jre/lib/graalvm/graalsqueak-launcher.src.zip
 jre/bin/graalsqueak.cmd
@@ -327,10 +327,10 @@ In this section we list some issues we encountered in this project:
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-19.3.0.jar</a>  <i>(118 MB)</i>
+<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-installable-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar</a>  <i>(118 MB)</i>
 <a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.0.0.zip</a>             <i>(154 MB)</i>
 <a href="https://www.python.org/downloads/release/python-2717/">python-2.7.17.amd64.msi</a>                         <i>( 19 MB)</i>
-<a href="https://squeak.org/downloads/">Squeak5.2-18229-64bit-201810190412-Windows.zip</a>  <i>( 30 MB)</i>
+<a href="https://squeak.org/downloads/">Squeak5.3-19435-64bit-202003021730-Windows.zip</a>  <i>( 30 MB)</i>
 </pre>
 
 <a name="footnote_02">[2]</a> ***Github submodule*** [↩](#anchor_02)

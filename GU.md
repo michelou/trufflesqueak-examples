@@ -127,16 +127,16 @@ In the next section we present usage examples of commands currently implemented 
 
 #### <span id="gu_available">`gu.bat available`</span>
 
-Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we get the following output with a GraalVM 19.3.0 installation on a Unix machine:
+Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we get the following output with a GraalVM 20.0.0 installation on a Unix machine:
 
 <pre style="font-size:80%;">
 <b>&gt; gu available</b>
 Downloading: Component catalog
-Component.19.3.0_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
-Component.19.3.0_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
-Component.19.3.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
-Component.19.3.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
-Component.19.3.0_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
+Component.20.0.0_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
+Component.20.0.0_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
+Component.20.0.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
+Component.20.0.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
+Component.20.0.0_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
 </pre>
 
 > **:mag_right:** The address of the GraalVM Catalog is stored in file **`%GRAAL_HOME%\release`** :
@@ -150,8 +150,8 @@ Command [**`gu.bat available python r`**](bin/gu.bat) with arguments **`python`*
 <pre style="font-size:80%;">
 <b>&gt; gu available python r</b>
 Downloading: Component catalog
-Component.19.3.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
-Component.19.3.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
+Component.20.0.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
+Component.20.0.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
 </pre>
 
 Command [**`gu.bat available -l python r`**](bin/gu.bat) with option **`-l`** instead displays their URL addresses:
@@ -159,8 +159,8 @@ Command [**`gu.bat available -l python r`**](bin/gu.bat) with option **`-l`** in
 <pre style="font-size:80%;">
 <b>&gt; gu available -l python r</b>
 Downloading: Component catalog
-https://github.com/graalvm/graalpython/releases/download/vm-19.3.0/python-installable-svm-java8-linux-amd64-19.3.0.jar
-https://github.com/oracle/fastr/releases/download/vm-19.3.0/r-installable-java8-linux-amd64-19.3.0.jar
+https://github.com/graalvm/graalpython/releases/download/vm-20.0.0/python-installable-svm-java8-linux-amd64-20.0.0.jar
+https://github.com/oracle/fastr/releases/download/vm-20.0.0/r-installable-java8-linux-amd64-20.0.0.jar
 </pre>
 
 #### <span id="gu_info">`gu.bat info`</span>

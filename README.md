@@ -173,7 +173,7 @@ We present below the installation from a *local* [GraalSqueak] component archive
 Let's first download [GraalSqueak] component archive from the [GraalSqueak] repository:
 
 <pre style="font-size:80%;">
-<b>&gt; curl -sL -o graalsqueak-installable.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc7/graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-19.3.0.jar</b>
+<b>&gt; curl -sL -o graalsqueak-installable.jar https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc8/graalsqueak-installable-java8-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar</b>
 </pre>
 
 Command [**`gu.bat install -L graalsqueak-component.jar`**](bin/gu.bat) adds the [GraalSqueak] component to our [GraalVM] environment.
@@ -199,7 +199,11 @@ c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\graalsqueak-shared.src.zi
 c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\graalsqueak.jar
 c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\graalsqueak.src.zip
 c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\LICENSE_GRAALSQUEAK.txt
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\README_GRAALSQUEAK.md
 c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\bin\graalsqueak.cmd
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\resources\GraalSqueak-1.0.0-rc8.changes
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\resources\GraalSqueak-1.0.0-rc8.image
+c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk\resources\SqueakV50.sources
 c:\opt\graalvm-ce-java8-20.0.0\jre\lib\graalvm\graalsqueak-launcher.jar
 c:\opt\graalvm-ce-java8-20.0.0\jre\lib\graalvm\graalsqueak-launcher.src.zip
 </pre>
@@ -261,7 +265,7 @@ GraalVM Polyglot Engine Version 20.0.0
 GraalVM Home C:\opt\graalvm-ce-java8-20.0.0
   Installed Languages:
     JavaScript       version 20.0.0
-    Squeak/Smalltalk version 1.0.0-rc7
+    Squeak/Smalltalk version 1.0.0-rc8
   Installed Tools:
     Agent Script            version 0.1
     Code Coverage           version 0.1.0
@@ -282,11 +286,11 @@ Command **`graalsqueak`** (with no argument) opens a dialog window for selecting
 Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the provided Squeak image.
 
 <pre style="font-size:80%;">
-<b>&gt; curl -sL -o GraalSqueakImage.zip https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc7/GraalSqueakImage-1.0.0-rc7.zip</b>
+<b>&gt; curl -sL -o GraalSqueakImage.zip https://github.com/hpi-swa/graalsqueak/releases/download/1.0.0-rc8/GraalSqueakImage-1.0.0-rc8.zip</b>
 &nbsp;
 <b>&gt; unzip -qo GraalSqueakImage.zip</b>
  &nbsp;
-<b>&gt; graalsqueak.cmd GraalSqueak-1.0.0-rc7.image</b>
+<b>&gt; graalsqueak.cmd GraalSqueak-1.0.0-rc8.image</b>
 </pre>
 
 > **:mag_right:** The contents of downloaded archive file <b><code>GraalSqueakImage.zip</code></b> looks as follows:
@@ -295,8 +299,8 @@ Command **`graalsqueak GraalSqueak.image`** starts the Squeak IDE and loads the 
 > Archive:  GraalSqueakImage.zip
 >   Length      Date    Time    Name
 > ---------  ---------- -----   ----
->  17026208  2020-01-28 16:17   GraalSqueak-1.0.0-rc7.changes
->  49185976  2020-01-28 16:17   GraalSqueak-1.0.0-rc7.image
+>  17026208  2020-01-28 16:17   GraalSqueak-1.0.0-rc8.changes
+>  49185976  2020-01-28 16:17   GraalSqueak-1.0.0-rc8.image
 >  35184983  2017-02-06 09:21   SqueakV50.sources
 > ---------                     -------
 > 101397167                     3 files
@@ -318,7 +322,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/g
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc7">graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-19.3.0.jar</a>  <i>(5 MB)</i>
+<a href="https://github.com/hpi-swa/graalsqueak/releases/tag/1.0.0-rc8">graalsqueak-installable-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar</a>  <i>(5 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java8-windows-amd64-20.0.0.zip</a>       <i>(154 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.26.2-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.3-19431-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>

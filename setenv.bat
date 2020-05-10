@@ -1,17 +1,17 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging
+@rem only for interactive debugging
 set _DEBUG=0
 
-rem ##########################################################################
-rem ## Environment setup
+@rem #########################################################################
+@rem ## Environment setup
 
 set _BASENAME=%~n0
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
+for %%f in ("%~dp0") do set "_ROOT_DIR=%%~sf"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -19,8 +19,8 @@ if not %_EXITCODE%==0 goto end
 call :args %*
 if not %_EXITCODE%==0 goto end
 
-rem ##########################################################################
-rem ## Main
+@rem #########################################################################
+@rem ## Main
 
 set _PYTHON_PATH=
 set _GIT_PATH=
@@ -35,21 +35,21 @@ if not %_EXITCODE%==0 goto end
 call :msvs
 if not %_EXITCODE%==0 goto end
 
-rem call :sdk
-rem if not %_EXITCODE%==0 goto end
+@rem call :sdk
+@rem if not %_EXITCODE%==0 goto end
 
 call :git
 if not %_EXITCODE%==0 goto end
 
 goto end
 
-rem ##########################################################################
-rem ## Subroutines
+@rem #########################################################################
+@rem ## Subroutines
 
 rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
-rem ANSI colors in standard Windows 10 shell
-rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
@@ -66,7 +66,7 @@ set "__ARG=%~1"
 if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
-    rem option
+    @rem option
     if /i "%__ARG%"=="-bash" ( set _BASH=1
     ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -76,14 +76,14 @@ if "%__ARG:~0,1%"=="-" (
         goto args_done
     )
 ) else (
-    rem subcommand
-    set /a __N+=1
+    @rem subcommand
     if /i "%__ARG%"=="help" ( set _HELP=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
         goto args_done
     )
+    set /a __N+=1
 )
 shift
 goto :args_loop
@@ -103,7 +103,7 @@ echo   Subcommands:
 echo     help        display this help message
 goto :eof
 
-rem output parameter: _PYTHON_PATH
+@rem output parameter: _PYTHON_PATH
 :python
 set _PYTHON_PATH=
 
@@ -139,15 +139,15 @@ if not exist "%__PYTHON_HOME%\Scripts\pylint.exe" (
     set _EXITCODE=1
     goto :eof
 )
-rem path name of installation directory may contain spaces
+@rem path name of installation directory may contain spaces
 for /f "delims=" %%f in ("%__PYTHON_HOME%") do set __PYTHON_HOME=%%~sf
 if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Python installation directory %__PYTHON_HOME% 1>&2
 
 set "_PYTHON_PATH=;%__PYTHON_HOME%;%__PYTHON_HOME%\Scripts"
 goto :eof
 
-rem output parameters: _MSVC_HOME, _MSVC_HOME
-rem Visual Studio 2017/2019
+@rem output parameters: _MSVC_HOME, _MSVC_HOME
+@rem Visual Studio 2017/2019
 :msvs
 set _MSVC_HOME=
 set _MSVS_HOME=
@@ -171,8 +171,8 @@ if "%__VC_BATCH_FILE:Community=%"=="%__VC_BATCH_FILE%" ( set "_MSVC_HOME=%_MSVS_
 )
 goto :eof
 
-rem output parameter(s): _SDK_HOME, _SDK_PATH
-rem native-image dependency
+@rem output parameter(s): _SDK_HOME, _SDK_PATH
+@rem native-image dependency
 :sdk
 set _SDK_HOME=
 set _SDK_PATH=
@@ -190,7 +190,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __SDK_BIN=bin\x64
 set "_SDK_PATH=;%_SDK_HOME%\%__SDK_BIN%"
 goto :eof
 
-rem output parameter(s): _GIT_HOME, _GIT_PATH
+@rem output parameter(s): _GIT_HOME, _GIT_PATH
 :git
 set _GIT_HOME=
 set _GIT_PATH=
@@ -201,11 +201,11 @@ if defined __GIT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
     for %%f in ("!__GIT_BIN_DIR!..") do set _GIT_HOME=%%~sf
-    rem Executable git.exe is present both in bin\ and \mingw64\bin\
+    @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
         for %%f in ("!_GIT_HOME!\..") do set _GIT_HOME=%%~sf
     )
-    rem keep _GIT_PATH undefined since executable already in path
+    @rem keep _GIT_PATH undefined since executable already in path
     goto :eof
 ) else if defined GIT_HOME (
     set "_GIT_HOME=%GIT_HOME%"
@@ -226,7 +226,7 @@ if not exist "%_GIT_HOME%\bin\git.exe" (
     set _EXITCODE=1
     goto :eof
 )
-rem path name of installation directory may contain spaces
+@rem path name of installation directory may contain spaces
 for /f "delims=" %%f in ("%_GIT_HOME%") do set _GIT_HOME=%%~sf
 if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Git installation directory %_GIT_HOME% 1>&2
 
@@ -263,7 +263,7 @@ echo Tool versions:
 echo %__VERSIONS_LINE1%
 echo %__VERSIONS_LINE2%
 if %__VERBOSE%==1 if defined __WHERE_ARGS (
-    rem if %_DEBUG%==1 echo %_DEBUG_LABEL% where %__WHERE_ARGS%
+    @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% where %__WHERE_ARGS%
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
 )
@@ -274,8 +274,8 @@ if %__VERBOSE%==1 if defined MSVS_HOME (
 )
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 endlocal & (
