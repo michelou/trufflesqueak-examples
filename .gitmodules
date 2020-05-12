@@ -1,6 +1,6 @@
-[submodule "graalsqueak"]
-	path = graalsqueak
-	url = https://github.com/michelou/graalsqueak.git
+[submodule "trufflesqueak"]
+	path = trufflesqueak
+	url = https://github.com/michelou/trufflesqueak.git
 	branch = dev
 
 [submodule "graal"]

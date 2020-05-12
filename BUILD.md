@@ -1,19 +1,19 @@
-# <span id="top">Building GraalSqueak on Microsoft Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">Building TruffleSqueak on Microsoft Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;"><a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
-  This repository gathers several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> and <a href="https://www.gnu.org/software/bash/manual/bash.html">bash scripts</a> for experimenting with <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> on a Windows machine.
+  <td style="border:0;padding:0;vertical-align:text-top;"><a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
+  This repository gathers several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> and <a href="https://www.gnu.org/software/bash/manual/bash.html">bash scripts</a> for experimenting with <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> on a Windows machine.
   </td>
   </tr>
 </table>
 
-This document is part of a series of topics related to [GraalSqueak] on Windows:
+This document is part of a series of topics related to [TruffleSqueak] on Windows:
 
-- [Installing GraalSqueak on Windows](README.md)
+- [Installing TruffleSqueak on Windows](README.md)
 - [Using **`gu.bat`** on Windows](GU.md)
-- Building GraalSqueak on Windows [**&#9660;**](#bottom)
+- Building TruffleSqueak on Windows [**&#9660;**](#bottom)
 
 ## <span id="section_01">Project dependencies</span>
 
@@ -42,11 +42,11 @@ C:\Program Files (x86)\Microsoft Visual Studio\2017\  <i>(3.1 GB)</i>
 This project is organized as follows:
 <pre style="font-size:80%;">
 bin\gu.bat
-bin\graalsqueak\
+bin\trufflesqueak\
 docs\
 examples\README.md
-graal\        <i>(created by</i> <a href="https://github.com/hpi-swa/graalsqueak/tree/master/mx.graalsqueak"><b><code>mx.graalsqueak</code></b><i></a>)</i>
-graalsqueak\  <i>(Git submodule)</i><sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>
+graal\        <i>(created by</i> <a href="https://github.com/hpi-swa/trufflesqueak/tree/master/mx.trufflesqueak"><b><code>mx.trufflesqueak</code></b><i></a>)</i>
+trufflesqueak\  <i>(Git submodule)</i><sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>
 mx\           <i>(created by</i> <a href="setenv.bat"><b><code>setenv.bat</code></b></a><i>)</i>
 BUILD.md
 GU.md
@@ -56,15 +56,15 @@ setenv.bat
 
 where
 
-- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [GraalSqueak] component on a Windows machine.
-- directory [**`bin\graalsqueak\`**](bin/graalsqueak/) contains the batch file [**`build.bat`**](bin/graalsqueak/build.bat) and the bash script [**`build`**](bin/graalsqueak/build) for <i>building</i> the [GraalSqueak] component on a Windows machine.
-- directory [**`docs\`**](docs/) contains [GraalSqueak] related papers/articles.
+- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [TruffleSqueak] component on a Windows machine.
+- directory [**`bin\trufflesqueak\`**](bin/trufflesqueak/) contains the batch file [**`build.bat`**](bin/trufflesqueak/build.bat) and the bash script [**`build`**](bin/trufflesqueak/build) for <i>building</i> the [TruffleSqueak] component on a Windows machine.
+- directory [**`docs\`**](docs/) contains [TruffleSqueak] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
-- directory **`graalsqueak\`** contains our *fork* of the [hpi-swa/graalsqueak][graalsqueak] repository as a [Github submodule](.gitmodules).
+- directory **`trufflesqueak\`** contains our *fork* of the [hpi-swa/trufflesqueak][trufflesqueak] repository as a [Github submodule](.gitmodules).
 - directory **`mx\`** contains [mx][mx_cmd], the command-line tool used for the development of Graal projects.  
 - file [**`BUILD.md`**](README.md) is the Markdown document for this page.
 - file [**`GU.md`**](GU.md) is the [Markdown][github_markdown] document presenting the usage of the [GraalVM Updater][graalvm_refman] tool.
-- file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [GraalSqueak] component.
+- file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [TruffleSqueak] component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
 We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
@@ -72,7 +72,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst K: %USERPROFILE%\workspace\graalsqueak-examples</b>
+> <b>&gt; subst K: %USERPROFILE%\workspace\trufflesqueak-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this project.
@@ -95,7 +95,7 @@ We distinguish different sets of batch commands:
      Subcommands:
        help        display this help message</pre>
 
-2. [**`bin\graalsqueak\build.bat`**](bin/graalsqueak/build.bat) - This batch command generates the [GraalSqueak] installable component from the [Windows command prompt](windows_prompt).
+2. [**`bin\trufflesqueak\build.bat`**](bin/trufflesqueak/build.bat) - This batch command generates the [TruffleSqueak] installable component from the [Windows command prompt](windows_prompt).
 
    <pre style="font-size:80%;">
    <b>&gt; build help</b>
@@ -108,14 +108,14 @@ We distinguish different sets of batch commands:
    &nbsp;
      Subcommands:
        clean       delete generated files
-       dist        generate the GraalSqueak component
+       dist        generate the TruffleSqueak component
        help        display this help message
        update      fetch/merge local directories graal/mx</pre>
 
 
-3. [**`bin\graalsqueak\build`**](bin/graalsqueak/build) - This bash script generates the [GraalSqueak] installable component from the [Git bash][git_bash] shell.
+3. [**`bin\trufflesqueak\build`**](bin/trufflesqueak/build) - This bash script generates the [TruffleSqueak] installable component from the [Git bash][git_bash] shell.
 
-   > **:mag_right:** Bash script [**`build`**](bin/graalsqueak/build) behaves the same as batch file [**`build.bat`**](bin/graalsqueak/build.bat). We have to use the [**`./`** notation][linux_dotslash] here since, unlike the Windows command prompt, Unix-like shells do not check the current directory for executables before checking the **`PATH`** environment variable.
+   > **:mag_right:** Bash script [**`build`**](bin/trufflesqueak/build) behaves the same as batch file [**`build.bat`**](bin/trufflesqueak/build.bat). We have to use the [**`./`** notation][linux_dotslash] here since, unlike the Windows command prompt, Unix-like shells do not check the current directory for executables before checking the **`PATH`** environment variable.
 
    <pre style="font-size:80%;">
    <b>$ ./build help</b>
@@ -128,24 +128,24 @@ We distinguish different sets of batch commands:
    &nbsp;
      Subcommands:
        clean       delete generated files
-       dist        generate the GraalSqueak component
+       dist        generate the TruffleSqueak component
        help        display this help message</pre>
 
 
 ## <span id="contributions">Contributions</span>
 
-In this section we resume the pull requests we submitted due to issues with the generation and the execution of the [GraalSqueak] installable component.
+In this section we resume the pull requests we submitted due to issues with the generation and the execution of the [TruffleSqueak] installable component.
 
 <table>
-<tr><th><a href="https://github.com/hpi-swa/graalsqueak/pulls?q=is%3Apr+author%3Amichelou">Pull request</a></th><th>Request status</th><th>Context</th><th>Modified file(s)</th></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/73">#73</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/803791f72e512cd09d7b2770498d27942aa87919">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">make_component.(sh|bat)</code></td></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/75">#75</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/b578f1a5332b157c0fb63072dc8909acd1503d57">merged</a></td><td>Component</td><td><code style="font-size:90%;">symlinks</code></td></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/81">#81</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/3e6ca64ed18f5af027cd21f6ec194be68e3d5c09">merged</a></td><td>Component</td><td><code style="font-size:80%;">LICENSE-GRAALSQUEAK.txt</code></td></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/82">#82</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/2c344be64eb12a5540f9d784b307148729b1e2d2">merged</a></td><td>Component</td><td><code style="font-size:90%;">release</code></td></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/83">#83</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/df7d5cee6d36726f808007a28c9b91571f3295e9">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">template.graalsqueak.cmd</code></td></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/84">#84</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/1288f2e8b73af6357e537be19b31df3ec2c75fc3">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">make_component.bat</code></td></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/85">#85</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/2c5d5d0">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">make_component.bat</code></td></tr>
-<tr><td><a href="https://github.com/hpi-swa/graalsqueak/pull/90">#90</a></td><td><a href="https://github.com/hpi-swa/graalsqueak/commit/eeb73a7">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">make_component.sh</code></td></tr>
+<tr><th><a href="https://github.com/hpi-swa/trufflesqueak/pulls?q=is%3Apr+author%3Amichelou">Pull request</a></th><th>Request status</th><th>Context</th><th>Modified file(s)</th></tr>
+<tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/73">#73</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/803791f72e512cd09d7b2770498d27942aa87919">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">make_component.(sh|bat)</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/75">#75</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/b578f1a5332b157c0fb63072dc8909acd1503d57">merged</a></td><td>Component</td><td><code style="font-size:90%;">symlinks</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/81">#81</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/3e6ca64ed18f5af027cd21f6ec194be68e3d5c09">merged</a></td><td>Component</td><td><code style="font-size:80%;">LICENSE-GRAALSQUEAK.txt</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/82">#82</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/2c344be64eb12a5540f9d784b307148729b1e2d2">merged</a></td><td>Component</td><td><code style="font-size:90%;">release</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/83">#83</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/df7d5cee6d36726f808007a28c9b91571f3295e9">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">template.trufflesqueak.cmd</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/84">#84</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/1288f2e8b73af6357e537be19b31df3ec2c75fc3">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">make_component.bat</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/85">#85</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/2c5d5d0">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">make_component.bat</code></td></tr>
+<tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/90">#90</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/eeb73a7">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">make_component.sh</code></td></tr>
 <!-- <tr><td></td><td></td><td></td><td></td></tr> -->
 </table>
 
@@ -183,19 +183,19 @@ Environment variables:
    MSVS_HOME="C:\Program Files (x86)\Microsoft Visual Studio\2017"
 </pre>
 
-#### `graalsqueak\build.bat`
+#### `trufflesqueak\build.bat`
 
-Directory **`graalsqueak\`** contains our fork of the [`hpi-swa/graalsqueak`][graalsqueak] repository; it is setup as follows when executing commands in the Windows Command shell:
+Directory **`trufflesqueak\`** contains our fork of the [`hpi-swa/trufflesqueak`][trufflesqueak] repository; it is setup as follows when executing commands in the Windows Command shell:
 <pre style="font-size:80%;">
-<b>&gt; cp bin\graalsqueak\build.bat graalsqueak</b>
-<b>&gt; cd graalsqueak</b>
+<b>&gt; cp bin\trufflesqueak\build.bat trufflesqueak</b>
+<b>&gt; cd trufflesqueak</b>
 </pre>
 
-Command [**`build.bat -verbose clean dist`**](bin/graalsqueak/build.bat) generates several archive files including the [GraalSqueak] component.
+Command [**`build.bat -verbose clean dist`**](bin/trufflesqueak/build.bat) generates several archive files including the [TruffleSqueak] component.
 
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
-K:\graalsqueak
+K:\trufflesqueak
 &nbsp;
 <b>&gt; build -verbose clean dist</b>
 MX_VERSION: 5.247.12
@@ -209,53 +209,53 @@ Non-default dependencies removed from build (use mx build --all to build them):
  JACOCOREPORT_0.8.4
 [...]
 Executing script scripts\make_component.bat
-SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\graalsqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-20.0.0.jar'.
+SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\trufflesqueak-installable-windows-amd64-1.0.0-rc5-38-gfc82d131-for-GraalVM-20.0.0.jar'.
 </pre>
 
 The generated archive files are either Zip archives or Java archives (**`.zip`** files contain the source code of the corresponding **`.jar`** files):
 
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
-K:\graalsqueak
+K:\trufflesqueak
 &nbsp;
 <b>&gt; dir /o mxbuild\dists\jdk1.8 | findstr /e "jar zip"</b>
-09.12.2019  12:06        13 652 401 graalsqueak.jar
-09.12.2019  12:06         7 689 787 graalsqueak.src.zip
-09.12.2019  12:07         5 126 160 graalsqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-20.0.0.jar
-09.12.2019  12:06            16 363 graalsqueak-launcher.jar
-09.12.2019  12:06            11 723 graalsqueak-launcher.src.zip
-09.12.2019  12:04               883 graalsqueak-shared.jar
-09.12.2019  12:04               786 graalsqueak-shared.src.zip
-09.12.2019  12:06             9 242 graalsqueak-tck.jar
-09.12.2019  12:06             9 004 graalsqueak-tck.src.zip
-09.12.2019  12:06           379 165 graalsqueak-test.jar
-09.12.2019  12:06           102 781 graalsqueak-test.src.zip
+09.12.2019  12:06        13 652 401 trufflesqueak.jar
+09.12.2019  12:06         7 689 787 trufflesqueak.src.zip
+09.12.2019  12:07         5 126 160 trufflesqueak-installable-windows-amd64-1.0.0-rc7-for-GraalVM-20.0.0.jar
+09.12.2019  12:06            16 363 trufflesqueak-launcher.jar
+09.12.2019  12:06            11 723 trufflesqueak-launcher.src.zip
+09.12.2019  12:04               883 trufflesqueak-shared.jar
+09.12.2019  12:04               786 trufflesqueak-shared.src.zip
+09.12.2019  12:06             9 242 trufflesqueak-tck.jar
+09.12.2019  12:06             9 004 trufflesqueak-tck.src.zip
+09.12.2019  12:06           379 165 trufflesqueak-test.jar
+09.12.2019  12:06           102 781 trufflesqueak-test.src.zip
 </pre>
 
-The [GraalSqueak] component is packed into the installable component archive **`graalsqueak-installable-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar`** whose contents looks as follows:
+The [TruffleSqueak] component is packed into the installable component archive **`trufflesqueak-installable-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; jar tf graalsqueak-installable-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar | findstr /v /e "\/"</b>
-jre/lib/graalvm/graalsqueak-launcher.jar
-jre/lib/graalvm/graalsqueak-launcher.src.zip
-jre/bin/graalsqueak.cmd
+<b>&gt; jar tf trufflesqueak-installable-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar | findstr /v /e "\/"</b>
+jre/lib/graalvm/trufflesqueak-launcher.jar
+jre/lib/graalvm/trufflesqueak-launcher.src.zip
+jre/bin/trufflesqueak.cmd
 jre/languages/smalltalk/release
-jre/languages/smalltalk/bin/graalsqueak.cmd
-jre/languages/smalltalk/graalsqueak.jar
-jre/languages/smalltalk/graalsqueak-shared.jar
-jre/languages/smalltalk/graalsqueak.src.zip
-jre/languages/smalltalk/graalsqueak-shared.src.zip
+jre/languages/smalltalk/bin/trufflesqueak.cmd
+jre/languages/smalltalk/trufflesqueak.jar
+jre/languages/smalltalk/trufflesqueak-shared.jar
+jre/languages/smalltalk/trufflesqueak.src.zip
+jre/languages/smalltalk/trufflesqueak-shared.src.zip
 jre/languages/smalltalk/LICENSE_GRAALSQUEAK.txt
 jre/languages/smalltalk/native-image.properties
-bin/graalsqueak.cmd
+bin/trufflesqueak.cmd
 META-INF/MANIFEST.MF
 META-INF/permissions
 META-INF/symlinks
 </pre>
 
-We present the installation of the generated [GraalSqueak] component archive in document [README.md](README.md).
+We present the installation of the generated [TruffleSqueak] component archive in document [README.md](README.md).
 
-Command [**`build -verbose update`**](bin/graalsqueak/build.bat) ensures both directories **`mx\`** and **`graalsqueak\`** are update-to-date (Github clones):
+Command [**`build -verbose update`**](bin/trufflesqueak/build.bat) ensures both directories **`mx\`** and **`trufflesqueak\`** are update-to-date (Github clones):
 
 <pre style="font-size:80%;">
 <b>&gt; build -verbose update</b>
@@ -263,25 +263,25 @@ Command [**`build -verbose update`**](bin/graalsqueak/build.bat) ensures both di
  Update MX directory K:\\mx
  Update MX directory K:\\mx
 Already up to date.
- Current directory is K:\graalsqueak\
- Update GraalSqueak directory K:\graalsqueak\
-From https://github.com/hpi-swa/graalsqueak
+ Current directory is K:\trufflesqueak\
+ Update TruffleSqueak directory K:\trufflesqueak\
+From https://github.com/hpi-swa/trufflesqueak
  * branch              dev        -> FETCH_HEAD
- Update GraalSqueak directory K:\graalsqueak\
+ Update TruffleSqueak directory K:\trufflesqueak\
 Already up to date.
 </pre>
 
-#### `graalsqueak\build`
+#### `trufflesqueak\build`
 
-Directory **`graalsqueak\`** contains our fork of the [`hpi-swa/graalsqueak`][graalsqueak] repository; it is setup as follows when executing commands in the Git bash shell (started with option **`-travis`**):
+Directory **`trufflesqueak\`** contains our fork of the [`hpi-swa/trufflesqueak`][trufflesqueak] repository; it is setup as follows when executing commands in the Git bash shell (started with option **`-travis`**):
 
 <pre style="font-size:80%;">
 <b>&gt; setenv -bash</b>
-<b>$ cp bin/graalsqueak/build graalsqueak</b>
-<b>$ cd graalsqueak</b>
+<b>$ cp bin/trufflesqueak/build trufflesqueak</b>
+<b>$ cd trufflesqueak</b>
 </pre>
 
-Command [**`build clean dist`**](bin/graalsqueak/build) generates several archive files including the [GraalSqueak] component.
+Command [**`build clean dist`**](bin/trufflesqueak/build) generates several archive files including the [TruffleSqueak] component.
 
 <pre style="font-size:80%;">
 <b>$ ./build clean dist</b>
@@ -293,7 +293,7 @@ Dependencies removed from build:
 Non-default dependencies removed from build (use mx build --all to build them):
  JACOCOREPORT_0.8.4
 [...]
-SUCCESS! The component is located at '/k/graalsqueak/scripts/../graalsqueak-installable-windows-amd64-1.0.0-rc5-59-g656c1823-for-GraalVM-20.0.0.jar'.
+SUCCESS! The component is located at '/k/trufflesqueak/scripts/../trufflesqueak-installable-windows-amd64-1.0.0-rc5-59-g656c1823-for-GraalVM-20.0.0.jar'.
 </pre>
 
 ## <span id="troubleshooting">Troubleshooting</span>
@@ -308,7 +308,7 @@ In this section we list some issues we encountered in this project:
    Building com.oracle.truffle.nfi.native_amd64 with Ninja...
    [1/1] LINK trufflenfi.dll
    <b>FAILED: trufflenfi.dll</b>
-   link -nologo -dll -out:trufflenfi.dll src\api.obj src\closure.obj src\intrinsics.obj src\jni.obj src\lookup.obj src\lookup_win32.obj src\signature.obj C:\Users\michelou\workspace-perso\graalsqueak-examples\graal\truffle\mxbuild\windows-amd64\src\libffi\amd64\ffi.lib
+   link -nologo -dll -out:trufflenfi.dll src\api.obj src\closure.obj src\intrinsics.obj src\jni.obj src\lookup.obj src\lookup_win32.obj src\signature.obj C:\Users\michelou\workspace-perso\trufflesqueak-examples\graal\truffle\mxbuild\windows-amd64\src\libffi\amd64\ffi.lib
    link: unknown option -- n
    Try 'link --help' for more information.
    ninja: build stopped: subcommand failed.</pre>
@@ -327,7 +327,7 @@ In this section we list some issues we encountered in this project:
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/graalsqueak/releases/">graalsqueak-installable-windows-amd64-1.0.0-rc8-for-GraalVM-20.0.0.jar</a>  <i>(118 MB)</i>
+<a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-windows-amd64-1.0.0-rc9-for-GraalVM-20.0.0.jar</a>  <i>(126 MB)</i>
 <a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.0.0.zip</a>             <i>(154 MB)</i>
 <a href="https://www.python.org/downloads/release/python-2717/">python-2.7.17.amd64.msi</a>                         <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.3-19435-64bit-202003021730-Windows.zip</a>  <i>( 30 MB)</i>
@@ -336,7 +336,7 @@ In our case we downloaded the following installation files (see <a href="#sectio
 <a name="footnote_02">[2]</a> ***Github submodule*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submodule</a> allows us to make changes to this project independently from our fork of the <a href="https://github.com/hpi-swa/graalsqueak"><b><code>hpi-swa/graalsqueak</code></b></a> repository.
+Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github submodule</a> allows us to make changes to this project independently from our fork of the <a href="https://github.com/hpi-swa/trufflesqueak"><b><code>hpi-swa/trufflesqueak</code></b></a> repository.
 </p>
 
 ***
@@ -352,7 +352,6 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.26.2.txt
 [github_issue_1554]: https://github.com/oracle/graal/issues/1554
 [github_markdown]: https://github.github.com/gfm/
-[graalsqueak]: https://github.com/hpi-swa/graalsqueak
 [graalvm_downloads]: https://github.com/oracle/graal/releases
 [graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
 [graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_0/
@@ -364,6 +363,7 @@ Defining <b><code>graalsqueak</code></b> as a <a href=".gitmodules">Github submo
 [python_downloads]: https://www.python.org/downloads/release/python-2717/
 [python_relnotes]: https://www.python.org/downloads/release/python-2717/
 [squeak]: https://squeak.org/
+[trufflesqueak]: https://github.com/hpi-swa/trufflesqueak
 [vs2017_downloads]: https://visualstudio.microsoft.com/vs/older-downloads/
 [vs2017_relnotes]: https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes
 [windows_prompt]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands
