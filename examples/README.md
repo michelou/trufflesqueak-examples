@@ -1,4 +1,4 @@
-# <span id="top">GraalSqueak Examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">TruffleSqueak Examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -21,26 +21,26 @@ In this document we present the following [Squeak] code examples:
 Let's take as first example the [logarithmic equation][wiki_logarithm] *"The logarithm of a product is the sum of the logarithms of the factors"*, i.e. <code>log<sub>b</sub>(x*y) = log<sub>b</sub>(x) + log<sub>b</sub>(y)</code>:
 
 <pre style="font-size:80%;">
-<b>&gt; where graalsqueak</b>
-C:\opt\graalvm-ce-java8-20.0.0\bin\graalsqueak.cmd
+<b>&gt; where trufflesqueak</b>
+C:\opt\graalvm-ce-java8-20.0.0\bin\trufflesqueak.cmd
 &nbsp;
-<b>&gt; graalsqueak --code "6 log - (2 log + 3 log)" images\GraalSqueak-1.0.0-rc8.image</b>
-[graalsqueak] Running Squeak/Smalltalk on GraalVM CE...
-[graalsqueak] Image loaded in 1390ms.
-[graalsqueak] Preparing image for headless execution...
-[graalsqueak] Evaluating '6 log - (2 log + 3 log)'...
-[graalsqueak] Result: <b>-1.1102230246251565E-16</b>
+<b>&gt; trufflesqueak --code "6 log - (2 log + 3 log)" images\TruffleSqueak-1.0.0-rc9.image</b>
+[trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
+[trufflesqueak] Image loaded in 1390ms.
+[trufflesqueak] Preparing image for headless execution...
+[trufflesqueak] Evaluating '6 log - (2 log + 3 log)'...
+[trufflesqueak] Result: <b>-1.1102230246251565E-16</b>
 </pre>
 
 We observe that the result is *not* equal to zero due to limited precision in floating-point operations. By contrast, executing `log(6) - (log(2) + log(3))` in the [ke!san Online Calculator][keisan] returns `0` as an answer.
 
 <!--
-<b>&gt; graalsqueak --code "3 raisedTo: 32" images\GraalSqueak-1.0.0-rc8.image</b>
-[graalsqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 20.0.0 (Graal-compiled)...
-[graalsqueak] Image loaded in 3822ms.
+<b>&gt; trufflesqueak --code "3 raisedTo: 32" images\TruffleSqueak-1.0.0-rc9.image</b>
+[trufflesqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 20.0.0 (Graal-compiled)...
+[trufflesqueak] Image loaded in 3822ms.
 Preparing image for headless execution...
-[graalsqueak] Evaluating '3 raisedTo: 32'...
-[graalsqueak] Result: 1853020188851841
+[trufflesqueak] Evaluating '3 raisedTo: 32'...
+[trufflesqueak] Result: 1853020188851841
 -->
 
 ## <span id="tiny_benchmarks">tinyBenchmarks</span>
@@ -50,12 +50,12 @@ This micro-benchmark suite is often used to measure and compare the performance 
 - The other one is a recursive [Fibonacci][wiki_fibonacci] benchmark and therefore send-heavy
 
 <pre style="font-size:80%;">
-<b>&gt; graalsqueak --code "1 tinyBenchmarks" images\GraalSqueak-1.0.0-rc8.image</b>
-[graalsqueak] Running Squeak/Smalltalk on GraalVM CE...
-[graalsqueak] Image loaded in 1204ms.
-[graalsqueak] Preparing image for headless execution...
-[graalsqueak] Evaluating '1 tinyBenchmarks'...
-[graalsqueak] Result: 27,000,000 bytecodes/sec; 150,000,000 sends/sec
+<b>&gt; trufflesqueak --code "1 tinyBenchmarks" images\TruffleSqueak-1.0.0-rc9.image</b>
+[trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
+[trufflesqueak] Image loaded in 1204ms.
+[trufflesqueak] Preparing image for headless execution...
+[trufflesqueak] Evaluating '1 tinyBenchmarks'...
+[trufflesqueak] Result: 27,000,000 bytecodes/sec; 150,000,000 sends/sec
 </pre>
 
 ## <span id="system_reporter">System Reporter</span>
@@ -63,11 +63,11 @@ This micro-benchmark suite is often used to measure and compare the performance 
 This Squeak code displays the user environment variables including the Java system properties of our [GraalVM] environment:
 
 <pre style="font-size:80%;">
-<b>&gt; graalsqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" images\GraalSqueak-1.0.0-rc8.image</b>
-[graalsqueak] Running Squeak/Smalltalk on GraalVM CE...
-[graalsqueak] Image loaded in 1321ms.
-[graalsqueak] Preparing image for headless execution...
-[graalsqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
+<b>&gt; trufflesqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" images\TruffleSqueak-1.0.0-rc9.image</b>
+[trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
+[trufflesqueak] Image loaded in 1321ms.
+[trufflesqueak] Preparing image for headless execution...
+[trufflesqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
 platform sources revision ilt on Mar 08 2020 11:51:16 CET
 OpenJDK 64-Bit Server VM GraalVM CE 20.0.0 (25.242-b06-jvmci-20.0-b02; mixed mode)
 &nbsp;
@@ -111,7 +111,7 @@ sun.cpu.endian = little
 sun.cpu.isalist = amd64
 sun.desktop = windows
 sun.io.unicode.encoding = UnicodeLittle
-sun.java.command = de.hpi.swa.graal.squeak.launcher.GraalSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 GraalSqueak-1.0.0-rc8.image
+sun.java.command = de.hpi.swa.graal.squeak.launcher.TruffleSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 TruffleSqueak-1.0.0-rc9.image
 [...]
 <= System Properties ===================================
 </pre>
@@ -122,7 +122,7 @@ sun.java.command = de.hpi.swa.graal.squeak.launcher.GraalSqueakLauncher --polygl
 <a name="footnote_01">[1]</a> ***Squeak image*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/graalsqueak">GraalSqueak</a> installable component. Concretely we can either install the full <a href="https://squeak.org/downloads/">Squeak distribution</a> (32 MB) or we can just download the <a href="https://squeak.org/downloads/">Squeak image</a> (18 MB).
+A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> installable component. Concretely we can either install the full <a href="https://squeak.org/downloads/">Squeak distribution</a> (32 MB) or we can just download the <a href="https://squeak.org/downloads/">Squeak image</a> (18 MB).
 </p>
 
 ***
