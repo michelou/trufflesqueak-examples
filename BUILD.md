@@ -20,7 +20,7 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
 - [Git 2.27][git_downloads] ([*release notes*][git_relnotes])
-- [GraalVM Community Edition 20.0 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [GraalVM Community Edition 20.1 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 - [Microsoft Visual Studio 2017][vs2017_downloads] ([*release notes*][vs2017_relnotes])
 - [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
 
@@ -84,7 +84,7 @@ We distinguish different sets of batch commands:
 1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`python.exe`**][python_exe] and [**`git.exe`**][git_cli] directly available from the command prompt (see section [**Project dependencies**](#section_01)).
 
    <pre style="font-size:80%;">
-   <b>&gt; setenv help</b>
+   <b>&gt; <a href="setenv.bat">setenv</a> help</b>
    Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
@@ -98,7 +98,7 @@ We distinguish different sets of batch commands:
 2. [**`bin\trufflesqueak\build.bat`**](bin/trufflesqueak/build.bat) - This batch command generates the [TruffleSqueak] installable component from the [Windows command prompt](windows_prompt).
 
    <pre style="font-size:80%;">
-   <b>&gt; build help</b>
+   <b>&gt; <a href="bin/trufflesqueak/build.bat">build</a> help</b>
    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
@@ -118,7 +118,7 @@ We distinguish different sets of batch commands:
    > **:mag_right:** Bash script [**`build`**](bin/trufflesqueak/build) behaves the same as batch file [**`build.bat`**](bin/trufflesqueak/build.bat). We have to use the [**`./`** notation][linux_dotslash] here since, unlike the Windows command prompt, Unix-like shells do not check the current directory for executables before checking the **`PATH`** environment variable.
 
    <pre style="font-size:80%;">
-   <b>$ ./build help</b>
+   <b>$ ./<a href="bin/trufflesqueak/build">build</a> help</b>
    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
@@ -156,7 +156,7 @@ In this section we resume the pull requests we submitted due to issues with the 
 Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`python.exe`**][python_exe], [**`mx.cmd`**][mx_cmd] and [**`git.exe`**][git_cli] directly available from the command prompt:
 
 <pre style="font-size:80%;">
-<b>&gt; setenv</b>
+<b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    python 2.7.18, pylint 1.9.5
    git 2.27.0.windows.1, bash 4.4.23(1)-release
@@ -168,7 +168,7 @@ C:\opt\Python-2.7.18\python.exe
 Command **`setenv -verbose`** also displays the tool paths:
 
 <pre style="font-size:80%;">
-<b>&gt; setenv -verbose</b>
+<b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    python 2.7.18, pylint 1.9.5
    git 2.27.0.windows.1, bash 4.4.23(1)-release
@@ -232,22 +232,28 @@ K:\trufflesqueak
 09.12.2019  12:06           102 781 trufflesqueak-test.src.zip
 </pre>
 
-The [TruffleSqueak] component is packed into the installable component archive **`trufflesqueak-installable-windows-amd64-1.0.0-rc9-for-GraalVM-20.1.0.jar`** whose contents looks as follows:
+The [TruffleSqueak] component is packed into the installable component archive **`trufflesqueak-installable-java8-windows-amd64-20.1.0.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; jar tf trufflesqueak-installable-windows-amd64-1.0.0-rc9-for-GraalVM-20.1.0.jar | findstr /v /e "\/"</b>
-jre/lib/graalvm/trufflesqueak-launcher.jar
-jre/lib/graalvm/trufflesqueak-launcher.src.zip
+<b>&gt; jar tf trufflesqueak-installable-java8-windows-amd64-20.1.0.jar</b>
+bin/trufflesqueak.cmd
 jre/bin/trufflesqueak.cmd
-jre/languages/smalltalk/release
-jre/languages/smalltalk/bin/trufflesqueak.cmd
 jre/languages/smalltalk/trufflesqueak.jar
 jre/languages/smalltalk/trufflesqueak-shared.jar
 jre/languages/smalltalk/trufflesqueak.src.zip
 jre/languages/smalltalk/trufflesqueak-shared.src.zip
-jre/languages/smalltalk/LICENSE_GRAALSQUEAK.txt
+jre/languages/smalltalk/LICENSE_TRUFFLESQUEAK.txt
+jre/languages/smalltalk/README_TRUFFLESQUEAK.md
+jre/languages/smalltalk/lib/SqueakFFIPrims.dll
 jre/languages/smalltalk/native-image.properties
-bin/trufflesqueak.cmd
+jre/languages/smalltalk/resources/SqueakV50.sources
+jre/languages/smalltalk/resources/TruffleSqueak-20.1.0.changes
+jre/languages/smalltalk/resources/TruffleSqueak-20.1.0.image
+jre/languages/smalltalk/polyglot.config
+jre/languages/smalltalk/bin/trufflesqueak.cmd
+jre/languages/smalltalk/release
+jre/lib/graalvm/trufflesqueak-launcher.jar
+jre/lib/graalvm/trufflesqueak-launcher.src.zip
 META-INF/MANIFEST.MF
 META-INF/permissions
 META-INF/symlinks
@@ -258,7 +264,7 @@ We present the installation of the generated [TruffleSqueak] component archive i
 Command [**`build -verbose update`**](bin/trufflesqueak/build.bat) ensures both directories **`mx\`** and **`trufflesqueak\`** are update-to-date (Github clones):
 
 <pre style="font-size:80%;">
-<b>&gt; build -verbose update</b>
+<b>&gt; <a href="bin/trufflesqueak/build.bat">build</a> -verbose update</b>
  Current directory is K:\\mx
  Update MX directory K:\\mx
  Update MX directory K:\\mx
@@ -273,10 +279,10 @@ Already up to date.
 
 #### `trufflesqueak\build`
 
-Directory **`trufflesqueak\`** contains our fork of the [`hpi-swa/trufflesqueak`][trufflesqueak] repository; it is setup as follows when executing commands in the Git bash shell (started with option **`-travis`**):
+Directory **`trufflesqueak\`** contains our fork of the [`hpi-swa/trufflesqueak`][trufflesqueak] repository; it is setup as follows when executing commands in the Git bash shell (started with option **`-bash`**):
 
 <pre style="font-size:80%;">
-<b>&gt; setenv -bash</b>
+<b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 <b>$ cp bin/trufflesqueak/build trufflesqueak</b>
 <b>$ cd trufflesqueak</b>
 </pre>
@@ -284,7 +290,7 @@ Directory **`trufflesqueak\`** contains our fork of the [`hpi-swa/trufflesqueak`
 Command [**`build clean dist`**](bin/trufflesqueak/build) generates several archive files including the [TruffleSqueak] component.
 
 <pre style="font-size:80%;">
-<b>$ ./build clean dist</b>
+<b>$ ./<a href="bin/trufflesqueak/build">build</a> clean dist</b>
 JAVA_HOME: C:\opt\graalvm-ce-java8-20.1.0
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
@@ -336,7 +342,7 @@ Starting with version 20.0 command <a href="https://www.graalvm.org/docs/referen
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-windows-amd64-1.0.0-rc9-for-GraalVM-20.1.0.jar</a>  <i>(126 MB)</i>
+<a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-java8-windows-amd64-20.1.0.jar</a>  <i>(135 MB)</i>
 <a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.1.0.zip</a>             <i>(154 MB)</i>
 <a href="https://www.python.org/downloads/release/python-2717/">python-2.7.18.amd64.msi</a>                         <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.3-19435-64bit-202003021730-Windows.zip</a>  <i>( 30 MB)</i>
@@ -363,11 +369,11 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_downloads]: https://github.com/oracle/graal/releases
 [graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_0/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_1/
 [linux_dotslash]: http://www.linfo.org/dot_slash.html
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [mx_cmd]: https://github.com/graalvm/mx
-[oracle_graal]: https://github.com/oracle/graal
+[oracle_graal]: https://github.com/graalvm/graalvm-ce-builds/releases
 [python_exe]: https://docs.python.org/2/using/cmdline.html
 [python_downloads]: https://www.python.org/downloads/release/python-2717/
 [python_relnotes]: https://www.python.org/downloads/release/python-2717/

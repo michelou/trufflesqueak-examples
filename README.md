@@ -169,7 +169,7 @@ We present below the installation from a *local* [TruffleSqueak] component archi
 Let's first download [TruffleSqueak] component archive from the [TruffleSqueak] repository:
 
 <pre style="font-size:80%;">
-<b>&gt; curl -sL -o trufflesqueak-installable.jar https://github.com/hpi-swa/trufflesqueak/releases/download/1.0.0-rc9/grufflesqueak-installable-java8-windows-amd64-1.0.0-rc9-for-GraalVM-20.1.0.jar</b>
+<b>&gt; curl -sL -o trufflesqueak-installable.jar https://github.com/hpi-swa/trufflesqueak/releases/download/20.1.0/grufflesqueak-installable-java8-windows-amd64-20.1.0.jar</b>
 </pre>
 
 Command [**`gu.bat install -L trufflesqueak-component.jar`**](bin/gu.bat) adds the [TruffleSqueak] component to our [GraalVM] environment.
@@ -190,16 +190,17 @@ The [GraalVM] installation directory looks as follows after adding the [TruffleS
 <b>&gt; where /r c:\opt\graalvm-ce-java8-20.1.0 *squeak*</b>
 c:\opt\graalvm-ce-java8-20.1.0\bin\trufflesqueak.cmd
 c:\opt\graalvm-ce-java8-20.1.0\jre\bin\trufflesqueak.cmd
+c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\LICENSE_TRUFFLESQUEAK.txt
+c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\README_TRUFFLESQUEAK.md
 c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\trufflesqueak-shared.jar
 c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\trufflesqueak-shared.src.zip
 c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\trufflesqueak.jar
 c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\trufflesqueak.src.zip
-c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\LICENSE_TRUFFLESQUEAK.txt
-c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\README_TRUFFLESQUEAK.md
 c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\bin\trufflesqueak.cmd
-c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\resources\TruffleSqueak-1.0.0-rc9.changes
-c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\resources\TruffleSqueak-1.0.0-rc9.image
+c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\lib\SqueakFFIPrims.dll
 c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\resources\SqueakV50.sources
+c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\resources\TruffleSqueak-20.1.0.changes
+c:\opt\graalvm-ce-java8-20.1.0\jre\languages\smalltalk\resources\TruffleSqueak-20.1.0.image
 c:\opt\graalvm-ce-java8-20.1.0\jre\lib\graalvm\trufflesqueak-launcher.jar
 c:\opt\graalvm-ce-java8-20.1.0\jre\lib\graalvm\trufflesqueak-launcher.src.zip
 </pre>
@@ -290,7 +291,7 @@ Command **`trufflesqueak TruffleSqueak.image`** starts the Squeak IDE and loads 
 &nbsp;
 <b>&gt; unzip -qo TruffleSqueakImage-20.1.0.zip</b>
  &nbsp;
-<b>&gt; trufflesqueak.cmd TruffleSqueak-1.0.0-rc9.image</b>
+<b>&gt; trufflesqueak.cmd TruffleSqueak-20.1.0.image</b>
 </pre>
 
 > **:mag_right:** The contents of downloaded archive file <b><code>TruffleSqueakImage.zip</code></b> looks as follows:
@@ -332,7 +333,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/t
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/1.0.0-rc9">trufflesqueak-installable-windows-amd64-1.0.0-rc9-for-GraalVM-20.1.0.jar</a>  <i>(126 MB)</i>
+<a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/20.1.0">trufflesqueak-installable-java8-windows-amd64-20.1.0.jar</a>  <i>(135 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java8-windows-amd64-20.1.0.zip</a>       <i>(154 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.27.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.3-19431-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
@@ -375,7 +376,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [truffleruby]: https://github.com/oracle/truffleruby
 [trufflesqueak]: https://github.com/hpi-swa/trufflesqueak
 [trufflesqueak_cmd]: https://github.com/hpi-swa/trufflesqueak/blob/dev/scripts/template.trufflesqueak.cmd
-[trufflesqueak_image]: https://github.com/hpi-swa/trufflesqueak/releases/tag/1.0.0-rc9
+[trufflesqueak_image]: https://github.com/hpi-swa/trufflesqueak/releases/tag/20.1.0
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
