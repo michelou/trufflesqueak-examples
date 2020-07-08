@@ -7,11 +7,8 @@ set _DEBUG=0
 @rem #########################################################################
 @rem ## Environment setup
 
-set _BASENAME=%~n0
-
 set _EXITCODE=0
-
-for %%f in ("%~dp0") do set "_ROOT_DIR=%%~sf"
+set "_ROOT_DIR=%~dp0"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -48,6 +45,8 @@ goto end
 
 rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
+set _BASENAME=%~n0
+
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
@@ -199,8 +198,8 @@ set __GIT_CMD=
 for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
-    for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
-    for %%f in ("!__GIT_BIN_DIR!..") do set _GIT_HOME=%%~sf
+    for %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
+    for %%f in ("!__GIT_BIN_DIR!..") do set "_GIT_HOME=%%~sf"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
         for %%f in ("!_GIT_HOME!\..") do set _GIT_HOME=%%~sf
