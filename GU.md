@@ -12,7 +12,7 @@
 This document is part of a series of topics related to [TruffleSqueak][trufflesqueak] on Windows:
 
 - [Installing TruffleSqueak on Windows](README.md)
-- Using **`gu.bat`** on Windows [**&#9660;**](#bottom)
+- Using **`gu.bat`** on Windows ***(deprecated)*** [**&#9660;**](#bottom)
 - [Building TruffleSqueak on Windows](BUILD.md)
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -36,22 +36,22 @@ C:\opt\graalvm-ce-java8-20.1.0\   <i>(360 MB)</i>
 
 This project is organized as follows:
 <pre style="font-size:80%;">
-bin\gu.bat
+<a href="bin/gu.bat">bin\gu.bat</a>
 docs\
-examples\README.md
-BUILD.md
+<a href="examples/README.md">examples\README.md</a>
+<a href="BUILD.md">BUILD.md</a>
 GU.md
-README.md
-setenv.bat
+<a href="README.md">README.md</a>
+<a href="setenv.bat">setenv.bat</a>
 </pre>
 
 where
 
-- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [TruffleSqueak] component on a Windows machine.
+- ***(deprecated)*** file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [TruffleSqueak] component on a Windows machine.
 - directory [**`docs\`**](docs/) contains several [TruffleSqueak] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [TruffleSqueak] component.
-- file [**`GU.md`**](GU.md) is the Markdown document for this page.
+- ***(deprecated)*** file [**`GU.md`**](GU.md) is the Markdown document for this page.
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [TruffleSqueak] component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -83,7 +83,7 @@ Command **`gu -h`** (or **`gu --help`**) prints the following help message:
 <b>&gt;where gu</b>
 Q:\bin\gu.bat
 &nbsp;
-<b>&gt; gu -h</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> -h</b>
 Usage: gu command {&lt;option&gt;} {&lt;param&gt;}
 &nbsp;
   Commands:
@@ -130,7 +130,7 @@ In the next section we present usage examples of commands currently implemented 
 Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we get the following output with a GraalVM 20.1.0 installation on a Unix machine:
 
 <pre style="font-size:80%;">
-<b>&gt; gu available</b>
+<b>&gt; <a href="bin/gu.bat">gu available</a></b>
 Downloading: Component catalog
 Component.20.1.0_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
 Component.20.1.0_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
@@ -148,7 +148,7 @@ Component.20.1.0_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
 Command [**`gu.bat available python r`**](bin/gu.bat) with arguments **`python`** and **`r`** displays components available from the GraalVM Catalog which fit our environment:
 
 <pre style="font-size:80%;">
-<b>&gt; gu available python r</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> available python r</b>
 Downloading: Component catalog
 Component.20.1.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
 Component.20.1.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
@@ -157,7 +157,7 @@ Component.20.1.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
 Command [**`gu.bat available -l python r`**](bin/gu.bat) with option **`-l`** instead displays their URL addresses:
 
 <pre style="font-size:80%;">
-<b>&gt; gu available -l python r</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> available -l python r</b>
 Downloading: Component catalog
 https://github.com/graalvm/graalpython/releases/download/vm-20.1.0/python-installable-svm-java8-linux-amd64-20.1.0.jar
 https://github.com/oracle/fastr/releases/download/vm-20.1.0/r-installable-java8-linux-amd64-20.1.0.jar
@@ -168,7 +168,7 @@ https://github.com/oracle/fastr/releases/download/vm-20.1.0/r-installable-java8-
 Command [**`gu.bat info`**](bin/gu.bat) prints component information from file, URL or catalog.
 
 <pre style="font-size:80%;">
-<b>&gt; gu info -h</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> info -h</b>
 Usage: gu info [-cdhlLprstuv] {&lt;param&gt;}
 Print component information from file, URL or catalog.
 &nbsp;
@@ -184,7 +184,7 @@ Print component information from file, URL or catalog.
 Command [**`gu.bat info -L ruby`**](bin/gu.bat) displays component information for the installed component **`ruby`**:
 
 <pre style="font-size:80%;">
-<b>&gt; gu info -L ruby</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> info -L ruby</b>
 Component: ruby
    characterMimeType.0=application/x-ruby
    className=org.truffleruby.RubyLanguage
@@ -216,7 +216,7 @@ Command [**`gu.bat install`**](bin/gu.bat) installs [GraalVM] installable compon
 > </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; gu install -h</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> install -h</b>
 Usage: gu install [-0cdfhiLnorv] {&lt;param&gt;}
 Install specified components from file, URL or catalog.
 &nbsp;
@@ -270,7 +270,7 @@ C:\opt\graalvm-ce-java8-20.1.0
 &nbsp;
 <b>&gt; curl -sL -o trufflesqueak-component.jar https://github.com/hpi-swa/trufflesqueak/releases/download/20.1.0/trufflesqueak-installable-java8-windows-amd64-20.1.0.jar</b>
 &nbsp;
-<b>&gt; gu install -L trufflesqueak-component.jar</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> install -L trufflesqueak-component.jar</b>
 Install local component trufflesqueak-component.jar
 Do you really want to add the component into directory C:\opt\graalvm-ce-java8-20.1.0 (y/*)? y
 </pre>
@@ -278,7 +278,7 @@ Do you really want to add the component into directory C:\opt\graalvm-ce-java8-2
 Adding option **`-A`** skips user confirmation before proceeding with the installation:
 
 <pre style="font-size:80%;">
-<b>&gt; gu install -AL trufflesqueak-component.jar</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> install -AL trufflesqueak-component.jar</b>
 Install local component trufflesqueak-component.jar
 </pre>
 
@@ -301,7 +301,7 @@ Command [**`gu.bat list`**](bin/gu.bat) prints the components installed in our [
 <b>&gt; echo %GRAAL_HOME%</b>
 C:\opt\graalvm-ce-java8-20.1.0
 &nbsp;
-<b>&gt; gu list</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> list</b>
 component graalpython
    OS_NAME=linux
    OS_ARCH=amd64
@@ -341,7 +341,7 @@ Command rebuild-images not yet implemented
 Command **`gu remove`** removes the installed component specified by its component ID.
 
 <pre style="font-size:80%;">
-<b>&gt; gu remove -h</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> remove -h</b>
 Usage: gu remove [-0dfhxv] &lt;param&gt;
 Remove component (ID).
 
@@ -367,7 +367,7 @@ Command remove not yet implemented
 Command **`gu update`** upgrades our environment to the specified GraalVM version.
 
 <pre style="font-size:80%;">
-<b>&gt; gu update -h</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> update -h</b>
 Usage: gu update [-dhvx] [&lt;ver&gt;] [&lt;param&gt;]
 Upgrade to the recent GraalVM version.
 
@@ -381,7 +381,7 @@ Upgrade to the recent GraalVM version.
 We have no further plans to implement command [**`gu.bat update`**](bin/gu.bat).
 
 <pre style="font-size:80%;">
-<b>&gt; gu update</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> update</b>
 Command update not yet implemented
 (current GraalVM version: 20.1.0)
 </pre>
@@ -392,7 +392,7 @@ Command update not yet implemented
 
 ## <span id="footnotes">Footnotes</span>
 
-<a name="footnote_01">[1]</a> ***Downloads*** [↩](#anchor_01)
+<span name="footnote_01">[1]</span> ***Downloads*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
@@ -404,13 +404,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://squeak.org/downloads/">Squeak5.3-19431-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
 </pre>
 
-<a name="footnote_02">[2]</a> ***GraalVM Updater*** [↩](#anchor_02)
+<span name="footnote_02">[2]</span> ***GraalVM Updater*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> component (e.g. archive file <b><code>trufflesqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-java8-20.1.0\</code></b>).
 </p>
 
-<a name="footnote_03">[3]</a> ***Preinstalled components*** [↩](#anchor_03)
+<span name="footnote_03">[3]</span> ***Preinstalled components*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 Component <a href="https://github.com/graalvm/graaljs">GraalJS</a> is preinstalled in the <a href="https://www.graalvm.org/">GraalVM</a> environment. It is a <a href="https://github.com/tc39/ecma262">ECMAScript 2019</a> compliant Javascript implementation built on <a href="https://www.graalvm.org/">GraalVM</a> (with <a href="https://www.graalvm.org/docs/reference-manual/polyglot/">Polyglot language interoperability</a> support).
@@ -426,7 +426,7 @@ c:\opt\graalvm-ce-java8-20.1.0\jre\languages\js\bin\js.cmd
 GraalVM JavaScript (GraalVM CE JVM 20.1.0)
 </pre>
 
-<a name="footnote_04">[4]</a> ***GraalVM Catalog*** [↩](#anchor_04a)
+<span name="footnote_04">[4]</span> ***GraalVM Catalog*** [↩](#anchor_04a)
 
 <p style="margin:0 0 1em 20px;">
 At the time of writing the GraalVM Catalog contains <i>no</i> component for the Windows platform.<br/>
@@ -434,12 +434,12 @@ Components currently available are:
 </p>
 <table style="margin:0 0 1em 20px;">
 <tr><th>ID</th><th>Version(s)</th><th>Supported platform(s)</th></tr>
-<tr><td><code>llvm_toolchain</code></td><td>19.2, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.0</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
-<tr><td><code>native_image</code></td><td>19.0, 19.1, 19.2, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.0</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b>, <b><code>windows</b></code> <i>(20.0+)</i></td></tr>
-<tr><td><a href="https://github.com/graalvm/graalpython"><code>python</code></a></td><td>19.0, 19.1, 19.2, <a href="https://github.com/graalvm/graalpython/releases/tag/vm-19.3.1">19.3</a>, <a href="https://github.com/graalvm/graalpython/releases/tag/vm-20.1.0">20.0</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
-<tr><td><a href="https://github.com/oracle/fastr"><code>r</code></a></td><td>19.0, 19.1, 19.2, <a href="https://github.com/oracle/fastr/releases/tag/vm-19.3.1">19.3</a>, <a href="https://github.com/oracle/fastr/releases/tag/vm-20.1.0">20.0</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
-<tr><td><a href="https://github.com/oracle/truffleruby"><code>ruby</code></a</td><td>19.0, 19.1, 19.2, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-19.3.1">19.3</a>, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-20.1.0">20.0</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
-<tr><td><b><code>wasm</code></b></td><td><a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.0</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
+<tr><td><code>llvm_toolchain</code></td><td>19.2, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
+<tr><td><code>native_image</code></td><td>19.0, 19.1, 19.2, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b>, <b><code>windows</b></code> <i>(20.0+)</i></td></tr>
+<tr><td><a href="https://github.com/graalvm/graalpython"><code>python</code></a></td><td>19.0, 19.1, 19.2, <a href="https://github.com/graalvm/graalpython/releases/tag/vm-19.3.1">19.3</a>, <a href="https://github.com/graalvm/graalpython/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/graalvm/graalpython/releases/tag/vm-20.1.0">20.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
+<tr><td><a href="https://github.com/oracle/fastr"><code>r</code></a></td><td>19.0, 19.1, 19.2, <a href="https://github.com/oracle/fastr/releases/tag/vm-19.3.1">19.3</a>, <a href="https://github.com/oracle/fastr/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/oracle/fastr/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/oracle/fastr/releases/tag/vm-20.1.0">20.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
+<tr><td><a href="https://github.com/oracle/truffleruby"><code>ruby</code></a</td><td>19.0, 19.1, 19.2, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-19.3.1">19.3</a>, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-20.1.0">20.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
+<tr><td><b><code>wasm</code></b></td><td><a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
 </table>
 
 ***
