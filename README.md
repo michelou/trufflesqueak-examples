@@ -22,7 +22,7 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.27][git_downloads] ([*release notes*][git_relnotes])
-- [TruffleSqueak Image 1.0][trufflesqueak_image]
+- [TruffleSqueak Image 20.1][trufflesqueak_image]
 - [GraalVM Community Edition 20.1 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
 Optionally one may also install the following software:
@@ -91,7 +91,7 @@ We distinguish different sets of batch commands:
         help        display this help message
     </pre>
 
-2. [**`bin\gu.bat`**](bin/gu.bat) ***(deprecated)*** - This batch command features commands to manage the [GraalVM] environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**][gu_refman] command <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup>.<br/>
+2. [**`bin\gu.bat`**](bin/gu.bat) ***(deprecated)*** - This batch command features commands to manage the [GraalVM] environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**][gu_refman] command.<br/>
 
 In the next section we present usage examples of the batch files present in this project.
 
@@ -312,7 +312,7 @@ Code examples are presented in document [examples\README.md](examples/README.md)
 
 ## <span id="footnotes">Footnotes</span>
 
-<span name="footnote_01">[1]</span> **`gu.bat`** ***deprecation*** [↩](#anchor_01)
+<b name="footnote_01">[1]</b> **`gu.bat`** ***deprecation*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 Starting with version 20.0 command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu.cmd</code></b></a> is part of the <a href="https://www.graalvm.org/">GraalVM</a> distribution; Windows users should use <b><code>gu.cmd</code></b> instead of <b><code>gu.bat</code></b>.
@@ -321,13 +321,13 @@ Starting with version 20.0 command <a href="https://www.graalvm.org/docs/referen
    We wrote <a href="bin/gu.bat"><code><b>gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> component (or any installable component such as <a href="https://github.com/oracle/fastr">FastR</a>, <a href="https://github.com/graalvm/graalpython">GraalPython</a> or <a href="https://github.com/oracle/truffleruby">TruffleRuby</a> to our <a href="https://www.graalvm.org/">GraalVM</a> environment. More details on the usage of this command are available in document <a href="GU.md"><code>GU.md</code></a>.
 </p>
 
-<span name="footnote_02">[2]</span> ***Squeak image*** [↩](#anchor_02)
+<b name="footnote_02">[2]</b> ***Squeak image*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> installable component. Concretely we can either install the full <a href="https://squeak.org/downloads/">Squeak distribution</a> (32 MB) or we can just download the <a href="https://squeak.org/downloads/">Squeak image</a> (18 MB).
 </p>
 
-<span name="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
+<b name="footnote_03">[3]</b> ***Downloads*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
@@ -336,14 +336,16 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/20.1.0">trufflesqueak-installable-java8-windows-amd64-20.1.0.jar</a>  <i>(135 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java8-windows-amd64-20.1.0.zip</a>       <i>(154 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.27.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
-<a href="https://squeak.org/downloads/">Squeak5.3-19431-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
+<a href="http://files.squeak.org/5.3/">Squeak5.3-19448-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
 </pre>
 
-<span name="footnote_04">[4]</span> ***GraalVM Updater*** [↩](#anchor_04)
+<!--
+<b name="footnote_04">[4]</b> ***GraalVM Updater*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
 Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> component (e.g. archive file <b><code>trufflesqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-java8-20.1.0\</code></b>).
 </p>
+-->
 
 ***
 

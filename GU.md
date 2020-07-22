@@ -130,7 +130,7 @@ In the next section we present usage examples of commands currently implemented 
 Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we get the following output with a GraalVM 20.1.0 installation on a Unix machine:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/gu.bat">gu available</a></b>
+<b>&gt; <a href="bin/gu.bat">gu</a> available</b>
 Downloading: Component catalog
 Component.20.1.0_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
 Component.20.1.0_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
@@ -240,7 +240,7 @@ Install specified components from file, URL or catalog.
 Command [**`gu.bat -v install python`**](bin/gu.bat) adds the [GraalPython] component to our [GraalVM] environment:
 
 <pre style="font-size:80%;">
-<b>&gt; gu install -v python</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> install -v python</b>
 Downloading: Component catalog graal-updater-component-catalog.properties
 Processing component archive: Component python
 Downloading: Component python-installable-svm-linux-amd64-20.1.0.jar
@@ -287,7 +287,7 @@ Install local component trufflesqueak-component.jar
 Command [**`gu.bat install -uv`**](bin/gu.bat)` `[**`https://../trufflesqueak-component-1.0.0-rc9-for-GraalVM-20.2.1.jar`**](trufflesqueak_downloads) adds the [TruffleSqueak] component to our [GraalVM] environment.
 
 <pre style="font-size:80%;">
-<b>&gt; gu install -u trufflesqueak-installable-java8-windows-amd64-20.1.0.jar</b>
+<b>&gt; <a href="bin/gu.bat">gu</a> install -u trufflesqueak-installable-java8-windows-amd64-20.1.0.jar</b>
 Install remote component trufflesqueak-installable-java8-windows-amd64-20.1.0.jar
 Do you really want to add the component into directory C:\opt\graalvm-ce-java8-20.1.0 (y/*)? y
 Install GraalVM component into directory C:\opt\graalvm-ce-java8-20.1.0
@@ -331,7 +331,7 @@ Command [**`gu.bat list -c`**](bin/gu.bat) is equivalent to [**`gu.bat available
 We have no further plans to implement command [**`gu.bat rebuild-images`**](bin/gu.bat).
 
 <pre style="font-size:80%;">
-<b>&gt; gu rebuild-images</b>
+<b>&gt; <a href="bin/gu.bat">gu.bat</a> rebuild-images</b>
 Command rebuild-images not yet implemented
 (current GraalVM version: 20.1.0)
 </pre>
@@ -401,7 +401,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-java8-windows-amd64-1.0.0-rc9-for-GraalVM-20.1.0.jar</a>  <i>(126 MB)</i>
 <a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.1.0.zip</a>             <i>(154 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.27.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
-<a href="https://squeak.org/downloads/">Squeak5.3-19431-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
+<a href="http://files.squeak.org/5.3/">Squeak5.3-19448-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
 </pre>
 
 <span name="footnote_02">[2]</span> ***GraalVM Updater*** [↩](#anchor_02)
