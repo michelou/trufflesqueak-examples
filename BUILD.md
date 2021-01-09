@@ -12,7 +12,7 @@
 This document is part of a series of topics related to [TruffleSqueak] on Windows:
 
 - [Installing TruffleSqueak on Windows](README.md)
-- [Using **`gu.bat`** on Windows](GU.md) ***(deprecated)*** <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
+- ***(deprecated)*** [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 - Building TruffleSqueak on Windows [**&#9660;**](#bottom)
 
 ## <span id="section_01">Project dependencies</span>
@@ -27,7 +27,7 @@ This project depends on the following external software for the **Microsoft Wind
 For instance our development environment looks as follows (*January 2021*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java8-20.2.0\                       <i>(695 MB)</i>
+C:\opt\graalvm-ce-java8-20.3.0\                       <i>(695 MB)</i>
 C:\opt\Git-2.30.0\                                    <i>(276 MB)</i>
 C:\opt\Python-2.7.18\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
@@ -200,7 +200,7 @@ K:\trufflesqueak
 <b>&gt; build -verbose clean dist</b>
 MX_VERSION: 5.280.7
 Build Java archives
-JAVA_HOME: C:\opt\graalvm-ce-java8-20.2.0
+JAVA_HOME: C:\opt\graalvm-ce-java8-20.3.0
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -291,7 +291,7 @@ Command [**`build clean dist`**](bin/trufflesqueak/build) generates several arch
 
 <pre style="font-size:80%;">
 <b>$ ./<a href="bin/trufflesqueak/build">build</a> clean dist</b>
-JAVA_HOME: C:\opt\graalvm-ce-java8-20.2.0
+JAVA_HOME: C:\opt\graalvm-ce-java8-20.3.0
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -309,7 +309,7 @@ In this section we list some issues we encountered in this project:
 -  Command **`build dist`** generates the error message **`FAILED: trufflenfi.dll`**:
    <pre style="font-size:80%;">
    <b>&gt; build dist</b>
-   JAVA_HOME: C:\opt\graalvm-ce-java8-20.2.0
+   JAVA_HOME: C:\opt\graalvm-ce-java8-20.3.0
    [...]
    Building com.oracle.truffle.nfi.native_amd64 with Ninja...
    [1/1] LINK trufflenfi.dll
@@ -369,7 +369,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_downloads]: https://github.com/oracle/graal/releases
 [graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_2/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_3/
 [linux_dotslash]: http://www.linfo.org/dot_slash.html
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [mx_cmd]: https://github.com/graalvm/mx

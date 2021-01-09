@@ -12,7 +12,7 @@
 This document is part of a series of topics related to [TruffleSqueak] on Windows:
 
 - Installing [TruffleSqueak] on Windows [**&#9660;**](#bottom)
-- [Using **`gu.bat`** on Windows](GU.md) ***(deprecated)***<sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
+- ***(deprecated)*** [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 - [Building TruffleSqueak on Windows](BUILD.md)
 
 [Dotty][dotty_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
@@ -377,8 +377,8 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [graalvm]: https://www.graalvm.org/
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_1/
-[gu_refman]: https://www.graalvm.org/docs/reference-manual/install-components/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_3/
+[gu_refman]: https://www.graalvm.org/reference-manual/graalvm-updater/
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jar_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
 [java_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html
