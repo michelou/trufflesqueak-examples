@@ -22,9 +22,9 @@ Let's take as first example the [logarithmic equation][wiki_logarithm] *"The log
 
 <pre style="font-size:80%;">
 <b>&gt; where trufflesqueak</b>
-C:\opt\graalvm-ce-java8-20.0.0\bin\trufflesqueak.cmd
+C:\opt\graalvm-ce-java8-20.3.0\bin\trufflesqueak.cmd
 &nbsp;
-<b>&gt; trufflesqueak --code "6 log - (2 log + 3 log)" images\TruffleSqueak-1.0.0-rc9.image</b>
+<b>&gt; trufflesqueak --code "6 log - (2 log + 3 log)" images\TruffleSqueak-20.2.0.image</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
 [trufflesqueak] Image loaded in 1390ms.
 [trufflesqueak] Preparing image for headless execution...
@@ -35,8 +35,8 @@ C:\opt\graalvm-ce-java8-20.0.0\bin\trufflesqueak.cmd
 We observe that the result is *not* equal to zero due to limited precision in floating-point operations. By contrast, executing `log(6) - (log(2) + log(3))` in the [ke!san Online Calculator][keisan] returns `0` as an answer.
 
 <!--
-<b>&gt; trufflesqueak --code "3 raisedTo: 32" images\TruffleSqueak-1.0.0-rc9.image</b>
-[trufflesqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 20.0.0 (Graal-compiled)...
+<b>&gt; trufflesqueak --code "3 raisedTo: 32" images\TruffleSqueak-20.2.0.image</b>
+[trufflesqueak] Running Squeak/Smalltalk on OpenJDK 64-Bit GraalVM CE 20.3.0 (Graal-compiled)...
 [trufflesqueak] Image loaded in 3822ms.
 Preparing image for headless execution...
 [trufflesqueak] Evaluating '3 raisedTo: 32'...
@@ -50,7 +50,7 @@ This micro-benchmark suite is often used to measure and compare the performance 
 - The other one is a recursive [Fibonacci][wiki_fibonacci] benchmark and therefore send-heavy
 
 <pre style="font-size:80%;">
-<b>&gt; trufflesqueak --code "1 tinyBenchmarks" images\TruffleSqueak-1.0.0-rc9.image</b>
+<b>&gt; trufflesqueak --code "1 tinyBenchmarks" images\TruffleSqueak-20.2.0.image</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
 [trufflesqueak] Image loaded in 1204ms.
 [trufflesqueak] Preparing image for headless execution...
@@ -63,55 +63,55 @@ This micro-benchmark suite is often used to measure and compare the performance 
 This Squeak code displays the user environment variables including the Java system properties of our [GraalVM] environment:
 
 <pre style="font-size:80%;">
-<b>&gt; trufflesqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" images\TruffleSqueak-1.0.0-rc9.image</b>
+<b>&gt; trufflesqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" images\TruffleSqueak-20.2.0.image</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
 [trufflesqueak] Image loaded in 1321ms.
 [trufflesqueak] Preparing image for headless execution...
 [trufflesqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
 platform sources revision ilt on Mar 08 2020 11:51:16 CET
-OpenJDK 64-Bit Server VM GraalVM CE 20.0.0 (25.242-b06-jvmci-20.0-b02; mixed mode)
+OpenJDK 64-Bit Server VM GraalVM CE 20.3.0 (25.272-b10-jvmci-20.2-b06; mixed mode)
 &nbsp;
 == System Properties =================================>
-agentscript.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\agentscript
+agentscript.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\agentscript
 awt.toolkit = sun.awt.windows.WToolkit
-chromeinspector.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\chromeinspector
-coverage.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\coverage
+chromeinspector.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\chromeinspector
+coverage.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\coverage
 file.encoding = Cp1252
 file.encoding.pkg = sun.io
 file.separator = \
 [...]
-java.version = 1.8.0_242
+java.version = 1.8.0_272
 java.vm.info = mixed mode
-java.vm.name = OpenJDK 64-Bit Server VM GraalVM CE 20.0.0
+java.vm.name = OpenJDK 64-Bit Server VM GraalVM CE 20.3.0
 java.vm.specification.name = Java Virtual Machine Specification
 java.vm.specification.vendor = Oracle Corporation
 java.vm.specification.version = 1.8
 java.vm.vendor = Oracle Corporation
-java.vm.version = 25.242-b06-jvmci-20.0-b02
-js.home = c:\opt\graalvm-ce-java8-20.0.0\jre\languages\js
+java.vm.version = 25.272-b10-jvmci-20.3-b06
+js.home = c:\opt\graalvm-ce-java8-20.3.0\jre\languages\js
 jvmci.Compiler = graal
 line.separator =
 
-lsp.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\lsp
-nfi.home = c:\opt\graalvm-ce-java8-20.0.0\jre\languages\nfi
-org.graalvm.home = c:\opt\graalvm-ce-java8-20.0.0
+lsp.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\lsp
+nfi.home = c:\opt\graalvm-ce-java8-20.3.0\jre\languages\nfi
+org.graalvm.home = c:\opt\graalvm-ce-java8-20.3.0
 org.graalvm.launcher.shell = true
-org.graalvm.version = 20.0.0
+org.graalvm.version = 20.3.0
 os.arch = amd64
 os.name = Windows 10
 os.version = 10.0
 path.separator = ;
-profiler.home = c:\opt\graalvm-ce-java8-20.0.0\jre\tools\profiler
-regex.home = c:\opt\graalvm-ce-java8-20.0.0\jre\languages\regex
-smalltalk.home = c:\opt\graalvm-ce-java8-20.0.0\jre\languages\smalltalk
+profiler.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\profiler
+regex.home = c:\opt\graalvm-ce-java8-20.3.0\jre\languages\regex
+smalltalk.home = c:\opt\graalvm-ce-java8-20.3.0\jre\languages\smalltalk
 sun.arch.data.model = 64
 [...]
-sun.boot.library.path = C:\opt\graalvm-ce-java8-20.0.0\jre\bin
+sun.boot.library.path = C:\opt\graalvm-ce-java8-20.3.0\jre\bin
 sun.cpu.endian = little
 sun.cpu.isalist = amd64
 sun.desktop = windows
 sun.io.unicode.encoding = UnicodeLittle
-sun.java.command = de.hpi.swa.graal.squeak.launcher.TruffleSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 TruffleSqueak-1.0.0-rc9.image
+sun.java.command = de.hpi.swa.graal.squeak.launcher.TruffleSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 TruffleSqueak-20.2.0.image
 [...]
 <= System Properties ===================================
 </pre>
@@ -127,7 +127,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/t
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

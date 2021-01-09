@@ -19,16 +19,16 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
-- [Git 2.27][git_downloads] ([*release notes*][git_relnotes])
-- [GraalVM Community Edition 20.1 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [Git 2.30][git_downloads] ([*release notes*][git_relnotes])
+- [GraalVM Community Edition 20.2 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 - [Microsoft Visual Studio 2017][vs2017_downloads] ([*release notes*][vs2017_relnotes])
 - [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*July 2020*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*January 2021*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java8-20.1.0\                       <i>(695 MB)</i>
-C:\opt\Git-2.27.0\                                    <i>(278 MB)</i>
+C:\opt\graalvm-ce-java8-20.2.0\                       <i>(695 MB)</i>
+C:\opt\Git-2.30.0\                                    <i>(276 MB)</i>
 C:\opt\Python-2.7.18\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2017\  <i>(3.1 GB)</i>
@@ -72,7 +72,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst K: %USERPROFILE%\workspace\trufflesqueak-examples</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> K: %USERPROFILE%\workspace\trufflesqueak-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this project.
@@ -159,7 +159,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    python 2.7.18, pylint 1.9.5
-   git 2.27.0.windows.1, bash 4.4.23(1)-release
+   git 2.30.0.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; where python</b>
 C:\opt\Python-2.7.18\python.exe
@@ -171,13 +171,13 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    python 2.7.18, pylint 1.9.5
-   git 2.27.0.windows.1, bash 4.4.23(1)-release
+   git 2.30.0.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\Python-2.7.18\python.exe
    C:\opt\Python-2.7.18\Scripts\pylint.exe
-   C:\opt\Git-2.27.0\bin\git.exe
-   C:\opt\Git-2.27.0\mingw64\bin\git.exe
-   C:\opt\Git-2.27.0\bin\bash.exe
+   C:\opt\Git-2.30.0\bin\git.exe
+   C:\opt\Git-2.30.0\mingw64\bin\git.exe
+   C:\opt\Git-2.30.0\bin\bash.exe
 Environment variables:
    MSVC_HOME="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
    MSVS_HOME="C:\Program Files (x86)\Microsoft Visual Studio\2017"
@@ -198,9 +198,9 @@ Command [**`build.bat -verbose clean dist`**](bin/trufflesqueak/build.bat) gener
 K:\trufflesqueak
 &nbsp;
 <b>&gt; build -verbose clean dist</b>
-MX_VERSION: 5.247.12
+MX_VERSION: 5.280.7
 Build Java archives
-JAVA_HOME: C:\opt\graalvm-ce-java8-20.1.0
+JAVA_HOME: C:\opt\graalvm-ce-java8-20.2.0
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -232,10 +232,10 @@ K:\trufflesqueak
 09.12.2019  12:06           102 781 trufflesqueak-test.src.zip
 </pre>
 
-The [TruffleSqueak] component is packed into the installable component archive **`trufflesqueak-installable-java8-windows-amd64-20.1.0.jar`** whose contents looks as follows:
+The [TruffleSqueak] component is packed into the installable component archive **`trufflesqueak-installable-java8-windows-amd64-20.2.0.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; jar tf trufflesqueak-installable-java8-windows-amd64-20.1.0.jar</b>
+<b>&gt; jar tf trufflesqueak-installable-java8-windows-amd64-20.2.0.jar</b>
 bin/trufflesqueak.cmd
 jre/bin/trufflesqueak.cmd
 jre/languages/smalltalk/trufflesqueak.jar
@@ -247,8 +247,8 @@ jre/languages/smalltalk/README_TRUFFLESQUEAK.md
 jre/languages/smalltalk/lib/SqueakFFIPrims.dll
 jre/languages/smalltalk/native-image.properties
 jre/languages/smalltalk/resources/SqueakV50.sources
-jre/languages/smalltalk/resources/TruffleSqueak-20.1.0.changes
-jre/languages/smalltalk/resources/TruffleSqueak-20.1.0.image
+jre/languages/smalltalk/resources/TruffleSqueak-20.2.0.changes
+jre/languages/smalltalk/resources/TruffleSqueak-20.2.0.image
 jre/languages/smalltalk/polyglot.config
 jre/languages/smalltalk/bin/trufflesqueak.cmd
 jre/languages/smalltalk/release
@@ -284,14 +284,14 @@ Directory **`trufflesqueak\`** contains our fork of the [`hpi-swa/trufflesqueak`
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 <b>$ cp bin/trufflesqueak/build trufflesqueak</b>
-<b>$ cd trufflesqueak</b>
+<b>$ <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a> trufflesqueak</b>
 </pre>
 
 Command [**`build clean dist`**](bin/trufflesqueak/build) generates several archive files including the [TruffleSqueak] component.
 
 <pre style="font-size:80%;">
 <b>$ ./<a href="bin/trufflesqueak/build">build</a> clean dist</b>
-JAVA_HOME: C:\opt\graalvm-ce-java8-20.1.0
+JAVA_HOME: C:\opt\graalvm-ce-java8-20.2.0
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -309,7 +309,7 @@ In this section we list some issues we encountered in this project:
 -  Command **`build dist`** generates the error message **`FAILED: trufflenfi.dll`**:
    <pre style="font-size:80%;">
    <b>&gt; build dist</b>
-   JAVA_HOME: C:\opt\graalvm-ce-java8-20.1.0
+   JAVA_HOME: C:\opt\graalvm-ce-java8-20.2.0
    [...]
    Building com.oracle.truffle.nfi.native_amd64 with Ninja...
    [1/1] LINK trufflenfi.dll
@@ -321,8 +321,8 @@ In this section we list some issues we encountered in this project:
 
    The error is due to a wrong executable path for **`link.exe`** (see [issue #1554][github_issue_1554] in [oracle/graal][oracle_graal] project):
    <pre style="font-size:80%;">
-   <b>&gt; where link</b>
-   C:\opt\Git-2.27.0\usr\bin\link.exe
+   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> link</b>
+   C:\opt\Git-2.30.0\usr\bin\link.exe
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe</pre>
 
 ## <span id="footnotes">Footnotes</span>
@@ -342,8 +342,8 @@ Starting with version 20.0 command <a href="https://www.graalvm.org/docs/referen
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-java8-windows-amd64-20.1.0.jar</a>  <i>(135 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.1.0.zip</a>             <i>(154 MB)</i>
+<a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-java8-windows-amd64-20.2.0.jar</a>  <i>(135 MB)</i>
+<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.2.0.zip</a>             <i>(154 MB)</i>
 <a href="https://www.python.org/downloads/release/python-2717/">python-2.7.18.amd64.msi</a>                         <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.3-19435-64bit-202003021730-Windows.zip</a>  <i>( 30 MB)</i>
 </pre>
@@ -356,7 +356,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -364,12 +364,12 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 [git_bash]: https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables
 [git_downloads]: https://git-scm.com/download/win
 [git_cli]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.27.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.0.txt
 [github_issue_1554]: https://github.com/oracle/graal/issues/1554
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_downloads]: https://github.com/oracle/graal/releases
 [graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_1/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_2/
 [linux_dotslash]: http://www.linfo.org/dot_slash.html
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [mx_cmd]: https://github.com/graalvm/mx
