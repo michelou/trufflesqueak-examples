@@ -17,6 +17,7 @@ if not %_EXITCODE%==0 goto end
 
 if "%VERBOSE_GRAALVM_LAUNCHERS%"=="true" echo on
 
+@rem echo "%_JAVA_CMD%" %_JVM_OPTS% -cp "%_CPATH%" %_LAUNCHER_MAIN% %_LAUNCHER_ARGS% 1>&2
 call "%_JAVA_CMD%" %_JVM_OPTS% -cp "%_CPATH%" %_LAUNCHER_MAIN% %_LAUNCHER_ARGS%
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
@@ -42,6 +43,7 @@ set _LAUNCHER_MAIN=de.hpi.swa.trufflesqueak.launcher.TruffleSqueakLauncher
 goto :eof
 
 :args
+set _JVM_ARGS=
 set _LAUNCHER_ARGS=
 set _NATIVE=0
 
@@ -70,6 +72,16 @@ for %%i in (%__ARGS%) do (
             call :vm_arg "!__ARG:~5!"
             if not !_EXITCODE!==0 goto args_done
         ) else (
+            if "!__ARG:##=!"=="!__ARG!" ( set "__ARG1=!__ARG!"
+            ) else ( set __ARG1=!__ARG:##=="!"
+            )
+            set _LAUNCHER_ARGS=!_LAUNCHER_ARGS! !__ARG1!
+        )
+    ) else if "!__ARG:~0,1!"=="-" (
+        @rem short option
+        if "!__ARG!"=="-c" (
+            set __CODE=1
+        ) else (
             echo Error: Unknown option !__ARG! 1>&2
             set _EXITCODE=1
             goto args_done
@@ -83,8 +95,10 @@ for %%i in (%__ARGS%) do (
     )
 )
 :args_done
+if defined _JVM_ARGS set _JVM_OPTS=%_JVM_OPTS% %_JVM_ARGS%
 goto :eof
 
+@rem output paramters: _CPATH, _JVM_ARGS
 :vm_arg
 set "__VM_ARG=%~1"
 @ rem Character substitutions: '=' -> '##' and ';' -> '@@'
@@ -94,6 +108,11 @@ if "%__VM_ARG:~0,4%"=="cp##" (
 ) else if "%__VM_ARG:~0,12%"=="classpath##" (
     set "__CP_ARG=%__VM_ARG:~12%"
     set "_CPATH=%_CPATH%;!__CP_ARG:@@=;!"
+) else if "%__VM_ARG:~0,1%"=="D" (
+    if "!__VM_ARG:##=!"=="!__VM_ARG!" ( set "__JVM_ARG1=-!__VM_ARG!"
+    ) else ( set __JVM_ARG1=-!__VM_ARG:##=="!"
+    )
+    set "_JVM_ARGS=%_JVM_ARGS% !__JVM_ARG1!"
 ) else (
     echo Error: Illegal VM argument %__VM_ARG:##==% 1>&2
     set _EXITCODE=1

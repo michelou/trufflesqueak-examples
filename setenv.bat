@@ -25,6 +25,9 @@ if %_HELP%==1 (
     call :help
     exit /b !_EXITCODE!
 )
+call :java8
+if not %_EXITCODE%==0 goto end
+
 call :python
 if not %_EXITCODE%==0 goto end
 
@@ -158,6 +161,47 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
 goto :eof
 
+@rem input parameter: %1=Java version
+@rem output parameter: _GRAAL_HOME
+:graal
+set __JAVA_VERSION=%~1
+set _GRAAL_HOME=
+
+set __JAVAC_CMD=
+for /f %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
+if defined __JAVAC_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of javac executable found in PATH 1>&2
+    for %%i in ("%__JAVAC_CMD%") do set "__GRAAL_BIN_DIR=%%~dpi"
+    for %%f in ("!__GRAAL_BIN_DIR!\.") do set "_GRAAL_HOME=%%~dpf"
+    goto :eof
+) else if defined GRAAL_HOME (
+    set "_GRAAL_HOME=%GRAAL_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GRAAL_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\graalvm-ce-%__JAVA_VERSION%*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
+    if not defined _GRAAL_HOME (
+        set "__PATH=%ProgramFiles%"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\graalvm-ce-%__JAVA_VERSION%*" 2^>NUL') do set "_GRAAL_HOME=!__PATH!\%%f"
+    )
+)
+if not exist "%_GRAAL_HOME%\bin\javac.exe" (
+    echo %_ERROR_LABEL% Executable javac.exe not found ^(%_GRAAL_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if not exist "%_GRAAL_HOME%\bin\polyglot.cmd" (
+    echo %_ERROR_LABEL% Executable polyglot.cmd not found ^(%_GRAAL_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+:java8
+call :graal java8
+if not %_EXITCODE%==0 goto :eof
+if defined _GRAAL_HOME set _JAVA_HOME=%_GRAAL_HOME%
+goto :eof
 @rem output parameter: _PYTHON_PATH
 :python
 set _PYTHON_PATH=
@@ -304,12 +348,17 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('pylint.exe --version 2^>^NUL ^| findstr pylint') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% pylint %%j"
     set __WHERE_ARGS=%__WHERE_ARGS% pylint.exe
 )
+where /q "%GRAAL_HOME%\bin:javac.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,*" %%i in ('"%GRAAL_HOME%\bin\javac.exe" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%j"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%GRAAL_HOME%\bin:javac.exe"
+)
 where /q git.exe
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% git.exe
 )
-where /q "%__GIT_HOME%\bin":bash.exe
+where /q "%__GIT_HOME%\bin:bash.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1-3,4,*" %%i in ('"%__GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% bash %%l"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__GIT_HOME%\bin:bash.exe"
@@ -322,8 +371,10 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
 )
-if %__VERBOSE%==1 if defined MSVS_HOME (
+if %__VERBOSE%==1 (
     echo Environment variables: 1>&2
+    echo    GRAAL_HOME="%GRAAL_HOME%" 1>&2
+    echo    JAVA_HOME="%JAVA_HOME%" 1>&2
     echo    MSVC_HOME="%MSVC_HOME%" 1>&2
     echo    MSVS_HOME="%MSVS_HOME%" 1>&2
 )
@@ -335,6 +386,8 @@ goto :eof
 :end
 endlocal & (
     if %_EXITCODE%==0 (
+        if not defined GRAAL_HOME set "GRAAL_HOME=%_GRAAL_HOME%"
+        if not defined JAVA_HOME set "JAVA_HOME=%_GRAAL_HOME%"
         if not defined MSVC_HOME set "MSVC_HOME=%_MSVC_HOME%"
         if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
         set "PATH=%PATH%%_PYTHON_PATH%%_GIT_PATH%;%~dp0bin"
