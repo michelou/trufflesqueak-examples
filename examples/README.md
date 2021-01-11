@@ -69,18 +69,18 @@ containing the corresponding IGV graphs:
 &nbsp;
 <b>&gt; type tinyBenchmarks.txt</b>
 Dumping IGV graphs in T:\graal_dumps\2021.01.11.11.46.17.076
-[engine] opt done     IdentityDictionary>>scanFor:          |AST  173|Time  610( 523+87  )ms|Tier 2|Inlined   1Y
+[engine] opt done     IdentityDictionary&gt;&gt;scanFor:          |AST  173|Time  610( 523+87  )ms|Tier 2|Inlined   1Y
    0N|IR   802/ 1421|CodeSize   5474|Addr 0x7b20750|Src n/a
-[engine] opt done     Magnitude>>min: <split-3927f244>      |AST   26|Time   59(  56+3   )ms|Tier 2|Inlined   0Y
+[engine] opt done     Magnitude&gt;&gt;min: &lt;split-3927f244&gt;      |AST   26|Time   59(  56+3   )ms|Tier 2|Inlined   0Y
    0N|IR    27/   18|CodeSize    104|Addr 0x79da210|Src n/a
-[engine] opt done     SequenceableCollection>>from:to:put:  |AST  220|Time  346( 306+41  )ms|Tier 2|Inlined   1Y
+[engine] opt done     SequenceableCollection&gt;&gt;from:to:put:  |AST  220|Time  346( 306+41  )ms|Tier 2|Inlined   1Y
    0N|IR   320/  653|CodeSize   2969|Addr 0x7aaec10|Src n/a
-[engine] opt done     Integer>>benchmark                    |AST  253|Time 1575(1523+52  )ms|Tier 2|Inlined   3Y
+[engine] opt done     Integer&gt;&gt;benchmark                    |AST  253|Time 1575(1523+52  )ms|Tier 2|Inlined   3Y
    0N|IR   643/  931|CodeSize   3735|Addr 0x7d42110|Src n/a
-[engine] opt done     Integer>>benchFib                     |AST   88|Time 1640(1548+93  )ms|Tier 2|Inlined   6Y
+[engine] opt done     Integer&gt;&gt;benchFib                     |AST   88|Time 1640(1548+93  )ms|Tier 2|Inlined   6Y
    8N|IR   661/ 1869|CodeSize   8452|Addr 0x7d3ad10|Src n/a
 &nbsp
-<b>&gt; $ dir /b graal_dumps\2021.01.11.11.46.17.076</b>
+<b>&gt; dir /b graal_dumps\2021.01.11.11.46.17.076</b>
 TruffleHotSpotCompilation-2968[IdentityDictionary__scanFor_].bgv
 TruffleHotSpotCompilation-3320[Integer__benchmark].bgv
 TruffleHotSpotCompilation-3500[SequenceableCollection__from_to_put_].bgv
