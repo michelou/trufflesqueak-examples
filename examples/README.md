@@ -21,10 +21,10 @@ In this document we present the following [Squeak] code examples:
 Let's take as first example the [logarithmic equation][wiki_logarithm] *"The logarithm of a product is the sum of the logarithms of the factors"*, i.e. <code>log<sub>b</sub>(x*y) = log<sub>b</sub>(x) + log<sub>b</sub>(y)</code>:
 
 <pre style="font-size:80%;">
-<b>&gt; where trufflesqueak</b>
-C:\opt\graalvm-ce-java8-20.3.0\bin\trufflesqueak.cmd
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> trufflesqueak</b>
+C:\opt\graalvm-ce-java8-21.1.0\bin\trufflesqueak.cmd
 &nbsp;
-<b>&gt; trufflesqueak --code "6 log - (2 log + 3 log)" images\TruffleSqueak-20.2.0.image</b>
+<b>&gt; trufflesqueak --code "6 log - (2 log + 3 log)"</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
 [trufflesqueak] Image loaded in 1390ms.
 [trufflesqueak] Preparing image for headless execution...
@@ -50,7 +50,7 @@ This micro-benchmark suite is often used to measure and compare the performance 
 - The other one is a recursive [Fibonacci][wiki_fibonacci] benchmark and therefore send-heavy
 
 <pre style="font-size:80%;">
-<b>&gt; trufflesqueak --code "1 tinyBenchmarks" images\TruffleSqueak-20.2.0.image</b>
+<b>&gt; trufflesqueak --code "1 tinyBenchmarks"</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
 [trufflesqueak] Image loaded in 1544ms.
 [trufflesqueak] Preparing image for headless execution...
@@ -67,7 +67,7 @@ containing the corresponding IGV graphs:
    --engine.TraceCompilation --vm.Dgraal.Dump=Truffle:1 --log.file=tinyBenchmarks.txt</b>
 [...]
 &nbsp;
-<b>&gt; type tinyBenchmarks.txt</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> tinyBenchmarks.txt</b>
 Dumping IGV graphs in T:\graal_dumps\2021.01.11.11.46.17.076
 [engine] opt done     IdentityDictionary&gt;&gt;scanFor:          |AST  173|Time  610( 523+87  )ms|Tier 2|Inlined   1Y
    0N|IR   802/ 1421|CodeSize   5474|Addr 0x7b20750|Src n/a
@@ -80,7 +80,7 @@ Dumping IGV graphs in T:\graal_dumps\2021.01.11.11.46.17.076
 [engine] opt done     Integer&gt;&gt;benchFib                     |AST   88|Time 1640(1548+93  )ms|Tier 2|Inlined   6Y
    8N|IR   661/ 1869|CodeSize   8452|Addr 0x7d3ad10|Src n/a
 &nbsp
-<b>&gt; dir /b graal_dumps\2021.01.11.11.46.17.076</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b graal_dumps\2021.01.11.11.46.17.076</b>
 TruffleHotSpotCompilation-2968[IdentityDictionary__scanFor_].bgv
 TruffleHotSpotCompilation-3320[Integer__benchmark].bgv
 TruffleHotSpotCompilation-3500[SequenceableCollection__from_to_put_].bgv
@@ -93,55 +93,55 @@ TruffleHotSpotCompilation-3611[Integer__benchFib].bgv
 This Squeak code displays the user environment variables including the Java system properties of our [GraalVM] environment:
 
 <pre style="font-size:80%;">
-<b>&gt; trufflesqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" images\TruffleSqueak-20.2.0.image</b>
+<b>&gt; trufflesqueak --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000"</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
 [trufflesqueak] Image loaded in 1321ms.
 [trufflesqueak] Preparing image for headless execution...
 [trufflesqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
 platform sources revision ilt on Mar 08 2020 11:51:16 CET
-OpenJDK 64-Bit Server VM GraalVM CE 20.3.0 (25.272-b10-jvmci-20.2-b06; mixed mode)
+OpenJDK 64-Bit Server VM GraalVM CE 21.1.0 (25.272-b10-jvmci-20.2-b06; mixed mode)
 &nbsp;
 == System Properties =================================>
-agentscript.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\agentscript
+agentscript.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\agentscript
 awt.toolkit = sun.awt.windows.WToolkit
-chromeinspector.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\chromeinspector
-coverage.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\coverage
+chromeinspector.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\chromeinspector
+coverage.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\coverage
 file.encoding = Cp1252
 file.encoding.pkg = sun.io
 file.separator = \
 [...]
-java.version = 1.8.0_272
+java.version = 1.8.0_292
 java.vm.info = mixed mode
-java.vm.name = OpenJDK 64-Bit Server VM GraalVM CE 20.3.0
+java.vm.name = OpenJDK 64-Bit Server VM GraalVM CE 21.1.0
 java.vm.specification.name = Java Virtual Machine Specification
 java.vm.specification.vendor = Oracle Corporation
 java.vm.specification.version = 1.8
 java.vm.vendor = Oracle Corporation
-java.vm.version = 25.272-b10-jvmci-20.3-b06
-js.home = c:\opt\graalvm-ce-java8-20.3.0\jre\languages\js
+java.vm.version = 25.292-b09-jvmci-21.1-b05
+js.home = c:\opt\graalvm-ce-java8-21.1.0\jre\languages\js
 jvmci.Compiler = graal
 line.separator =
 
-lsp.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\lsp
-nfi.home = c:\opt\graalvm-ce-java8-20.3.0\jre\languages\nfi
-org.graalvm.home = c:\opt\graalvm-ce-java8-20.3.0
+lsp.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\lsp
+nfi.home = c:\opt\graalvm-ce-java8-21.1.0\jre\languages\nfi
+org.graalvm.home = c:\opt\graalvm-ce-java8-21.1.0
 org.graalvm.launcher.shell = true
-org.graalvm.version = 20.3.0
+org.graalvm.version = 21.1.0
 os.arch = amd64
 os.name = Windows 10
 os.version = 10.0
 path.separator = ;
-profiler.home = c:\opt\graalvm-ce-java8-20.3.0\jre\tools\profiler
-regex.home = c:\opt\graalvm-ce-java8-20.3.0\jre\languages\regex
-smalltalk.home = c:\opt\graalvm-ce-java8-20.3.0\jre\languages\smalltalk
+profiler.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\profiler
+regex.home = c:\opt\graalvm-ce-java8-21.1.0\jre\languages\regex
+smalltalk.home = c:\opt\graalvm-ce-java8-21.1.0\jre\languages\smalltalk
 sun.arch.data.model = 64
 [...]
-sun.boot.library.path = C:\opt\graalvm-ce-java8-20.3.0\jre\bin
+sun.boot.library.path = C:\opt\graalvm-ce-java8-21.1.0\jre\bin
 sun.cpu.endian = little
 sun.cpu.isalist = amd64
 sun.desktop = windows
 sun.io.unicode.encoding = UnicodeLittle
-sun.java.command = de.hpi.swa.graal.squeak.launcher.TruffleSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 TruffleSqueak-20.2.0.image
+sun.java.command = de.hpi.swa.graal.squeak.launcher.TruffleSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 TruffleSqueak-21.1.0.image
 [...]
 <= System Properties ===================================
 </pre>
@@ -157,7 +157,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/t
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
