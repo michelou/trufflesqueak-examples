@@ -52,7 +52,7 @@ set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 for %%f in ("%~dp0") do set "_TRUFFLESQUEAK_PATH=%%~f"
 
-set "_TMP_DIR=%_ROOT_DIR%\tmp"
+set "_TMP_DIR=%_ROOT_DIR%tmp"
 
 for /f "delims=" %%f in ('where /r "%MSVS_HOME%" vcvarsall.bat') do set "_VCVARSALL_FILE=%%f"
 if not exist "%_VCVARSALL_FILE%" (
@@ -66,26 +66,26 @@ set "_GRAAL_PATH=%_ROOT_DIR%\graal"
 set _MX_URL=https://github.com/graalvm/mx.git
 set "_MX_PATH=%_ROOT_DIR%\mx"
 
-set _GIT_CMD=git.exe
+set "_GIT_CMD=%GIT_HOME%\bin\git.exe"
 set _GIT_OPTS=
 
 set "_MX_CMD=%_MX_PATH%\mx.cmd"
 set _MX_OPTS=
 
-set _UNZIP_CMD=unzip.exe
-set _UNZIP_OPTS=
+if not exist "%GIT_HOME%\usr\bin\tar.exe" (
+    echo %ERROR_LABEL% tar executable not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_TAR_CMD=%GIT_HOME%\usr\bin\tar.exe"
+set "_UNZIP_CMD=%GIT_HOME%\usr\bin\unzip.exe"
 
-@rem see https://github.com/graalvm/openjdk8-jvmci-builder/releases
-set _JVMCI_VERSION=jvmci-20.1-b02
-set _JDK8_UPDATE_VERSION=252
-@rem set _JVMCI_VERSION=jvmci-19.2-b01
-@rem set _JDK8_UPDATE_VERSION=212
-set _JDK8_UPDATE_VERSION_SUFFIX=
-@rem rule: <os_name>-<os_arch>, eg. darwin-amd64, linux-amd64, windows-amd64
-set _JDK8_PLATFORM=windows-amd64
+@rem https://github.com/graalvm/graal-jvmci-8/releases
+set _JVMCI_VERSION=jvmci-21.2-b08
+set _JDK8_UPDATE_VERSION=302
 
 @rem see https://github.com/oracle/graal/releases/
-set _GRAALVM_VERSION=20.1.0
+set _GRAALVM_VERSION=21.2.0
 set _GRAALVM_PLATFORM=windows-amd64
 goto :eof
 
@@ -245,9 +245,9 @@ goto :eof
 rem output parameter: _JVMCI_HOME
 :jvmci_download
 set "__JDK_INSTALL_NAME=openjdk1.8.0_%_JDK8_UPDATE_VERSION%-%_JVMCI_VERSION%"
-set "__JDK_TGZ_NAME=openjdk-8u%_JDK8_UPDATE_VERSION%%_JDK8_UPDATE_VERSION_SUFFIX%-%_JVMCI_VERSION%-%_JDK8_PLATFORM%.tar.gz"
-set "__JDK_TGZ_URL=https://github.com/graalvm/openjdk8-jvmci-builder/releases/download/%_JVMCI_VERSION%/%__JDK_TGZ_NAME%"
-set "__JDK_TGZ_FILE=%_ROOT_DIR%\%__JDK_TGZ_NAME%"
+set "__JDK_TGZ_NAME=openjdk-8u302+07-%_JVMCI_VERSION%-windows-amd64.tar.gz"
+set "__JDK_TGZ_URL=https://github.com/graalvm/graal-jvmci-8/releases/download/%_JVMCI_VERSION%/%__JDK_TGZ_NAME%"
+set "__JDK_TGZ_FILE=%_ROOT_DIR%%__JDK_TGZ_NAME%"
 
 if exist "%_ROOT_DIR%\%__JDK_INSTALL_NAME%\" goto jvmci_done
 if exist "%__JDK_TGZ_FILE%" goto jvmci_extract
@@ -263,17 +263,20 @@ if not %ERRORLEVEL%==0 (
 :jvmci_extract
 if not exist "%_TMP_DIR%" mkdir "%_TMP_DIR%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_TAR_CMD%" -C "%_TMP_DIR%" -xf "%__JDK_TGZ_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_TAR_CMD%" -C "%_TMP_DIR:\=/%" -xf "%__JDK_TGZ_NAME%" 1>&2
 ) else if %_VERBOSE%==1 ( echo %_VERBOSE_LABEL% Extract archive %__JDK_TGZ_FILE% into directory %_ROOT_DIR% 1>&2
 )
-rem NB. tar on Windows dislike it when <dir1>=<dir2>, given -xf <dir2>\*.tar.gz and -C <dir1>
-call "%_TAR_CMD%" -C "%_TMP_DIR%" -xf "%__JDK_TGZ_FILE%"
+pushd "%_ROOT_DIR%"
+@rem NB. tar on Windows dislike it when <dir1>=<dir2>, given -xf <dir2>\*.tar.gz and -C <dir1>
+"%_TAR_CMD%" -C "%_TMP_DIR:\=/%" -xf "%__JDK_TGZ_NAME%"
 if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to extract files from archive "%__JDK_TGZ_NAME%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% move "%_TMP_DIR%\"%__JDK_INSTALL_NAME%" "%_ROOT_DIR%\" 1>&2
+popd
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% move "%_TMP_DIR%\%__JDK_INSTALL_NAME%" "%_ROOT_DIR%\" 1>&2
 ) else if %_VERBOSE%==1 ( echo %_VERBOSE_LABEL% Move JDK installation directory to directory %_ROOT_DIR% 1>&2
 )
 move "%_TMP_DIR%\%__JDK_INSTALL_NAME%" "%_ROOT_DIR%\" 1>NUL
@@ -282,7 +285,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 :jvmci_done
-set "_JVMCI_HOME=%_ROOT_DIR%\%__JDK_INSTALL_NAME%"
+set "_JVMCI_HOME=%_ROOT_DIR%%__JDK_INSTALL_NAME%"
 goto :eof
 
 @rem output parameter: _GRAALVM_HOME
@@ -354,14 +357,15 @@ if not %__SHOW_ALL%==0 (
 goto :eof
 
 :dist_test
-set __GIT_DESCRIPTION=
-for /f %%f in ('"%_GIT_CMD%" describe --tags') do set "__GIT_DESCRIPTION=%%f"
-if not defined __GIT_DESCRIPTION (
-    for /f %%f in ('"%_GIT_CMD%" log -1 --format="%%h"') do set "__GIT_DESCRIPTION=%%f"
-)
-set __INSTALLABLE_TARGET=trufflesqueak-installable-%_GRAALVM_PLATFORM%-%__GIT_DESCRIPTION%-for-GraalVM-%_GRAALVM_VERSION%.jar
+@rem see https://github.com/hpi-swa/trufflesqueak/releases/tag/21.2.0
+set __INSTALLABLE_TARGET=trufflesqueak-installable-java8-%_GRAALVM_PLATFORM%-%_GRAALVM_VERSION%.jar
 
-copy "%_GRAAL_PATH%\sdk\mxbuild\windows-amd64\dists\smalltalk-installable-btrufflesqueak.exe-java8.jar" "%__INSTALLABLE_TARGET%"
+if not exist "%_GRAAL_PATH%\sdk\mxbuild\windows-amd64\dists\trufflesqueak-installable-java8.jar" (
+    dir "%_GRAAL_PATH%\sdk\mxbuild\windows-amd64\dists\*.jar"
+    set _EXITCODE=1
+    goto :eof
+)
+copy "%_GRAAL_PATH%\sdk\mxbuild\windows-amd64\dists\trufflesqueak-installable-java8.jar" "%__INSTALLABLE_TARGET%"
 
 @rem defines variable _GRAALVM_HOME
 call :graalvm_download

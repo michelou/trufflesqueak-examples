@@ -20,14 +20,14 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
 - [Git 2.32][git_downloads] ([*release notes*][git_relnotes])
-- [GraalVM Community Edition 21.1 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [GraalVM Community Edition 21.2 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 - [Microsoft Visual Studio 2019][vs2019_downloads] ([*release notes*][vs2019_relnotes])
 - [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*July 2021*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*August 2021*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java8-21.1.0\                       <i>(695 MB)</i>
+C:\opt\graalvm-ce-java8-21.2.0\                       <i>(695 MB)</i>
 C:\opt\Git-2.32.0\                                    <i>(276 MB)</i>
 C:\opt\Python-2.7.18\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
@@ -180,8 +180,8 @@ Tool paths:
    C:\opt\Git-2.32.0\bin\bash.exe
 Environment variables:
    "GIT_HOME=C:\opt\Git-2.32.0"
-   "GRAALVM_HOME=C:\opt\graalvm-ce-java8-21.1.0"
-   "JAVA_HOME=C:\opt\graalvm-ce-java8-21.1.0"
+   "GRAALVM_HOME=C:\opt\graalvm-ce-java8-21.2.0"
+   "JAVA_HOME=C:\opt\graalvm-ce-java8-21.2.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
    "MSVS_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017"
    "PYTHON_HOME=C:\opt\Python-2.7"
@@ -204,7 +204,7 @@ K:\trufflesqueak
 <b>&gt; build -verbose clean dist</b>
 MX_VERSION: 5.280.7
 Build Java archives
-JAVA_HOME: C:\opt\graalvm-ce-java8-21.1.0
+JAVA_HOME: C:\opt\graalvm-ce-java8-21.2.0
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -236,10 +236,10 @@ K:\trufflesqueak
 09.12.2019  12:06           102 781 trufflesqueak-test.src.zip
 </pre>
 
-The [TruffleSqueak] component is packed into the installable component archive **`trufflesqueak-installable-java8-windows-amd64-21.1.0.jar`** whose contents looks as follows:
+The [TruffleSqueak] component is packed into the installable component archive **`trufflesqueak-installable-java8-windows-amd64-21.2.0.jar`** whose contents looks as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jar.html">jar</a> tf trufflesqueak-installable-java8-windows-amd64-21.1.0.jar</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jar.html">jar</a> tf trufflesqueak-installable-java8-windows-amd64-21.2.0.jar</b>
 bin/trufflesqueak.cmd
 jre/bin/trufflesqueak.cmd
 jre/languages/smalltalk/trufflesqueak.jar
@@ -251,8 +251,8 @@ jre/languages/smalltalk/README_TRUFFLESQUEAK.md
 jre/languages/smalltalk/lib/SqueakFFIPrims.dll
 jre/languages/smalltalk/native-image.properties
 jre/languages/smalltalk/resources/SqueakV50.sources
-jre/languages/smalltalk/resources/TruffleSqueak-21.1.0.changes
-jre/languages/smalltalk/resources/TruffleSqueak-21.1.0.image
+jre/languages/smalltalk/resources/TruffleSqueak-21.2.0.changes
+jre/languages/smalltalk/resources/TruffleSqueak-21.2.0.image
 jre/languages/smalltalk/polyglot.config
 jre/languages/smalltalk/bin/trufflesqueak.cmd
 jre/languages/smalltalk/release
@@ -295,7 +295,7 @@ Command [**`build clean dist`**](bin/trufflesqueak/build) generates several arch
 
 <pre style="font-size:80%;">
 <b>$ ./<a href="bin/trufflesqueak/build">build</a> clean dist</b>
-JAVA_HOME: C:\opt\graalvm-ce-java8-21.1.0
+JAVA_HOME: C:\opt\graalvm-ce-java8-21.2.0
 EXTRA_JAVA_HOMES:
 Dependencies removed from build:
  project com.oracle.truffle.dsl.processor.jdk9 was removed as JDK 9 is not available
@@ -313,7 +313,7 @@ In this section we list some issues we encountered in this project:
 -  Command **`build dist`** generates the error message **`FAILED: trufflenfi.dll`**:
    <pre style="font-size:80%;">
    <b>&gt; build dist</b>
-   JAVA_HOME: C:\opt\graalvm-ce-java8-21.1.0
+   JAVA_HOME: C:\opt\graalvm-ce-java8-21.2.0
    [...]
    Building com.oracle.truffle.nfi.native_amd64 with Ninja...
    [1/1] LINK trufflenfi.dll
@@ -346,8 +346,8 @@ Starting with version 20.0 command <a href="https://www.graalvm.org/docs/referen
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-java8-windows-amd64-20.2.0.jar</a>  <i>(135 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-20.2.0.zip</a>             <i>(154 MB)</i>
+<a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-java8-windows-amd64-21.2.0.jar</a>  <i>(135 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-windows-amd64-21.2.0.zip</a>             <i>(154 MB)</i>
 <a href="https://www.python.org/downloads/release/python-2717/">python-2.7.18.amd64.msi</a>                         <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.3-19435-64bit-202003021730-Windows.zip</a>  <i>( 30 MB)</i>
 </pre>
@@ -360,7 +360,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -371,7 +371,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.32.0.txt
 [github_issue_1554]: https://github.com/oracle/graal/issues/1554
 [github_markdown]: https://github.github.com/gfm/
-[graalvm_downloads]: https://github.com/oracle/graal/releases
+[graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
 [graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_3/
 [linux_dotslash]: http://www.linfo.org/dot_slash.html
