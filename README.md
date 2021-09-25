@@ -12,27 +12,29 @@
 This document is part of a series of topics related to [TruffleSqueak] on Windows:
 
 - Installing [TruffleSqueak] on Windows [**&#9660;**](#bottom)
-- ***(deprecated)*** [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 - [Building TruffleSqueak on Windows](BUILD.md)
+<!--
+- [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_0X"><a href="#footnote_0X">[X]</a></sup>
+-->
 
-[GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Scala 3][scala3_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
+[Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Rust][rust_examples], [Scala 3][scala3_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.32][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.33][git_downloads] ([*release notes*][git_relnotes])
 - [TruffleSqueak Image 21.2][trufflesqueak_image]
 - [GraalVM Community Edition 21.2 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
 Optionally one may also install the following software:
-- [Squeak 5.3][squeak_downloads] <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>
+- [Squeak 5.3][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 
-For instance our development environment looks as follows (*August 2021*) <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>:
+For instance our development environment looks as follows (*September 2021*) <sup id="anchor_02"><a href="#footnote_02">[3]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java8-21.2.0\   <i>(695 MB)</i>
-C:\opt\Git-2.32.0\                <i>(276 MB)</i>
+C:\opt\Git-2.33.0\                <i>(279 MB)</i>
 C:\opt\Squeak-5.3\                <i>(130 MB)</i>
 </pre>
 
@@ -40,25 +42,29 @@ C:\opt\Squeak-5.3\                <i>(130 MB)</i>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
 
 ## <span id="structure">Directory structure</span>
-
+<!--
+<a href="bin/gu.bat">bin\gu.bat</a> <i>(deprecated)</i><sup id="anchor_0X"><a href="#footnote_0X">[X]</a></sup>
+<a href="GU.md">GU.md</a>      <i>(deprecated)</i>
+-->
 This project is organized as follows:
 <pre style="font-size:80%;">
-<a href="bin/gu.bat">bin\gu.bat</a> <i>(deprecated)</i><sup id="anchor_01a"><a href="#footnote_01">[1]</a></sup>
+
 docs\
 <a href="examples/README.md">examples\README.md</a>
 <a href="BUILD.md">BUILD.md</a>
-<a href="GU.md">GU.md</a>      <i>(deprecated)</i>
 README.md
 <a href="setenv.bat">setenv.bat</a>
 </pre>
 
 where
 
-- ***(deprecated)***<sup id="anchor_01b"><a href="#footnote_01">[1]</a></sup> file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [TruffleSqueak] component on a Windows machine.
+<!--
+- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [TruffleSqueak] component on a Windows machine.
+- file [**`GU.md`**](GU.md) is the [Markdown][github_markdown] document presenting the usage of the [GraalVM Updater][gu_refman] tool.
+-->
 - directory [**`docs\`**](docs/) contains [TruffleSqueak] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [TruffleSqueak] component.
-- ***(deprecated)***<sup id="anchor_01c"><a href="#footnote_01">[1]</a></sup> file [**`GU.md`**](GU.md) is the [Markdown][github_markdown] document presenting the usage of the [GraalVM Updater][gu_refman] tool.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -67,7 +73,7 @@ We also define a virtual drive **`T:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> T: %USERPROFILE%\workspace\trufflesqueak-examples</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> T: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\workspace\trufflesqueak-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this project.
@@ -90,9 +96,9 @@ We distinguish different sets of batch commands:
       Subcommands:
         help        display this help message
     </pre>
-
+<!--
 2. [**`bin\gu.bat`**](bin/gu.bat) ***(deprecated)*** - This batch command features commands to manage the [GraalVM] environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**][gu_refman] command.<br/>
-
+-->
 In the next section we present usage examples of the batch files present in this project.
 
 ## <span id="usage">Usage examples</span>
@@ -104,13 +110,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   python 2.7.18, pylint 1.9.5, javac 1.8.0_292
-   git 2.32.0.windows.1, bash 4.4.23(1)-release
+   python 2.7.18, pylint 1.9.5, javac 1.8.0_302
+   git 2.33.0.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> git link</b>
-C:\opt\Git-2.32.0\bin\git.exe
-C:\opt\Git-2.32.0\mingw64\bin\git.exe
-C:\opt\Git-2.32.0\usr\bin\link.exe
+C:\opt\Git-2.33.0\bin\git.exe
+C:\opt\Git-2.33.0\mingw64\bin\git.exe
+C:\opt\Git-2.33.0\usr\bin\link.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -118,16 +124,16 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   python 2.7.18, pylint 1.9.5
-   git 2.32.0.windows.1, bash 4.4.23(1)-release
+   python 2.7.18, pylint 1.9.5, javac 1.8.0_302
+   git 2.33.0.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\Python-2.7.18\python.exe
    C:\opt\Python-2.7.18\Scripts\pylint.exe
-   C:\opt\Git-2.32.0\bin\git.exe
-   C:\opt\Git-2.32.0\mingw64\bin\git.exe
-   C:\opt\Git-2.32.0\bin\bash.exe
+   C:\opt\Git-2.33.0\bin\git.exe
+   C:\opt\Git-2.33.0\mingw64\bin\git.exe
+   C:\opt\Git-2.33.0\bin\bash.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.32.0"
+   "GIT_HOME=C:\opt\Git-2.33.0"
    "GRAAL_HOME=C:\opt\graalvm-ce-java8-21.2.0"
    "JAVA_HOME=C:\opt\graalvm-ce-java8-21.2.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC"
@@ -328,8 +334,8 @@ Command **`trufflesqueak TruffleSqueak.image`** starts the Squeak IDE and loads 
 Code examples are presented in document [examples\README.md](examples/README.md).
 
 ## <span id="footnotes">Footnotes</span>
-
-<b name="footnote_01">[1]</b> **`gu.bat`** ***deprecation*** [↩](#anchor_01)
+<!--
+<b name="footnote_0X">[X]</b> **`gu.bat`** ***deprecation*** [↩](#anchor_0X)
 
 <p style="margin:0 0 1em 20px;">
 Starting with version 20.0 command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu.cmd</code></b></a> is part of the <a href="https://www.graalvm.org/">GraalVM</a> distribution; Windows users should use <b><code>gu.cmd</code></b> instead of <b><code>gu.bat</code></b>.
@@ -337,14 +343,14 @@ Starting with version 20.0 command <a href="https://www.graalvm.org/docs/referen
 <p style="margin:0 0 1em 20px;">
    We wrote <a href="bin/gu.bat"><code><b>gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> component (or any installable component such as <a href="https://github.com/oracle/fastr">FastR</a>, <a href="https://github.com/graalvm/graalpython">GraalPython</a> or <a href="https://github.com/oracle/truffleruby">TruffleRuby</a> to our <a href="https://www.graalvm.org/">GraalVM</a> environment. More details on the usage of this command are available in document <a href="GU.md"><code>GU.md</code></a>.
 </p>
-
-<b name="footnote_02">[2]</b> ***Squeak image*** [↩](#anchor_02)
+-->
+<b name="footnote_01">[1]</b> ***Squeak image*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> installable component. Concretely we can either install the full <a href="https://squeak.org/downloads/">Squeak distribution</a> (32 MB) or we can just download the <a href="https://squeak.org/downloads/">Squeak image</a> (18 MB).
 </p>
 
-<b name="footnote_03">[3]</b> ***Downloads*** [↩](#anchor_03)
+<b name="footnote_02">[2]</b> ***Downloads*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
@@ -352,7 +358,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/21.1.0">trufflesqueak-installable-java8-windows-amd64-21.2.0.jar</a>  <i>(135 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java8-windows-amd64-21.2.0.zip</a>       <i>(154 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.32.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.33.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="http://files.squeak.org/5.3/">Squeak5.3-19448-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
 </pre>
 
@@ -366,15 +372,16 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
 
+[deno_examples]: https://github.com/michelou/deno-examples
 [fastr]: https://github.com/oracle/fastr
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.32.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalpython]: https://github.com/graalvm/graalpython
 [graalvm]: https://www.graalvm.org/
@@ -389,6 +396,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [linux_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [llvm_examples]: https://github.com/michelou/llvm-examples
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
+[rust_examples]: https://github.com/michelou/rust-examples
 [scala3_examples]: https://github.com/michelou/dotty-examples
 [squeak]: https://squeak.org/
 [squeak_downloads]: https://squeak.org/downloads/

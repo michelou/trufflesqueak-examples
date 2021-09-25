@@ -176,9 +176,12 @@ if "%__ARG:~0,1%"=="-" (
     set /a __N+=1
 )
 shift
-goto :args_loop
+goto args_loop
 :args_done
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _DIST=%_DIST% _UPDATE=%_UPDATE% _VERBOSE=%_VERBOSE% 1>&2
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _DIST=%_DIST% _UPDATE=%_UPDATE% 1>&2
+)
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
@@ -448,7 +451,7 @@ goto :eof
 :update_mx
 if not exist "%_MX_CMD%" goto :eof
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Current directory is %_MX_PATH% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Current directory is "%_MX_PATH%" 1>&2
 ) else if %_VERBOSE%==1 ( echo %_VERBOSE_LABEL% Current directory is %_MX_PATH% 1>&2
 )
 pushd "%_MX_PATH%"
@@ -483,7 +486,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Current directory is %_TRUFFLESQUEAK_PATH% 
 )
 pushd "%_TRUFFLESQUEAK_PATH%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_GIT_CMD% %_GIT_OPTS% fetch upstream dev 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GIT_CMD%" %_GIT_OPTS% fetch upstream dev 1>&2
 ) else if %_VERBOSE%==1 ( echo %_VERBOSE_LABEL% Update TruffleSqueak directory %_TRUFFLESQUEAK_PATH% 1>&2
 )
 call "%_GIT_CMD%" %_GIT_OPTS% fetch upstream dev
@@ -492,7 +495,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_GIT_CMD% %_GIT_OPTS% merge upstream/dev 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GIT_CMD%" %_GIT_OPTS% merge upstream/dev 1>&2
 ) else if %_VERBOSE%==1 ( echo %_VERBOSE_LABEL% Update TruffleSqueak directory %_TRUFFLESQUEAK_PATH% 1>&2
 )
 call "%_GIT_CMD%" %_GIT_OPTS% merge upstream/dev

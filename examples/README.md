@@ -22,7 +22,7 @@ Let's take as first example the [logarithmic equation][wiki_logarithm] *"The log
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> trufflesqueak</b>
-C:\opt\graalvm-ce-java8-21.1.0\bin\trufflesqueak.cmd
+C:\opt\graalvm-ce-java8-21.2.0\bin\trufflesqueak.cmd
 &nbsp;
 <b>&gt; trufflesqueak --code "6 log - (2 log + 3 log)"</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
@@ -99,49 +99,49 @@ This Squeak code displays the user environment variables including the Java syst
 [trufflesqueak] Preparing image for headless execution...
 [trufflesqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
 platform sources revision ilt on Mar 08 2020 11:51:16 CET
-OpenJDK 64-Bit Server VM GraalVM CE 21.1.0 (25.272-b10-jvmci-20.2-b06; mixed mode)
+OpenJDK 64-Bit Server VM GraalVM CE 21.2.0 (25.302-b07-jvmci-21.2-b08; mixed mode)
 &nbsp;
 == System Properties =================================>
-agentscript.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\agentscript
+agentscript.home = c:\opt\graalvm-ce-java8-21.2.0\jre\tools\agentscript
 awt.toolkit = sun.awt.windows.WToolkit
-chromeinspector.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\chromeinspector
-coverage.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\coverage
+chromeinspector.home = c:\opt\graalvm-ce-java8-21.2.0\jre\tools\chromeinspector
+coverage.home = c:\opt\graalvm-ce-java8-21.2.0\jre\tools\coverage
 file.encoding = Cp1252
 file.encoding.pkg = sun.io
 file.separator = \
 [...]
-java.version = 1.8.0_292
+java.version = 1.8.0_302
 java.vm.info = mixed mode
-java.vm.name = OpenJDK 64-Bit Server VM GraalVM CE 21.1.0
+java.vm.name = OpenJDK 64-Bit Server VM GraalVM CE 21.2.0
 java.vm.specification.name = Java Virtual Machine Specification
 java.vm.specification.vendor = Oracle Corporation
 java.vm.specification.version = 1.8
 java.vm.vendor = Oracle Corporation
-java.vm.version = 25.292-b09-jvmci-21.1-b05
-js.home = c:\opt\graalvm-ce-java8-21.1.0\jre\languages\js
+java.vm.version = 25.302-b07-jvmci-21.1-b08
+js.home = c:\opt\graalvm-ce-java8-21.2.0\jre\languages\js
 jvmci.Compiler = graal
 line.separator =
 
-lsp.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\lsp
-nfi.home = c:\opt\graalvm-ce-java8-21.1.0\jre\languages\nfi
-org.graalvm.home = c:\opt\graalvm-ce-java8-21.1.0
+lsp.home = c:\opt\graalvm-ce-java8-21.2.0\jre\tools\lsp
+nfi.home = c:\opt\graalvm-ce-java8-21.2.0\jre\languages\nfi
+org.graalvm.home = c:\opt\graalvm-ce-java8-21.2.0
 org.graalvm.launcher.shell = true
-org.graalvm.version = 21.1.0
+org.graalvm.version = 21.2.0
 os.arch = amd64
 os.name = Windows 10
 os.version = 10.0
 path.separator = ;
-profiler.home = c:\opt\graalvm-ce-java8-21.1.0\jre\tools\profiler
-regex.home = c:\opt\graalvm-ce-java8-21.1.0\jre\languages\regex
-smalltalk.home = c:\opt\graalvm-ce-java8-21.1.0\jre\languages\smalltalk
+profiler.home = c:\opt\graalvm-ce-java8-21.2.0\jre\tools\profiler
+regex.home = c:\opt\graalvm-ce-java8-21.2.0\jre\languages\regex
+smalltalk.home = c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk
 sun.arch.data.model = 64
 [...]
-sun.boot.library.path = C:\opt\graalvm-ce-java8-21.1.0\jre\bin
+sun.boot.library.path = C:\opt\graalvm-ce-java8-21.2.0\jre\bin
 sun.cpu.endian = little
 sun.cpu.isalist = amd64
 sun.desktop = windows
 sun.io.unicode.encoding = UnicodeLittle
-sun.java.command = de.hpi.swa.graal.squeak.launcher.TruffleSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 TruffleSqueak-21.1.0.image
+sun.java.command = de.hpi.swa.graal.squeak.launcher.TruffleSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 TruffleSqueak-21.2.0.image
 [...]
 <= System Properties ===================================
 </pre>
@@ -157,7 +157,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/t
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

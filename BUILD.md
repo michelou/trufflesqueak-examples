@@ -12,23 +12,23 @@
 This document is part of a series of topics related to [TruffleSqueak] on Windows:
 
 - [Installing TruffleSqueak on Windows](README.md)
-- ***(deprecated)*** [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
 - Building TruffleSqueak on Windows [**&#9660;**](#bottom)
+<!-- - [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> -->
 
 ## <span id="section_01">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
-- [Git 2.32][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.33][git_downloads] ([*release notes*][git_relnotes])
 - [GraalVM Community Edition 21.2 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 - [Microsoft Visual Studio 2019][vs2019_downloads] ([*release notes*][vs2019_relnotes])
 - [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*August 2021*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*September 2021*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java8-21.2.0\                       <i>(695 MB)</i>
-C:\opt\Git-2.32.0\                                    <i>(276 MB)</i>
+C:\opt\Git-2.33.0\                                    <i>(276 MB)</i>
 C:\opt\Python-2.7.18\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\  <i>(3.1 GB)</i>
@@ -41,7 +41,6 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\  <i>(3.1 GB)</i>
 
 This project is organized as follows:
 <pre style="font-size:80%;">
-<a href="bin/gu.bat">bin\gu.bat</a>      <i>(deprecated)</i><sup id="anchor_01a"><a href="#footnote_01">[1]</a></sup>
 bin\trufflesqueak\
 docs\
 <a href="examples/README.md">examples\README.md</a>
@@ -49,21 +48,26 @@ graal\          <i>(created by</i> <a href="https://github.com/hpi-swa/trufflesq
 trufflesqueak\  <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 mx\             <i>(created by</i> <a href="setenv.bat"><b><code>setenv.bat</code></b></a><i>)</i>
 BUILD.md
-<a href=="GU.md">GU.md</a>
 <a href="README.md">README.md</a>
 <a href="setenv.bat">setenv.bat</a>
 </pre>
+<!--
+<a href="bin/gu.bat">bin\gu.bat</a>      <i>(deprecated)</i><sup id="anchor_01a"><a href="#footnote_01">[1]</a></sup>
+<a href=="GU.md">GU.md</a>
+-->
 
 where
 
-- ***(deprecated)*** <sup id="anchor_01b"><a href="#footnote_01">[1]</a></sup>file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [TruffleSqueak] component on a Windows machine.
+<!--
+- file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for <i>installing</i> the [TruffleSqueak] component on a Windows machine.
+- file [**`GU.md`**](GU.md) is the [Markdown][github_markdown] document presenting the usage of the [GraalVM Updater][graalvm_refman] tool.
+-->
 - directory [**`bin\trufflesqueak\`**](bin/trufflesqueak/) contains the batch file [**`build.bat`**](bin/trufflesqueak/build.bat) and the bash script [**`build`**](bin/trufflesqueak/build) for <i>building</i> the [TruffleSqueak] component on a Windows machine.
 - directory [**`docs\`**](docs/) contains [TruffleSqueak] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
 - directory **`trufflesqueak\`** contains our *fork* of the [hpi-swa/trufflesqueak][trufflesqueak] repository as a [Github submodule](.gitmodules).
 - directory **`mx\`** contains [mx][mx_cmd], the command-line tool used for the development of Graal projects.  
 - file [**`BUILD.md`**](README.md) is the Markdown document for this page.
-- ***(deprecated)***<sup id="anchor_01c"><a href="#footnote_01">[1]</a></sup> file [**`GU.md`**](GU.md) is the [Markdown][github_markdown] document presenting the usage of the [GraalVM Updater][graalvm_refman] tool.
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [TruffleSqueak] component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -159,7 +163,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    python 2.7.18, pylint 1.9.5
-   git 2.32.0.windows.1, bash 4.4.23(1)-release
+   git 2.33.0.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> python</b>
 C:\opt\Python-2.7.18\python.exe
@@ -171,15 +175,15 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    python 2.7.18, pylint 1.9.5
-   git 2.32.0.windows.1, bash 4.4.23(1)-release
+   git 2.33.0.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\Python-2.7.18\python.exe
    C:\opt\Python-2.7.18\Scripts\pylint.exe
-   C:\opt\Git-2.32.0\bin\git.exe
-   C:\opt\Git-2.32.0\mingw64\bin\git.exe
-   C:\opt\Git-2.32.0\bin\bash.exe
+   C:\opt\Git-2.33.0\bin\git.exe
+   C:\opt\Git-2.33.0\mingw64\bin\git.exe
+   C:\opt\Git-2.33.0\bin\bash.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.32.0"
+   "GIT_HOME=C:\opt\Git-2.33.0"
    "GRAALVM_HOME=C:\opt\graalvm-ce-java8-21.2.0"
    "JAVA_HOME=C:\opt\graalvm-ce-java8-21.2.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
@@ -192,7 +196,7 @@ Environment variables:
 Directory **`trufflesqueak\`** contains our fork of the [`hpi-swa/trufflesqueak`][trufflesqueak] repository; it is setup as follows when executing commands in the Windows Command shell:
 <pre style="font-size:80%;">
 <b>&gt; cp bin\trufflesqueak\build.bat trufflesqueak</b>
-<b>&gt; cd trufflesqueak</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a> trufflesqueak</b>
 </pre>
 
 Command [**`build.bat -verbose clean dist`**](bin/trufflesqueak/build.bat) generates several archive files including the [TruffleSqueak] component.
@@ -326,11 +330,11 @@ In this section we list some issues we encountered in this project:
    The error is due to a wrong executable path for **`link.exe`** (see [issue #1554][github_issue_1554] in [oracle/graal][oracle_graal] project):
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> link</b>
-   C:\opt\Git-2.32.0\usr\bin\link.exe
+   C:\opt\Git-2.33.0\usr\bin\link.exe
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe</pre>
 
 ## <span id="footnotes">Footnotes</span>
-
+<!--
 <span name="footnote_01">[1]</span> **`gu.bat`** ***deprecation*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
@@ -339,7 +343,7 @@ Starting with version 20.0 command <a href="https://www.graalvm.org/docs/referen
 <p style="margin:0 0 1em 20px;">
    We wrote <a href="bin/gu.bat"><code><b>gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> component (or any installable component such as <a href="https://github.com/oracle/fastr">FastR</a>, <a href="https://github.com/graalvm/graalpython">GraalPython</a> or <a href="https://github.com/oracle/truffleruby">TruffleRuby</a> to our <a href="https://www.graalvm.org/">GraalVM</a> environment. More details on the usage of this command are available in document <a href="GU.md"><code>GU.md</code></a>.
 </p>
-
+-->
 <span name="footnote_02">[2]</span> ***Downloads*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
@@ -360,7 +364,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -368,7 +372,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 [git_bash]: https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables
 [git_downloads]: https://git-scm.com/download/win
 [git_cli]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.32.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.0.txt
 [github_issue_1554]: https://github.com/oracle/graal/issues/1554
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
