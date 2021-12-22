@@ -17,25 +17,25 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 - [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_0X"><a href="#footnote_0X">[X]</a></sup>
 -->
 
-[Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Rust][rust_examples], [Scala 3][scala3_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
+[Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Node.js][nodejs_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.33][git_downloads] ([*release notes*][git_relnotes])
-- [TruffleSqueak Image 21.2][trufflesqueak_image]
-- [GraalVM Community Edition 21.2 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [Git 2.34][git_downloads] ([*release notes*][git_relnotes])
+- [TruffleSqueak Image 21.3][trufflesqueak_image]
+- [GraalVM Community Edition 21.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
 Optionally one may also install the following software:
-- [Squeak 5.3][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup>
+- [Squeak 5.3][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup>
 
-For instance our development environment looks as follows (*September 2021*) <sup id="anchor_02"><a href="#footnote_02">[3]</a></sup>:
+For instance our development environment looks as follows (*December 2021*) <sup id="anchor_02"><a href="#footnote_02">2</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java8-21.2.0\   <i>(695 MB)</i>
-C:\opt\Git-2.33.0\                <i>(279 MB)</i>
-C:\opt\Squeak-5.3\                <i>(130 MB)</i>
+C:\opt\graalvm-ce-java11-21.3.0\ <sup id="anchor_03"><a href="#footnote_03">3</a></sup>  <i>(695 MB)</i>
+C:\opt\Git-2.34.1\                  <i>(279 MB)</i>
+C:\opt\Squeak-5.3\                  <i>(130 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
@@ -48,7 +48,6 @@ C:\opt\Squeak-5.3\                <i>(130 MB)</i>
 -->
 This project is organized as follows:
 <pre style="font-size:80%;">
-
 docs\
 <a href="examples/README.md">examples\README.md</a>
 <a href="BUILD.md">BUILD.md</a>
@@ -110,13 +109,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   python 2.7.18, pylint 1.9.5, javac 1.8.0_302
-   git 2.33.0.windows.1, bash 4.4.23(1)-release
+   python 3.10.1, pylint 2.12.2, javac 11.0.3
+   git 2.34.1.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> git link</b>
-C:\opt\Git-2.33.0\bin\git.exe
-C:\opt\Git-2.33.0\mingw64\bin\git.exe
-C:\opt\Git-2.33.0\usr\bin\link.exe
+C:\opt\Git-2.34.1\bin\git.exe
+C:\opt\Git-2.34.1\mingw64\bin\git.exe
+C:\opt\Git-2.34.1\usr\bin\link.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -124,21 +123,21 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   python 2.7.18, pylint 1.9.5, javac 1.8.0_302
-   git 2.33.0.windows.1, bash 4.4.23(1)-release
+   python 3.10.1, pylint 2.12.2, javac 11.0.3
+   git 2.34.1.windows.1, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\Python-2.7.18\python.exe
-   C:\opt\Python-2.7.18\Scripts\pylint.exe
-   C:\opt\Git-2.33.0\bin\git.exe
-   C:\opt\Git-2.33.0\mingw64\bin\git.exe
-   C:\opt\Git-2.33.0\bin\bash.exe
+   C:\opt\Python-3.10.1\python.exe
+   C:\opt\Python-3.10.1\Scripts\pylint.exe
+   C:\opt\Git-2.34.1\bin\git.exe
+   C:\opt\Git-2.34.1\mingw64\bin\git.exe
+   C:\opt\Git-2.34.1\bin\bash.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.33.0"
-   "GRAAL_HOME=C:\opt\graalvm-ce-java8-21.2.0"
-   "JAVA_HOME=C:\opt\graalvm-ce-java8-21.2.0"
+   "GIT_HOME=C:\opt\Git-2.34.1"
+   "GRAAL_HOME=C:\opt\graalvm-ce-java11-21.3.0"
+   "JAVA_HOME=C:\opt\graalvm-ce-java11-21.3.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC"
    "MSVS_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2019"
-   "PYTHON_HOME=C:\opt\Python-2.7"
+   "PYTHON_HOME=C:\opt\Python-3.10.1"
 </pre>
 
 #### `gu.bat install` ***(deprecated)***
@@ -185,39 +184,37 @@ Let's first download [TruffleSqueak] component archive from the [TruffleSqueak] 
 Command [**`gu.bat install -L trufflesqueak-component.jar`**](bin/gu.bat) adds the [TruffleSqueak] component to our [GraalVM] environment.
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/echo">echo</a> %GRAAL_HOME%</b>
-C:\opt\graalvm-ce-java8-21.2.0
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/echo">echo</a> %GRAALVM_HOME%</b>
+C:\opt\graalvm-ce-java11-21.3.0
 &nbsp;
 <b>&gt; <a href="bin/gu.bat">gu</a> install -L trufflesqueak-installable.jar</b>
-Install local component trufflesqueak-installable.jar
-Do you really want to add the component to directory C:\opt\graalvm-ce-java8-21.2.0 (y/*)? y
-Install GraalVM component into directory C:\opt\graalvm-ce-java8-21.2.0
+Processing Component archive: trufflesqueak-installable-java11-windows-amd64-21.3.0.jar
+Installing new component: TruffleSqueak (org.graalvm.smalltalk, version 21.3.0)
 </pre>
 
 The [GraalVM] installation directory looks as follows after adding the [TruffleSqueak] component:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /r c:\opt\graalvm-ce-java8-21.2.0 *squeak*</b>
-c:\opt\graalvm-ce-java8-21.2.0\bin\trufflesqueak.cmd
-c:\opt\graalvm-ce-java8-21.2.0\jre\bin\trufflesqueak.cmd
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\LICENSE_TRUFFLESQUEAK.txt
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\README_TRUFFLESQUEAK.md
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\trufflesqueak-shared.jar
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\trufflesqueak-shared.src.zip
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\trufflesqueak.jar
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\trufflesqueak.src.zip
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\bin\trufflesqueak.cmd
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\lib\SqueakFFIPrims.dll
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\resources\SqueakV50.sources
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\resources\TruffleSqueak-20.2.0.changes
-c:\opt\graalvm-ce-java8-21.2.0\jre\languages\smalltalk\resources\TruffleSqueak-20.2.0.image
-c:\opt\graalvm-ce-java8-21.2.0\jre\lib\graalvm\trufflesqueak-launcher.jar
-c:\opt\graalvm-ce-java8-21.2.0\jre\lib\graalvm\trufflesqueak-launcher.src.zip
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /r c:\opt\graalvm-ce-java11-21.3.0 *squeak*</b>
+c:\opt\graalvm-ce-java11-21.3.0\bin\trufflesqueak.cmd
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\LICENSE_TRUFFLESQUEAK.txt
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\README_TRUFFLESQUEAK.md
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\trufflesqueak-shared.jar
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\trufflesqueak-shared.src.zip
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\trufflesqueak.jar
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\trufflesqueak.src.zip
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\bin\trufflesqueak.cmd
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\lib\SqueakFFIPrims.dll
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\resources\SqueakV50.sources
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\resources\TruffleSqueak-21.3.0.changes
+c:\opt\graalvm-ce-java11-21.3.0\languages\smalltalk\resources\TruffleSqueak-21.3.0.image
+c:\opt\graalvm-ce-java11-21.3.0\lib\graalvm\trufflesqueak-launcher.jar
+c:\opt\graalvm-ce-java11-21.3.0\lib\graalvm\trufflesqueak-launcher.src.zip
 </pre>
 
 > **:mag_right:** In the above output both command files **`bin\trufflesqueak.cmd`** and **`jre\bin\trufflesqueak.cmd`** simply forward the call to command file **`jre\languages\smalltalk\bin\trufflesqueak.cmd`** (on Unix systems two symbolic links are created instead).
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> c:\opt\graalvm-ce-java8-21.2.0\bin\trufflesqueak.cmd</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> c:\opt\graalvm-ce-java11-21.3.0\bin\trufflesqueak.cmd</b>
 > @echo off
 > &nbsp;
 > call :getScriptLocation location
@@ -231,7 +228,7 @@ c:\opt\graalvm-ce-java8-21.2.0\jre\lib\graalvm\trufflesqueak-launcher.src.zip
 >     set "%~1=%~dp0"
 >     exit /b 0
 > &nbsp;
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> c:\opt\graalvm-ce-java8-20.1.0\jre\bin\trufflesqueak.cmd</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> c:\opt\graalvm-ce-java11-21.3.0\jre\bin\trufflesqueak.cmd</b>
 > @echo off
 > &nbsp;
 > call :getScriptLocation location
@@ -248,7 +245,7 @@ Command **`trufflesqueak.cmd --help`** prints the usage message:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> trufflesqueak</b>
-C:\opt\graalvm-ce-java8-21.2.0\bin\trufflesqueak.cmd
+C:\opt\graalvm-ce-java11-21.3.0\bin\trufflesqueak.cmd
 &nbsp;
 <b>&gt; trufflesqueak.cmd --help</b>
 Usage: trufflesqueak [options] <image file> [image arguments]
@@ -279,22 +276,23 @@ See https://www.graalvm.org for more information.
 Command **`trufflesqueak --version:graalvm`** prints the version of the installed languages and tools: 
 
 <pre style="font-size:80%;">
-<b>&gt; %GRAAL_HOME%\bin\trufflesqueak.cmd --version:graalvm</b>
-GraalVM CE JVM Polyglot Engine Version 21.2.0
-Java Version 1.8.0_272
-Java VM Version 25.272-b10-jvmci-20.3-b06
-GraalVM Home c:\opt\graalvm-ce-java8-21.2.0
+<b>&gt; %GRAALVM_HOME%\bin\trufflesqueak.cmd --version:graalvm</b>
+GraalVM CE JVM Polyglot Engine Version 21.3.0
+Java Version 11.0.13
+Java VM Version 11.0.13+7-jvmci-21.3-b05
+GraalVM Home C:\opt\graalvm-ce-java11-21.3.0
   Installed Languages:
-    JavaScript       version 21.1.0
-    Squeak/Smalltalk version 20.2.0
+    JavaScript       version 21.3.0
+    Squeak/Smalltalk version 21.3.0
   Installed Tools:
-    Agent Script            version 0.7
+    Agent Script            version 1.1
     Code Coverage           version 0.1.0
-    CPU Sampler             version 0.4.0
+    CPU Sampler             version 0.5.0
     CPU Tracer              version 0.3.0
     Debug Protocol Server   version 0.1
+    heap                    version 21.3.0
     Heap Allocation Monitor version 0.1.0
-    Insight                 version 0.7
+    Insight                 version 1.1
     Chrome Inspector        version 0.1
     Language Server         version 0.1
     Memory Tracer           version 0.2
@@ -310,57 +308,62 @@ Command **`trufflesqueak`** (with no argument) opens a dialog window for selecti
 Command **`trufflesqueak TruffleSqueak.image`** starts the Squeak IDE and loads the provided Squeak image.
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://curl.se/docs/manpage.html">curl</a> -sL -o TruffleSqueakImage-21.2.0.zip https://github.com/hpi-swa/trufflesqueak/releases/download/21.1.0/TruffleSqueakImage-21.2.0.zip</b>
+<b>&gt; <a href="https://curl.se/docs/manpage.html">curl</a> -sL -o TruffleSqueakImage-21.3.0.zip https://github.com/hpi-swa/trufflesqueak/releases/download/21.3.0/TruffleSqueakImage-21.3.0.zip</b>
 &nbsp;
-<b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> -qo TruffleSqueakImage-21.2.0.zip</b>
+<b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> -qo TruffleSqueakImage-21.3.0.zip</b>
  &nbsp;
-<b>&gt; trufflesqueak.cmd TruffleSqueak-21.2.0.image</b>
+<b>&gt; trufflesqueak.cmd TruffleSqueak-21.3.0.image</b>
 </pre>
 
 > **:mag_right:** The contents of downloaded archive file <b><code>TruffleSqueakImage.zip</code></b> looks as follows:
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> -l TruffleSqueakImage-21.2.0.zip</b>
-> Archive:  TruffleSqueakImage.zip
-> Archive:  TruffleSqueakImage-21.2.0.zip
+> <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> -l TruffleSqueakImage-21.3.0.zip</b>
+> Archive:  archives\TruffleSqueakImage-21.3.0.zip
 >   Length      Date    Time    Name
 > ---------  ---------- -----   ----
+>  24227145  2021-10-21 18:42   TruffleSqueak-21.3.0.changes
+>  59745440  2021-10-21 18:42   TruffleSqueak-21.3.0.image
 >  35184983  2017-02-06 09:21   SqueakV50.sources
->  21832626  2020-11-13 15:14   TruffleSqueak-21.2.0.changes
->  57083632  2020-11-13 15:14   TruffleSqueak-21.2.0.image
 > ---------                     -------
-> 114101241                     3 files
+> 119157568                     3 files
 > </pre>
 
-Code examples are presented in document [examples\README.md](examples/README.md).
+Code examples are presented in document [`examples\README.md`](examples/README.md).
 
 ## <span id="footnotes">Footnotes</span>
 <!--
-<b name="footnote_0X">[X]</b> **`gu.bat`** ***deprecation*** [↩](#anchor_0X)
+<span id="footnote_0X">[X]</span> **`gu.bat`** ***deprecation*** [↩](#anchor_0X)
 
 <p style="margin:0 0 1em 20px;">
 Starting with version 20.0 command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu.cmd</code></b></a> is part of the <a href="https://www.graalvm.org/">GraalVM</a> distribution; Windows users should use <b><code>gu.cmd</code></b> instead of <b><code>gu.bat</code></b>.
 </p>
-<p style="margin:0 0 1em 20px;">
-   We wrote <a href="bin/gu.bat"><code><b>gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> component (or any installable component such as <a href="https://github.com/oracle/fastr">FastR</a>, <a href="https://github.com/graalvm/graalpython">GraalPython</a> or <a href="https://github.com/oracle/truffleruby">TruffleRuby</a> to our <a href="https://www.graalvm.org/">GraalVM</a> environment. More details on the usage of this command are available in document <a href="GU.md"><code>GU.md</code></a>.
-</p>
+<dl><dd>
+We wrote <a href="bin/gu.bat"><code><b>gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> component (or any installable component such as <a href="https://github.com/oracle/fastr">FastR</a>, <a href="https://github.com/graalvm/graalpython">GraalPython</a> or <a href="https://github.com/oracle/truffleruby">TruffleRuby</a> to our <a href="https://www.graalvm.org/">GraalVM</a> environment. More details on the usage of this command are available in document <a href="GU.md"><code>GU.md</code></a>.
+</dd></dl>
 -->
-<b name="footnote_01">[1]</b> ***Squeak image*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Squeak image*** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> installable component. Concretely we can either install the full <a href="https://squeak.org/downloads/">Squeak distribution</a> (32 MB) or we can just download the <a href="https://squeak.org/downloads/">Squeak image</a> (18 MB).
-</p>
+</dd></dl>
 
-<b name="footnote_02">[2]</b> ***Downloads*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***Downloads*** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
-</p>
+</dd></dl>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/21.1.0">trufflesqueak-installable-java8-windows-amd64-21.2.0.jar</a>  <i>(135 MB)</i>
-<a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java8-windows-amd64-21.2.0.zip</a>       <i>(154 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.33.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/21.3.0">trufflesqueak-installable-java11-windows-amd64-21.3.0.jar</a>  <i>(135 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java11-windows-amd64-21.3.0.zip</a>      <i>(154 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.34.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="http://files.squeak.org/5.3/">Squeak5.3-19448-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
 </pre>
+
+<span id="footnote_03">[3]</span> ***GraalVM and Java 8*** [↩](#anchor_03)
+
+<dl><dd>
+Starting with version 21.3 GraalVM distributions are targeting Java 11 and Java 17; Java 8 users need to stay with <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.2.0" rel="external">GraalVM version 21.2</a>.
+</dd></dl>
 
 <!--
 <b name="footnote_04">[4]</b> ***GraalVM Updater*** [↩](#anchor_04)
@@ -372,7 +375,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
@@ -381,7 +384,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [fastr]: https://github.com/oracle/fastr
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.34.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalpython]: https://github.com/graalvm/graalpython
 [graalvm]: https://www.graalvm.org/
@@ -403,7 +406,8 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [truffleruby]: https://github.com/oracle/truffleruby
 [trufflesqueak]: https://github.com/hpi-swa/trufflesqueak
 [trufflesqueak_cmd]: https://github.com/hpi-swa/trufflesqueak/blob/dev/scripts/template.trufflesqueak.cmd
-[trufflesqueak_image]: https://github.com/hpi-swa/trufflesqueak/releases/tag/21.2.0
+[trufflesqueak_image]: https://github.com/hpi-swa/trufflesqueak/releases/tag/21.3.0
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
+[wix_examples]: https://github.com/michelou/wix-examples
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

@@ -25,10 +25,11 @@ if %_HELP%==1 (
     call :help
     exit /b !_EXITCODE!
 )
-call :java8
+@rem GraalVM 21.3 and neweer target Java 11/17
+call :java11
 if not %_EXITCODE%==0 goto end
 
-call :python
+call :python3
 if not %_EXITCODE%==0 goto end
 
 call :msvs
@@ -238,18 +239,25 @@ if not exist "%_GRAALVM_HOME%\bin\polyglot.cmd" (
 )
 goto :eof
 
-:java8
-call :graal java8
+:java11
+call :graal java11
 if not %_EXITCODE%==0 goto :eof
 if defined _GRAALVM_HOME set _JAVA_HOME=%_GRAALVM_HOME%
 goto :eof
+
 @rem output parameters: _PYTHON_HOME, _PYTHON_PATH
-:python
+:python3
 set _PYTHON_HOME=
 set _PYTHON_PATH=
 
 set __PYTHON_CMD=
 for /f %%f in ('where python.exe 2^>NUL') do set "__PYTHON_CMD=%%f"
+if defined __PYTHON_CMD (
+    if not "%__PYTHON_CMD:WindowsApps=%"=="%__PYTHON_CMD%" (
+        echo %_WARNING_LABEL% Ignore Windows installed Python 1>&2
+        set __PYTHON_CMD=
+    )
+)
 if defined __PYTHON_CMD (
     for %%f in ("%__PYTHON_CMD%") do set "_PYTHON_HOME=%%~dpf"
     set "_PYTHON_HOME=!_PYTHON_HOME:~0,-1!"
@@ -263,10 +271,10 @@ if defined __PYTHON_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\Python\" ( set _PYTHON_HOME=!__PATH!\Python
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\Python-2*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
+        for /f %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
         if not defined _PYTHON_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Python-2*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
         )
     )
 )
@@ -281,7 +289,8 @@ if not exist "%_PYTHON_HOME%\Scripts\pylint.exe" (
     set _EXITCODE=1
     goto :eof
 )
-set "_PYTHON_PATH=;%_PYTHON_HOME%;%_PYTHON_HOME%\Scripts"
+@rem prepend to ignore Windows installed Python
+set "_PYTHON_PATH=%_PYTHON_HOME%;%_PYTHON_HOME%\Scripts;"
 goto :eof
 
 @rem output parameters: _MSVC_HOME, _MSVC_HOME
@@ -429,7 +438,7 @@ endlocal & (
         if not defined MSVC_HOME set "MSVC_HOME=%_MSVC_HOME%"
         if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
         if not defined PYTHON_HOME set "PYTHON_HOME=%_PYTHON_HOME%"
-        set "PATH=%PATH%%_PYTHON_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_PYTHON_PATH%%PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if %_BASH%==1 (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2

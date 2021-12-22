@@ -22,7 +22,7 @@ Let's take as first example the [logarithmic equation][wiki_logarithm] *"The log
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> trufflesqueak</b>
-C:\opt\graalvm-ce-java8-21.2.0\bin\trufflesqueak.cmd
+C:\opt\graalvm-ce-java11-21.3.0\bin\trufflesqueak.cmd
 &nbsp;
 <b>&gt; trufflesqueak --code "6 log - (2 log + 3 log)"</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
