@@ -17,7 +17,7 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 - [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_0X"><a href="#footnote_0X">[X]</a></sup>
 -->
 
-[Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Node.js][nodejs_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
+[Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Node.js][nodejs_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -30,10 +30,10 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 - [Squeak 5.3][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup>
 
-For instance our development environment looks as follows (*December 2021*) <sup id="anchor_02"><a href="#footnote_02">2</a></sup>:
+For instance our development environment looks as follows (*January 2022*) <sup id="anchor_02"><a href="#footnote_02">2</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java11-21.3.0\ <sup id="anchor_03"><a href="#footnote_03">3</a></sup>  <i>(695 MB)</i>
+C:\opt\graalvm-ce-java11-21.3.0\<sup id="anchor_03"><a href="#footnote_03">3</a></sup>   <i>(695 MB)</i>
 C:\opt\Git-2.34.1\                  <i>(279 MB)</i>
 C:\opt\Squeak-5.3\                  <i>(130 MB)</i>
 </pre>
@@ -375,7 +375,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
@@ -389,8 +389,9 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [graalpython]: https://github.com/graalvm/graalpython
 [graalvm]: https://www.graalvm.org/
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
+[golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
-[graalvm_relnotes]: https://www.graalvm.org/release-notes/21_2/
+[graalvm_relnotes]: https://www.graalvm.org/release-notes/21_3/
 [gu_refman]: https://www.graalvm.org/reference-manual/graalvm-updater/
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jar_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html

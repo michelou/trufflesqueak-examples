@@ -19,12 +19,12 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
-- [Git 2.33][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.34][git_downloads] ([*release notes*][git_relnotes])
 - [GraalVM Community Edition 21.2 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 - [Microsoft Visual Studio 2019][vs2019_downloads] ([*release notes*][vs2019_relnotes])
-- [Python 2.7][python_downloads] ([*release notes*][python_relnotes])
+- [Python 3.10][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*September 2021*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*January 2022*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-21.3.0\                      <i>(695 MB)</i>
@@ -76,7 +76,7 @@ We also define a virtual drive **`K:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> K: %USERPROFILE%\workspace\trufflesqueak-examples</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> K: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\workspace\trufflesqueak-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this project.
@@ -188,7 +188,7 @@ Environment variables:
    "JAVA_HOME=C:\opt\graalvm-ce-java11-21.3.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
    "MSVS_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017"
-   "PYTHON_HOME=C:\opt\Python-2.7"
+   "PYTHON_HOME=C:\opt\Python-3.10.1"
 </pre>
 
 #### `trufflesqueak\build.bat`
@@ -291,7 +291,7 @@ Directory **`trufflesqueak\`** contains our fork of the [`hpi-swa/trufflesqueak`
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
-<b>$ cp bin/trufflesqueak/build trufflesqueak</b>
+<b>$ <a href="https://man7.org/linux/man-pages/man1/cp.1.html">cp</a> bin/trufflesqueak/build trufflesqueak</b>
 <b>$ <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a> trufflesqueak</b>
 </pre>
 
@@ -335,7 +335,7 @@ In this section we list some issues we encountered in this project:
 
 ## <span id="footnotes">Footnotes</span>
 <!--
-<span name="footnote_01">[1]</span> **`gu.bat`** ***deprecation*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> **`gu.bat`** ***deprecation*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 Starting with version 20.0 command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu.cmd</code></b></a> is part of the <a href="https://www.graalvm.org/">GraalVM</a> distribution; Windows users should use <b><code>gu.cmd</code></b> instead of <b><code>gu.bat</code></b>.
@@ -346,25 +346,27 @@ Starting with version 20.0 command <a href="https://www.graalvm.org/docs/referen
 -->
 <span id="footnote_02">[2]</span> ***Downloads*** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 In our case we downloaded the following installation files (see <a href="#section_01">section 1</a>):
-</p>
-<pre style="margin:0 0 1em 20px; font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-java11-windows-amd64-21.3.0.jar</a>  <i>(135 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-windows-amd64-21.3.0.zip</a>             <i>(154 MB)</i>
 <a href="https://www.python.org/downloads/release/python-2717/">python-3.10.1.amd64.msi</a>                         <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.3-19435-64bit-202003021730-Windows.zip</a>  <i>( 30 MB)</i>
 </pre>
+</dd></dl>
 
 <span id="footnote_03">[3]</span> ***Github submodule*** [↩](#anchor_03)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github submodule</a> allows us to make changes to this project independently from our fork of the <a href="https://github.com/hpi-swa/trufflesqueak"><b><code>hpi-swa/trufflesqueak</code></b></a> repository.
-</p>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
