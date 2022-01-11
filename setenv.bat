@@ -253,7 +253,7 @@ set _PYTHON_PATH=
 set __PYTHON_CMD=
 for /f %%f in ('where python.exe 2^>NUL') do set "__PYTHON_CMD=%%f"
 if defined __PYTHON_CMD (
-    if not "%__PYTHON_CMD:WindowsApps=%"=="%__PYTHON_CMD%" (
+    if not "!__PYTHON_CMD:WindowsApps=!"=="%__PYTHON_CMD%" (
         echo %_WARNING_LABEL% Ignore Windows installed Python 1>&2
         set __PYTHON_CMD=
     )
