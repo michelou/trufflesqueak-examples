@@ -279,12 +279,12 @@ if defined __PYTHON_CMD (
     )
 )
 if not exist "%_PYTHON_HOME%\python.exe" (
-    echo %_ERROR_LABEL% Python executable not found ^(%_PYTHON_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Python executable not found ^("%_PYTHON_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if not exist "%_PYTHON_HOME%\Scripts\pylint.exe" (
-    echo %_ERROR_LABEL% Pylint executable not found ^(%_PYTHON_HOME^) 1>&2
+    echo %_ERROR_LABEL% Pylint executable not found ^("%_PYTHON_HOME%"^) 1>&2
     echo ^(execute command: python -m pip install pylint^) 1>&2
     set _EXITCODE=1
     goto :eof

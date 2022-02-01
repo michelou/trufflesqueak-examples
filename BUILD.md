@@ -29,7 +29,7 @@ For instance our development environment looks as follows (*January 2022*) <sup 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-21.3.0\                      <i>(695 MB)</i>
 C:\opt\Git-2.34.1\                                    <i>(276 MB)</i>
-C:\opt\Python-3.10.1\                                 <i>( 74 MB)</i>
+C:\opt\Python-3.10.2\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\  <i>(3.1 GB)</i>
 </pre>
@@ -162,11 +162,11 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   python 3.10.1, pylint 2.12.2
+   python 3.10.2, pylint 2.12.2
    git 2.34.1.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> python</b>
-C:\opt\Python-3.10.1\python.exe
+C:\opt\Python-3.10.2\python.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -174,11 +174,11 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   python 3.10.1, pylint 2.12.2
+   python 3.10.2, pylint 2.12.2
    git 2.34.1.windows.1, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\Python-3.10.1\python.exe
-   C:\opt\Python-3.10.1\Scripts\pylint.exe
+   C:\opt\Python-3.10.2\python.exe
+   C:\opt\Python-3.10.2\Scripts\pylint.exe
    C:\opt\Git-2.34.1\bin\git.exe
    C:\opt\Git-2.34.1\mingw64\bin\git.exe
    C:\opt\Git-2.34.1\bin\bash.exe
@@ -188,7 +188,7 @@ Environment variables:
    "JAVA_HOME=C:\opt\graalvm-ce-java11-21.3.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
    "MSVS_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017"
-   "PYTHON_HOME=C:\opt\Python-3.10.1"
+   "PYTHON_HOME=C:\opt\Python-3.10.2"
 </pre>
 
 #### `trufflesqueak\build.bat`
@@ -353,7 +353,7 @@ In our case we downloaded the following installation files (see <a href="#sectio
 <pre style="font-size:80%;">
 <a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-java11-windows-amd64-21.3.0.jar</a>  <i>(135 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-windows-amd64-21.3.0.zip</a>             <i>(154 MB)</i>
-<a href="https://www.python.org/downloads/release/python-2717/">python-3.10.1.amd64.msi</a>                         <i>( 19 MB)</i>
+<a href="https://www.python.org/downloads/release/python-2717/">python-3.10.2.amd64.msi</a>                         <i>( 19 MB)</i>
 <a href="https://squeak.org/downloads/">Squeak5.3-19435-64bit-202003021730-Windows.zip</a>  <i>( 30 MB)</i>
 </pre>
 </dd></dl>

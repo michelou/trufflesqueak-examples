@@ -23,18 +23,18 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.34][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.35][git_downloads] ([*release notes*][git_relnotes])
 - [TruffleSqueak Image 21.3][trufflesqueak_image]
 - [GraalVM Community Edition 21.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
 Optionally one may also install the following software:
 - [Squeak 5.3][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup>
 
-For instance our development environment looks as follows (*January 2022*) <sup id="anchor_02"><a href="#footnote_02">2</a></sup>:
+For instance our development environment looks as follows (*February 2022*) <sup id="anchor_02"><a href="#footnote_02">2</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-21.3.0\<sup id="anchor_03"><a href="#footnote_03">3</a></sup>   <i>(695 MB)</i>
-C:\opt\Git-2.34.1\                  <i>(279 MB)</i>
+C:\opt\Git-2.35.1\                  <i>(282 MB)</i>
 C:\opt\Squeak-5.3\                  <i>(130 MB)</i>
 </pre>
 
@@ -109,13 +109,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   python 3.10.1, pylint 2.12.2, javac 11.0.3
-   git 2.34.1.windows.1, bash 4.4.23(1)-release
+   python 3.10.2, pylint 2.12.2, javac 11.0.3
+   git 2.35.1.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> git link</b>
-C:\opt\Git-2.34.1\bin\git.exe
-C:\opt\Git-2.34.1\mingw64\bin\git.exe
-C:\opt\Git-2.34.1\usr\bin\link.exe
+C:\opt\Git-2.35.1\bin\git.exe
+C:\opt\Git-2.35.1\mingw64\bin\git.exe
+C:\opt\Git-2.35.1\usr\bin\link.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -123,21 +123,21 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   python 3.10.1, pylint 2.12.2, javac 11.0.3
-   git 2.34.1.windows.1, bash 4.4.23(1)-release
+   python 3.10.2, pylint 2.12.2, javac 11.0.3
+   git 2.35.1.windows.1, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\Python-3.10.1\python.exe
-   C:\opt\Python-3.10.1\Scripts\pylint.exe
-   C:\opt\Git-2.34.1\bin\git.exe
-   C:\opt\Git-2.34.1\mingw64\bin\git.exe
-   C:\opt\Git-2.34.1\bin\bash.exe
+   C:\opt\Python-3.10.2\python.exe
+   C:\opt\Python-3.10.2\Scripts\pylint.exe
+   C:\opt\Git-2.35.1\bin\git.exe
+   C:\opt\Git-2.35.1\mingw64\bin\git.exe
+   C:\opt\Git-2.35.1\bin\bash.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.34.1"
+   "GIT_HOME=C:\opt\Git-2.35.1"
    "GRAAL_HOME=C:\opt\graalvm-ce-java11-21.3.0"
    "JAVA_HOME=C:\opt\graalvm-ce-java11-21.3.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC"
    "MSVS_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2019"
-   "PYTHON_HOME=C:\opt\Python-3.10.1"
+   "PYTHON_HOME=C:\opt\Python-3.10.2"
 </pre>
 
 #### `gu.bat install` ***(deprecated)***
@@ -355,7 +355,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/21.3.0">trufflesqueak-installable-java11-windows-amd64-21.3.0.jar</a>  <i>(135 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java11-windows-amd64-21.3.0.zip</a>      <i>(154 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.34.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="http://files.squeak.org/5.3/">Squeak5.3-19448-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
 </pre>
 
@@ -366,7 +366,7 @@ Starting with version 21.3 GraalVM distributions are targeting Java 11 and Java 
 </dd></dl>
 
 <!--
-<b name="footnote_04">[4]</b> ***GraalVM Updater*** [↩](#anchor_04)
+<span id="footnote_04">[4]</span> ***GraalVM Updater*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
 Command <a href="https://www.graalvm.org/docs/reference-manual/install-components/"><b><code>gu</code></b></a> is not yet supported on Microsoft Windows, so we currently run our own (stripped down) command <a href="bin/gu.bat"><b><code>bin\gu.bat</code></b></a> to add the <a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> component (e.g. archive file <b><code>trufflesqueak-component.jar</code></b>) to our <a href="https://www.graalvm.org/">GraalVM</a> environment (e.g. <b><code>c:\opt\graalvm-ce-java8-20.1.0\</code></b>).
@@ -375,7 +375,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
@@ -385,7 +385,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [fastr]: https://github.com/oracle/fastr
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.34.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.35.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalpython]: https://github.com/graalvm/graalpython
 [graalvm]: https://www.graalvm.org/
