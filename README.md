@@ -17,7 +17,7 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 - [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_0X"><a href="#footnote_0X">[X]</a></sup>
 -->
 
-[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Node.js][nodejs_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spring][spring_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -403,6 +403,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [rust_examples]: https://github.com/michelou/rust-examples
 [scala3_examples]: https://github.com/michelou/dotty-examples
+[spring_examples]: https://github.com/michelou/spring-examples
 [squeak]: https://squeak.org/
 [squeak_downloads]: https://squeak.org/downloads/
 [truffleruby]: https://github.com/oracle/truffleruby
