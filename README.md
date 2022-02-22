@@ -17,7 +17,7 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 - [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_0X"><a href="#footnote_0X">[X]</a></sup>
 -->
 
-[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spring][spring_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spring][spring_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
