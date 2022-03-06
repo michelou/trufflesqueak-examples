@@ -19,16 +19,16 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
-- [Git 2.34][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.35][git_downloads] ([*release notes*][git_relnotes])
 - [GraalVM Community Edition 21.2 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 - [Microsoft Visual Studio 2019][vs2019_downloads] ([*release notes*][vs2019_relnotes])
 - [Python 3.10][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*January 2022*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
+For instance our development environment looks as follows (*March 2022*) <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-21.3.0\                      <i>(695 MB)</i>
-C:\opt\Git-2.34.1\                                    <i>(276 MB)</i>
+C:\opt\Git-2.35.1\                                    <i>(276 MB)</i>
 C:\opt\Python-3.10.2\                                 <i>( 74 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\  <i>(3.1 GB)</i>
@@ -163,7 +163,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    python 3.10.2, pylint 2.12.2
-   git 2.34.1.windows.1, bash 4.4.23(1)-release
+   git 2.35.1.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> python</b>
 C:\opt\Python-3.10.2\python.exe
@@ -175,15 +175,15 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    python 3.10.2, pylint 2.12.2
-   git 2.34.1.windows.1, bash 4.4.23(1)-release
+   git 2.35.1.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\Python-3.10.2\python.exe
    C:\opt\Python-3.10.2\Scripts\pylint.exe
-   C:\opt\Git-2.34.1\bin\git.exe
-   C:\opt\Git-2.34.1\mingw64\bin\git.exe
-   C:\opt\Git-2.34.1\bin\bash.exe
+   C:\opt\Git-2.35.1\bin\git.exe
+   C:\opt\Git-2.35.1\mingw64\bin\git.exe
+   C:\opt\Git-2.35.1\bin\bash.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.34.1"
+   "GIT_HOME=C:\opt\Git-2.35.1"
    "GRAALVM_HOME=C:\opt\graalvm-ce-java11-21.3.0"
    "JAVA_HOME=C:\opt\graalvm-ce-java11-21.3.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
@@ -330,7 +330,7 @@ In this section we list some issues we encountered in this project:
    The error is due to a wrong executable path for **`link.exe`** (see [issue #1554][github_issue_1554] in [oracle/graal][oracle_graal] project):
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> link</b>
-   C:\opt\Git-2.34.1\usr\bin\link.exe
+   C:\opt\Git-2.35.1\usr\bin\link.exe
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe</pre>
 
 ## <span id="footnotes">Footnotes</span>
@@ -366,7 +366,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -374,7 +374,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 [git_bash]: https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables
 [git_downloads]: https://git-scm.com/download/win
 [git_cli]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.34.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.35.1.txt
 [github_issue_1554]: https://github.com/oracle/graal/issues/1554
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
