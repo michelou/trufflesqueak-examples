@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="Sqeak logo"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/" rel="external"><img src="../docs/images/balloon.svg" width="120" alt="Sqeak project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="./"><b><code>examples\</code></b></a> contains <a href="https://squeak.org/" rel="external">Squeak</a> code examples coming from various websites and books and tested on a Windows machine.
   </td>
   </tr>
@@ -157,7 +157,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/t
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

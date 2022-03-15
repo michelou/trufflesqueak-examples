@@ -1,0 +1,1 @@
+Source: https://squeak.org/static/img/balloon.svg
