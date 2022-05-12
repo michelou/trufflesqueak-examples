@@ -25,7 +25,7 @@ if %_HELP%==1 (
     call :help
     exit /b !_EXITCODE!
 )
-@rem GraalVM 21.3 and neweer target Java 11/17
+@rem GraalVM 21.3 and newer target Java 11/17
 call :java11
 if not %_EXITCODE%==0 goto end
 

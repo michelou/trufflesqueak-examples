@@ -22,7 +22,7 @@ Let's take as first example the [logarithmic equation][wiki_logarithm] *"The log
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> trufflesqueak</b>
-C:\opt\graalvm-ce-java11-21.3.0\bin\trufflesqueak.cmd
+C:\opt\graalvm-ce-java11-22.1.0\bin\trufflesqueak.cmd
 &nbsp;
 <b>&gt; <a href="https://github.com/hpi-swa/trufflesqueak/blob/master/docs/development.md#debugging">trufflesqueak</a> --code "6 log - (2 log + 3 log)"</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
@@ -94,58 +94,58 @@ This Squeak code displays the user environment variables including the Java syst
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://github.com/hpi-swa/trufflesqueak/blob/master/docs/development.md#debugging">trufflesqueak</a> --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000"</b>
-[trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
-[trufflesqueak] Image loaded in 1321ms.
-[trufflesqueak] Preparing image for headless execution...
+[trufflesqueak] Running TruffleSqueak-22.1.0.image on GraalVM CE (latency mode)...
+[trufflesqueak] Image loaded in 3190ms.
 [trufflesqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
-platform sources revision ilt on Mar 08 2020 11:51:16 CET
-OpenJDK 64-Bit Server VM GraalVM CE 21.3.0 (25.302-b07-jvmci-21.2-b08; mixed mode)
+platform sources revision trufflesqueak:c452863571a194b4237947e7063cc11fb7a91e65
+built for GraalVM 22.1.0 (Java 11.0.15, windows, amd64)
+{trufflesqueak: {commit.committer: Fabio Niephaus <code@fniephaus.com>, commit.committer-ts: 1651559791, commit.rev: c452863571a194b4237947e7063cc11fb7a91e65}}
 &nbsp;
 == System Properties =================================>
-agentscript.home = c:\opt\graalvm-ce-java8-21.3.0\jre\tools\agentscript
 awt.toolkit = sun.awt.windows.WToolkit
-chromeinspector.home = c:\opt\graalvm-ce-java8-21.3.0\jre\tools\chromeinspector
-coverage.home = c:\opt\graalvm-ce-java8-21.3.0\jre\tools\coverage
+chromeinspector.home = C:\opt\graalvm-ce-java11-22.1.0\tools\chromeinspector
+coverage.home = C:\opt\graalvm-ce-java11-22.1.0\tools\coverage
+dap.home = C:\opt\graalvm-ce-java11-22.1.0\tools\dap
 file.encoding = Cp1252
-file.encoding.pkg = sun.io
 file.separator = \
 [...]
-java.version = 1.8.0_312
-java.vm.info = mixed mode
-java.vm.name = OpenJDK 64-Bit Server VM GraalVM CE 21.3.0
+java.version = 11.0.15
+java.version.date = 2022-04-19
+java.vm.compressedOopsMode = Zero based
+java.vm.info = mixed mode, sharing
+java.vm.name = OpenJDK 64-Bit Server VM
 java.vm.specification.name = Java Virtual Machine Specification
 java.vm.specification.vendor = Oracle Corporation
-java.vm.specification.version = 1.8
-java.vm.vendor = Oracle Corporation
-java.vm.version = 25.312-b07-jvmci-21.1-b08
-js.home = c:\opt\graalvm-ce-java8-21.3.0\jre\languages\js
-jvmci.Compiler = graal
+java.vm.specification.version = 11
+java.vm.vendor = GraalVM Community
+java.vm.version = 11.0.15+10-jvmci-22.1-b06
+jdk.debug = release
+jdk.internal.vm.ci.enabled = true
+js.home = C:\opt\graalvm-ce-java11-22.1.0\languages\js
 line.separator =
-
-lsp.home = c:\opt\graalvm-ce-java8-21.3.0\jre\tools\lsp
-nfi.home = c:\opt\graalvm-ce-java8-21.3.0\jre\languages\nfi
-org.graalvm.home = c:\opt\graalvm-ce-java8-21.3.0
-org.graalvm.launcher.shell = true
-org.graalvm.version = 21.3.0
+&nbsp;
+lsp.home = C:\opt\graalvm-ce-java11-22.1.0\tools\lsp
+nfi-libffi.home = C:\opt\graalvm-ce-java11-22.1.0\languages\nfi-libffi
+nfi.home = C:\opt\graalvm-ce-java11-22.1.0\languages\nfi
+org.graalvm.home = C:\opt\graalvm-ce-java11-22.1.0
+[...]
+org.graalvm.version = 22.1.0
 os.arch = amd64
 os.name = Windows 10
 os.version = 10.0
 path.separator = ;
-profiler.home = c:\opt\graalvm-ce-java8-21.3.0\jre\tools\profiler
-regex.home = c:\opt\graalvm-ce-java8-21.3.0\jre\languages\regex
-smalltalk.home = c:\opt\graalvm-ce-java8-21.3.0\jre\languages\smalltalk
+profiler.home = C:\opt\graalvm-ce-java11-22.1.0\tools\profiler
+regex.home = C:\opt\graalvm-ce-java11-22.1.0\languages\regex
+smalltalk.home = C:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk
 sun.arch.data.model = 64
-[...]
-sun.boot.library.path = C:\opt\graalvm-ce-java8-21.3.0\jre\bin
+sun.boot.library.path = C:\opt\graalvm-ce-java11-22.1.0\bin
 sun.cpu.endian = little
 sun.cpu.isalist = amd64
 sun.desktop = windows
 sun.io.unicode.encoding = UnicodeLittle
-sun.java.command = de.hpi.swa.graal.squeak.launcher.TruffleSqueakLauncher --polyglot --code String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000 TruffleSqueak-21.3.0.image
 [...]
 <= System Properties ===================================
 </pre>
-
 
 ## <span id="footnotes">Footnotes</span>
 
@@ -157,7 +157,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/t
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
