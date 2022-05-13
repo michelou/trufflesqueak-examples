@@ -30,11 +30,11 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 - [Squeak 5.3][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup>
 
-For instance our development environment looks as follows (*May 2022*) <sup id="anchor_02"><a href="#footnote_02">2</a></sup>:
+For instance our development environment looks as follows (*May 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-22.1.0\<sup id="anchor_03"><a href="#footnote_03">3</a></sup>   <i>(695 MB)</i>
-C:\opt\Git-2.36.1\                  <i>(282 MB)</i>
+C:\opt\Git-2.36.1\                  <i>(286 MB)</i>
 C:\opt\Squeak-5.3\                  <i>(130 MB)</i>
 </pre>
 
@@ -109,7 +109,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   python 3.10.4, pylint 2.12.2, javac 11.0.14
+   python 3.10.4, pylint 2.12.2, javac 11.0.15
    git 2.36.1.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> git link</b>
@@ -123,7 +123,7 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   python 3.10.4, pylint 2.12.2, javac 11.0.14
+   python 3.10.4, pylint 2.12.2, javac 11.0.15
    git 2.36.1.windows.1, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\Python-3.10.4\python.exe
@@ -178,7 +178,7 @@ We present below the installation from a *local* [TruffleSqueak] component archi
 Let's first download [TruffleSqueak] component archive from the [TruffleSqueak] repository:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://curl.se/docs/manpage.html">curl</a> -sL -o trufflesqueak-installable.jar https://github.com/hpi-swa/trufflesqueak/releases/download/20.2.0/trufflesqueak-installable-java8-windows-amd64-20.2.0.jar</b>
+<b>&gt; <a href="https://curl.se/docs/manpage.html">curl</a> -sL -o trufflesqueak-installable.jar https://github.com/hpi-swa/trufflesqueak/releases/download/22.1.0/trufflesqueak-installable-java8-windows-amd64-22.1.0.jar</b>
 </pre>
 
 Command [**`gu.bat install -L trufflesqueak-component.jar`**](bin/gu.bat) adds the [TruffleSqueak] component to our [GraalVM] environment.
@@ -188,7 +188,7 @@ Command [**`gu.bat install -L trufflesqueak-component.jar`**](bin/gu.bat) adds t
 C:\opt\graalvm-ce-java11-22.1.0
 &nbsp;
 <b>&gt; <a href="bin/gu.bat">gu</a> install -L trufflesqueak-installable.jar</b>
-Processing Component archive: trufflesqueak-installable-java11-windows-amd64-22.0.0.jar
+Processing Component archive: trufflesqueak-installable-java11-windows-amd64-22.1.0.jar
 Installing new component: TruffleSqueak (org.graalvm.smalltalk, version 22.1.0)
 </pre>
 
@@ -245,7 +245,7 @@ Command **`trufflesqueak.cmd --help`** prints the usage message:
 C:\opt\graalvm-ce-java11-22.1.0\bin\trufflesqueak.cmd
 &nbsp;
 <b>&gt; trufflesqueak.cmd --help</b>
-Usage: trufflesqueak [options] <image file> [image arguments]
+Usage: trufflesqueak [options] &lt;image file> [image arguments]
 
 Basic options:
   -c "&lt;code&gt;", --code "&lt;code&gt;"          Smalltalk code to be executed in headless mode
@@ -253,19 +253,19 @@ Basic options:
   --enable-transcript-forwarding        Forward stdio to Smalltalk transcript
 
 Runtime options:
-  --polyglot                                   Run with all other guest languages accessible.
-  --jvm                                        Run on the Java Virtual Machine with Java access (default).
-  --vm.[option]                                Pass options to the host VM. To see available options, use '--help:vm'.
-  --help                                       Print this help message.
-  --help:languages                             Print options for all installed languages.
-  --help:tools                                 Print options for all installed tools.
-  --help:vm                                    Print options for the host VM.
-  --help:expert                                Print additional options for experts.
-  --help:internal                              Print internal options for debugging language implementations and tools.
-  --version:graalvm                            Print GraalVM version information and exit.
-  --show-version:graalvm                       Print GraalVM version information and continue execution.
-  --log.file=&lt;String&gt;                          Redirect guest languages logging into a given file.
-  --log.[logger].level=&lt;String&gt;                Set language log level to OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST or ALL.
+  --polyglot                            Run with all other guest languages accessible.
+  --jvm                                 Run on the Java Virtual Machine with Java access (default).
+  --vm.[option]                         Pass options to the host VM. To see available options, use '--help:vm'.
+  --help                                Print this help message.
+  --help:languages                      Print options for all installed languages.
+  --help:tools                          Print options for all installed tools.
+  --help:vm                             Print options for the host VM.
+  --help:expert                         Print additional options for experts.
+  --help:internal                       Print internal options for debugging language implementations and tools.
+  --version:graalvm                     Print GraalVM version information and exit.
+  --show-version:graalvm                Print GraalVM version information and continue execution.
+  --log.file=&lt;String&gt;                   Redirect guest languages logging into a given file.
+  --log.[logger].level=&lt;String&gt;         Set language log level to OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST or ALL.
 
 See https://www.graalvm.org for more information.
 </pre>
@@ -336,7 +336,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/t
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
 </dd></dl>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/21.3.0">trufflesqueak-installable-java11-windows-amd64-21.3.0.jar</a>  <i>(135 MB)</i>
+<a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/22.1.0">trufflesqueak-installable-svm-java11-windows-amd64-22.1.0.jar</a>  <i>(135 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java11-windows-amd64-22.1.0.zip</a>      <i>(154 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.36.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="http://files.squeak.org/5.3/">Squeak5.3-19448-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
@@ -416,13 +416,14 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [rust_examples]: https://github.com/michelou/rust-examples
 [scala3_examples]: https://github.com/michelou/dotty-examples
+[spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
 [squeak]: https://squeak.org/
 [squeak_downloads]: https://squeak.org/downloads/
 [truffleruby]: https://github.com/oracle/truffleruby
 [trufflesqueak]: https://github.com/hpi-swa/trufflesqueak
 [trufflesqueak_cmd]: https://github.com/hpi-swa/trufflesqueak/blob/dev/scripts/template.trufflesqueak.cmd
-[trufflesqueak_image]: https://github.com/hpi-swa/trufflesqueak/releases/tag/22.0.0
+[trufflesqueak_image]: https://github.com/hpi-swa/trufflesqueak/releases/tag/22.1.0
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
 [wix_examples]: https://github.com/michelou/wix-examples
