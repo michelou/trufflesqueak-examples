@@ -22,7 +22,7 @@ Let's take as first example the [logarithmic equation][wiki_logarithm] *"The log
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> trufflesqueak</b>
-C:\opt\graalvm-ce-java11-22.1.0\bin\trufflesqueak.cmd
+C:\opt\graalvm-ce-java11-22.2.0\bin\trufflesqueak.cmd
 &nbsp;
 <b>&gt; <a href="https://github.com/hpi-swa/trufflesqueak/blob/master/docs/development.md#debugging">trufflesqueak</a> --code "6 log - (2 log + 3 log)"</b>
 [trufflesqueak] Running Squeak/Smalltalk on GraalVM CE...
@@ -94,18 +94,18 @@ This Squeak code displays the user environment variables including the Java syst
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://github.com/hpi-swa/trufflesqueak/blob/master/docs/development.md#debugging">trufflesqueak</a> --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000"</b>
-[trufflesqueak] Running TruffleSqueak-22.1.0.image on GraalVM CE (latency mode)...
+[trufflesqueak] Running TruffleSqueak-22.2.0.image on GraalVM CE (latency mode)...
 [trufflesqueak] Image loaded in 3190ms.
 [trufflesqueak] Evaluating 'String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000'...
 platform sources revision trufflesqueak:c452863571a194b4237947e7063cc11fb7a91e65
-built for GraalVM 22.1.0 (Java 11.0.15, windows, amd64)
+built for GraalVM 22.2.0 (Java 11.0.15, windows, amd64)
 {trufflesqueak: {commit.committer: Fabio Niephaus <code@fniephaus.com>, commit.committer-ts: 1651559791, commit.rev: c452863571a194b4237947e7063cc11fb7a91e65}}
 &nbsp;
 == System Properties =================================>
 awt.toolkit = sun.awt.windows.WToolkit
-chromeinspector.home = C:\opt\graalvm-ce-java11-22.1.0\tools\chromeinspector
-coverage.home = C:\opt\graalvm-ce-java11-22.1.0\tools\coverage
-dap.home = C:\opt\graalvm-ce-java11-22.1.0\tools\dap
+chromeinspector.home = C:\opt\graalvm-ce-java11-22.2.0\tools\chromeinspector
+coverage.home = C:\opt\graalvm-ce-java11-22.2.0\tools\coverage
+dap.home = C:\opt\graalvm-ce-java11-22.2.0\tools\dap
 file.encoding = Cp1252
 file.separator = \
 [...]
@@ -121,24 +121,24 @@ java.vm.vendor = GraalVM Community
 java.vm.version = 11.0.15+10-jvmci-22.1-b06
 jdk.debug = release
 jdk.internal.vm.ci.enabled = true
-js.home = C:\opt\graalvm-ce-java11-22.1.0\languages\js
+js.home = C:\opt\graalvm-ce-java11-22.2.0\languages\js
 line.separator =
 &nbsp;
-lsp.home = C:\opt\graalvm-ce-java11-22.1.0\tools\lsp
-nfi-libffi.home = C:\opt\graalvm-ce-java11-22.1.0\languages\nfi-libffi
-nfi.home = C:\opt\graalvm-ce-java11-22.1.0\languages\nfi
-org.graalvm.home = C:\opt\graalvm-ce-java11-22.1.0
+lsp.home = C:\opt\graalvm-ce-java11-22.2.0\tools\lsp
+nfi-libffi.home = C:\opt\graalvm-ce-java11-22.2.0\languages\nfi-libffi
+nfi.home = C:\opt\graalvm-ce-java11-22.2.0\languages\nfi
+org.graalvm.home = C:\opt\graalvm-ce-java11-22.2.0
 [...]
-org.graalvm.version = 22.1.0
+org.graalvm.version = 22.2.0
 os.arch = amd64
 os.name = Windows 10
 os.version = 10.0
 path.separator = ;
-profiler.home = C:\opt\graalvm-ce-java11-22.1.0\tools\profiler
-regex.home = C:\opt\graalvm-ce-java11-22.1.0\languages\regex
-smalltalk.home = C:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk
+profiler.home = C:\opt\graalvm-ce-java11-22.2.0\tools\profiler
+regex.home = C:\opt\graalvm-ce-java11-22.2.0\languages\regex
+smalltalk.home = C:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk
 sun.arch.data.model = 64
-sun.boot.library.path = C:\opt\graalvm-ce-java11-22.1.0\bin
+sun.boot.library.path = C:\opt\graalvm-ce-java11-22.2.0\bin
 sun.cpu.endian = little
 sun.cpu.isalist = amd64
 sun.desktop = windows

@@ -22,11 +22,11 @@ This project depends on the following external software for the **Microsoft Wind
 - [Git 2.36][git_downloads] ([*release notes*][git_relnotes])
 - [GraalVM Community Edition 22.1 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
-For instance our development environment looks as follows (*May 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
+For instance our development environment looks as follows (*October 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.36.1\               <i>(286 MB)</i>
-C:\opt\graalvm-ce-java1-22.1.0\  <i>(360 MB)</i>
+C:\opt\Git-2.38.0\               <i>(317 MB)</i>
+C:\opt\graalvm-ce-java1-22.2.0\  <i>(360 MB)</i>
 </pre>
 
 > **&#9755;** ***Installation policy***<br/>
@@ -198,7 +198,7 @@ Component: ruby
    version=2.6.2
    OS_NAME=linux
    OS_ARCH=amd64
-   GRAALVM_VERSION=22.1.0</pre>
+   GRAALVM_VERSION=22.2.0</pre>
 
 #### <span id="gu_install">`gu.bat install`</span>
 
@@ -248,16 +248,16 @@ Install remote component python-installable-svm-linux-amd64-21.1.0.jar
 Extract GraalVM component into directory %TEMP%\graal-updater\tmp
 Create file %TEMP%\graal-updater\tmp\bin\graalpython.cmd
 Create file %TEMP%\graal-updater\tmp\jre\bin\graalpython.cmd
-Component ready to be installed in c:\opt\graalvm-ce-java11-22.1.0
-Do you really want to add the component into directory c:\opt\graalvm-ce-java11-22.1.0 (y/*)? y
-Install GraalVM component into directory c:\opt\graalvm-ce-java11-22.1.0
+Component ready to be installed in c:\opt\graalvm-ce-java11-22.2.0
+Do you really want to add the component into directory c:\opt\graalvm-ce-java11-22.2.0 (y/*)? y
+Install GraalVM component into directory c:\opt\graalvm-ce-java11-22.2.0
 </pre>
 
 > **:mag_right:** In the above output path **`%TEMP%\graal-updater`** is the working directory used by command **`gu.bat`**:
 > <pre style="font-size:80%;">
 > <b>&gt; dir /a-d %TEMP%\graal-updater | findstr /r /c:"^[^ ]"</b>
 > 23.10.2019  14:51           133 318 graal-updater-component-catalog.properties
-> 23.10.2019  09:43        65 156 656 python-installable-svm-linux-amd64-22.1.0.jar
+> 23.10.2019  09:43        65 156 656 python-installable-svm-linux-amd64-22.2.0.jar
 > </pre>
 
 *Installation from a **local** component archive*
@@ -266,13 +266,13 @@ Command [**`gu.bat install -L trufflesqueak-component.jar`**](bin/gu.bat) adds t
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/echo">echo</a> %GRAAL_HOME%</b>
-C:\opt\graalvm-ce-java11-22.1.0
+C:\opt\graalvm-ce-java11-22.2.0
 &nbsp;
-<b>&gt; curl -sL -o trufflesqueak-component.jar https://github.com/hpi-swa/trufflesqueak/releases/download/22.1.0/trufflesqueak-installable-svm-java11-windows-amd64-22.1.0.jar</b>
+<b>&gt; curl -sL -o trufflesqueak-component.jar https://github.com/hpi-swa/trufflesqueak/releases/download/22.2.0/trufflesqueak-installable-svm-java11-windows-amd64-22.2.0.jar</b>
 &nbsp;
 <b>&gt; <a href="bin/gu.bat">gu</a> install -L trufflesqueak-component.jar</b>
 Install local component trufflesqueak-component.jar
-Do you really want to add the component into directory C:\opt\graalvm-ce-java11-22.1.0 (y/*)? y
+Do you really want to add the component into directory C:\opt\graalvm-ce-java11-22.2.0 (y/*)? y
 </pre>
 
 Adding option **`-A`** skips user confirmation before proceeding with the installation:
@@ -299,29 +299,29 @@ Command [**`gu.bat list`**](bin/gu.bat) prints the components installed in our [
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/echo">echo</a> %GRAAL_HOME%</b>
-C:\opt\graalvm-ce-java11-22.1.0
+C:\opt\graalvm-ce-java11-22.2.0
 &nbsp;
 <b>&gt; <a href="bin/gu.bat">gu</a> list</b>
 component graalpython
    OS_NAME=linux
    OS_ARCH=amd64
    SOURCE="graalpython:712a86dcc68db59113297a4d95ff640b75a0dc4f"
-   GRAALVM_VERSION=22.1.0
+   GRAALVM_VERSION=22.2.0
 component fastr
    OS_NAME=linux
    OS_ARCH=amd64
    SOURCE="fastr:3aa5dacd30b8d0862e91a5d19bf3b59d94365500"
-   GRAALVM_VERSION=22.1.0
+   GRAALVM_VERSION=22.2.0
 component truffleruby
    OS_NAME=linux
    OS_ARCH=amd64
    SOURCE="truffleruby:3b698b1a4bf9b168891f1f795858eb550c258bc7"
-   GRAALVM_VERSION=22.1.0
+   GRAALVM_VERSION=22.2.0
 component trufflesqueak
    OS_NAME=windows
    OS_ARCH=amd64
    SOURCE="trufflesqueak:b414a22e8e70e97674232fc30c15aac7a3853929"
-   GRAALVM_VERSION=22.1.0
+   GRAALVM_VERSION=22.2.0
 </pre>
 
 Command [**`gu.bat list -c`**](bin/gu.bat) is equivalent to [**`gu.bat available`**](#gu_available); it displays components available from the GraalVM Catalog <sup id="anchor_04b"><a href="#footnote_04">[4]</a></sup> which fit in our environment.
@@ -398,9 +398,9 @@ Command update not yet implemented
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-svm-java11-windows-amd64-22.1.0.jar</a>  <i>(35 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-22.1.0.zip</a>             <i>(154 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.36.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-svm-java11-windows-amd64-22.2.0.jar</a>  <i>(35 MB)</i>
+<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-22.2.0.zip</a>             <i>(154 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.38.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="http://files.squeak.org/5.3/">Squeak5.3-19448-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
 </pre>
 
@@ -417,12 +417,12 @@ Component <a href="https://github.com/graalvm/graaljs">GraalJS</a> is preinstall
 </p>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; where /r c:\opt\graalvm-ce-java11-22.1.0 js.cmd</b>
-c:\opt\graalvm-ce-java11-22.1.0\bin\js.cmd
-c:\opt\graalvm-ce-java11-22.1.0\jre\bin\js.cmd
+<b>&gt; where /r c:\opt\graalvm-ce-java11-22.2.0 js.cmd</b>
+c:\opt\graalvm-ce-java11-22.2.0\bin\js.cmd
+c:\opt\graalvm-ce-java11-22.2.0\jre\bin\js.cmd
 &nbsp;
 <b>&gt; js --version</b>
-GraalVM JavaScript (GraalVM CE Native 22.1.0)
+GraalVM JavaScript (GraalVM CE Native 22.2.0)
 </pre>
 
 <span name="footnote_04">[4]</span> ***GraalVM Catalog*** [↩](#anchor_04a)
@@ -433,8 +433,8 @@ Components currently available are:
 </p>
 <table style="margin:0 0 1em 20px;">
 <tr><th>ID</th><th>Version(s)</th><th>Supported platform(s)</th></tr>
-<tr><td><code>llvm_toolchain</code></td><td><a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-19.3.0">19.3</a><br/><a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.1</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.1.0">20.2</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.0.0.2">21.0</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.1.0">21.1</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.1.0">22.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
-<tr><td><code>native_image</code></td><td>19.0, 19.1, 19.2<br/><a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.1</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.1.0">21.1</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.1.0">22.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b>, <b><code>windows</b></code> <i>(20.0+)</i></td></tr>
+<tr><td><code>llvm_toolchain</code></td><td><a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-19.3.0">19.3</a><br/><a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.1</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.1.0">20.2</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.0.0.2">21.0</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.1.0">21.1</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.2.0">22.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
+<tr><td><code>native_image</code></td><td>19.0, 19.1, 19.2<br/><a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">20.1</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.1.0">21.1</a>, <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.2.0">22.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b>, <b><code>windows</b></code> <i>(20.0+)</i></td></tr>
 <tr><td><a href="https://github.com/graalvm/graalpython"><code>python</code></a></td><td>19.0, 19.1, 19.2<br/><a href="https://github.com/graalvm/graalpython/releases/tag/vm-19.3.1">19.3</a>, <a href="https://github.com/graalvm/graalpython/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/graalvm/graalpython/releases/tag/vm-20.1.0">20.1</a>, <a href="https://github.com/oracle/graalpython/releases/tag/vm-21.1.0">21.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
 <tr><td><a href="https://github.com/oracle/fastr"><code>r</code></a></td><td>19.0, 19.1, 19.2<br/><a href="https://github.com/oracle/fastr/releases/tag/vm-19.3.1">19.3</a>, <a href="https://github.com/oracle/fastr/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/oracle/fastr/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/oracle/fastr/releases/tag/vm-20.1.0">20.1</a>, <a href="https://github.com/oracle/fastr/releases/tag/vm-21.1.0">20.2</a>, <a href="https://github.com/oracle/fastr/releases/tag/vm-21.0.0.2">21.0</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
 <tr><td><a href="https://github.com/oracle/truffleruby"><code>ruby</code></a</td><td>19.0, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-19.1.0">19.1</a>, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-19.2.0">19.2</a>, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-19.3.1">19.3</a><br/><a href="https://github.com/oracle/truffleruby/releases/tag/vm-20.0.0">20.0</a>, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-20.1.0">20.1</a>, <a href="https://github.com/oracle/truffleruby/releases/tag/vm-21.1.0">21.1</a></td><td><b><code>linux_amd64</code></b>, <b><code>macos_amd64</code></b></td></tr>
@@ -443,13 +443,13 @@ Components currently available are:
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
 
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.36.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.0.txt
 [graalpython]: https://github.com/graalvm/graalpython
 [graalvm]: https://www.graalvm.org/
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
