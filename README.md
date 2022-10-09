@@ -17,7 +17,7 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 - [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_0X"><a href="#footnote_0X">[X]</a></sup>
 -->
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -109,7 +109,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   python 3.10.5, pylint 2.12.2, javac 11.0.16
+   python 3.10.7, pylint 2.15.3, javac 11.0.16
    git 2.38.0.windows.1, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> git link</b>
@@ -123,21 +123,22 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   python 3.10.5, pylint 2.12.2, javac 11.0.16
+   python 3.10.7, pylint 2.15.3, javac 11.0.16
    git 2.38.0.windows.1, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\Python-3.10.5\python.exe
-   C:\opt\Python-3.10.5\Scripts\pylint.exe
+   C:\opt\Python-3.10.7\python.exe
+   C:\opt\Python-3.10.7\Scripts\pylint.exe
+   C:\opt\graalvm-ce-java11-22.2.0\bin\javac.exe
    C:\opt\Git-2.38.0\bin\git.exe
    C:\opt\Git-2.38.0\mingw64\bin\git.exe
    C:\opt\Git-2.38.0\bin\bash.exe
 Environment variables:
    "GIT_HOME=C:\opt\Git-2.38.0"
-   "GRAAL_HOME=C:\opt\graalvm-ce-java11-22.2.0"
+   "GRAALVM_HOME=C:\opt\graalvm-ce-java11-22.2.0"
    "JAVA_HOME=C:\opt\graalvm-ce-java11-22.2.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC"
    "MSVS_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2019"
-   "PYTHON_HOME=C:\opt\Python-3.10.5"
+   "PYTHON_HOME=C:\opt\Python-3.10.7"
 </pre>
 
 #### `gu.bat install` ***(deprecated)***
@@ -195,18 +196,20 @@ Installing new component: TruffleSqueak (org.graalvm.smalltalk, version 22.2.0)
 The [GraalVM] installation directory looks as follows after adding the [TruffleSqueak] component:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /r c:\opt\graalvm-ce-java11-22.1.0 *squeak*</b>
-c:\opt\graalvm-ce-java11-22.1.0\bin\trufflesqueak.cmd
-c:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk\LICENSE_TRUFFLESQUEAK.txt
-c:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk\README_TRUFFLESQUEAK.md
-c:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk\trufflesqueak-shared.jar
-c:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk\trufflesqueak-shared.src.zip
-c:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk\trufflesqueak.jar
-c:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk\trufflesqueak.src.zip
-c:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk\bin\trufflesqueak.cmd
-c:\opt\graalvm-ce-java11-22.1.0\languages\smalltalk\lib\SqueakFFIPrims.dll
-c:\opt\graalvm-ce-java11-22.1.0\lib\graalvm\trufflesqueak-launcher.jar
-c:\opt\graalvm-ce-java11-22.1.0\lib\graalvm\trufflesqueak-launcher.src.zip
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /r c:\opt\graalvm-ce-java11-22.2.0 *squeak*</b>
+c:\opt\graalvm-ce-java11-22.2.0\bin\trufflesqueak-launcher.cmd
+c:\opt\graalvm-ce-java11-22.2.0\bin\trufflesqueak.cmd
+c:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk\LICENSE_TRUFFLESQUEAK.txt
+c:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk\README_TRUFFLESQUEAK.md
+c:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk\trufflesqueak-shared.jar
+c:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk\trufflesqueak-shared.src.zip
+c:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk\trufflesqueak.jar
+c:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk\trufflesqueak.src.zip
+c:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk\bin\trufflesqueak-launcher.exe
+c:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk\bin\trufflesqueak.cmd
+c:\opt\graalvm-ce-java11-22.2.0\languages\smalltalk\lib\SqueakFFIPrims.dll
+c:\opt\graalvm-ce-java11-22.2.0\lib\graalvm\trufflesqueak-launcher.jar
+c:\opt\graalvm-ce-java11-22.2.0\lib\graalvm\trufflesqueak-launcher.src.zip
 </pre>
 
 > **:mag_right:** In the above output both command files **`bin\trufflesqueak.cmd`** and **`jre\bin\trufflesqueak.cmd`** simply forward the call to command file **`jre\languages\smalltalk\bin\trufflesqueak.cmd`** (on Unix systems two symbolic links are created instead).
@@ -396,6 +399,7 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [fastr]: https://github.com/oracle/fastr
+[flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.0.txt

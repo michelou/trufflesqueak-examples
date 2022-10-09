@@ -19,8 +19,8 @@ This document is part of a series of topics related to [TruffleSqueak][trufflesq
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.36][git_downloads] ([*release notes*][git_relnotes])
-- [GraalVM Community Edition 22.1 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
+- [GraalVM Community Edition 22.2 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
 For instance our development environment looks as follows (*October 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
@@ -127,16 +127,16 @@ In the next section we present usage examples of commands currently implemented 
 
 #### <span id="gu_available">`gu.bat available`</span>
 
-Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we get the following output with a GraalVM 21.1.0 installation on a Unix machine:
+Command [**`gu.bat available`**](bin/gu.bat) with not argument displays components available from the GraalVM Catalog <sup id="anchor_04a"><a href="#footnote_04">[4]</a></sup> which fit in our environment. For instance we get the following output with a GraalVM 21.2.0 installation on a Unix machine:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/gu.bat">gu</a> available</b>
 Downloading: Component catalog
-Component.21.1.0_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
-Component.21.1.0_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
-Component.21.1.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
-Component.21.1.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
-Component.21.1.0_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
+Component.21.2.0_linux_amd64.org.graalvm.llvm_toolchain-Bundle-Name=LLVM.org toolchain
+Component.21.2.0_linux_amd64.org.graalvm.native_image-Bundle-Name=Native Image
+Component.21.2.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
+Component.21.2.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
+Component.21.2.0_linux_amd64.org.graalvm.ruby-Bundle-Name=TruffleRuby
 </pre>
 
 > **:mag_right:** The address of the GraalVM Catalog is stored in file **`%GRAAL_HOME%\release`** :
@@ -150,8 +150,8 @@ Command [**`gu.bat available python r`**](bin/gu.bat) with arguments **`python`*
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/gu.bat">gu</a> available python r</b>
 Downloading: Component catalog
-Component.21.1.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
-Component.21.1.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
+Component.21.2.0_linux_amd64.org.graalvm.python-Bundle-Name=Graal.Python
+Component.21.2.0_linux_amd64.org.graalvm.r-Bundle-Name=FastR
 </pre>
 
 Command [**`gu.bat available -l python r`**](bin/gu.bat) with option **`-l`** instead displays their URL addresses:
@@ -159,8 +159,8 @@ Command [**`gu.bat available -l python r`**](bin/gu.bat) with option **`-l`** in
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/gu.bat">gu</a> available -l python r</b>
 Downloading: Component catalog
-https://github.com/graalvm/graalpython/releases/download/vm-21.1.0/python-installable-svm-java8-linux-amd64-21.1.0.jar
-https://github.com/oracle/fastr/releases/download/vm-21.1.0/r-installable-java8-linux-amd64-21.1.0.jar
+https://github.com/graalvm/graalpython/releases/download/vm-21.2.0/python-installable-svm-java8-linux-amd64-21.2.0.jar
+https://github.com/oracle/fastr/releases/download/vm-21.2.0/r-installable-java8-linux-amd64-21.2.0.jar
 </pre>
 
 #### <span id="gu_info">`gu.bat info`</span>
