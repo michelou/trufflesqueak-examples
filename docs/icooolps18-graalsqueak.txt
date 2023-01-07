@@ -1,2 +1,3 @@
-Source: http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/NiephausFelgentreffHirschfeld_2018_GraalSqueakAFastSmalltalkBytecodeInterpreterWrittenInAnAstInterpreterFramework_AcmDL.pdf
+Source: https://www.researchgate.net/publication/327760448_GraalSqueak_A_Fast_Smalltalk_Bytecode_Interpreter_Written_in_an_AST_Interpreter_Framework
+Download: http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/NiephausFelgentreffHirschfeld_2018_GraalSqueakAFastSmalltalkBytecodeInterpreterWrittenInAnAstInterpreterFramework_AcmDL.pdf
 Preprint: https://fniephaus.com/2018/icooolps18-graalsqueak.pdf
