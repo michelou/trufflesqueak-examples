@@ -46,7 +46,7 @@ goto end
 @rem #########################################################################
 @rem ## Subroutines
 
-rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+@rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
 set _BASENAME=%~n0
 set _DRIVE_NAME=T
@@ -392,7 +392,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q pylint.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('pylint.exe --version 2^>^NUL ^| findstr pylint') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% pylint %%j"
+    for /f "tokens=1,*" %%i in ('pylint.exe --version 2^>^NUL ^| findstr pylint') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% pylint %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% pylint.exe
 )
 where /q "%GRAALVM_HOME%\bin:javac.exe"
