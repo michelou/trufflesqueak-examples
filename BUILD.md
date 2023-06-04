@@ -19,16 +19,16 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
-- [Git 2.39][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
 - [GraalVM Community Edition 22.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 - [Microsoft Visual Studio 2019][vs2019_downloads] ([*release notes*][vs2019_relnotes])
 - [Python 3.11][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*January 2023*) <sup id="anchor_01">[1](#footnote_01)</sup>:
+For instance our development environment looks as follows (*June 2023*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-22.3.0\                      <i>(695 MB)</i>
-C:\opt\Git-2.39.0\                                    <i>(314 MB)</i>
+C:\opt\Git-2.41.0\                                    <i>(314 MB)</i>
 C:\opt\Python-3.11.1\                                 <i>(116 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\  <i>(3.1 GB)</i>
@@ -162,11 +162,14 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   python 3.11.1, pylint 2.15.8
-   git 2.39.0.windows.1, bash 4.4.23(1)-release
+   python 3.11.1, pylint 2.16.1
+   git 2.41.0.windows.1, bash 5.2.15(1)-release
 
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> python</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> python pylint sh</b>
 C:\opt\Python-3.11.1\python.exe
+C:\opt\Python-3.11.0\Scripts\pylint.exe
+C:\opt\Git-2.41.0\bin\sh.exe
+C:\opt\Git-2.41.0\usr\bin\sh.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -174,16 +177,16 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   python 3.11.1, pylint 2.15.8
-   git 2.39.0.windows.1, bash 4.4.23(1)-release
+   python 3.11.1, pylint 2.16.1
+   git 2.41.0.windows.1, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\Python-3.11.1\python.exe
    C:\opt\Python-3.11.1\Scripts\pylint.exe
-   C:\opt\Git-2.39.0\bin\git.exe
-   C:\opt\Git-2.39.0\mingw64\bin\git.exe
-   C:\opt\Git-2.39.0\bin\bash.exe
+   C:\opt\Git-2.41.0\bin\git.exe
+   C:\opt\Git-2.41.0\mingw64\bin\git.exe
+   C:\opt\Git-2.41.0\bin\bash.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.39.0"
+   "GIT_HOME=C:\opt\Git-2.41.0"
    "GRAALVM_HOME=C:\opt\graalvm-ce-java11-22.3.0"
    "JAVA_HOME=C:\opt\graalvm-ce-java11-22.3.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
@@ -206,7 +209,7 @@ Command [**`build.bat -verbose clean dist`**](./bin/trufflesqueak/build.bat) gen
 K:\trufflesqueak
 &nbsp;
 <b>&gt; <a href="./bin/trufflesqueak/build.bat">build</a> -verbose clean dist</b>
-MX_VERSION: 6.14.12
+MX_VERSION: 6.23.8
 Build Java archives
 JAVA_HOME: C:\opt\graalvm-ce-java11-22.3.0
 EXTRA_JAVA_HOMES:
@@ -217,7 +220,7 @@ Non-default dependencies removed from build (use mx build --all to build them):
  JACOCOREPORT_0.8.4
 [...]
 Executing script scripts\make_component.bat
-SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\trufflesqueak-installable-windows-amd64-1.0.0-rc9-38-gfc82d131-for-GraalVM-22.1.0.jar'.
+SUCCESS! The component is located at 'K:\GRAALS~1\scripts\..\trufflesqueak-installable-windows-amd64-1.0.0-rc9-38-gfc82d131-for-GraalVM-22.3.0.jar'.
 </pre>
 
 The generated archive files are either Zip archives or Java archives (**`.zip`** files contain the source code of the corresponding **`.jar`** files):
@@ -330,7 +333,7 @@ In this section we list some issues we encountered in this project:
    The error is due to a wrong executable path for **`link.exe`** (see [issue #1554][github_issue_1554] in [oracle/graal][oracle_graal] project):
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> link</b>
-   C:\opt\Git-2.39.0\usr\bin\link.exe
+   C:\opt\Git-2.41.0\usr\bin\link.exe
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe</pre>
 
 ## <span id="footnotes">Footnotes</span>
@@ -366,7 +369,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -374,7 +377,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 [git_bash]: https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables
 [git_downloads]: https://git-scm.com/download/win
 [git_cli]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
 [github_issue_1554]: https://github.com/oracle/graal/issues/1554
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
