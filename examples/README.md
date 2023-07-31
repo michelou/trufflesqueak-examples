@@ -118,7 +118,7 @@ java.vm.specification.name = Java Virtual Machine Specification
 java.vm.specification.vendor = Oracle Corporation
 java.vm.specification.version = 11
 java.vm.vendor = GraalVM Community
-java.vm.version = 11.0.15+10-jvmci-22.1-b06
+java.vm.version = 11.0.17+8-jvmci-22.3-b08
 jdk.debug = release
 jdk.internal.vm.ci.enabled = true
 js.home = C:\opt\graalvm-ce-java11-22.3.0\languages\js
@@ -157,7 +157,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/t
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

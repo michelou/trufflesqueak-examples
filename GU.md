@@ -1,6 +1,6 @@
 # <span id="top">Using <code>gu.bat</code> on Microsoft Windows</span> <span style="font-size:80%;font-style:italic;">(deprecated)</span>  <span style="size:30%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="Squeak project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;"><a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
@@ -19,13 +19,13 @@ This document is part of a series of topics related to [TruffleSqueak][trufflesq
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.39][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
 - [GraalVM Community Edition 22.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
 For instance our development environment looks as follows (*January 2023*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.39.0\               <i>(317 MB)</i>
+C:\opt\Git-2.41.0\               <i>(358 MB)</i>
 C:\opt\graalvm-ce-java1-22.3.0\  <i>(360 MB)</i>
 </pre>
 
@@ -399,9 +399,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/hpi-swa/trufflesqueak/releases/">trufflesqueak-installable-svm-java11-windows-amd64-22.3.0.jar</a>  <i>(35 MB)</i>
-<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-22.3.0.zip</a>             <i>(154 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.39.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
-<a href="http://files.squeak.org/5.3/">Squeak5.3-19448-64bit-202003021730-Windows.zip</a>  <i>( 33 MB)</i>
+<a href="https://github.com/oracle/graal/releases">graalvm-ce-windows-amd64-22.3.0.zip</a>                 <i>(154 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>                    <i>( 41 MB)</i>
+<a href="http://files.squeak.org/6.0/">Squeak6.0-22104-64bit-202206021410-Windows-x64.zip</a>  <i>( 33 MB)</i>
 </pre>
 
 <span name="footnote_02">[2]</span> ***GraalVM Updater*** [↩](#anchor_02)
@@ -443,13 +443,13 @@ Components currently available are:
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
 
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
 [graalpython]: https://github.com/graalvm/graalpython
 [graalvm]: https://www.graalvm.org/
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
