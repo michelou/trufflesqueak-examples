@@ -235,7 +235,7 @@ if "!__ARG:~0,1!"=="-" (
     goto args_next
 )
 shift
-goto :args_loop
+goto args_loop
 :args_next
 set /a _PARAMS_N+=1
 shift

@@ -17,25 +17,27 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 - [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_0X"><a href="#footnote_0X">[X]</a></sup>
 -->
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples] and [WiX Toolset][wix_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
-- [TruffleSqueak Image 22.3][trufflesqueak_image]
-- [GraalVM Community Edition 22.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [Git 2.45][git_downloads] ([*release notes*][git_relnotes])
+- [TruffleSqueak Image 23.1][trufflesqueak_image] ([*release notes*][trufflesqueak_relnotes])
+- [GraalVM for JDK 17][graalvm_jdk17_downloads] ([*release notes*][graalvm_jdk17_relnotes])
 
 Optionally one may also install the following software:
+- [GraalVM for JDK 21][graalvm_jdk21_downloads] ([*release notes*][graalvm_jdk21_relnotes])
 - [Squeak 6.0][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup>
 
-For instance our development environment looks as follows (*June 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*October 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-22.3.0\<sup id="anchor_03"><a href="#footnote_03">3</a></sup>   <i>(653 MB)</i>
-C:\opt\graalvm-ce-java17-22.3.0\    <i>(447 MB)</i>
-C:\opt\Git-2.41.0\                  <i>(314 MB)</i>
+C:\opt\jdk-graalvm-ce-17.0.8_7.1\   <i>(591 MB)</i>
+C:\opt\jdk-graalvm-ce-21_35.1\      <i>(585 MB)</i>
+C:\opt\Git\                         <i>(367 MB)</i>
 C:\opt\Squeak-6.0\                  <i>(130 MB)</i>
 </pre>
 
@@ -70,7 +72,7 @@ where
 $ file [**`RESOURCES.md`**] is the Markdown document presenting external resources.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
-We also define a virtual drive **`T:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
+We also define a virtual drive &ndash; e.g. drive **`T:`** &ndash; in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
 
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
@@ -91,12 +93,12 @@ We distinguish different sets of batch commands:
     Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
     &nbsp;
       Options:
-        -debug      show commands executed by this script
+        -debug      print commands executed by this script
         -travis     start Git bash shell instead of Windows command prompt
-        -verbose    display progress messages
+        -verbose    print progress messages
     &nbsp;
       Subcommands:
-        help        display this help message
+        help        print this help message
     </pre>
 <!--
 2. [**`bin\gu.bat`**](bin/gu.bat) ***(deprecated)*** - This batch command features commands to manage the [GraalVM] environment. This *temporary* solution is a stripped down implementation of Oracle's [**`gu`**][gu_refman] command.<br/>
@@ -107,18 +109,18 @@ In the next section we present usage examples of the batch files present in this
 
 #### `setenv.bat`
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`jar.exe`**][jar_exe] and [**`git.exe`**][git_cli] directly available from the command prompt:
+We execute command [**`setenv`**](setenv.bat) once to setup our development environment; it makes external tools such as [**`jar.exe`**][jar_exe] and [**`git.exe`**][git_cli] directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    python 3.11.1, pylint 2.17.1, javac 11.0.18
-   git 2.41.0.windows.1, bash 5.2.15(1)-release
+   git 2.45.0, bash 5.2.26(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> git link</b>
-C:\opt\Git-2.41.0\bin\git.exe
-C:\opt\Git-2.41.0\mingw64\bin\git.exe
-C:\opt\Git-2.41.0\usr\bin\link.exe
+C:\opt\Git\bin\git.exe
+C:\opt\Git\mingw64\bin\git.exe
+C:\opt\Git\usr\bin\link.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -127,16 +129,16 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    python 3.11.1, pylint 2.17.1, javac 11.0.18
-   git 2.41.0.windows.1, bash 5.2.15(1)-release
+   git 2.45.0, bash 5.2.26(1)-release
 Tool paths:
    C:\opt\Python-3.11.1\python.exe
    C:\opt\Python-3.11.1\Scripts\pylint.exe
    C:\opt\graalvm-ce-java11-22.3.0\bin\javac.exe
-   C:\opt\Git-2.41.0\bin\git.exe
-   C:\opt\Git-2.41.0\mingw64\bin\git.exe
-   C:\opt\Git-2.41.0\bin\bash.exe
+   C:\opt\Git\bin\git.exe
+   C:\opt\Git\mingw64\bin\git.exe
+   C:\opt\Git\bin\bash.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.41.0"
+   "GIT_HOME=C:\opt\Git"
    "GRAALVM_HOME=C:\opt\graalvm-ce-java11-22.3.0"
    "JAVA_HOME=C:\opt\graalvm-ce-java11-22.3.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC"
@@ -417,13 +419,14 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
 
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
+[cobol_examples]: https://github.com/michelou/cobol-examples
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
@@ -435,10 +438,12 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [github_markdown]: https://github.github.com/gfm/
 [graalpython]: https://github.com/graalvm/graalpython
 [graalvm]: https://www.graalvm.org/
-[graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
-[graalvm_relnotes]: https://www.graalvm.org/release-notes/22_3/
+[graalvm_jdk17_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-17.0.8
+[graalvm_jdk17_relnotes]: https://www.graalvm.org/release-notes/JDK_17/
+[graalvm_jdk21_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-21.0.0
+[graalvm_jdk21_relnotes]: https://www.graalvm.org/release-notes/JDK_21/
 [gu_refman]: https://www.graalvm.org/reference-manual/graalvm-updater/
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jar_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
@@ -457,7 +462,8 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [truffleruby]: https://github.com/oracle/truffleruby
 [trufflesqueak]: https://github.com/hpi-swa/trufflesqueak
 [trufflesqueak_cmd]: https://github.com/hpi-swa/trufflesqueak/blob/dev/scripts/template.trufflesqueak.cmd
-[trufflesqueak_image]: https://github.com/hpi-swa/trufflesqueak/releases/tag/22.3.0
+[trufflesqueak_image]: https://github.com/hpi-swa/trufflesqueak/releases/tag/23.1.0
+[trufflesqueak_relnotes]: https://github.com/hpi-swa/trufflesqueak/releases/tag/23.1.0
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
 [wix_examples]: https://github.com/michelou/wix-examples

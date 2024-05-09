@@ -136,7 +136,7 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
-@rem output paramter(s): _CLEAN, _DIST, _HELP, _VERBOSE, _UPDATE
+@rem output paramters: _CLEAN, _DIST, _HELP, _VERBOSE, _UPDATE
 :args
 set _CLEAN=0
 set _DIST=0
@@ -158,7 +158,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -169,7 +169,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="update" ( set _UPDATE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -200,14 +200,14 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
-echo     %__BEG_O%-timer%__END%      display total elapsed time
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
+echo     %__BEG_O%-timer%__END%      print total execution time
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%dist%__END%        generate component archive
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%update%__END%      fetch/merge local directories %__BEG_O%graal/mx%__END%
 goto :eof
 
@@ -217,11 +217,16 @@ for %%f in (%_TRUFFLESQUEAK_PATH%\trufflesqueak*.zip %_TRUFFLESQUEAK_PATH%\truff
 )
 goto :eof
 
+@rem input parameter: %1=directory path
 :rmdir
 set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
+)
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -383,7 +388,6 @@ set "_TRUFFLESQUEAK_CMD=%_GRAALVM_HOME%\bin\trufflesqueak.cmd"
 set "__IMAGE_FILE=%_TRUFFLESQUEAK_PATH%\images\test-64bit.image"
 call "%_TRUFFLESQUEAK_CMD%" --code "String streamContents: [:s | SystemReporter new reportVM: s] limitedTo: 10000" "%__IMAGE_FILE%"
 if not %ERRORLEVEL%==0 (
-if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
@@ -522,7 +526,7 @@ goto :eof
 if %_TIMER%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total elapsed time: !_DURATION! 1>&2
+    echo Total execution time: !_DURATION! 1>&2
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%

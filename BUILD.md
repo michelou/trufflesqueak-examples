@@ -1,10 +1,10 @@
-# <span id="top">Building TruffleSqueak on Microsoft Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">Building TruffleSqueak on Microsoft Windows</span> <span style="size:30%;">[↩](README.md#top)</span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://squeak.org/"><img src="https://squeak.org/static/img/balloon.svg" width="120" alt="LLVM"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;"><a href="https://github.com/hpi-swa/trufflesqueak">TruffleSqueak</a> is a Squeak/Smalltalk implementation for the <a href="https://www.graalvm.org/">GraalVM</a>.<br/>
-  This repository gathers several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> and <a href="https://www.gnu.org/software/bash/manual/bash.html">bash scripts</a> for experimenting with <a href="https://github.com/hpi-swa/trufflesqueak" rel="external">TruffleSqueak</a> on a Windows machine.
+  This repository gathers several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a>, <a href="https://www.gnu.org/software/bash/manual/bash.html">bash scripts</a>) for experimenting with <a href="https://github.com/hpi-swa/trufflesqueak" rel="external">TruffleSqueak</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -15,20 +15,20 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 - Building TruffleSqueak on Windows [**&#9660;**](#bottom)
 <!-- - [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> -->
 
-## <span id="section_01">Project dependencies</span>
+## <span id="section_01">Project dependencies</span> [**&#x25B4;**](#top)
 
 This project depends on the following external software for the **Microsoft Windows** plaform:
 
-- [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
-- [GraalVM Community Edition 22.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
+- [Git 2.45][git_downloads] ([*release notes*][git_relnotes])
+- [GraalVM for JDK 17][graalvm_jdk17_downloads] ([*release notes*][graalvm_jdk17_relnotes])
 - [Microsoft Visual Studio 2019][vs2019_downloads] ([*release notes*][vs2019_relnotes])
 - [Python 3.11][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*June 2023*) <sup id="anchor_01">[1](#footnote_01)</sup>:
+For instance our development environment looks as follows (*October 2023*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java11-22.3.0\                      <i>(695 MB)</i>
-C:\opt\Git-2.41.0\                                    <i>(314 MB)</i>
+C:\opt\jdk-graalvm-ce-21_35.1\                        <i>(695 MB)</i>
+C:\opt\Git\                                           <i>(367 MB)</i>
 C:\opt\Python-3.11.1\                                 <i>(116 MB)</i>
 C:\Program Files\Microsoft SDKs\Windows\v7.1\         <i>(333 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\  <i>(3.1 GB)</i>
@@ -37,7 +37,7 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\  <i>(3.1 GB)</i>
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
 
-## <span id="structure">Directory structure</span>
+## <span id="structure">Directory structure</span> [**&#x25B4;**](#top)
 
 This project is organized as follows:
 <pre style="font-size:80%;">
@@ -71,7 +71,7 @@ where
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [TruffleSqueak] component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
-We also define a virtual drive **`K:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
+We also define a virtual drive &ndash; e.g. drive **`K:`** &ndash; in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
 
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
@@ -93,11 +93,11 @@ We distinguish different sets of batch commands:
    &nbsp;
      Options:
        -bash       start Git bash shell instead of Windows command prompt
-       -debug      show commands executed by this script
-       -verbose    display progress messages
+       -debug      print commands executed by this script
+       -verbose    print progress messages
    &nbsp;
      Subcommands:
-       help        display this help message</pre>
+       help        print this help message</pre>
 
 2. [**`bin\trufflesqueak\build.bat`**](bin/trufflesqueak/build.bat) - This batch command generates the [TruffleSqueak] installable component from the [Windows command prompt](windows_prompt).
 
@@ -106,14 +106,14 @@ We distinguish different sets of batch commands:
    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
-       -debug      show commands executed by this script
-       -timer      display total elapsed time
-       -verbose    display progress messages
+       -debug      print commands executed by this script
+       -timer      print total execution time
+       -verbose    print progress messages
    &nbsp;
      Subcommands:
        clean       delete generated files
        dist        generate the TruffleSqueak component
-       help        display this help message
+       help        print this help message
        update      fetch/merge local directories graal/mx</pre>
 
 
@@ -126,14 +126,14 @@ We distinguish different sets of batch commands:
    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
-       -debug      show commands executed by this script
-       -timer      display total elapsed time
-       -verbose    display progress messages
+       -debug      print commands executed by this script
+       -timer      print total execution time
+       -verbose    print progress messages
    &nbsp;
      Subcommands:
        clean       delete generated files
        dist        generate the TruffleSqueak component
-       help        display this help message</pre>
+       help        print this help message</pre>
 
 
 ## <span id="contributions">Contributions</span> [**&#x25B4;**](#top)
@@ -141,7 +141,7 @@ We distinguish different sets of batch commands:
 In this section we resume the pull requests we submitted due to issues with the generation and the execution of the [TruffleSqueak] installable component.
 
 <table>
-<tr><th><a href="https://github.com/hpi-swa/trufflesqueak/pulls?q=is%3Apr+author%3Amichelou">Pull request</a></th><th>Request status</th><th>Context</th><th>Modified file(s)</th></tr>
+<tr><th><a href="https://github.com/hpi-swa/trufflesqueak/pulls?q=is%3Apr+author%3Amichelou">Pull&nbsp;request</a></th><th>Request status</th><th>Context</th><th>Modified file(s)</th></tr>
 <tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/73">#73</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/803791f72e512cd09d7b2770498d27942aa87919">merged</a></td><td><code style="font-size:90%;">build compile</code></td><td><code style="font-size:90%;">make_component.(sh|bat)</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/75">#75</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/b578f1a5332b157c0fb63072dc8909acd1503d57">merged</a></td><td>Component</td><td><code style="font-size:90%;">symlinks</code></td></tr>
 <tr><td><a href="https://github.com/hpi-swa/trufflesqueak/pull/81">#81</a></td><td><a href="https://github.com/hpi-swa/trufflesqueak/commit/3e6ca64ed18f5af027cd21f6ec194be68e3d5c09">merged</a></td><td>Component</td><td><code style="font-size:80%;">LICENSE-GRAALSQUEAK.txt</code></td></tr>
@@ -157,19 +157,19 @@ In this section we resume the pull requests we submitted due to issues with the 
 
 #### `setenv.bat`
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`python.exe`**][python_exe], [**`mx.cmd`**][mx_cmd] and [**`git.exe`**][git_cli] directly available from the command prompt:
+We execute command [**`setenv`**](setenv.bat) once to setup our development environment; it makes external tools such as [**`python.exe`**][python_exe], [**`mx.cmd`**][mx_cmd] and [**`git.exe`**][git_cli] directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   python 3.11.1, pylint 2.16.1
-   git 2.41.0.windows.1, bash 5.2.15(1)-release
+   python 3.11.1, pylint 2.17.1
+   git 2.45.0, bash 5.2.26(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> python pylint sh</b>
 C:\opt\Python-3.11.1\python.exe
 C:\opt\Python-3.11.0\Scripts\pylint.exe
-C:\opt\Git-2.41.0\bin\sh.exe
-C:\opt\Git-2.41.0\usr\bin\sh.exe
+C:\opt\Git\bin\sh.exe
+C:\opt\Git\usr\bin\sh.exe
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths:
@@ -177,16 +177,16 @@ Command **`setenv -verbose`** also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   python 3.11.1, pylint 2.16.1
-   git 2.41.0.windows.1, bash 5.2.15(1)-release
+   python 3.11.1, pylint 2.17.1
+   git 2.45.0, bash 5.2.26(1)-release
 Tool paths:
    C:\opt\Python-3.11.1\python.exe
    C:\opt\Python-3.11.1\Scripts\pylint.exe
-   C:\opt\Git-2.41.0\bin\git.exe
-   C:\opt\Git-2.41.0\mingw64\bin\git.exe
-   C:\opt\Git-2.41.0\bin\bash.exe
+   C:\opt\Git\bin\git.exe
+   C:\opt\Git\mingw64\bin\git.exe
+   C:\opt\Git\bin\bash.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.41.0"
+   "GIT_HOME=C:\opt\Git"
    "GRAALVM_HOME=C:\opt\graalvm-ce-java11-22.3.0"
    "JAVA_HOME=C:\opt\graalvm-ce-java11-22.3.0"
    "MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC"
@@ -313,7 +313,7 @@ Non-default dependencies removed from build (use mx build --all to build them):
 SUCCESS! The component is located at '/k/trufflesqueak/scripts/../trufflesqueak-installable-windows-amd64-1.0.0-rc5-59-g656c1823-for-GraalVM-20.1.0.jar'.
 </pre>
 
-## <span id="troubleshooting">Troubleshooting</span>
+## <span id="troubleshooting">Troubleshooting</span> [**&#x25B4;**](#top)
 
 In this section we list some issues we encountered in this project:
 
@@ -333,10 +333,10 @@ In this section we list some issues we encountered in this project:
    The error is due to a wrong executable path for **`link.exe`** (see [issue #1554][github_issue_1554] in [oracle/graal][oracle_graal] project):
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> link</b>
-   C:\opt\Git-2.41.0\usr\bin\link.exe
+   C:\opt\Git\usr\bin\link.exe
    C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe</pre>
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 <!--
 <span id="footnote_01">[1]</span> **`gu.bat`** ***deprecation*** [↩](#anchor_01)
 
@@ -369,7 +369,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -377,12 +377,14 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 [git_bash]: https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables
 [git_downloads]: https://git-scm.com/download/win
 [git_cli]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.42.0.txt
 [github_issue_1554]: https://github.com/oracle/graal/issues/1554
 [github_markdown]: https://github.github.com/gfm/
-[graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
+[graalvm_jdk17_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-17.0.8
+[graalvm_jdk17_relnotes]: https://www.graalvm.org/release-notes/JDK_17/
+[graalvm_jdk21_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-21.0.0
+[graalvm_jdk21_relnotes]: https://www.graalvm.org/release-notes/JDK_21/
 [graalvm_refman]: https://www.graalvm.org/docs/reference-manual/
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_3/
 [linux_dotslash]: http://www.linfo.org/dot_slash.html
 [linux_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [mx_cmd]: https://github.com/graalvm/mx

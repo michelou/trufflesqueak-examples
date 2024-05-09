@@ -1,4 +1,4 @@
-# <span id="top">TruffleSqueak Examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">TruffleSqueak Examples</span> <span style="font-size:90%;">[⬆](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -43,7 +43,7 @@ Preparing image for headless execution...
 [trufflesqueak] Result: 1853020188851841
 -->
 
-## <span id="tiny_benchmarks">tinyBenchmarks</span>
+## <span id="tiny_benchmarks">tinyBenchmarks</span> [**&#x25B4;**](#top)
 
 This micro-benchmark suite is often used to measure and compare the performance of different hardware platforms and Squeak VMs and consists of two benchmarks:
 - The first one is bytecode-heavy as it allocates, fills, and reads from a large array.
@@ -147,7 +147,7 @@ sun.io.unicode.encoding = UnicodeLittle
 <= System Properties ===================================
 </pre>
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Squeak image*** [↩](#anchor_01)
 
@@ -157,7 +157,7 @@ A Squeak image is required to run/test the <a href="https://github.com/hpi-swa/t
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

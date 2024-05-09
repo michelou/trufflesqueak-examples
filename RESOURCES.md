@@ -1,4 +1,4 @@
-# <span id="top">TruffleSqueak Resources</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">TruffleSqueak Resources</span> <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -32,7 +32,7 @@
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
