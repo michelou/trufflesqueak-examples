@@ -24,7 +24,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [Microsoft Visual Studio 2019][vs2019_downloads] ([*release notes*][vs2019_relnotes])
 - [Python 3.11][python_downloads] ([*release notes*][python_relnotes])
 
-For instance our development environment looks as follows (*October 2023*) <sup id="anchor_01">[1](#footnote_01)</sup>:
+For instance our development environment looks as follows (*July 2024*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-graalvm-ce-21_35.1\                        <i>(695 MB)</i>
@@ -163,7 +163,7 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    python 3.11.1, pylint 2.17.1
-   git 2.45.0, bash 5.2.26(1)-release
+   git 2.45.2, diff 3.10,bash 5.2.26(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> python pylint sh</b>
 C:\opt\Python-3.11.1\python.exe
@@ -178,7 +178,7 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    python 3.11.1, pylint 2.17.1
-   git 2.45.0, bash 5.2.26(1)-release
+   git 2.45.2, diff 3.10,bash 5.2.26(1)
 Tool paths:
    C:\opt\Python-3.11.1\python.exe
    C:\opt\Python-3.11.1\Scripts\pylint.exe
@@ -369,7 +369,7 @@ Defining <b><code>trufflesqueak</code></b> as a <a href=".gitmodules">Github sub
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -1,4 +1,4 @@
-# <span id="top">Using <code>gu.bat</code> on Microsoft Windows</span> <span style="font-size:80%;font-style:italic;">(deprecated)</span>  <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">Using <code>gu.bat</code> on Microsoft Windows</span> <span style="font-size:80%;font-style:italic;color:darkred;">(deprecated)</span>  <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -19,13 +19,13 @@ This document is part of a series of topics related to [TruffleSqueak][trufflesq
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.45][git_downloads] ([*release notes*][git_relnotes])
 - [GraalVM Community Edition 22.3 LTS][graalvm_downloads] ([*release notes*][graalvm_relnotes])
 
-For instance our development environment looks as follows (*January 2023*) <sup id="anchor_01">[1](#footnote_01)</sup>:
+For instance our development environment looks as follows (*July 2024*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.41.0\               <i>(358 MB)</i>
+C:\opt\Git\                      <i>(358 MB)</i>
 C:\opt\graalvm-ce-java1-22.3.0\  <i>(360 MB)</i>
 </pre>
 
@@ -47,11 +47,11 @@ GU.md
 
 where
 
-- ***(deprecated)*** file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [TruffleSqueak] component on a Windows machine.
+- <span style="color:darkred;">*(deprecated)*</span> file [**`bin\gu.bat`**](bin/gu.bat) is the batch script for *installing* the [TruffleSqueak] component on a Windows machine.
 - directory [**`docs\`**](docs/) contains several [TruffleSqueak] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Squeak] code examples (see [**`examples\README.md`**](examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) is the Markdown document presenting the generation of the [TruffleSqueak] component.
-- ***(deprecated)*** file [**`GU.md`**](GU.md) is the Markdown document for this page.
+- <span style="color:darkred;">*(deprecated)*</span> file [**`GU.md`**](GU.md) is the Markdown document for this page.
 - file [**`README.md`**](README.md) is the Markdown document presenting the installation of the [TruffleSqueak] component.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -443,7 +443,7 @@ Components currently available are:
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->

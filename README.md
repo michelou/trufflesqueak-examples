@@ -17,7 +17,7 @@ This document is part of a series of topics related to [TruffleSqueak] on Window
 - [Using **`gu.bat`** on Windows](GU.md) <sup id="anchor_0X"><a href="#footnote_0X">[X]</a></sup>
 -->
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -31,7 +31,7 @@ Optionally one may also install the following software:
 - [GraalVM for JDK 21][graalvm_jdk21_downloads] ([*release notes*][graalvm_jdk21_relnotes])
 - [Squeak 6.0][squeak_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup>
 
-For instance our development environment looks as follows (*October 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*July 2024*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-22.3.0\<sup id="anchor_03"><a href="#footnote_03">3</a></sup>   <i>(653 MB)</i>
@@ -115,7 +115,7 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    python 3.11.1, pylint 2.17.1, javac 11.0.18
-   git 2.45.0, bash 5.2.26(1)-release
+   git 2.45.2, diff 3.10, bash 5.2.26(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> git link</b>
 C:\opt\Git\bin\git.exe
@@ -129,7 +129,7 @@ Command **`setenv -verbose`** also displays the tool paths:
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    python 3.11.1, pylint 2.17.1, javac 11.0.18
-   git 2.45.0, bash 5.2.26(1)-release
+   git 2.45.2, diff 3.10, bash 5.2.26(1)
 Tool paths:
    C:\opt\Python-3.11.1\python.exe
    C:\opt\Python-3.11.1\Scripts\pylint.exe
@@ -146,7 +146,7 @@ Environment variables:
    "PYTHON_HOME=C:\opt\Python-3.11.1"
 </pre>
 
-#### `gu.bat install` ***(deprecated)***
+#### `gu.bat install` <span style="color:darkred;">*(deprecated)*</span>
 
 > **&#9755;** Starting with *version 20.0* command `gu.cmd` is part of the [GraalVM] distribution; Windows users should use `gu.cmd` instead of `gu.bat`.
 
@@ -371,7 +371,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://github.com/hpi-swa/trufflesqueak/releases/tag/22.3.0">trufflesqueak-installable-svm-java17-windows-amd64-22.3.0.jar</a>  <i>(  5 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java11-windows-amd64-22.3.0.zip</a>          <i>(154 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">graalvm-ce-java17-windows-amd64-22.3.0.zip</a>          <i>(154 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>                    <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.45.2-64-bit.7z.exe</a>                    <i>( 41 MB)</i>
 <a href="http://files.squeak.org/6.0/">Squeak6.0-22104-64bit-202206021410-Windows-x64.zip</a>  <i>( 33 MB)</i>
 </pre>
 
@@ -419,44 +419,44 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- hrefs -->
 
-[ada_examples]: https://github.com/michelou/ada-examples
-[akka_examples]: https://github.com/michelou/akka-examples
-[cobol_examples]: https://github.com/michelou/cobol-examples
-[cpp_examples]: https://github.com/michelou/cpp-examples
-[dart_examples]: https://github.com/michelou/dart-examples
-[deno_examples]: https://github.com/michelou/deno-examples
+[ada_examples]: https://github.com/michelou/ada-examples#top
+[akka_examples]: https://github.com/michelou/akka-examples#top
+[cobol_examples]: https://github.com/michelou/cobol-examples#top
+[cpp_examples]: https://github.com/michelou/cpp-examples#top
+[dart_examples]: https://github.com/michelou/dart-examples#top
+[deno_examples]: https://github.com/michelou/deno-examples#top
 [fastr]: https://github.com/oracle/fastr
-[flix_examples]: https://github.com/michelou/flix-examples
+[flix_examples]: https://github.com/michelou/flix-examples#top
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalpython]: https://github.com/graalvm/graalpython
 [graalvm]: https://www.graalvm.org/
-[golang_examples]: https://github.com/michelou/golang-examples
-[graalvm_examples]: https://github.com/michelou/graalvm-examples
+[golang_examples]: https://github.com/michelou/golang-examples#top
+[graalvm_examples]: https://github.com/michelou/graalvm-examples#top
 [graalvm_jdk17_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-17.0.8
 [graalvm_jdk17_relnotes]: https://www.graalvm.org/release-notes/JDK_17/
 [graalvm_jdk21_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-21.0.0
 [graalvm_jdk21_relnotes]: https://www.graalvm.org/release-notes/JDK_21/
 [gu_refman]: https://www.graalvm.org/reference-manual/graalvm-updater/
-[haskell_examples]: https://github.com/michelou/haskell-examples
+[haskell_examples]: https://github.com/michelou/haskell-examples#top
 [jar_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
 [java_exe]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html
-[kafka_examples]: https://github.com/michelou/kafka-examples
-[kotlin_examples]: https://github.com/michelou/kotlin-examples
+[kafka_examples]: https://github.com/michelou/kafka-examples#top
+[kotlin_examples]: https://github.com/michelou/kotlin-examples#top
 [linux_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
-[llvm_examples]: https://github.com/michelou/llvm-examples
-[nodejs_examples]: https://github.com/michelou/nodejs-examples
-[rust_examples]: https://github.com/michelou/rust-examples
-[scala3_examples]: https://github.com/michelou/dotty-examples
-[spark_examples]: https://github.com/michelou/spark-examples
-[spring_examples]: https://github.com/michelou/spring-examples
+[llvm_examples]: https://github.com/michelou/llvm-examples#top
+[nodejs_examples]: https://github.com/michelou/nodejs-examples#top
+[rust_examples]: https://github.com/michelou/rust-examples#top
+[scala3_examples]: https://github.com/michelou/dotty-examples#top
+[spark_examples]: https://github.com/michelou/spark-examples#top
+[spring_examples]: https://github.com/michelou/spring-examples#top
 [squeak]: https://squeak.org/
 [squeak_downloads]: https://squeak.org/downloads/
 [truffleruby]: https://github.com/oracle/truffleruby
@@ -466,5 +466,6 @@ Command <a href="https://www.graalvm.org/docs/reference-manual/install-component
 [trufflesqueak_relnotes]: https://github.com/hpi-swa/trufflesqueak/releases/tag/23.1.0
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
-[wix_examples]: https://github.com/michelou/wix-examples
+[wix_examples]: https://github.com/michelou/wix-examples#top
+[zig_examples]: https://github.com/michelou/zig-examples#top
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
